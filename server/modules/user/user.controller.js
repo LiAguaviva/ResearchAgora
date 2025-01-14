@@ -1,28 +1,27 @@
 import { hashPassword } from '../../utils/hashUtils.js';
 import userDal from './user.dal.js'
+import {registerSchema} from '../../schemas/registerSchema.js'
+
 
 class UserController {
 
   register = async (req, res) =>{
-    
-    
     try {
-        const {email, password, repPassword} = req.body;
-        if(!email||!password||!repPassword){
-            throw new Error("All fields required") 
-        }else if(password !== repPassword){
+        const {email, password, repPassword} = registerSchema.parse(req.body);
+         if(password !== repPassword){
             throw new Error("Passwords mismatch")
         }else{
             const hash = await hashPassword(password)
-            const result = await userDal.register([email, hash])          
-            console.log("va bien", result);                 
+            await userDal.register([email, hash])                                 
             res.status(200).json({msg:"ok"})
         }
-    } catch (error) {           
-        console.log(error);        
+    } catch (error) {                 
         res.status(400).json(error.message)
     }
- }
+  }
+
+
+
 
 }
 
