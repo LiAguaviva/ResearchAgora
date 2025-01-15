@@ -3,7 +3,8 @@ import userDal from "./user.dal.js";
 import { registerSchema } from "../../schemas/registerSchema.js";
 import { emailValidationToken, generateToken, getIdFromToken } from "../../utils/tokenUtils.js";
 import { loginSchema } from "../../schemas/loginSchema.js";
-import { sendMail } from "../../services/emailService.js";
+import { sendMailValidation } from "../../services/emailService.js";
+
 
 class UserController {
   register = async (req, res) => {
@@ -16,7 +17,7 @@ class UserController {
         const result = await userDal.register([email, hash]);
         const token = await emailValidationToken(result.insertId)
         // console.log("0000000000000000000", token);
-        sendMail(email, token)
+        sendMailValidation(email, token)
         res.status(200).json({ msg: "ok" });
       }
     } catch (error) {
@@ -24,8 +25,8 @@ class UserController {
     }
   };
 
-  login = async (req, res) => {
-    
+  
+  login = async (req, res) => {  
     try {
       const { email, password } = loginSchema.parse(req.body);
       const result = await userDal.findUserbyEmail(email);

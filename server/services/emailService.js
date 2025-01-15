@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
 // </body>
 // </html>`
 
-export const sendMail = (email, token) =>{
+export const sendMailValidation = (email, token) =>{
     transporter.sendMail({
         from: 'albajimenezus@gmail.com',
         to: email,
@@ -39,7 +39,8 @@ export const sendMail = (email, token) =>{
 </head>
 <body>
   <h1>This is Agora Research. To validate your account, click here</h1>
-   <a href="${process.env.VITE_SERVER_URL}verifyAccount/${token}" 
+   <a href="${process.env.VITE_SERVER_URL}${token}" 
+   
      target="_blank" 
      style="color: blue; text-decoration: underline;">
      Click here to validate your account
@@ -48,3 +49,5 @@ export const sendMail = (email, token) =>{
 </html>`
     })
 }
+
+//el href tiene que ser un enlace a una página del front (localhost:5173...), se abre pestaña nueva y tiene que tener un useEffect que vaya al verify. Si la respuesta está bien debe aparecer un mensaje de que el registro se ha hecho correctamente, sino, no autorizado
