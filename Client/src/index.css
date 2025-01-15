@@ -46,14 +46,10 @@ p {
   font-size: var(--textBody);
 }
 
-.containerFull {
-  width: 100%;
-}
-
 .containerPpal {
   width: 1200px;
   margin-inline: auto;
-  padding-block: var(--size4);
+  padding-block: var(--size3);
   
   @media (max-width: 1250px) {
     width: 90%;

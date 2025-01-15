@@ -1,0 +1,42 @@
+.profileUserCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size2);
+  max-width: 50rem;
+  flex-wrap: wrap;
+
+  .profileUserHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--size2);
+    flex-wrap: wrap;
+
+    .profileAvatar {
+      --AvatarSize: 20rem;
+  
+      background-color: var(--purple);
+      width: var(--AvatarSize);
+      height: var(--AvatarSize);
+      border-radius: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  
+    .userCardHeadData {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size1);
+    }
+  }
+
+  .separator {
+    width: 100%;
+    border-bottom: 6px solid var(--purple);
+  }
+  
+
+  .profileDescription {
+    /* line-height: var(--size2); */
+    line-height: 1.8rem;
+  }
+}

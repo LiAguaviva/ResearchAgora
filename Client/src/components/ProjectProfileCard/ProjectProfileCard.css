@@ -1,0 +1,22 @@
+
+.projectProfileCard{
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  align-items: center;
+  gap: var(--size1);
+
+  .profileProjectImg{
+    --imgSize: 10rem;
+
+    object-fit: cover;
+    border-radius: 100%;
+    width: var(--imgSize);
+    height: var(--imgSize);
+  }
+
+  .projectName {
+    color: var(--magenta);
+    font-weight: bold;
+  }
+}

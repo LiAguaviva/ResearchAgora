@@ -21,7 +21,7 @@ import { Metrics } from '../pages/Info/Metrics'
 import { Partnership } from '../pages/Info/Partnership'
 import { InfoLayout } from '../pages/Info/InfoLayout'
 import { AdminLayout } from '../pages/Admin/AdminLayout'
-
+import { AccountVerified } from '../pages/Auth/AccountVerified/AccountVerified'
 
 export const AppRoutes = () => {
   return (
@@ -31,9 +31,9 @@ export const AppRoutes = () => {
         <Routes>
             <Route path='/' element={<Home />}/>
             <Route path='/aboutus' element={<AboutUs />}/>
-            <Route path='/admin' element={<AdminLayout />}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/register' element={<Register />}/>
+            <Route path='/accountverified' element={<AccountVerified />}/>
             <Route path='/alloffer' element={<AllOffers />}/>
             <Route path='/createoffer' element={<CreateOffer />}/>
             <Route path='/edit' element={<EditOffer />}/>
@@ -50,6 +50,7 @@ export const AppRoutes = () => {
                  <Route path='metrics' element={<Metrics/>} />
                  <Route path='partnership' element={<Partnership/>} />
             </Route> 
+            <Route path='/admin' element={<AdminLayout />}/>
             <Route path='*' element={<ErrorPage />}/>   
         </Routes>
         </main>

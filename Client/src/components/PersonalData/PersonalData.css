@@ -1,0 +1,25 @@
+
+.personalDataCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size2);
+  
+  h4 {
+    color: var(--purple);
+  }
+
+  .data {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size1);
+
+    .fieldName {
+      color: var(--purple);
+      font-weight: bold;
+    }
+
+  }
+  .clarifyMsg {
+    font-size: var(--textBody);
+  }
+}
