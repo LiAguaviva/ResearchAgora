@@ -5,7 +5,8 @@ class UserDal {
   register = async (values) =>{
     try {
         let sql = "INSERT INTO user (user_email, user_password) VALUES (?, ?)"
-        await executeQuery(sql, values);           
+       const result = await executeQuery(sql, values);   
+       return result;        
     } catch (error) {
         console.log("-------------------", error);
         throw error;
@@ -21,6 +22,16 @@ class UserDal {
      } catch (error) {
         throw error;
      }
+   }
+
+   verifyUser = async (user_id) => {
+    try {
+      let sql = 'UPDATE user SET user_is_verified = 1 WHERE user_id = ?'
+      const result = await executeQuery(sql, [user_id]);
+      return result;
+    } catch (error) {
+      throw error;
+    }
    }
 
 

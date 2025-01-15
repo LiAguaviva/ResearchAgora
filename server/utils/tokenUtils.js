@@ -5,10 +5,16 @@ dotenv.config();
 
 export const generateToken = (user_id) =>{
     let payLoad = {user_id}
-    const token = jwt.sign(payLoad, process.env.TOKEN_KEY, {expiresIn: "1m"})
+    const token = jwt.sign(payLoad, process.env.TOKEN_KEY, {expiresIn: "5d"})
     return token
 }
 
 export const getIdFromToken = (token) =>{
     return jwt.decode(token).user_id
+}
+
+export const emailValidationToken = (user_id) =>{
+    let payLoad = {user_id}
+    const token = jwt.sign(payLoad, process.env.VALIDATION_KEY, {expiresIn: "3d"})
+    return token
 }
