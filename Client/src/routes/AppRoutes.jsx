@@ -33,7 +33,7 @@ export const AppRoutes = () => {
             <Route path='/aboutus' element={<AboutUs />}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/register' element={<Register />}/>
-            <Route path='/accountverified' element={<AccountVerified />}/>
+            <Route path='/accountverified/:token' element={<AccountVerified />}/>
             <Route path='/alloffer' element={<AllOffers />}/>
             <Route path='/createoffer' element={<CreateOffer />}/>
             <Route path='/edit' element={<EditOffer />}/>
