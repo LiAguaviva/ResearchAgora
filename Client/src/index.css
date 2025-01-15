@@ -1,11 +1,97 @@
 
 
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
+main {
+  min-height: var(--mainSize);
+  padding-bottom: var(--size5);
+}
 
+header {
+  min-height: var(--headerSize);
+}
+
+footer {
+  min-height: var(--footerSize);
+}
+
+body {
+  background-color: var(--greyLight);
+  color: var(--black);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial;
+  text-wrap: pretty;
+} 
+
+/* TITLE WEBSITE */
+h1 { 
+  font-size: var(--textBig1);
+}
+/* TITLE PAGE */
+h2 {
+  font-size: var(--textBig2);
+}
+/* TITLE SECTION */
+h3 {
+  font-size: var(--textMid1);
+}
+/* TITLE COMPONENT */
+h4 {
+  font-size: var(--textMid2);
+}
+
+p {
+  font-size: var(--textBody);
+}
+
+.containerFull {
+  width: 100%;
+}
+
+.containerPpal {
+  width: 1200px;
+  margin-inline: auto;
+  padding-block: var(--size4);
+  
+  @media (max-width: 1250px) {
+    width: 90%;
+  }
+  /* background-color: rgb(37, 26, 29); */
+}
+
+.containerTitle {
+  color: var(--color3);
+  background-color: var(--color4);
+  background-image: url(./assets/tetsuo1.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* object-fit: cover; */
+  /* object-position: center; */
+  /* margin-block: var(--size5); */
+  /* margin-inline: 20%; */
+  /* border-top: 5px solid var(--color5); */
+  padding-block: 10rem;
+  text-align: center;
+  text-shadow: -7px 7px 0 var(--color5);
+}
+
+.errorMsg {
+  color: var(--magenta);
+  font-weight: 600;
+}
+
+/* BUTTON SHAPE */
+button {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial;
+  font-size: var(--textSize5);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--size05);
+  padding-inline: var(--size1);
+  padding-block: var(--size05);    
+  background-color: var(--aqua);
+  color: var(--white);
+}

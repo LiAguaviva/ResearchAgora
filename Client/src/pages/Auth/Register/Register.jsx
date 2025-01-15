@@ -1,7 +1,12 @@
 import React from 'react'
+import { RegisterForm } from '../../../components/RegisterForm/RegisterForm'
 
 export const Register = () => {
   return (
-    <div>Register</div>
+    <section>
+      <div className='containerPpal'>
+      <RegisterForm />
+      </div>
+    </section>
   )
 }

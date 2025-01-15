@@ -1,9 +1,12 @@
 import React from 'react'
+import { LoginForm } from '../../../components/LoginForm/LoginForm'
 
 export const Login = () => {
   return (
-    <div>
-      <h1>login</h1>
-    </div>
+    <section>
+      <div className='containerPpal'>
+      <LoginForm />
+      </div>
+    </section>
   )
 }
