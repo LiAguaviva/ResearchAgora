@@ -10,12 +10,14 @@ const initialValue = {
   country:"",
   city:"",
   description:"",
+  skills: "",
+  fields: ""
 }
 
 export const EditProfileForm = () => {
 
   const navigate = useNavigate();
-  const [register, setRegister] = useState(initialValue);
+  const [edit, setEdit] = useState(initialValue);
   const {user} = useContext(AgoraContext)
   const [msg, setMsg] = useState('')
 
@@ -25,14 +27,16 @@ export const EditProfileForm = () => {
   const handleChange = (e)=> {
     const {name, value} = e.target;
     if(name === 'accept'){
-      setRegister({...register, accept:e.target.checked })
+      setEdit({...edit, accept:e.target.checked })
     } else {
-      setRegister({...register, [name]:value})
+      setEdit({...edit, [name]:value})
     }
   } 
 
   const onSubmit = (e)=> {
     e.preventDefault();
+    let data = {...edit, user_id:user.user_id}
+    //mandar data(variable temporal) al back con axios
   }
 
   return (

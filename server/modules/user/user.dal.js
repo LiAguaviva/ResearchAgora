@@ -1,4 +1,4 @@
-import { executeQuery } from "../../config/db.js";
+import { dbPool, executeQuery } from "../../config/db.js";
 
 class UserDal {
  
@@ -34,7 +34,75 @@ class UserDal {
     }
    }
 
+   editUser = async (values, file) => {
+     let sql = 'UPDATE user SET user_name = ?, user_lastname = ?, user_country = ?, user_city = ?, user_description = ? WHERE user_id = ?'
+     values[5] = Number(values[5]) //quitarlo
+     if(file){
+      sql = 'UPDATE user SET user_name = ?, user_lastname = ?, user_country = ?, user_city = ?, user_description = ?, user_avatar = ? WHERE user_id = ?'
+      values.splice(5,0,file.filename)
+     }
+     try {
+      const result = await executeQuery(sql, values);
+        return result;
+     } catch (error) {
+        throw error;
+     }
+   }
 
-}
+   saveTags = async (type, name, user_id, id, finalArrayData) => {
+    const connection = await dbPool.getConnection();
+    try {
+     await connection.beginTransaction();
+     let sql = `INSERT INTO ${type} (${name}, ${id}) VALUES (?, ?)`
+     let finalId = 1;
+     for( const elem of finalArrayData){
+      if(elem != ''){
+        let sqlId = `SELECT max(${id}) AS id FROM ${type}`
+        try {
+          
+          let [result] = await connection.execute(sqlId)
+          console.log(result);       
+          if(result[0].id != null) {
+            finalId = result[0].id+1  
+          }   
+          await connection.execute(sql, [elem, finalId])
+            
+        } catch (error) {
+          if(error.errno != 1062){      
+            throw error
+          }
+        }
+      }
+      
+     }
+     let dataString = finalArrayData.join();
+     let sql2 = `SELECT ${id} FROM ${type} WHERE find_in_set(${name}, ?)`
+     let [result] = await connection.execute(sql2, [dataString])
+     console.log(result);
+     let sql3 = `DELETE FROM user_${type} WHERE user_id = ?`
+     await connection.execute(sql3, [user_id])
+   let sql4 = `INSERT INTO user_${type} (user_id, ${id}) VALUES (?, ?)`
+     for (const elem of result) {
+       await connection.execute(sql4, [user_id, elem[id]]) 
+     } 
+     await connection.commit();   
+     return 'ok';   
+    } catch (error) {
+     await connection.rollback()
+      throw error;
+    } finally {
+     connection.release();
+    }
+ }
+
+
+
+
+   }
+
+
+
+
+
 
 export default new UserDal();

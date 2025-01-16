@@ -4,6 +4,7 @@ import { registerSchema } from "../../schemas/registerSchema.js";
 import { emailValidationToken, generateToken, getIdFromToken } from "../../utils/tokenUtils.js";
 import { loginSchema } from "../../schemas/loginSchema.js";
 import { sendMailValidation } from "../../services/emailService.js";
+import { dbPool } from "../../config/db.js";
 
 
 class UserController {
@@ -106,16 +107,55 @@ class UserController {
         },
         user
     }
-
     res.status(200).json(userData)  
-
-
-
-
     }
 
+    editUser = async (req, res) => {
+      console.log("reqqqqqq", req.body);
+      console.log("fileeeee", req.file);
+      try {
+        const {name, lastname, country, city, description, skills, fields, user_id} = req.body; //req.body.data
+        const result = await  userDal.editUser([name, lastname, country, city, description, user_id], req.file);
+        if(skills != ""){
+          const results = await this.saveTags(skills, user_id, 'skill');
+        }
+        if(fields != ""){
+          const res = await this.saveTags(fields, user_id, 'field');
+        }
+        res.status(200).json('ok')
+      } catch (error) {
+        console.log("'''''''''''''''''", error);
+        res.status(500).json(error)
+      }
+ 
+      //¿qué tenemos que hacer? guardar los campos en la DB. 
+      //Guardar los datos normales (tabla user) y por otro las skills (tabla skills). 
+      //guardar en la tabla intermedia que usuario es con las skills
+    }
 
+    saveTags = async (data, user_id, type ) => {
+      try {
+        let name = 'skill_name'
+       let id = 'skill_id' 
+       if(type === 'field'){
+        name = 'field_name'
+        id = 'field_id'
+       } 
+       
+       const dataArray = data.split(','); //si el string empieza en , o termina en , controlarlo
+       let finalArrayData = dataArray.map(e => e.trim())
+       let result = await userDal.saveTags(type, name, user_id, id, finalArrayData)
+       return result;
+      } catch (error) {
+        throw error;
+        
+      }    
+      }
 
 }
 
 export default new UserController();
+
+
+
+//meter trim en las validaciones de forms

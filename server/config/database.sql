@@ -1,11 +1,9 @@
-
-
 CREATE DATABASE research_agora;
-
+ DROP DATABASE research_agora;
 USE research_agora;
 
 CREATE TABLE field (
-	field_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	field_id INT UNSIGNED PRIMARY KEY,
     field_name VARCHAR(50) NOT NULL UNIQUE
 );
 
@@ -16,7 +14,6 @@ CREATE TABLE user (
     user_name VARCHAR (50),
     user_lastname VARCHAR (50),
     user_email VARCHAR (100) UNIQUE NOT NULL,
-    field_id INT UNSIGNED,
     user_country VARCHAR (100),
     user_city VARCHAR (100),
     user_description VARCHAR (250),
@@ -25,13 +22,39 @@ CREATE TABLE user (
     user_type TINYINT UNSIGNED DEFAULT 2, -- 1 admin / 2 researcher
     user_proficiency VARCHAR (50), -- student /lab worker / doctorant / PhD / postDoc
     user_is_verified BOOLEAN NOT NULL DEFAULT 0, -- 0 not verified / 1 is verified
-    user_is_disabled BOOLEAN NOT NULL DEFAULT 0, -- logical delete
-    CONSTRAINT fk_field_1 FOREIGN KEY (field_id)
-		REFERENCES field(field_id) ON DELETE CASCADE ON UPDATE CASCADE
+    user_is_disabled BOOLEAN NOT NULL DEFAULT 0 -- logical delete
 );  
 
 
 
+CREATE TABLE user_field (
+	user_id INT UNSIGNED NOT NULL,
+	field_id INT UNSIGNED NOT NULL,
+    CONSTRAINT fk_user_6 FOREIGN KEY (user_id)
+		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_field_1 FOREIGN KEY (field_id)
+		REFERENCES field(field_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+-- CREATE TABLE user (
+	-- user_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   -- user_name VARCHAR (50),
+   -- user_lastname VARCHAR (50),
+   -- user_email VARCHAR (100) UNIQUE NOT NULL,
+   -- field_id INT UNSIGNED,
+   -- user_country VARCHAR (100),
+   --  user_city VARCHAR (100),
+   --  user_description VARCHAR (250),
+   --  user_password VARCHAR (255) NOT NULL,
+    -- user_avatar VARCHAR (250),
+   --  user_type TINYINT UNSIGNED DEFAULT 2, -- 1 admin / 2 researcher
+   --  user_proficiency VARCHAR (50), -- student /lab worker / doctorant / PhD / postDoc
+   --  user_is_verified BOOLEAN NOT NULL DEFAULT 0, -- 0 not verified / 1 is verified
+   --  user_is_disabled BOOLEAN NOT NULL DEFAULT 0, -- logical delete
+   --  CONSTRAINT fk_field_1 FOREIGN KEY (field_id)
+		-- REFERENCES field(field_id) ON DELETE CASCADE ON UPDATE CASCADE
+-- );  
 
 
 
@@ -68,7 +91,7 @@ CREATE TABLE user_project (
 
 
 CREATE TABLE skill (
-	skill_id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	skill_id BIGINT UNSIGNED PRIMARY KEY,
     skill_name VARCHAR(50) NOT NULL UNIQUE
 );
 
@@ -166,9 +189,5 @@ CREATE TABLE notification (
 -- project_id
 -- announcement_id
 -- );
-
-SELECT * FROM user;
-
-
 
 
