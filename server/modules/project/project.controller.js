@@ -18,6 +18,10 @@ class ProjectController {
     
   }
 
+  // allprojects = async (req, res) => {
+
+  // }
+
 
 }
 
