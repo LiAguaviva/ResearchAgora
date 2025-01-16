@@ -29,28 +29,42 @@ export const AppRoutes = () => {
         <NavbarApp />
         <main className='ppal'>
         <Routes>
+          {/* Dashboard */}
             <Route path='/' element={<Home />}/>
             <Route path='/aboutus' element={<AboutUs />}/>
-            <Route path='/login' element={<Login />}/>
-            <Route path='/register' element={<Register />}/>
-            <Route path='/accountverified/:token' element={<AccountVerified />}/>
-            <Route path='/alloffer' element={<AllOffers />}/>
-            <Route path='/createoffer' element={<CreateOffer />}/>
-            <Route path='/edit' element={<EditOffer />}/>
-            <Route path='/oneoffer' element={<OneOffer />}/>
-            <Route path='/allprojects' element={<AllProjects />}/>
-            <Route path='/oneproject' element={<OneProject />}/>
-            <Route path='/editproject' element={<EditProject />}/>
-            <Route path='/createproject' element={<CreateProject />}/>
-            <Route path='/allprojects' element={<AllProjects />}/>
-            <Route path='/profile' element={<Profile />}/>
-            <Route path='/editprofile' element={<EditProfile />}/> 
+
+            {/* info */}
             <Route path='/infolayout' element={< InfoLayout />} >
                  <Route index element={<Contact/>} />
                  <Route path='metrics' element={<Metrics/>} />
                  <Route path='partnership' element={<Partnership/>} />
             </Route> 
+
+            {/* Auth */}
+            <Route path='/register' element={<Register />}/>
+            <Route path='/accountverified/:token' element={<AccountVerified />}/>
+            <Route path='/login' element={<Login />}/>
+
+            {/* User */}
+            <Route path='/profile' element={<Profile />}/>
+            <Route path='/editprofile' element={<EditProfile />}/> 
+
+            {/* Offer */}
+            <Route path='/createoffer' element={<CreateOffer />}/>
+            <Route path='/oneoffer' element={<OneOffer />}/>
+            <Route path='/alloffer' element={<AllOffers />}/>
+            <Route path='/edit' element={<EditOffer />}/>
+
+            {/* Project */}
+            <Route path='/allprojects' element={<AllProjects />}/>
+            <Route path='/oneproject' element={<OneProject />}/>
+            <Route path='/editproject' element={<EditProject />}/>
+            <Route path='/createproject' element={<CreateProject />}/>
+            
+            {/* Admin */}
             <Route path='/admin' element={<AdminLayout />}/>
+             
+           {/* Error */}
             <Route path='*' element={<ErrorPage />}/>   
         </Routes>
         </main>

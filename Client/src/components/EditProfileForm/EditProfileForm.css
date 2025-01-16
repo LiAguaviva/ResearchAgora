@@ -1,0 +1,114 @@
+.myFormContainer {
+  max-width: 25rem;
+  /* padding: var(--size3); */
+  display: flex;
+
+  .editProfileForm {
+    width: 100%;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--size2);
+
+    .formTitle {
+      color: var(--purple);
+      font-size: var(--textMid1);
+      font-weight: bold;
+    }
+
+    .separator {
+      border-bottom: 4px solid var(--purple);
+    }
+
+    .formSec {
+      display: flex;
+      gap: var(--size2);
+      flex-wrap: wrap;
+    }
+
+    fieldset {
+      font-size: var(--textSize5);
+      border: none;
+      padding: 0;
+      display: flex;
+      gap: var(--size05);
+      flex-direction: column;
+      text-align: left;
+
+      input {
+        background-color: transparent;
+        color: var(--black);
+        border: 2px solid var(--black50);
+        border-radius: 7px;
+        padding-inline: var(--size05);
+        padding-block: 0.2rem;
+
+        &:hover {
+          border: 2px solid var(--black);
+        }
+      }
+    }
+
+    .textareaBig {
+      flex-direction: column;
+  
+      textarea {
+        max-width: var(--offerFormWidth);
+        border: 2px solid var(--black50);
+        border-radius: 7px;
+        scrollbar-width: none;
+        height: 10rem;
+      }
+    }
+
+    .textareaLit {
+      flex-direction: column;
+  
+      textarea {
+        max-width: var(--offerFormWidth);
+        border: 2px solid var(--black50);
+        border-radius: 7px;
+        scrollbar-width: none;
+        height: var(--size4);
+      }
+    }
+
+    .formLink {
+      color: var(--aqua);
+      &:hover {
+        color: var(--mandarina);
+      }
+      font-size: var(--textMid2);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: var(--size05);
+
+      .accept {
+        background-color: var(--aqua);
+        &:hover {
+          background-color: var(--mandarina);
+        }
+      }
+
+      .cancel {
+        background-color: var(--purple);
+        &:hover {
+          background-color: var(--magenta);
+        }
+      }
+    }
+
+    a {
+      color: var(--color1);
+      font-weight: 900;
+
+      &:hover {
+        color: var(--color3);
+      }
+    }
+  }
+}

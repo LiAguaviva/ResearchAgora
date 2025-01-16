@@ -1,0 +1,23 @@
+
+
+
+  .userCard {
+    display: flex;
+    align-items: center;
+    gap: var(--size1);
+  
+    .UserCardName {
+      font-weight: bold;
+    }
+  
+    .userCardAvatar {
+      --AvatarSize: 4.5rem;
+  
+      width: var(--AvatarSize);
+      height: var(--AvatarSize);
+      background-color: var(--purple);
+      border-radius: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }

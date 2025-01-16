@@ -1,7 +1,12 @@
 import React from 'react'
+import { EditProfileForm } from '../../../components/EditProfileForm/EditProfileForm'
 
 export const EditProfile = () => {
   return (
-    <div>EditProfile</div>
+    <div className='containerPpal'>
+      <EditProfileForm />
+    </div>
   )
 }
+
+

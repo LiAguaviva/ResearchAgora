@@ -1,7 +1,10 @@
 import React from 'react'
+import { CreateProjectForm } from '../../../components/CreateProjectForm/CreateProjectForm'
 
 export const CreateProject = () => {
   return (
-    <div>CreateProject</div>
+    <div className='containerPpal'>
+      <CreateProjectForm />
+    </div>
   )
 }
