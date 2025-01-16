@@ -152,6 +152,16 @@ class UserController {
       }    
       }
 
+      deleteUser = async(req, res) => {
+        const {user_id} = req.params;
+        try{
+          await userDal.deleteUser(user_id)
+          res.status(200).json("user disabled")
+        }catch (error){
+          res.status(500).json(error)
+        }
+      }
+
 }
 
 export default new UserController();

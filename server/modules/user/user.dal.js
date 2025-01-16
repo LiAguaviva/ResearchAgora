@@ -95,8 +95,19 @@ class UserDal {
     }
  }
 
-
-
+deleteUser = async(user_id) => {
+  const connection = await dbPool.getConnection();
+  try{
+    await connection.beginTransaction();
+    let sqlUser = 'UPDATE user SET user_is_disabled = 1 WHERE user_id = ?'
+    await connection.execute(sqlUser, [user_id])
+  }catch (error){
+    await connection.rollback();
+    throw error;
+  }finally{
+    connection.release();
+  }
+}
 
    }
 

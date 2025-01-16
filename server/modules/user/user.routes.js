@@ -10,5 +10,6 @@ router.post('/login', userController.login);
 router.get('/verifyAccount/:token', tokenVerifyEmail, userController.verifyAccount)
 router.get('/findUserById', tokenVerify, userController.findUserById)
 router.put('/editUser', uploadImage('useravatar'), userController.editUser)
+router.put('/deleteUser/:user_id', userController.deleteUser )
 
 export default router
