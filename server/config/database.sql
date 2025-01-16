@@ -1,5 +1,4 @@
 CREATE DATABASE research_agora;
--- DROP DATABASE research_agora;
 USE research_agora;
 
 CREATE TABLE field (
