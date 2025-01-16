@@ -76,10 +76,10 @@
 
     .formLink {
       color: var(--aqua);
+      font-size: var(--textMid1);
       &:hover {
         color: var(--mandarina);
       }
-      font-size: var(--textMid2);
     }
 
     .buttons {

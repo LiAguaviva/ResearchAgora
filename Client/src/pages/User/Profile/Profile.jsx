@@ -4,6 +4,7 @@ import { PersonalData } from '../../../components/PersonalData/PersonalData'
 import { ProjectProfileCard } from '../../../components/ProjectProfileCard/ProjectProfileCard'
 import { ReviewCard } from '../../../components/ReviewCard/ReviewCard'
 import { UserCard } from '../../../components/UserCard/UserCard'
+import StatsRadarChart from '../../../components/RadarGraph/RadarGraph'
 
 export const Profile = () => {
   
@@ -13,6 +14,11 @@ export const Profile = () => {
     <div className='containerPpal'>
       <ProfileUserCard />
     </div>
+
+    <div className='containerPpal'>
+      <StatsRadarChart />
+    </div>
+
     <div className='containerPpal'>
       <PersonalData />
     </div>

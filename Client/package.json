@@ -16,6 +16,7 @@
     "react-bootstrap": "^2.10.7",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.1.1",
+    "recharts": "^2.15.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {

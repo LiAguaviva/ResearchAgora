@@ -4,11 +4,9 @@ import './RegisterForm.css'
 import { fetchData } from '../../helpers/axiosHelper'
 
 const initialValue = {
-  name:"",
   email:"",
   password:"",
   repPassword:"",
-  accept:false,
 }
 
 export const RegisterForm = () => {
@@ -26,9 +24,25 @@ export const RegisterForm = () => {
     }
   } 
 
-  const onSubmit = (e)=> {
+  const onSubmit = async (e)=> {
     e.preventDefault();
+    // validar 
+    try {
+      const res = await fetchData('/register', 'post', register)
+      // console.log(res);
+      
+      navigate('/login')
+    } catch (error) {
+      console.log('ERRORRRRRR', error.response.data);
+      setMsg(error.response.data)
+      // console.log('MSG MSG MSG MSG', error.response);
+      
+
+    }
   }
+
+  // console.log(register);
+  
 
   return (
     <div className='myFormContainer'>
@@ -41,7 +55,7 @@ export const RegisterForm = () => {
           id='email'
           type="email" 
           placeholder='Email'
-          // value={register.email}
+          value={register.email}
           onChange={handleChange}
           name='email'
         />
@@ -53,7 +67,7 @@ export const RegisterForm = () => {
           id='password'
           type="text" 
           placeholder='Password'
-          // value={register.password}
+          value={register.password}
           onChange={handleChange}
           name='password'
         />
@@ -65,7 +79,7 @@ export const RegisterForm = () => {
           id='repPassword'
           type="text" 
           placeholder='Repeat Password'
-          // value={register.repPassword}
+          value={register.repPassword}
           onChange={handleChange}
           name='repPassword'
         />

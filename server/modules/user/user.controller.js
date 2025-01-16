@@ -5,6 +5,7 @@ import { emailValidationToken, generateToken, getIdFromToken } from "../../utils
 import { loginSchema } from "../../schemas/loginSchema.js";
 import { sendMailValidation } from "../../services/emailService.js";
 import { dbPool } from "../../config/db.js";
+import {z} from "zod";
 
 
 class UserController {
@@ -12,7 +13,7 @@ class UserController {
     try {
       const { email, password, repPassword } = registerSchema.parse(req.body);
       if (password !== repPassword) {
-        throw new Error("Passwords mismatch");
+        throw new Error("B. Passwords mismatch");
       } else {
         const hash = await hashPassword(password);
         const result = await userDal.register([email, hash]);
@@ -22,6 +23,10 @@ class UserController {
         res.status(200).json({ msg: "ok" });
       }
     } catch (error) {
+      if(error instanceof z.ZodError) {
+        console.log(error.errors[0].message)
+        return res.status(400).json(error.errors[0].message)
+      }
       res.status(500).json(error.message);
     }
   };

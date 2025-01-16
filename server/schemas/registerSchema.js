@@ -7,6 +7,6 @@ export const registerSchema = z.object({
     .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{6,}$/, "invalid password"),
   repPassword: z.string().min(1, "Please repeat the password"),
 }).refine(data => data.password === data.repPassword, {
-  message: "password mismatch",
+  message: "*Incorrect log in credentials",
   path: ["repPassword"],
 });
