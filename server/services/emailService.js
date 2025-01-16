@@ -30,7 +30,7 @@ const transporter = nodemailer.createTransport({
 
 export const sendMailValidation = (email, token) =>{
     transporter.sendMail({
-        from: 'albajimenezus@gmail.com',
+        from: 'socratesters@gmail.com',
         to: email,
         subject: "Validate Your Account",
         html: `<!DOCTYPE html>
