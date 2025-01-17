@@ -5,8 +5,13 @@ import { ProjectProfileCard } from '../../../components/ProjectProfileCard/Proje
 import { ReviewCard } from '../../../components/ReviewCard/ReviewCard'
 import { UserCard } from '../../../components/UserCard/UserCard'
 import StatsRadarChart from '../../../components/RadarGraph/RadarGraph'
+import { useContext } from 'react'
+import { AgoraContext } from '../../../context/ContextProvider'
 
 export const Profile = () => {
+
+  const {user} = useContext(AgoraContext)
+  
   
   return (
     <>

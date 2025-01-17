@@ -1,7 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
-import './CreateOfferForm.css'
 
 const initialValue = {
   offer_title:'',
@@ -25,8 +24,8 @@ export const CreateOfferForm = () => {
   }
 
   return (
-    <div className='offerFormContainer'>
-      <form className='offerForm'>
+    <div className='myFormContainer'>
+      <form className='myForm'>
         <p className='formTitle'>Add an Offer</p>
         <div className='separator' />
         <fieldset>

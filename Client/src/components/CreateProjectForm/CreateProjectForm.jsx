@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import './CreateProjectForm.css'
 import { fetchData } from '../../helpers/axiosHelper'
 import { AgoraContext } from '../../context/ContextProvider'
 

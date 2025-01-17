@@ -118,11 +118,14 @@ class UserController {
     }
 
     editUser = async (req, res) => {
-      console.log("reqqqqqq", req.body);
-      console.log("fileeeee", req.file);
+      // console.log("reqqqqqq", JSON.parse(req.body.edit));
+      // console.log("fileeeee", req.file);
+      const data  = JSON.parse(req.body.edit)
+      console.log('data en back', data);
+      
       try {
-        const {name, lastname, country, city, description, skills, fields, user_id} = req.body; //req.body.data
-        const result = await  userDal.editUser([name, lastname, country, city, description, user_id], req.file);
+        const {user_name, user_lastname, user_country, user_city, user_description, skills, fields, user_id} = data; //req.body.data
+        const result = await  userDal.editUser([user_name, user_lastname, user_country, user_city, user_description, user_id], req.file);
         if(skills != ""){
           const results = await this.saveTags(skills, user_id, 'skill');
         }

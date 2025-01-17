@@ -9,11 +9,13 @@ const initialValue = {
   repPassword:"",
 }
 
-export const RegisterForm = () => {
+export const RegisterForm = ({showModal}) => {
 
   const navigate = useNavigate();
   const [register, setRegister] = useState(initialValue);
   const [msg, setMsg] = useState('')
+
+  
 
   const handleChange = (e)=> {
     const {name, value} = e.target;
@@ -30,8 +32,10 @@ export const RegisterForm = () => {
     try {
       const res = await fetchData('/register', 'post', register)
       // console.log(res);
+      showModal();
+      setMsg('');
+      // navigate('/login')
       
-      navigate('/login')
     } catch (error) {
       console.log('ERRORRRRRR', error.response.data);
       setMsg(error.response.data)
@@ -86,7 +90,7 @@ export const RegisterForm = () => {
       </fieldset>
 
       <div className='separator' />
-      <p>Already registered? <Link to={'/login'}  className="formLink">LOG IN</Link></p>
+      <p>Already registered? <Link to={'/login'}  className="loginRegisterLink">LOG IN</Link></p>
 
       <div className="errorMsg">
       { <p>{msg}</p>}

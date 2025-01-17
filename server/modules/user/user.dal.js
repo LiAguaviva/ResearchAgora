@@ -36,7 +36,7 @@ class UserDal {
 
    editUser = async (values, file) => {
      let sql = 'UPDATE user SET user_name = ?, user_lastname = ?, user_country = ?, user_city = ?, user_description = ? WHERE user_id = ?'
-     values[5] = Number(values[5]) //quitarlo
+     
      if(file){
       sql = 'UPDATE user SET user_name = ?, user_lastname = ?, user_country = ?, user_city = ?, user_description = ?, user_avatar = ? WHERE user_id = ?'
       values.splice(5,0,file.filename)
@@ -93,42 +93,42 @@ class UserDal {
     } finally {
      connection.release();
     }
- }
-
-deleteUser = async(user_id) => {
-  const connection = await dbPool.getConnection();
-  try{
-    await connection.beginTransaction();
-    let sqlUser = 'UPDATE user SET user_is_disabled = 1 WHERE user_id = ?'
-    await connection.execute(sqlUser, [user_id]);
-
-    let sqlSkill = 'UPDATE user_skill SET user_skill_is_disabled = 1 WHERE user_id = ?'
-    await connection.execute(sqlSkill, [user_id]);
-
-    let sqlField = 'UPDATE user_field SET user_field_is_disabled = 1 WHERE user_id = ?'
-    await connection.execute(sqlField, [user_id]);
-
-    await connection.commit();   
-  }catch (error){
-    await connection.rollback();
-    throw error;
-  }finally{
-    connection.release();
   }
-}
 
-getUserById = async(id) => {
-  try {
-    let sql = 'SELECT * FROM USER WHERE user_id = ? AND user_is_disabled = 0 AND user_is_verified = 1'
-    const result = await executeQuery(sql, [id]);
-    return result;
-  } catch (error) {
-    throw error;
+  deleteUser = async(user_id) => {
+    const connection = await dbPool.getConnection();
+    try{
+      await connection.beginTransaction();
+      let sqlUser = 'UPDATE user SET user_is_disabled = 1 WHERE user_id = ?'
+      await connection.execute(sqlUser, [user_id]);
+
+      let sqlSkill = 'UPDATE user_skill SET user_skill_is_disabled = 1 WHERE user_id = ?'
+      await connection.execute(sqlSkill, [user_id]);
+
+      let sqlField = 'UPDATE user_field SET user_field_is_disabled = 1 WHERE user_id = ?'
+      await connection.execute(sqlField, [user_id]);
+
+      await connection.commit();   
+    }catch (error){
+      await connection.rollback();
+      throw error;
+    }finally{
+      connection.release();
+    }
   }
+
+  getUserById = async(id) => {
+      try {
+        let sql = 'SELECT * FROM USER WHERE user_id = ? AND user_is_disabled = 0 AND user_is_verified = 1'
+        const result = await executeQuery(sql, [id]);
+        return result;
+      } catch (error) {
+        throw error;
+      }
+  }
+
+
 }
-
-
-   }
 
 
 

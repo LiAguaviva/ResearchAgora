@@ -1,6 +1,5 @@
 .myFormContainer {
   max-width: 25rem;
-  /* padding: var(--size3); */
   display: flex;
 
   .myForm {
@@ -13,7 +12,7 @@
 
     .formTitle {
       color: var(--purple);
-      font-size: var(--textMid1);
+      font-size: var(--textM1);
       font-weight: bold;
     }
 
@@ -27,30 +26,6 @@
       flex-wrap: wrap;
     }
 
-    /* OPTION 1 */
-    /* fieldset {
-      width: 100%;
-      font-size: var(--textSize5);
-      border: none;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size05);
-
-      input {
-        width: 100%;
-        border: none;
-        border-bottom: 1.5px solid var(--black50);
-        color: var(--black50);
-
-        &:hover {
-          border-bottom: 1.5px solid var(--black);
-          color: var(--black);
-        }
-      }
-    } */
-
-    /* OPTION 2 */
     fieldset {
       font-size: var(--textSize5);
       border: none;
@@ -74,9 +49,56 @@
       }
     }
 
-    .formLink {
+    .textareaBig {
+      flex-direction: column;
+  
+      .textarea {
+        background-color: transparent;
+        max-width: var(--offerFormWidth);
+        border: 2px solid var(--black50);
+        border-radius: 7px;
+        scrollbar-width: none;
+        height: 10rem;
+      }
+    } 
+
+     .textareaLit {
+      /* flex-direction: column; */
+      display: flex;
+  
+      .textarea {
+        background-color: transparent;
+        max-width: var(--offerFormWidth);
+        border: 2px solid var(--black50);
+        border-radius: 7px;
+        scrollbar-width: none;
+        height: var(--size4);
+      }
+    }
+
+    .tagsContainer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--size02);
+
+      .tag {
+        &:hover{
+          background-color: var(--purple);
+        }
+
+        .deleteBtn {
+          font-weight: bold;
+          font-size: var(--textM2);
+      
+          &:hover {
+            color: var(--magenta);
+          }
+        }
+      }
+    }
+
+    .loginRegisterLink {
       color: var(--aqua);
-      font-size: var(--textMid1);
       &:hover {
         color: var(--mandarina);
       }

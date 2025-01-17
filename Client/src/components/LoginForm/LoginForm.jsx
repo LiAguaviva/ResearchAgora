@@ -13,11 +13,12 @@ const initialValue = {
 
 export const LoginForm = () => {
 
-  const {setUser} = useContext(AgoraContext);
+  const {user, setUser, token, setToken, } = useContext(AgoraContext);
+  const navigate = useNavigate();
+  
   const [login, setLogin] = useState(initialValue)
   const [valErrors, setValErrors] = useState({})
   const [msg, setMsg] = useState('')
-  const navigate = useNavigate();
 
   const validateField = (name, value) => {
     try {
@@ -35,9 +36,29 @@ export const LoginForm = () => {
     validateField(name, value)
   } 
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
+
+    try {
+      const tokenLocal = await fetchData('/login', 'post', login);
+      
+      const resultUser = await fetchData('/findUserById', 'get', null, {Authorization:`Bearer ${tokenLocal}`});
+      console.log('result user', resultUser);
+      localStorage.setItem('agoraToken', tokenLocal)
+      setUser(resultUser);
+      setToken(tokenLocal);
+      navigate('/profile');
+      
+    } catch (error) {
+      console.log('login error', error);
+      
+    }
   }
+
+  // console.log('login', login);
+  console.log('userContext', user);
+  console.log('tokenContext', token);
+  
 
   return (
     <div className='myFormContainer'>
@@ -50,7 +71,7 @@ export const LoginForm = () => {
             id='email'
             type="email" 
             placeholder='Email'
-            // value={login.email}
+            value={login.email}
             onChange={handleChange}
             name='email'
           />
@@ -62,14 +83,14 @@ export const LoginForm = () => {
             id='password'
             type="text" 
             placeholder='Password'
-            // value={login.password}
+            value={login.password}
             onChange={handleChange}
             name='password'
           />
         </fieldset>
 
         <div className='separator' />
-        <p>Not registered? <Link to={'/register'} className="formLink">REGISTER</Link></p>
+        <p>Not registered? <Link to={'/register'} className="loginRegisterLink">REGISTER</Link></p>
 
         <div className="errorMsg">
         {valErrors.email && <p>{valErrors.email}</p>}

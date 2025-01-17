@@ -1,5 +1,5 @@
 :root {
-  --white: rgb(244, 242, 239);
+  --white: rgb(245, 245, 245);
   --black: rgb(20, 18, 24);
   --black50: rgb(20, 18, 24, 0.50);
   --purple: rgb(56, 0, 120);
@@ -15,6 +15,7 @@
   --footerSize:10vh;
 
     /* SIZES */
+    --size02: 0.2rem;
     --size05: 0.5rem;
     --size1: 1rem;
     --size2: 2rem;
@@ -23,9 +24,9 @@
     --size5: 5rem;
 
     /* TEXT SIZES */
-    --textBig1: 5.2rem;
-    --textBig2: 3.5rem;
-    --textMid1: 3rem;
-    --textMid2: 1.5rem;
+    --textL1: 5.2rem;
+    --textL2: 3.5rem;
+    --textM1: 3rem;
+    --textM2: 1.5rem;
     --textBody: 1rem;
 }

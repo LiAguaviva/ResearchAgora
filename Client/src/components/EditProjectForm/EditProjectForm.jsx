@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import './EditProjectForm.css'
 import { fetchData } from '../../helpers/axiosHelper'
 
 const initialValue = {
@@ -35,7 +34,7 @@ export const EditProjectForm = () => {
   return (
     <div className='myFormContainer'>
     <form className='myForm'>
-      <p className='formTitle'>Create a Project</p>
+      <p className='formTitle'>Edit a Project</p>
       <div className='separator' />
       <fieldset>
         <label htmlFor="email">Title</label>

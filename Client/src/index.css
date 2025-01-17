@@ -19,27 +19,30 @@ footer {
 }
 
 body {
-  background-color: var(--greyLight);
+  background-color: var(--white);
   color: var(--black);
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial;
   text-wrap: pretty;
 } 
 
+body, button, textarea {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial;
+}
+
 /* TITLE WEBSITE */
 h1 { 
-  font-size: var(--textBig1);
+  font-size: var(--textL1);
 }
 /* TITLE PAGE */
 h2 {
-  font-size: var(--textBig2);
+  font-size: var(--textL2);
 }
 /* TITLE SECTION */
 h3 {
-  font-size: var(--textMid1);
+  font-size: var(--textM1);
 }
 /* TITLE COMPONENT */
 h4 {
-  font-size: var(--textMid2);
+  font-size: var(--textM2);
 }
 
 p {
@@ -81,7 +84,7 @@ p {
 
 /* BUTTON SHAPE */
 button {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial;
+  width: max-content;
   font-size: var(--textSize5);
   font-weight: 600;
   border: none;
@@ -90,4 +93,29 @@ button {
   padding-block: var(--size05);    
   background-color: var(--aqua);
   color: var(--white);
+  
+  &:hover {
+    background-color: var(--mandarina);
+  }
+}
+
+.tag {
+  width: max-content;
+  border-radius: var(--size2);
+  padding-inline: var(--size1);
+  padding-block: var(--size02);    
+  background-color: var(--purple);
+  color: var(--white);
+  cursor:pointer;
+
+
+  display: flex;
+  gap: var(--size05);
+  align-items: center;
+
+  &:hover {
+    background-color: var(--magenta);
+  }
+
+  
 }
