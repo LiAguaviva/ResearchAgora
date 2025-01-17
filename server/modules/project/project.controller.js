@@ -1,3 +1,4 @@
+
 import projectDal from "./project.dal.js";
 
 
@@ -5,14 +6,18 @@ class ProjectController {
 
     addproject = async (req, res) =>{
       try {
-        const {title, city, country, description, max_member, type} = req.body;
+        const {title, city, country, description, max_member, type, status, skill_id} = req.body;
         const {creator_user_id} = req.params;
-        const values = [title, city, country, description, max_member, type, creator_user_id];
-  
-        const result = await projectDal.registerProject(values);
+        const values = [title, city, country, description, type, status, max_member, creator_user_id];
+
+        const result = await projectDal.registerProject(values, skill_id);
+ 
+        res.status(200).json(result)
       } catch (error) {
-        console.log("errrrrorrrr", error);
+        console.log("eerrrrrrr", error);
         res.status(500).json(error)    
+        console.log("eeee", error);
+        
      }
     
     
@@ -67,9 +72,11 @@ class ProjectController {
      deleteproject = async (req, res) => {
          const {project_id} = req.params;
              try{
-               await userDal.deleteproject(project_id)
+               await projectDal.deleteproject(project_id)
                res.status(200).json("project disabled")
              }catch (error){
+              console.log("eeeeeeeeeee", error);
+              
                 res.status(500).json(error)
             }
      }

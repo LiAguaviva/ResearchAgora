@@ -1,11 +1,30 @@
 import { dbPool, executeQuery } from "../../config/db.js";
 
 class ProjectDal {
-  registerProject = async (values) => {
+  registerProject = async (values, skill_name) => {
+    const connection = await dbPool.getConnection();
     try {
-      let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_max_member, project_type, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+      await connection.beginTransaction();
+      let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_status, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+
+      
+      values[4] = Number(values[4]); //delete once front is running
+      values[5] = Number(values[5]); 
+      values[6] = Number(values[6]);
+
+      const [projectResult] = await connection.execute(sql, values);
+      const projectId = projectResult.insertId;
+
       const result = await executeQuery(sql, values);
+
+      let sql2 = 'SELECT skill_id FROM skill WHERE skill_name = ?';
+      const skillResult = await executeQuery(sql2, [skill_name]);
+
+      let sql3 = 'INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)'
+      await executeQuery(sql3, [projectId, skill_id]);
+      
       return result;
+  
     } catch (error) {
       throw error;
     }
@@ -96,17 +115,24 @@ class ProjectDal {
     const connection = await dbPool.getConnection();
     try{
       await connection.beginTransaction();
-      let sqlProject = 'UPDATE project SET project_is_deleted = 1 WHERE project_id = ?'
+      let sqlProject = 'UPDATE project SET project_is_disabled = 1 WHERE project_id = ?'
       await connection.execute(sqlProject, [project_id]);
-  
+      
       let sqlSkill = 'UPDATE project_skill SET project_skill_is_disabled = 1 WHERE project_id = ?'
       await connection.execute(sqlSkill, [project_id]);
-     
-      let sqlOffer = 'UPDATE offer SET offer_is_disabled = 1 WHERE project_id = ? AND offer_id = ?'
-      await connection.execute(sqlOffer, [project_id, offer_id]);
+      
+       let sqlOffer = 'UPDATE offer SET is_deleted = 1 WHERE project_id = ?'  //change by disabled
+       await connection.execute(sqlOffer, [project_id]);
+      
+       let sqlUser = 'UPDATE user_project SET status = 3 WHERE project_id = ?'
+       await connection.execute(sqlUser, [project_id]);
+
+      //  let sqlOfferSkill = 'UPDATE offer_skill SET offer_skill_is_disabled = 1 WHERE project_id = ?'
+      // await connection.execute(sqlOfferSkill, [project_id]);  //there's not project id in offer_skill table
 
       await connection.commit();   
     }catch (error){
+      console.log("EERROR", error);
       await connection.rollback();
       throw error;
     }finally{
@@ -123,3 +149,53 @@ class ProjectDal {
 }
 
 export default new ProjectDal();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// registerProject = async (values, skill_name) => {
+//   const connection = await dbPool.getConnection();
+//   try {
+//     let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_status, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    
+//     values[4] = Number(values[4]); //delete once front is running
+//     values[5] = Number(values[5]); 
+//     values[6] = Number(values[6]);
+//     const result = await executeQuery(sql, values);
+
+//     let sql2 = 'SELECT skill_id FROM skill WHERE skill_name = ?';
+//     const skillResult = await executeQuery(sql2, [skill_name]);
+
+//     let sql3 = 'INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)'
+//     await executeQuery(sql3, [projectId, skill_id]);
+    
+   
+    
+
+//     return result;
+    
+    
+//   } catch (error) {
+//     throw error;
+//   }
+//};
