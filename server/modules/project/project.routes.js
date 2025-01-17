@@ -4,11 +4,15 @@ import { tokenVerify } from '../../middleware/verifyToken.js';
 
 const router = express.Router()
 router.post('/addproject/:creator_user_id', projectController.addproject)
-/* router.get('/allprojects', projectController.allprojects)
+router.get('/allprojects', projectController.allprojects)
+//bring a skill show offers
 router.get('/oneproject', projectController.oneproject)
+ //bring a skill show offers
 router.put('/editproject', projectController.editproject)
-router.get('/findproject', projectController.findproject)
-router.put('/deleteproject', projectController.deleteproject)
+router.put('/deleteproject/:project_id', projectController.deleteproject)
+/*
+router.get('/findprojectbyskill', projectController.findProjectBySkill)
+
  */
 
 

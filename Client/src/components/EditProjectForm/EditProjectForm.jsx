@@ -29,6 +29,8 @@ export const EditProjectForm = () => {
 
   const onSubmit = (e)=> {
     e.preventDefault();
+    let data = {...edit, project_id:project.project_id}
+    //mandar data(variable temporal) al back con axios
   }
 
   return (
