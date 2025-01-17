@@ -1,3 +1,4 @@
+-- drop database research_agora;
 CREATE DATABASE research_agora;
 USE research_agora;
 
@@ -29,6 +30,7 @@ CREATE TABLE user (
 CREATE TABLE user_field (
 	user_id INT UNSIGNED NOT NULL,
 	field_id INT UNSIGNED NOT NULL,
+    user_field_is_disabled BOOLEAN NOT NULL DEFAULT 0,
     CONSTRAINT fk_user_6 FOREIGN KEY (user_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_field_1 FOREIGN KEY (field_id)
@@ -127,6 +129,7 @@ CREATE TABLE project_skill (
 CREATE TABLE user_skill (
 	user_id INT UNSIGNED NOT NULL,
 	skill_id BIGINT UNSIGNED NOT NULL,
+    user_skill_is_disabled BOOLEAN NOT NULL DEFAULT 0,
     CONSTRAINT fk_user_3 FOREIGN KEY (user_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_skill_3 FOREIGN KEY (skill_id)
@@ -189,4 +192,42 @@ CREATE TABLE notification (
 -- announcement_id
 -- );
 
+INSERT INTO user (user_name, user_lastname, user_email, user_country, user_city, user_description, user_password, user_avatar, user_type, user_proficiency, user_is_verified, user_is_disabled) VALUES
+('Alice', 'Smith', 'alice.smith@example.com', 'USA', 'New York', 'Researcher in quantum mechanics', 'password123', 'avatar1.png', 2, 'PhD', 1, 0),
+('Bob', 'Jones', 'bob.jones@example.com', 'UK', 'London', 'Biologist specializing in genetics', 'password456', 'avatar2.png', 2, 'PostDoc', 0, 0),
+('Charlie', 'Brown', 'charlie.brown@example.com', 'Canada', 'Toronto', 'Mathematics professor', 'password789', 'avatar3.png', 2, 'Doctorant', 1, 0),
+('Diana', 'Prince', 'diana.prince@example.com', 'France', 'Paris', 'Computer Science enthusiast', 'passwordabc', 'avatar4.png', 1, 'Lab Worker', 1, 0);
 
+INSERT INTO field (field_id, field_name) VALUES
+(1, 'Physics'),
+(2, 'Chemistry'),
+(3, 'Biology'),
+(4, 'Mathematics'),
+(5, 'Computer Science');
+
+INSERT INTO user_field (user_id, field_id) VALUES
+(1, 1),
+(2, 3),
+(3, 4),
+(4, 5);
+
+INSERT INTO skill (skill_id, skill_name) VALUES
+(1, 'Data Analysis'),
+(2, 'Machine Learning'),
+(3, 'Genetic Sequencing'),
+(4, 'Quantum Physics'),
+(5, 'Mathematical Modeling');
+
+INSERT INTO user_skill (user_id, skill_id) VALUES
+(1, 4),
+(2, 3),
+(3, 2),
+(4, 5),
+(4, 1);
+
+select * from user;
+select * from user_skill;
+select * from user_field;
+
+
+-- UPDATE user SET user_is_disabled = 1 WHERE user_id = 1;

@@ -75,7 +75,7 @@ class UserController {
       const user = await userDal.getUserById(id)
       console.log("usssssssssser", user);
       
-      let userData ={}
+    /*   let userData ={}
       let travel = {}
       let travels =[]
       
@@ -96,7 +96,9 @@ class UserController {
               }  //field transactions 
               user.push(user_id)
           }
-      })
+      }
+    
+    )
 
        userData = {
         user: {
@@ -111,8 +113,8 @@ class UserController {
             type:user[0].type
         },
         user
-    }
-    res.status(200).json(userData)  
+    } */
+    res.status(200).json(user)  
     }
 
     editUser = async (req, res) => {
