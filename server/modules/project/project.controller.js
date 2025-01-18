@@ -82,13 +82,19 @@ class ProjectController {
      }
 
 
-
-
-
-
-    // findProjectBySkill = async(req, res) => {
+    findProjectBySkills = async(req, res) => {
+        const skills = req.body;
         
-    // }
+        try {
+          await projectDal.findprojects(skills)
+               res.status(200).json("projects found")
+        } catch (error) {
+          res.status(500).json(error)
+        }
+        
+
+        
+    }
 
    
 

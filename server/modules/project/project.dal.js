@@ -67,9 +67,10 @@ class ProjectDal {
       let sql3 = 'INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)'
       await executeQuery(sql3, [projectId, skill_id]); */
       await connection.commit()
-      return result;
+      return projectId;
   
     } catch (error) {
+      await connection.rollback();
       throw error;
     }finally{
       connection.release()
@@ -194,6 +195,61 @@ class ProjectDal {
       connection.release();
     }
    }
+
+   findprojects = async ({ skills }) => {
+    console.log("skills in dal", skills);
+  
+    // Convert `skills` string to an array
+    const skillArray = skills
+      .replace(/[\[\]]/g, "") // Remove square brackets
+      .split(",") // Split by comma
+      .map((skill) => skill.trim());
+  
+    console.log("skills in dal after", skillArray);
+  
+    if (skillArray.length === 0) {
+      throw new Error("No skills provided.");
+    }
+  
+    const placeholders = skillArray.map(() => "?").join(","); // Create placeholders for the SQL query
+    console.log("placeholders",placeholders);
+    
+   
+    const connection = await dbPool.getConnection();
+    try {
+      // Correct SQL query
+      const sql = `
+        SELECT DISTINCT p.*
+FROM project p
+JOIN project_skill ps ON p.project_id = ps.project_id
+JOIN skill s ON ps.skill_id = s.skill_id
+WHERE s.skill_name IN (${placeholders})
+  AND ps.project_skill_is_disabled = 0
+  AND p.project_is_disabled = 0
+  AND p.project_id IN (
+    SELECT ps2.project_id
+    FROM project_skill ps2
+    JOIN skill s2 ON ps2.skill_id = s2.skill_id
+    WHERE s2.skill_name IN (${placeholders})
+      AND ps2.project_skill_is_disabled = 0
+    GROUP BY ps2.project_id
+    HAVING COUNT(DISTINCT s2.skill_id) = ?
+  );
+      `;
+  
+      const [projects] = await connection.execute(sql, [...skillArray, ...skillArray, skillArray.length]);
+  
+      console.log("Projects found:", projects);
+      await connection.commit();   
+      return projects;
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release(); 
+    }
+  };
+  
 }
 
 export default new ProjectDal();

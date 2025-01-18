@@ -10,10 +10,10 @@ router.get('/oneproject', projectController.oneproject)
  //bring a skill show offers
 router.put('/editproject', projectController.editproject)
 router.put('/deleteproject/:project_id', projectController.deleteproject)
-/*
-router.get('/findprojectbyskill', projectController.findProjectBySkill)
 
- */
+router.get('/findprojectbyskills', projectController.findProjectBySkills)
+
+
 
 
 
