@@ -6,11 +6,11 @@ class ProjectController {
 
     addproject = async (req, res) =>{
       try {
-        const {title, city, country, description, max_member, type, status, skill_id} = req.body;
+        const {title, city, country, description, max_member, type, status, skill_name} = req.body;
         const {creator_user_id} = req.params;
         const values = [title, city, country, description, type, status, max_member, creator_user_id];
 
-        const result = await projectDal.registerProject(values, skill_id);
+        const result = await projectDal.registerProject(values, skill_name);
  
         res.status(200).json(result)
       } catch (error) {

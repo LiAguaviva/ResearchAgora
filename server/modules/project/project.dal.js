@@ -6,7 +6,9 @@ class ProjectDal {
     try {
       await connection.beginTransaction();
       let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_status, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-
+      /* console.log("values++++++++++",values);
+      console.log("skill_name-------",skill_name); */
+      
       
       values[4] = Number(values[4]); //delete once front is running
       values[5] = Number(values[5]); 
@@ -15,18 +17,62 @@ class ProjectDal {
       const [projectResult] = await connection.execute(sql, values);
       const projectId = projectResult.insertId;
 
-      const result = await executeQuery(sql, values);
-
-      let sql2 = 'SELECT skill_id FROM skill WHERE skill_name = ?';
-      const skillResult = await executeQuery(sql2, [skill_name]);
-
-      let sql3 = 'INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)'
-      await executeQuery(sql3, [projectId, skill_id]);
+      let finalId = 1;
+      console.log("skill_name-----------before",skill_name);
       
+      if (Array.isArray(skill_name)) {
+        skill_name = skill_name
+          .map((skill) => skill.replace(/[\[\]]/g, "").trim()) // Remove brackets and trim
+          .filter((skill) => skill); // Remove empty strings
+      } else if (typeof skill_name === "string") {
+        skill_name = skill_name
+          .replace(/[\[\]]/g, "") // Remove brackets
+          .split(",") // Split into array
+          .map((skill) => skill.trim()) // Trim whitespace
+          .filter((skill) => skill); // Remove empty strings
+      } else {
+        skill_name = []; // Default to an empty array if no valid skills
+      }
+        
+        console.log("skill_name-----------after",skill_name);
+
+      const skillIds = [];
+       for(const elem of skill_name){
+        let sqlId = 'SELECT max(skill_id) AS id FROM skill'
+        let [maxId] = await connection.execute(sqlId)
+       
+       /*  console.log("max iddddddddddddd",maxId);
+        console.log("max id.iddddddddddd",maxId[0].id); */
+        if(maxId[0].id != null) {
+          finalId = maxId[0].id+1  
+          /* console.log(" finalId //////////////////",finalId);
+          console.log(" elemmmmmmmmmmmmmmmmm",elem); */
+          const sqlSkill = 'INSERT INTO skill (skill_id,skill_name) VALUES (?,?)'
+          await connection.execute(sqlSkill, [finalId,elem ])
+          let sqlId2 = 'SELECT skill_id AS id2 FROM skill WHERE skill_name = ?'
+          let [skill_idResult] = await connection.execute(sqlId2,[elem])
+
+          const skill_id = skill_idResult.insertId;
+          console.log("skill_idResult*************",skill_idResult[0].id2);
+          console.log("project_id*************",projectId);
+          console.log("skill_id*************",skill_id);
+          
+          const sqlProjectSkill = 'INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)'
+          await connection.execute(sqlProjectSkill, [projectId,skill_idResult[0].id2 ]);
+        }   
+        // await executeQuery(sqlSkill,[skill_name,finalId])
+       }
+
+/*
+      let sql3 = 'INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)'
+      await executeQuery(sql3, [projectId, skill_id]); */
+      await connection.commit()
       return result;
   
     } catch (error) {
       throw error;
+    }finally{
+      connection.release()
     }
   };
 
@@ -127,8 +173,17 @@ class ProjectDal {
        let sqlUser = 'UPDATE user_project SET status = 3 WHERE project_id = ?'
        await connection.execute(sqlUser, [project_id]);
 
-      //  let sqlOfferSkill = 'UPDATE offer_skill SET offer_skill_is_disabled = 1 WHERE project_id = ?'
-      // await connection.execute(sqlOfferSkill, [project_id]);  //there's not project id in offer_skill table
+       let sqlOffers = "SELECT offer_id FROM offer WHERE project_id = ?";
+      const [offers] = await connection.execute(sqlOffers, [project_id]);
+      console.log("offers",offers);
+      
+
+      if (offers.length > 0) {
+        let offerIds = offers.map((offer) => offer.offer_id);
+        let sqlUpdateOfferSkills =
+          `UPDATE offer_skill SET offer_skill_is_disabled = 1 WHERE offer_id IN (${offerIds.join(",")})`;
+        await connection.execute(sqlUpdateOfferSkills);
+      }
 
       await connection.commit();   
     }catch (error){
@@ -139,37 +194,9 @@ class ProjectDal {
       connection.release();
     }
    }
-
-
-
-
-
-
-
 }
 
 export default new ProjectDal();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // registerProject = async (values, skill_name) => {
