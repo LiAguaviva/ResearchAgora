@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { fetchData } from '../../helpers/axiosHelper'
 import { AgoraContext } from '../../context/ContextProvider'
 import SkillsInput from '../SkillsInputs/SkillsInput'
+import axios from 'axios'
 
 const initialValue = {
   user_name:"",
@@ -21,34 +22,58 @@ export const EditProfileForm = () => {
   const [editUser, setEditUser] = useState(initialValue);  
   const {user, setUser, token} = useContext(AgoraContext);
   const [msg, setMsg] = useState('');
-
   const [file, setFile] = useState('')
   const [fields, setFields] = useState([])
   const [skills, setSkills] = useState([])
   const [inputValueSkills, setInputValueSkills] = useState("");
   const [inputValueFields, setInputValueFields] = useState("");
 
-  useEffect(()=>{
-    if(user){
-      setEditUser(user)
+  useEffect(() => {
+    const fetchSkillsAndFields = async () => {
+      try {
+        const res = await axios.post(
+          "http://localhost:4000/api/user/getskills&fields",
+          { id: user.user_id }
+        );
+        setSkills(res?.data[0]?.skills?.split(",") ? res?.data[0]?.skills.split(",") : []);
+        setFields(res?.data[0]?.fields?.split(",") ? res?.data[0]?.fields.split(",") : []);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (user?.user_id) {
+      fetchSkillsAndFields();
+      setEditUser(user);
     }
-  }, [user])
+  }, [user]);
 
   // skills
   const handleKeyDownSkill = (e) => {
-    if (e.key === "Enter" && inputValueSkills.trim() !== "" && inputValueSkills.trim().length > 1) {
+    if (e.key === "Enter") {
       e.preventDefault();
-      setSkills([...skills, inputValueSkills.trim()]);
-      setInputValueSkills("");
+      if (
+        inputValueSkills.trim() !== "" &&
+        inputValueSkills.trim().length > 1 &&
+        /^[a-zA-Z0-9]+$/.test(inputValueSkills.trim())
+      ) {
+        setSkills([...skills, inputValueSkills.trim()]);
+        setInputValueSkills("");
+      }
     }
   };
 
   // field
   const handleKeyDownField = (e) => {
-    if (e.key === "Enter" && inputValueFields.trim() !== "" && inputValueFields.trim().length > 1) {
+    if (e.key === "Enter") {
       e.preventDefault();
-      setFields([...fields, inputValueFields.trim()]);
-      setInputValueFields("");
+      if (
+        inputValueFields.trim() !== "" &&
+        inputValueFields.trim().length > 1 &&
+        /^[a-zA-Z0-9]+$/.test(inputValueFields.trim())
+      ) {
+        setFields([...fields, inputValueFields.trim()]);
+        setInputValueFields("");
+      }
     }
   };
 
@@ -57,6 +82,12 @@ export const EditProfileForm = () => {
     const newSkills = [...skills];
     newSkills.splice(index, 1);
     setSkills(newSkills);
+  };
+
+  const removeField = (index) => {
+    const newFields = [...fields];
+    newFields.splice(index, 1);
+    setFields(newFields);
   };
 
   const handleChange = (e)=> {
@@ -70,31 +101,26 @@ export const EditProfileForm = () => {
 
   const handleFile = (e) => setFile(e.target.files[0]);
 
-  const onSubmit = async (e)=> {
-
+  const onSubmit = async (e) => {
     try {
       e.preventDefault();
       const skillsString = skills.join(",");
       const fieldstring = fields.join(",");
-      
-      let data = {...editUser, skills:skillsString, fields:fieldstring}
-
+      let data = { ...editUser, skills: skillsString, fields: fieldstring,user_avatar: user.user_avatar };
       const newFormData = new FormData();
-      newFormData.append('edit', JSON.stringify(data)); 
-      newFormData.append('file', file);
-
-
+      newFormData.append("edit", JSON.stringify(data));
+      newFormData.append("file", file);
       // setEditUser({...editUser, [skills]:skillsString, [fields]:fieldstring})
       //mandar data(variable temporal) al back con axios
-      console.log('token', token);
-      console.log('data', data);
-      const result = await fetchData('/editUser', 'put', newFormData, {Authorization:`Bearer ${token}`})
-      setUser(data);
-      navigate('/profile')
+      const result = await fetchData("/editUser", "put", newFormData, {
+        Authorization: `Bearer ${token}`,
+      });
+      setUser({...editUser, skills: skillsString, fields: fieldstring,user_avatar: result.img ? result?.img : user.user_avatar});
+      navigate("/profile");
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   
   return (
     <div className='myFormContainer'>
@@ -193,7 +219,7 @@ export const EditProfileForm = () => {
             <div key={index} className="tag">
               {field}
               <span 
-                onClick={() => removeSkill(index)} 
+                onClick={() => removeField(index)} 
                 className="deleteBtn"
               >
                 ×

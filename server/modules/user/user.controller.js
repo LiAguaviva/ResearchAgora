@@ -121,25 +121,26 @@ class UserController {
       // console.log("reqqqqqq", JSON.parse(req.body.edit));
       // console.log("fileeeee", req.file);
       const data  = JSON.parse(req.body.edit)
-      console.log('data en back', data);
-      
+      let img = null;
+      if(req.file){
+          img= req.file.filename
+      }
       try {
         const {user_name, user_lastname, user_country, user_city, user_description, skills, fields, user_id} = data; //req.body.data
         const result = await  userDal.editUser([user_name, user_lastname, user_country, user_city, user_description, user_id], req.file);
-        if(skills != ""){
+        if(skills != "" || !skills){
           const results = await this.saveTags(skills, user_id, 'skill');
         }
-        if(fields != ""){
+        if(fields != "" || !fields){
           const res = await this.saveTags(fields, user_id, 'field');
         }
-        res.status(200).json('ok')
+        res.status(200).json({img})
       } catch (error) {
         console.log("'''''''''''''''''", error);
         res.status(500).json(error)
       }
- 
-      //¿qué tenemos que hacer? guardar los campos en la DB. 
-      //Guardar los datos normales (tabla user) y por otro las skills (tabla skills). 
+      //¿qué tenemos que hacer? guardar los campos en la DB.
+      //Guardar los datos normales (tabla user) y por otro las skills (tabla skills).
       //guardar en la tabla intermedia que usuario es con las skills
     }
 
@@ -171,6 +172,18 @@ class UserController {
           res.status(500).json(error)
         }
       }
+
+      getskillsfields = async (req,res) => {
+        const {id} = req.body;
+        try {
+          const result = await userDal.getskillsfields(id);
+          console.log(result);
+          res.status(200).json(result)
+        } catch (error) {
+          res.status(500).json(error);
+        }
+      }
+      
 
 }
 

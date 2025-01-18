@@ -11,5 +11,7 @@ router.get('/verifyAccount/:token', tokenVerifyEmail, userController.verifyAccou
 router.get('/findUserById', tokenVerify, userController.findUserById)
 router.put('/editUser', tokenVerify , uploadImage('useravatar'), userController.editUser)
 router.put('/deleteUser/:user_id', userController.deleteUser )
+router.post('/getskills&fields', userController.getskillsfields)
+
 
 export default router

@@ -1,7 +1,8 @@
 import React from 'react'
+import './FooterApp.css'
 
 export const FooterApp = () => {
   return (
-    <div>FooterApp</div>
+    <footer>FooterApp</footer>
   )
 }

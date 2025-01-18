@@ -34,7 +34,6 @@ export const ContextProvider = ({children}) => {
 
   console.log('user en context', user);
   
-
  return (
   <AgoraContext.Provider value={{
    user, 

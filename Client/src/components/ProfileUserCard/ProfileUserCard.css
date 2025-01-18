@@ -1,3 +1,4 @@
+
 .profileUserCard {
   display: flex;
   flex-direction: column;
@@ -13,7 +14,7 @@
 
     .profileAvatar {
       --AvatarSize: 20rem;
-  
+      
       background-color: var(--purple);
       width: var(--AvatarSize);
       height: var(--AvatarSize);
@@ -21,19 +22,17 @@
       object-fit: cover;
       object-position: center;
     }
-  
+
     .userCardHeadData {
       display: flex;
       flex-direction: column;
       gap: var(--size1);
     }
   }
-
   .separator {
     width: 100%;
     border-bottom: 6px solid var(--purple);
   }
-  
 
   .profileDescription {
     /* line-height: var(--size2); */

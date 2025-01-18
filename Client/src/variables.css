@@ -10,9 +10,9 @@
   --mandarina: rgb(255, 162, 0);
 
   /* VIEW */
-  --headerSize: 10vh;
-  --mainSize: 80vh;
-  --footerSize:10vh;
+  --headerSize: 3.5rem;
+  --mainSize: calc(100vh - 3.5rem - 11rem);
+  --footerSize:11rem;
 
     /* SIZES */
     --size02: 0.2rem;
@@ -24,9 +24,9 @@
     --size5: 5rem;
 
     /* TEXT SIZES */
-    --textL1: 5.2rem;
-    --textL2: 3.5rem;
-    --textM1: 3rem;
+    --textL1: 3rem;
+    --textL2: 2.5rem;
+    --textM1: 2rem;
     --textM2: 1.5rem;
     --textBody: 1rem;
 }

@@ -1,0 +1,79 @@
+
+header {
+  --imgNavBarSize: 3rem;
+
+  background-color: var(--purple);
+  color: var(--white);
+  align-content: center;
+  padding-block: var(--size05);
+
+  .myNavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 1200px;
+    margin-inline: auto;
+
+    @media (max-width: 1250px) {
+      width: 90%;
+    }
+
+    .logoNavbar {
+      height: var(--imgNavBarSize);
+
+      &:hover {
+        filter: invert(0.5);
+      }
+    }
+
+    .navLinks {
+      display: flex;
+      gap: var(--size1);
+      align-items: center;
+
+      a {
+        font-size: var(--textSize4);
+        text-decoration: none;
+        
+        &:hover {
+          color: var(--magenta);
+        }
+      }
+
+      .active {
+        color: var(--aqua);
+      }
+      
+      .inactive {
+        color: var(--white);
+      }
+      
+      .click {
+        color: var(--mandarina);
+      }
+    }
+
+    .avatarNav {
+      --avatarSize: var(--size3);
+      
+      background-color: var(--color5);
+      width: var(--imgNavBarSize);
+
+      object-fit: cover;
+      border-radius: 100%;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: var(--avatarSize);
+      }
+
+      &:hover {
+        filter: brightness(1.2);
+        background-color: var(--color2);
+      }
+    }
+  }
+}

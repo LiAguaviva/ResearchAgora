@@ -1,11 +1,14 @@
 import React, { useContext } from 'react'
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../context/ContextProvider'
+const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import './ProfileUserCard.css'
+import { useNavigate } from 'react-router-dom';
 
 export const ProfileUserCard = () => {
 
   const {user} = useContext(AgoraContext)
+  const navigate = useNavigate();
 
   return (
     <div className='profileUserCard'>
@@ -13,19 +16,25 @@ export const ProfileUserCard = () => {
       <div className='profileUserHeader'>
         <div className='profileAvatar'>
           <img 
-            className='profileAvatar'
-            src={user?.avatar? `${url}/images/users/${user.avatar}` :avatarDefault} 
+          className='profileAvatar'
+            src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
             alt="your avatar" 
           />
         </div>
 
         <div className='userCardHeadData'>
         <h3 className='profileUserName'
-        > {user?.user_name} {user?.user_lastname} name lastname</h3>
+        > {user?.user_name} {user?.user_lastname}</h3>
         <p>Fields: 
-        *fields.map?
+        {/* {fields?.map((elem, key)=>{
+          return(
+            {elem}
+          )
+        })} */}
         </p>
         <p>profiency{user?.user_proficiency}</p>
+        <button onClick={() => navigate('/editProfile')}>EDIT</button>
+
         </div>
       </div>  
 
