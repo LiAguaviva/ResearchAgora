@@ -1,6 +1,6 @@
 
 .infoLayoutSect {
-  padding-top: var(--size3);
+  padding-top: var();
   .infoLayout {
     text-align: center;
     display: flex;
@@ -14,7 +14,6 @@
       align-items: center;
     }
 
-    
     img {
       width: 40%;
   
@@ -70,11 +69,10 @@
       .click {
         color: var(--mandarina);
       }
-      
     }
 
     .textInfo {
-      width: 60rem;
+      max-width: 60rem;
       display: flex;
       flex-direction: column;
       text-align: left;

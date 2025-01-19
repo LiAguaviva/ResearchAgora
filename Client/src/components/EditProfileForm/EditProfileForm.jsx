@@ -124,6 +124,7 @@ export const EditProfileForm = () => {
       setUser({...editUser, skills: skillsString, fields: fieldstring,user_avatar: result.img ? result?.img : user.user_avatar});
       navigate("/profile");
     } catch (error) {
+      // send message about too much text (max chars)
       console.log(error);
     }
   };

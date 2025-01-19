@@ -1,6 +1,10 @@
 import React from 'react'
 import './FooterApp.css'
 import { NavLink, useNavigate } from 'react-router-dom'
+import fb from '../../assets/icons/facebook.svg'
+import ig from '../../assets/icons/instagram.svg'
+import linkedin from '../../assets/icons/linkedin.svg'
+import x from '../../assets/icons/x.svg'
 
 export const FooterApp = () => {
 
@@ -8,32 +12,42 @@ export const FooterApp = () => {
 
   return (
     <footer>
-      <div className='logoFooter' />
-      <nav 
-            className='footerNav' 
-            id='menuAbout'
-           >
+      <div className='footerContent'>
+        <div className='logoFooter' />
+        <nav 
+              className='footerNav' 
+              id='menuAbout'
+             >
 
-            <NavLink
-                to={'about'}
-                className={({ isActive })=>(isActive? 'active':'inactive')}
-              >About</NavLink>
+              <NavLink
+                  to={'/infolayout/about'}
+                  className={({ isActive })=>(isActive? 'active':'inactive')}
+                >About</NavLink>
 
-            <NavLink
-                to={'metrics'}
-                className={({ isActive })=>(isActive? 'active':'inactive')}
-              >Metrics</NavLink>
+              <NavLink
+                  to={'/infolayout/Metrics'}
+                  className={({ isActive })=>(isActive? 'active':'inactive')}
+                >Metrics</NavLink>
 
-            <NavLink
-                to={'partnership'}
-                className={({ isActive })=>(isActive? 'active':'inactive')}
-              >Partnership</NavLink>
+              <NavLink
+                  to={'/infolayout/Partnership'}
+                  className={({ isActive })=>(isActive? 'active':'inactive')}
+                >Partnership</NavLink>
 
-            <NavLink
-                to={'contact'}
-                className={({ isActive })=>(isActive? 'active':'inactive')}
-              >Contact</NavLink>
-              </nav>
+              <NavLink
+                  to={'/infolayout/contact'}
+                  className={({ isActive })=>(isActive? 'active':'inactive')}
+                >Contact</NavLink>
+                </nav>
+
+                <div className='socialMediaIcons'>
+                    <div className='icon'><img className='icon' src={fb} alt="" /></div>
+                    <img className='icon' src={ig} alt="" />
+                    <img className='icon' src={linkedin} alt="" />
+                    <img className='icon' src={x} alt="" />
+                  </div>
+              <p>Copyright ResearchAgora Inc. 2024</p>
+              </div>
     </footer>
   )
 }
