@@ -16,7 +16,6 @@ class ProjectController {
       } catch (error) {
         console.log("eerrrrrrr", error);
         res.status(500).json(error)    
-        console.log("eeee", error);
         
      }
     
