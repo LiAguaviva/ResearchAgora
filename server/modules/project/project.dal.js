@@ -79,7 +79,8 @@ class ProjectDal {
 
   allProjects = async (values) => {
     try {
-      let sql = "SELECT * FROM project";
+      let sql = 'SELECT p.project_id,p.project_title, p.project_description, s.skill_name, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id JOIN project_skill AS ps ON p.project_id = ps.project_id JOIN skill AS s ON ps.skill_id = s.skill_id WHERE ps.project_skill_is_disabled = 0;'
+
       const result = await executeQuery(sql, values);
       return result;
     } catch (error) {
@@ -90,7 +91,7 @@ class ProjectDal {
   oneProject = async (project_id) => {
     //bring a skill show offers
     try {
-      let sql = "SELECT * FROM project WHERE project_id = ?";
+      let sql = "SELECT p.project_id, p.project_title, p.project_description, p.project_link, p.project_type, p.project_status, u.user_id, CONCAT(u.user_name, ' ', u.user_lastname) AS user_name, f.field_name, CONCAT(c.user_name, ' ', c.user_lastname) AS creator_name, sk.skill_id, sk.skill_name, r.review_content, r.review_created_on, CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name, off.offer_id, off.offer_title, off.offer_description FROM project p LEFT JOIN user_project up ON p.project_id = up.project_id LEFT JOIN user u ON up.user_id = u.user_id LEFT JOIN user_field uf ON u.user_id = uf.user_id LEFT JOIN field f ON uf.field_id = f.field_id LEFT JOIN user c ON p.creator_user_id = c.user_id LEFT JOIN user_skill us ON u.user_id = us.user_id LEFT JOIN skill sk ON us.skill_id = sk.skill_id LEFT JOIN review r ON u.user_id = r.reviewed_user_id LEFT JOIN user rev ON r.user_id = rev.user_id LEFT JOIN offer off ON p.project_id = off.project_id WHERE p.project_id = ? AND up.status = 2;";
       const result = await executeQuery(sql, [project_id]);
       return result;
     } catch (error) {
@@ -220,21 +221,21 @@ class ProjectDal {
       // Correct SQL query
       const sql = `
         SELECT DISTINCT p.*
-FROM project p
-JOIN project_skill ps ON p.project_id = ps.project_id
-JOIN skill s ON ps.skill_id = s.skill_id
-WHERE s.skill_name IN (${placeholders})
-  AND ps.project_skill_is_disabled = 0
-  AND p.project_is_disabled = 0
-  AND p.project_id IN (
-    SELECT ps2.project_id
-    FROM project_skill ps2
-    JOIN skill s2 ON ps2.skill_id = s2.skill_id
-    WHERE s2.skill_name IN (${placeholders})
-      AND ps2.project_skill_is_disabled = 0
-    GROUP BY ps2.project_id
-    HAVING COUNT(DISTINCT s2.skill_id) = ?
-  );
+          FROM project p
+          JOIN project_skill ps ON p.project_id = ps.project_id
+          JOIN skill s ON ps.skill_id = s.skill_id
+          WHERE s.skill_name IN (${placeholders})
+            AND ps.project_skill_is_disabled = 0
+            AND p.project_is_disabled = 0
+            AND p.project_id IN (
+              SELECT ps2.project_id
+              FROM project_skill ps2
+              JOIN skill s2 ON ps2.skill_id = s2.skill_id
+              WHERE s2.skill_name IN (${placeholders})
+                AND ps2.project_skill_is_disabled = 0
+              GROUP BY ps2.project_id
+              HAVING COUNT(DISTINCT s2.skill_id) = ?
+            );
       `;
   
       const [projects] = await connection.execute(sql, [...skillArray, ...skillArray, skillArray.length]);

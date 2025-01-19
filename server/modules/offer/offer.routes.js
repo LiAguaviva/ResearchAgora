@@ -3,10 +3,11 @@ import offerController from './offer.controller.js';
 
 const router = express.Router();
 router.post('/createoffer/:project_id', offerController.createOffer)
-/* router.get('/alloffers', offerController.alloffers)
-router.get('/oneoffer', offerController.oneoffer)
-router.put('/editoffer', offerController.editoffer)
-router.get('/findoffer', offerController.findoffer)
-router.delete('/deleteoffer', offerController.deleteoffer) */
+router.get('/alloffers', offerController.allOffers)
+router.put('/deleteoffer/:offer_id', offerController.deleteOffer)
+router.get('/findofferbyskill', offerController.findOfferBySkill)
 
+
+
+// router.put('/editoffer', offerContro ller.editoffer)  ///for future use
 export default router

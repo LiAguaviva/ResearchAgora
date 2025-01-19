@@ -17,7 +17,40 @@ res.status(200).json(result);
 
 }
 
-
+allOffers = async (req,res)=>{
+  try {
+           const result = await offerDal.allOffers();
+           res.status(200).json(result)
+  
+         } catch (error) {
+          console.log(error);
+          res.status(500).json(error) 
+         }
 }
 
+deleteOffer =  async (req,res)=>{
+  const {offer_id} = req.params
+  try {
+           const result = await offerDal.deleteOffer(offer_id);
+           res.status(200).json(result)
+  
+         } catch (error) {
+          console.log(error);
+          res.status(500).json(error) 
+         }
+}
+
+findOfferBySkill = async(req,res)=>{
+  const skills = req.body;
+          
+          try {
+            await offerDal.findOfferBySkill(skills)
+                 res.status(200).json("offers found")
+          } catch (error) {
+            console.log(error);
+            
+            res.status(500).json(error)
+          }
+}
+}
 export default new OfferController();

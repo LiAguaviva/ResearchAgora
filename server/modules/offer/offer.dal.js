@@ -1,4 +1,4 @@
-import { dbPool } from "../../config/db.js";
+import { dbPool,executeQuery } from "../../config/db.js";
 
 
 class OfferDal {
@@ -70,6 +70,95 @@ console.log("Skill names processed:", skill_name);
     connection.release()
   }
   };
+
+  allOffers = async () => {
+    console.log('in offer dal');
+    
+    try {
+          let sql = 'SELECT o.offer_id, o.offer_title, o.offer_description, o.project_id, p.project_title, sk.skill_id, sk.skill_name FROM offer o JOIN project p ON o.project_id = p.project_id LEFT JOIN offer_skill os ON o.offer_id = os.offer_id LEFT JOIN skill sk ON os.skill_id = sk.skill_id WHERE o.is_deleted = 0;'
+         
+          const result = await executeQuery(sql);
+          return result; 
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  deleteOffer = async (offer_id) => {
+    const connection = await dbPool.getConnection();
+    try{
+      await connection.beginTransaction();
+      let sqlOffer = 'UPDATE offer SET is_deleted = 1 WHERE offer_id = ?'
+      await connection.execute(sqlOffer, [offer_id]);
+      
+       let sqlOfferSkill = 'UPDATE offer_skill SET offer_skill_is_disabled = 1 WHERE offer_id = ?'  
+       await connection.execute(sqlOfferSkill, [offer_id]);
+      
+      await connection.commit();   
+    }catch (error){
+      console.log("EERROR", error);
+      await connection.rollback();
+      throw error;
+    }finally{
+      connection.release();
+    }
+  }
+
+  findOfferBySkill = async ({ skills }) => {
+    console.log("skills in dal", skills);
+  
+    // Convert `skills` string to an array
+    const skillArray = skills
+      .replace(/[\[\]]/g, "") // Remove square brackets
+      .split(",") // Split by comma
+      .map((skill) => skill.trim());
+  
+    console.log("skills in dal after", skillArray);
+  
+    if (skillArray.length === 0) {
+      throw new Error("No skills provided.");
+    }
+  
+    const placeholders = skillArray.map(() => "?").join(","); // Create placeholders for the SQL query
+    console.log("placeholders",placeholders);
+    
+   
+    const connection = await dbPool.getConnection();
+    try {
+      // Correct SQL query
+      const sql = `
+        SELECT DISTINCT o.*
+          FROM offer o
+          JOIN offer_skill os ON o.offer_id = os.offer_id
+          JOIN skill s ON os.skill_id = s.skill_id
+          WHERE s.skill_name IN (${placeholders})
+            AND os.offer_skill_is_disabled = 0
+            AND o.is_deleted = 0
+            AND o.offer_id IN (
+              SELECT os2.offer_id
+              FROM offer_skill os2
+              JOIN skill s2 ON os2.skill_id = s2.skill_id
+              WHERE s2.skill_name IN (${placeholders})
+                AND os2.offer_skill_is_disabled = 0
+              GROUP BY os2.offer_id
+              HAVING COUNT(DISTINCT s2.skill_id) = ?
+            );
+      `;
+  
+      const [offers] = await connection.execute(sql, [...skillArray, ...skillArray, skillArray.length]);
+  
+      console.log("offers found:", offers);
+      await connection.commit();   
+      return offers;
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release(); 
+    }
+  };
+  
+
 
 }
 
