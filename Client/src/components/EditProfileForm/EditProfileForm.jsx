@@ -28,22 +28,28 @@ export const EditProfileForm = () => {
   const [inputValueSkills, setInputValueSkills] = useState("");
   const [inputValueFields, setInputValueFields] = useState("");
 
+ 
+
   useEffect(() => {
     const fetchSkillsAndFields = async () => {
       try {
         const res = await axios.post(
           "http://localhost:4000/api/user/getskills&fields",
-          { id: user.user_id }
+          { id: user?.user_id }
         );
-        setSkills(res?.data[0]?.skills?.split(",") ? res?.data[0]?.skills.split(",") : []);
-        setFields(res?.data[0]?.fields?.split(",") ? res?.data[0]?.fields.split(",") : []);
+        setSkills(res?.data[0]?.skills?.split(",") || []);
+        setFields(res?.data[0]?.fields?.split(",") || []);
       } catch (error) {
         console.log(error);
       }
     };
-    if (user?.user_id) {
+    if (user || !user) {
+      if (Array.isArray(user) && user.length > 0) {
+        setEditUser(user[0]);
+      } else {
+        setEditUser(user);
+      }
       fetchSkillsAndFields();
-      setEditUser(user);
     }
   }, [user]);
 
@@ -106,7 +112,7 @@ export const EditProfileForm = () => {
       e.preventDefault();
       const skillsString = skills.join(",");
       const fieldstring = fields.join(",");
-      let data = { ...editUser, skills: skillsString, fields: fieldstring,user_avatar: user.user_avatar };
+      let data = { ...editUser, skills: skillsString, fields: fieldstring,user_id : editUser?.user_id};
       const newFormData = new FormData();
       newFormData.append("edit", JSON.stringify(data));
       newFormData.append("file", file);
@@ -121,6 +127,11 @@ export const EditProfileForm = () => {
       console.log(error);
     }
   };
+
+  console.log('edituser', editUser);
+  console.log('user', user);
+  
+  
   
   return (
     <div className='myFormContainer'>
@@ -133,7 +144,7 @@ export const EditProfileForm = () => {
           id='name'
           type="name" 
           placeholder='Name'
-          value={editUser?.user_name}
+          value={editUser?.user_name?editUser?.user_name : ''}
           onChange={handleChange}
           name='user_name'
         />
@@ -145,7 +156,7 @@ export const EditProfileForm = () => {
           id='lastname'
           type="lastname" 
           placeholder='Lastname'
-          value={editUser?.user_lastname}
+          value={editUser?.user_lastname? editUser?.user_lastname : ''}
           onChange={handleChange}
           name='user_lastname'
         />
@@ -196,7 +207,7 @@ export const EditProfileForm = () => {
               <span 
                 onClick={() => removeSkill(index)} 
                 className="deleteBtn"
-                value={editUser?.skills ? editUser.skills : ''}
+                // value={editUser?.skills ? editUser.skills : ''}
               >
                 ×
               </span>
@@ -213,6 +224,7 @@ export const EditProfileForm = () => {
           />
       </fieldset>
         <fieldset className="textareaLit">
+          
         <label htmlFor="fields">Fields</label>
         <div className="tagsContainer">
           {fields.map((field, index) => (
@@ -247,7 +259,6 @@ export const EditProfileForm = () => {
 
 
       <div className='separator' />
-      {/* <p>Already registered? <Link to={'/login'}  className="formLink">LOG IN</Link></p> */}
 
       <div className="errorMsg">
       { <p>{msg}</p>}

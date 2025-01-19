@@ -1,6 +1,8 @@
 .myFormContainer {
   max-width: 25rem;
   display: flex;
+  margin-inline: auto;
+  padding-top: var(--size5);
 
   .myForm {
     width: 100%;

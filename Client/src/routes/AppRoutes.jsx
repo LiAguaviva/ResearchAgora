@@ -34,7 +34,8 @@ export const AppRoutes = () => {
 
             {/* info */}
             <Route path='/infolayout' element={< InfoLayout />} >
-                 <Route index element={<AboutUs/>} />
+                 {/* <Route index element={<AboutUs/>} /> */}
+                 <Route path='about' element={<AboutUs/>} />
                  <Route path='metrics' element={<Metrics/>} />
                  <Route path='partnership' element={<Partnership/>} />
                  <Route path='contact' element={<Contact/>} />

@@ -14,23 +14,26 @@ export const ContextProvider = ({children}) => {
 
 
   useEffect(() => {
-
     const fetchUser = async (token) => {
       try {
-        const res = await axios.get('http://localhost:4000/api/user/findUserById', {headers:{Authorization:`Bearer ${token}`}})
-        
-        setUser(res.data[0])
+        const res = await axios.get('http://localhost:4000/api/user/findUserById', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (res.data.length > 0) {
+          setUser(res.data[0]);
+        }
       } catch (error) {
-        console.log('fetchUser Context', error);        
+        console.log('fetchUser Context', error);
       }
-    }
-
+    };
     const tokenLocal = localStorage.getItem('agoraToken');
-    if (tokenLocal){
-      fetchUser(tokenLocal)
-      setToken(tokenLocal)
+    if (tokenLocal) {
+      setToken(tokenLocal);
     }
-  }, [])
+    if (token) {
+      fetchUser(token);
+    }
+  }, [token]);
 
   console.log('user en context', user);
   

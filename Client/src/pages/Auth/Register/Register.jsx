@@ -3,6 +3,7 @@ import { RegisterForm } from '../../../components/RegisterForm/RegisterForm'
 import SkillsInput from '../../../components/SkillsInputs/SkillsInput'
 import { VerificationModal } from '../../../components/VerificationModal/VerificationModal'
 import { useState } from 'react'
+import './Register.css'
 
 export const Register = () => {
 

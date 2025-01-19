@@ -13,7 +13,7 @@ export const Home = () => {
     <>
     <section className='homeLogoSection'>
     <div className='containerPpal homeLogo'>
-      <img src={logo} alt="" />
+      <img src={logo} alt="Research Agora Logo" />
       {/* <img src="/../src/assets/logo/Logo_full_PurpleBlue.png" alt="" /> */}
       <h1>Discuss. Share. Collaborate.</h1>
       <p>Better research toguether</p>

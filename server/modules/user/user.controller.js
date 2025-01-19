@@ -145,13 +145,13 @@ class UserController {
     }
 
     saveTags = async (data, user_id, type ) => {
-      try {
+        try {
         let name = 'skill_name'
-       let id = 'skill_id' 
-       if(type === 'field'){
-        name = 'field_name'
-        id = 'field_id'
-       } 
+        let id = 'skill_id' 
+         if(type === 'field'){
+          name = 'field_name'
+          id = 'field_id'
+         } 
        
        const dataArray = data.split(','); //si el string empieza en , o termina en , controlarlo
        let finalArrayData = dataArray.map(e => e.trim())
