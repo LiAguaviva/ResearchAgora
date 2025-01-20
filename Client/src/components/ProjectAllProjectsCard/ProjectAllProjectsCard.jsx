@@ -1,12 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AgoraContext } from '../../context/ContextProvider'
 import projectDefaultIMG from '../../assets/imgs/lab1.jpg'
 import './ProjectAllProjectsCard.css'
 
-export const ProjectAllProjectsCard = () => {
+export const ProjectAllProjectsCard = ({elem}) => {
 
   const {user, project} = useContext(AgoraContext)
-
+  const [skills, setSkills] = useState(elem.skills?.split(","));
+  
   return (
     <div className='ProjectAllProjectsCard'>
        <div className='profileProjectImg'>
@@ -17,11 +18,17 @@ export const ProjectAllProjectsCard = () => {
           />
         </div>
         <div className='text'>
-        <h4 className='projectName'>project name</h4>
-        <p className='projectName'>creator</p>
-        <p className='projectName'>field</p>
+        <h4 className='projectName'>{elem.project_title} {elem.project_status === 1 ? '🟢' : '🔴'}</h4>
+        <p className='projectName'>{elem.creator_name}</p>
+        <div className="tagsContainer">
+          {skills?.map((skill, index) => (
+            <div key={index} className="tag">
+              {skill}
+            </div>
+          ))}
+        </div>
         {/* <p className='projectName'>Estado</p> */}
-        <p className='projectName'>Descriptipn</p>
+        <p className='projectName'>{elem.project_description}</p>
         </div>
     </div>
   )
