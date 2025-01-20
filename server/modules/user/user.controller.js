@@ -1,11 +1,12 @@
 import { comparePassword, hashPassword } from "../../utils/hashUtils.js";
 import userDal from "./user.dal.js";
 import { registerSchema } from "../../schemas/registerSchema.js";
-import { emailValidationToken, generateToken, getIdFromToken } from "../../utils/tokenUtils.js";
+import { emailValidationToken, generateToken, getIdFromToken, generateTokenPassword } from "../../utils/tokenUtils.js";
 import { loginSchema } from "../../schemas/loginSchema.js";
 import { sendMailValidation, sendPasswordResetEmail  } from "../../services/emailService.js";
 import { dbPool } from "../../config/db.js";
 import {z} from "zod";
+import { resetPasswordScheme } from "../../schemas/resetPasswordScheme.js";
 
 
 class UserController {
@@ -74,7 +75,7 @@ class UserController {
       if (user.length === 0) {             
         return res.status(404).json({ message: "User not found" });         
       }        
-      const token = generateToken(user[0].user_id); 
+      const token = generateTokenPassword(user[0].user_id); 
       sendPasswordResetEmail(email, token);         
       res.status(200).json({ message: "Password reset email sent" });     
     } catch (error) { 
