@@ -22,14 +22,14 @@ export const ReviewCard = () => {
       
               <div className='userCardData'>
               <p className='UserCardName'
-              > {user?.user_name} {user?.user_lastname} name lastname</p>
+              > {user?.user_name} {user?.user_lastname}</p>
               <p>profiency{user?.user_proficiency}</p>
               </div>
               </div>
               <div className='separator'></div>
 
               <div className='recomendation'>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo iure a debitis doloremque tempore sed accusantium eos totam, voluptatum iste. Eos et perspiciatis est corrupti unde quibusdam laborum hic nemo fugiat, aut ullam repellat nobis qui molestiae blanditiis ut explicabo, iste dignissimos vitae ipsa possimus consectetur? Dolore nesciunt repellat ab quas totam, veniam, velit, ea beatae nobis repellendus est repudiandae molestias at ullam dolorem possimus cupiditate! Beatae repellendus voluptatibus vero voluptatem exercitationem quasi nostrum quam molestias, neque aut tenetur, dignissimos aliquam non blanditiis necessitatibus placeat rerum! Eligendi, animi, illum temporibus excepturi error nemo consequuntur doloremque culpa debitis ea sit libero vel at dolorum laborum nisi autem veritatis et. Fuga illo quia error blanditiis quidem fugiat omnis eaque consequuntur ut deserunt impedit dolore, delectus libero! Dolorem nulla tenetur exercitationem dolore. Aut suscipit et soluta vero adipisci velit veritatis ipsum eos, asperiores quam! Odit, iure! Est nobis ex rerum quis vel facilis!</p>
+                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate.</p>
               </div>
             </div>  
     </div>

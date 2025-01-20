@@ -21,7 +21,7 @@ export const UserCard = () => {
       
               <div className='userCardData'>
               <p className='UserCardName'
-              > {user?.user_name} {user?.user_lastname} name lastname</p>
+              > {user?.user_name} {user?.user_lastname}</p>
               <p>profiency{user?.user_proficiency}</p>
               </div>
             </div>  

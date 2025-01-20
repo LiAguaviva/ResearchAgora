@@ -70,17 +70,17 @@ export const NavbarApp = () => {
               onMouseEnter={openAboutMenu}
             >About</NavLink>
         </li>
-        <li>
-            {!user && <NavLink
-              to={'/register'}
+        <li className='loginRegisterButtons'>
+            {!user && <button
+              onClick={()=>navigate('/register')}
               className={({ isActive })=>(isActive? 'active':'inactive')}
-            >Sing Up</NavLink>}
+            >Sing Up</button>}
         </li>
-        <li>
-            {!user && <NavLink
-              to={'/login'}
+        <li className='loginRegisterButtons'>
+            {!user && <button
+              onClick={()=>navigate('/login')}
               className={({ isActive })=>(isActive? 'active':'inactive')}
-            >Log In</NavLink>}
+            >Log In</button>}
         </li>
         <li>
         { user &&
@@ -100,7 +100,12 @@ export const NavbarApp = () => {
                 <NavLink
                     to={'/profile'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
-                  >profile</NavLink>
+                  >Profile</NavLink>
+                <div className='separator' />
+                <NavLink
+                    to={'/personalData'}
+                    className={({ isActive })=>(isActive? 'active':'inactive')}
+                  >Personal Data</NavLink>
                 <div className='separator' />
                 <NavLink
                     to={'/editProfile'}

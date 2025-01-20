@@ -93,11 +93,10 @@ button {
   width: max-content;
   border-radius: var(--size2);
   padding-inline: var(--size1);
-  padding-block: var(--size02);    
+  height: 1.5rem;
   background-color: var(--purple);
   color: var(--white);
   cursor:pointer;
-
 
   display: flex;
   gap: var(--size05);
@@ -106,6 +105,4 @@ button {
   &:hover {
     background-color: var(--magenta);
   }
-
-  
 }

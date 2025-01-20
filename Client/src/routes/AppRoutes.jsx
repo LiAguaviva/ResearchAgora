@@ -22,6 +22,7 @@ import { InfoLayout } from '../pages/Info/InfoLayout'
 import { AdminLayout } from '../pages/Admin/AdminLayout'
 import { AccountVerified } from '../pages/Auth/AccountVerified/AccountVerified'
 import { AboutUs } from '../pages/Info/AboutUs'
+import { PersonalData } from '../pages/User/PersonalData/PersonalData'
 
 export const AppRoutes = () => {
   return (
@@ -49,6 +50,7 @@ export const AppRoutes = () => {
             {/* User */}
             <Route path='/profile' element={<Profile />}/>
             <Route path='/editprofile' element={<EditProfile />}/> 
+            <Route path='/PersonalData' element={<PersonalData />}/> 
 
             {/* Offer */}
             <Route path='/createoffer' element={<CreateOffer />}/>

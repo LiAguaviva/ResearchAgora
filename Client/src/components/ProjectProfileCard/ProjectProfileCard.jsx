@@ -16,7 +16,10 @@ export const ProjectProfileCard = () => {
             alt="your avatar" 
           />
         </div>
-        <p className='projectName'>project name</p>
+        <div className='text'>
+        <h4 className='projectName'>project name</h4>
+        <p className='projectName'>Estado</p>
+        </div>
     </div>
   )
 }

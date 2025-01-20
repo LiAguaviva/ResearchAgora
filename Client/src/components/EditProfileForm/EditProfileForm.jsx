@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { fetchData } from '../../helpers/axiosHelper'
 import { AgoraContext } from '../../context/ContextProvider'
 import SkillsInput from '../SkillsInputs/SkillsInput'
+import { editProfileSchema } from '../../schemas/editProfileSchema'
+import { ZodError } from 'zod';
 import axios from 'axios'
 
 const initialValue = {
@@ -22,9 +24,10 @@ export const EditProfileForm = () => {
   const [editUser, setEditUser] = useState(initialValue);  
   const {user, setUser, token} = useContext(AgoraContext);
   const [msg, setMsg] = useState('');
+  const [valErrors, setValErrors] = useState({});
   const [file, setFile] = useState('')
-  const [fields, setFields] = useState([])
-  const [skills, setSkills] = useState([])
+  const [fields, setFields] = useState([]);
+  const [skills, setSkills] = useState([]);
   const [inputValueSkills, setInputValueSkills] = useState("");
   const [inputValueFields, setInputValueFields] = useState("");
 
@@ -96,13 +99,24 @@ export const EditProfileForm = () => {
     setFields(newFields);
   };
 
+  const validateField = (name, value) => {
+    try {
+      editProfileSchema.pick({[name]: true}).parse({[name]:value});
+      setValErrors({...valErrors, [name]:''})
+    } catch (error) {
+      setValErrors({...valErrors, [name]:error.errors[0].message})
+    }
+  }
+
   const handleChange = (e)=> {
     const {name, value} = e.target;
+    
     if(name === 'accept'){
       setEditUser({...editUser, accept:e.target.checked })
     } else {
       setEditUser({...editUser, [name]:value})
     }
+    validateField(name, value)
   } 
 
   const handleFile = (e) => setFile(e.target.files[0]);
@@ -110,9 +124,12 @@ export const EditProfileForm = () => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
+      editProfileSchema.parse(editUser);
+      
       const skillsString = skills.join(",");
       const fieldstring = fields.join(",");
       let data = { ...editUser, skills: skillsString, fields: fieldstring,user_id : editUser?.user_id};
+
       const newFormData = new FormData();
       newFormData.append("edit", JSON.stringify(data));
       newFormData.append("file", file);
@@ -123,14 +140,26 @@ export const EditProfileForm = () => {
       });
       setUser({...editUser, skills: skillsString, fields: fieldstring,user_avatar: result.img ? result?.img : user.user_avatar});
       navigate("/profile");
+
     } catch (error) {
-      // send message about too much text (max chars)
-      console.log(error);
+
+      const fieldErrors = {};
+
+      if (error instanceof ZodError){
+        error.errors.forEach((err)=>{
+          fieldErrors[err.path[0]]=err.message
+        })
+        setValErrors(fieldErrors)
+      } else {
+        console.log(error);
+        setMsg(error.response.data.message)
+        console.log('error message', error.response.data.message);
+      }
     }
   };
 
-  console.log('edituser', editUser);
-  console.log('user', user);
+  // console.log('edituser', editUser);
+  // console.log('user', user);
   
   
   
@@ -262,6 +291,12 @@ export const EditProfileForm = () => {
       <div className='separator' />
 
       <div className="errorMsg">
+      {valErrors.user_name && <p>{valErrors.user_name}</p>}
+      {valErrors.user_lastname && <p>{valErrors.user_lastname}</p>}
+      {valErrors.user_country && <p>{valErrors.user_country}</p>}
+      {valErrors.user_city && <p>{valErrors.user_city}</p>}
+      {valErrors.user_description && <p>{valErrors.user_description}</p>}
+
       { <p>{msg}</p>}
       </div>
 
@@ -273,7 +308,7 @@ export const EditProfileForm = () => {
         <button 
           className="cancel"
           type='button'
-          onClick={()=>navigate('/')}
+          onClick={()=>navigate('/profile')}
         >CANCEL</button>
       </div>
     </form>

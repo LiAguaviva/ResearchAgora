@@ -65,6 +65,12 @@
       }
     }
 
+    .loginRegisterButtons {
+      button {
+        border-radius: 20px;
+      }
+    }
+
     .avatarNav {
       --avatarSize: var(--size3);
       

@@ -1,9 +1,9 @@
 
 import React, { useContext } from 'react'
 import { AgoraContext } from '../../context/ContextProvider'
-import './PersonalData.css'
+import './PersonalDataCard.css'
 
-export const PersonalData = () => {
+export const PersonalDataCard = () => {
 
     const {user} = useContext(AgoraContext)
   

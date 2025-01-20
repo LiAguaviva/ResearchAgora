@@ -1,0 +1,6 @@
+
+.ProfileProjects {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size2);
+}
