@@ -32,6 +32,20 @@ class ProjectController {
        }
     }
 
+    oneuserprojects = async (req, res) => {
+      const {user_id} = req.body;
+  
+      try {
+        const result = await projectDal.oneUserProjects(user_id);
+        res.status(200).json(result)
+
+      } catch (error) {
+        console.log("controller error", error);
+        
+       res.status(500).json(error) 
+      }
+   } 
+
     oneproject = async (req, res) => {
       try {
         const {project_id} = req.params;    
@@ -90,10 +104,19 @@ class ProjectController {
                res.status(200).json(result)
         } catch (error) {
           res.status(500).json(error)
-        }
-        
+        }                
+    }
 
-        
+
+    joinRequest = async(req, res) => {
+      const {user_id, project_id, offer_id}  = req.body;
+      const values = [user_id, project_id, offer_id];
+      try {
+         await projectDal.joinRequest(values); 
+         res.status(200).json("ok")
+      } catch (error) {   
+        res.status(500).json(error)
+      }
     }
 
    

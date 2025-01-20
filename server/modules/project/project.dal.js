@@ -160,6 +160,19 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
     }
   };
 
+  oneUserProjects = async (values) => {
+    try {
+      let sql = 'SELECT p.project_id,p.project_title, p.project_description, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id WHERE p.project_is_disabled = 0 AND u.user_id = ?;'
+
+      const result = await executeQuery(sql, values);
+      return result;
+    } catch (error) {
+      console.log("dal error", error);
+      
+      throw error;
+    }
+  };
+
   oneProject = async (project_id) => {
     //bring a skill show offers
     try {
@@ -345,10 +358,28 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
       connection.release();
     }
   };
+
+
+
+  joinRequest = async(values) =>{
+    try {
+      let sql = 'INSERT INTO request (user_id, project_id, offer_id) VALUES (?, ?, ?)' 
+      await executeQuery(sql, values);
+
+    } catch (error) {
+      console.log("dal error", error);
+      throw error;
+    }
+  }
   
 }
 
 export default new ProjectDal();
+
+
+
+
+
 
 
 // registerProject = async (values, skill_name) => {

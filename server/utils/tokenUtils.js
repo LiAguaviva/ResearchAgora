@@ -18,3 +18,15 @@ export const emailValidationToken = (user_id) =>{
     const token = jwt.sign(payLoad, process.env.VALIDATION_KEY, {expiresIn: "3d"})
     return token
 }
+
+export const generateTokenPassword = (user_id) =>{
+    let payLoad = {user_id}
+    const token = jwt.sign(payLoad, process.env.PASSWORD_KEY, {expiresIn: "1d"})
+    return token
+}
+
+export const forgottenPasswordToken = (user_id) =>{
+    let payLoad = {user_id}
+    const token = jwt.sign(payLoad, process.env.PASSWORD_KEY, {expiresIn: "3d"})
+    return token
+}
