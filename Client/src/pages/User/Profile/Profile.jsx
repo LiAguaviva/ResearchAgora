@@ -8,13 +8,23 @@ import StatsRadarChart from '../../../components/RadarGraph/RadarGraph'
 import { useContext } from 'react'
 import { AgoraContext } from '../../../context/ContextProvider'
 import axios from 'axios'
+<<<<<<< HEAD
 import './Profile.css'
 import { TagsCard } from '../../../components/TagsCard/TagsCard'
+=======
+import { useNavigate } from 'react-router-dom'
+>>>>>>> 55a0f7f6606e7dc8522fe7a5d9c08ec581f49196
 
 export const Profile = () => {
 
   const {user} = useContext(AgoraContext)
+<<<<<<< HEAD
 
+=======
+  const navigate = useNavigate()
+  const [fields, setFields] = useState([])
+  const [skills, setSkills] = useState([])
+>>>>>>> 55a0f7f6606e7dc8522fe7a5d9c08ec581f49196
 
  
   
@@ -45,6 +55,7 @@ export const Profile = () => {
           <ProjectProfileCard />
         </div>
       </div>
+      <button onClick={() => navigate('/createproject')}>Create New Project</button>
     </section>
 
     <section>
