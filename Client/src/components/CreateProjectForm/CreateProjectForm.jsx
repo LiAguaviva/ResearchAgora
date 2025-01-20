@@ -95,7 +95,7 @@ export const CreateProjectForm = () => {
     <div className='myFormContainer'>
     <form className='myForm'>
       <p className='formTitle'>Create a Project</p>
-      <div className='separator' />
+      <div className='separatorThick' />
       <fieldset>
         <label htmlFor="email">Title</label>
         <input 
@@ -149,7 +149,7 @@ export const CreateProjectForm = () => {
         <label htmlFor="skills">Skills</label>
         <div className="tagsContainer">
           {skills.map((skill, index) => (
-            <div key={index} className="tag">
+            <div key={index} className="tagDeleteable">
               {skill}
               <span 
                 onClick={() => removeSkill(index)} 
@@ -210,7 +210,7 @@ export const CreateProjectForm = () => {
      
         
 
-      <div className='separator' />
+      <div className='separatorThick' />
 
       <div className="errorMsg">
       {valErrors.title && <p>{valErrors.title}</p>}

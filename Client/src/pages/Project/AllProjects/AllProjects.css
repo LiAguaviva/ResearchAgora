@@ -1,0 +1,44 @@
+.allProjectsPage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size5);
+
+  .searchingTagContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size1);
+    align-items: center;
+
+    .tagsContainerCenter {
+      display: flex;
+      gap: var(--size05);
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+    }
+
+    input {
+      padding-block: var(--size05);
+      border-radius: 20px;
+      border: 2px solid var(--purple);
+      text-align: center;
+
+      &::placeholder {
+        color: var(--purple50);
+        text-align: center;
+      }
+    }
+  }
+
+  .allProjectsGallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size4);
+
+    .separatorAllProjects {
+      width: 100%;
+      border-bottom: 4px solid var(--aqua);
+      margin-inline: auto;
+    }
+  }
+}

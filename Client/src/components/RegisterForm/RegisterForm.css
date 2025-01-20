@@ -18,10 +18,6 @@
       font-weight: bold;
     }
 
-    .separator {
-      border-bottom: 4px solid var(--purple);
-    }
-
     .formSec {
       display: flex;
       gap: var(--size2);
@@ -40,10 +36,10 @@
       input {
         background-color: transparent;
         color: var(--black);
-        border: 2px solid var(--black50);
+        border: 2px solid var(--purple);
         border-radius: 7px;
         padding-inline: var(--size05);
-        padding-block: 0.2rem;
+        padding-block: var(--size05);
 
         &:hover {
           border: 2px solid var(--black);
@@ -56,8 +52,9 @@
   
       .textarea {
         background-color: transparent;
+        padding: var(--size05);
         max-width: var(--offerFormWidth);
-        border: 2px solid var(--black50);
+        border: 2px solid var(--purple);
         border-radius: 7px;
         scrollbar-width: none;
         height: 10rem;
@@ -75,27 +72,6 @@
         border-radius: 7px;
         scrollbar-width: none;
         height: var(--size4);
-      }
-    }
-
-    .tagsContainer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size02);
-
-      .tag {
-        &:hover{
-          background-color: var(--purple);
-        }
-
-        .deleteBtn {
-          font-weight: bold;
-          font-size: var(--textM2);
-      
-          &:hover {
-            color: var(--magenta);
-          }
-        }
       }
     }
 

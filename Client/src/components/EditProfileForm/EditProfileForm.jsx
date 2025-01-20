@@ -167,7 +167,7 @@ export const EditProfileForm = () => {
     <div className='myFormContainer'>
     <form className='myForm'>
       <p className='formTitle'>Edit Profile</p>
-      <div className='separator' />
+      <div className='separatorThick' />
       <fieldset>
         <label htmlFor="name">name</label>
         <input 
@@ -232,7 +232,7 @@ export const EditProfileForm = () => {
         <label htmlFor="skills">Skills</label>
         <div className="tagsContainer">
           {skills.map((skill, index) => (
-            <div key={index} className="tag">
+            <div key={index} className="tagDeleteable">
               {skill}
               <span 
                 onClick={() => removeSkill(index)} 
@@ -258,7 +258,7 @@ export const EditProfileForm = () => {
         <label htmlFor="fields">Fields</label>
         <div className="tagsContainer">
           {fields.map((field, index) => (
-            <div key={index} className="tag">
+            <div key={index} className="tagDeleteable">
               {field}
               <span 
                 onClick={() => removeField(index)} 
@@ -288,7 +288,7 @@ export const EditProfileForm = () => {
         </fieldset>
 
 
-      <div className='separator' />
+      <div className='separatorThick' />
 
       <div className="errorMsg">
       {valErrors.user_name && <p>{valErrors.user_name}</p>}

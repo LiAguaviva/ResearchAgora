@@ -31,10 +31,6 @@
       gap: var(--size1);
     }
   }
-  .separator {
-    width: 100%;
-    border-bottom: 6px solid var(--purple);
-  }
   
   .profileDescription {
     /* width: 53rem; */

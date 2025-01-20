@@ -32,12 +32,12 @@ export const ProfileUserCard = () => {
         </div>
       </div>  
 
-      <div className='separator' />
+      <div className='separatorThick' />
       <div className='profileDescription'>
         <p>{user?.user_description}</p>
       </div>
 
-      <div className='separator' />
+      <div className='separatorThick' />
 
       {/* <TagsCard /> */}
     </div>

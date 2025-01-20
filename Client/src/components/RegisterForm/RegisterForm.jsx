@@ -80,7 +80,7 @@ export const RegisterForm = ({showModal}) => {
     <div className='myFormContainer'>
     <form className='myForm'>
       <p className='formTitle'>Register</p>
-      <div className='separator' />
+      <div className='separatorThick' />
       <fieldset>
         <label htmlFor="email">Email</label>
         <input 
@@ -117,7 +117,7 @@ export const RegisterForm = ({showModal}) => {
         />
       </fieldset>
 
-      <div className='separator' />
+      <div className='separatorThick' />
       <p>Already registered? <Link to={'/login'}  className="loginRegisterLink">LOG IN</Link></p>
 
       <div className="errorMsg">

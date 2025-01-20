@@ -103,22 +103,22 @@ export const NavbarApp = () => {
               id='menuUser'
               onMouseLeave={()=>setMenuUser(false)}
              >
-              <div className='separator' />
+              <div className='separatorThick' />
                 <NavLink
                     to={'/profile'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
                   >Profile</NavLink>
-                <div className='separator' />
+                <div className='separatorThick' />
                 <NavLink
                     to={'/personalData'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
                   >Personal Data</NavLink>
-                <div className='separator' />
+                <div className='separatorThick' />
                 <NavLink
                     to={'/editProfile'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
                   >Settings</NavLink>
-                <div className='separator' />
+                <div className='separatorThick' />
                 <NavLink
                     to={'/'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
@@ -132,25 +132,25 @@ export const NavbarApp = () => {
                 id='menuAbout'
                 onMouseLeave={()=>setMenuAbout(false)}
                >
-                  <div className='separator' />
+                  <div className='separatorThick' />
                 <NavLink
                     to={'/infolayout/about'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
                     onMouseEnter={openAboutMenu}
                   >About</NavLink>
-                  <div className='separator' />
+                  <div className='separatorThick' />
                 <NavLink
                     to={'/infolayout/Metrics'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
                     onMouseEnter={openAboutMenu}
                   >Metrics</NavLink>
-                  <div className='separator' />
+                  <div className='separatorThick' />
                 <NavLink
                     to={'/infolayout/Partnership'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
                     onMouseEnter={openAboutMenu}
                   >Partnership</NavLink>
-                  <div className='separator' />
+                  <div className='separatorThick' />
                 <NavLink
                     to={'/infolayout/Contact'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}

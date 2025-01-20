@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { ProjectAllProjectsCard } from '../../../components/ProjectAllProjectsCard/ProjectAllProjectsCard'
+
+import './AllProjects.css'
+import { AllProjectsCard } from '../../../components/ProjectAllProjectsCard/AllProjectsCard';
 
 export const AllProjects = () => {
 
@@ -28,12 +30,12 @@ const removeSkill = (index) => {
 
   return (
     
-    <section className='containerPpal'>
-       <div>
-        <label htmlFor="skills">Skills</label>
-        <div className="tagsContainer">
+    <section className='containerPpal allProjectsPage'>
+       <div className='searchingTagContainer'>
+        <h2>All Projects</h2>
+        <div className="tagsContainerCenter">
           {skills.map((skill, index) => (
-            <div key={index} className="tag">
+            <div key={index} className="tagDeleteable">
               {skill}
               <span 
                 onClick={() => removeSkill(index)} 
@@ -45,26 +47,34 @@ const removeSkill = (index) => {
             </div>
           ))}
         </div>
-
+          
           <input 
             type="text"
             value={inputValueSkills}
             onChange={(e) => setInputValueSkills(e.target.value)}
             onKeyDown={handleKeyDownSkill}
-            placeholder="Añade una skill y pulsa Enter"
+            placeholder="Add skills for searching"
           />
+       <button>Search</button>
       </div>
-      <button>Search</button>
-      
-      <ProjectAllProjectsCard />
-      <ProjectAllProjectsCard />
-      <ProjectAllProjectsCard />
-      <ProjectAllProjectsCard />
-      <ProjectAllProjectsCard />
-      <ProjectAllProjectsCard />
-      <ProjectAllProjectsCard />
-      <ProjectAllProjectsCard />
-      <ProjectAllProjectsCard />
+
+      <div className='separatorThick' />
+
+      <div className='allProjectsGallery'>
+        <AllProjectsCard />
+        <div className='separatorAllProjects' />
+        <AllProjectsCard />
+        <div className='separatorAllProjects' />
+        <AllProjectsCard />
+        <div className='separatorAllProjects' />
+        <AllProjectsCard />
+        <div className='separatorAllProjects' />
+        <AllProjectsCard />
+        <div className='separatorAllProjects' />
+        <AllProjectsCard />
+        <div className='separatorAllProjects' />
+   
+      </div>
     </section>
   )
 }
