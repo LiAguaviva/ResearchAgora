@@ -1,15 +1,17 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AgoraContext } from '../../context/ContextProvider'
 import projectDefaultIMG from '../../assets/imgs/lab1.jpg'
 import './AllProjectsCard.css'
 
-export const AllProjectsCard = () => {
+export const AllProjectsCard = ({elem}) => {
 
   const {user, project} = useContext(AgoraContext)
+  const [skills, setSkills] = useState(elem.skills?.split(","));
+  const [stateClassname, setStateClassname] = useState('');
 
   return (
     <div className='AllProjectsCard'>
-          <h4 className='projectTitle'>project Title Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo.</h4>
+          <h4 className='projectTitle'>{elem.project_title}</h4>
       <div className='data'>
        <div className='profileProjectImg'>
           <img 
@@ -20,20 +22,22 @@ export const AllProjectsCard = () => {
         </div>
 
         <div className='info'>
-          <p className='Creator'>Creator Name</p>
+          <p className='Creator'>{elem.creator_name}</p>
           <div className='tagsContainer'>
-            <div className='tag'>js</div>
-            <div className='tag'>react</div>
-            <div className='tag'>css</div>
-            <div className='tag'>dataanalysis</div>
-            <div className='tag'>node</div>
+          {skills?.map((skill, index) => (
+            <div key={index} className="tag">
+              {skill}
+            </div>
+          ))}
           </div>
-          <p className='Status'>Estado</p>
+          <p className='Status {stateClassname}'>
+            {elem.project_status === 1 && <p className='status active'>active</p> }
+            {elem.project_status === 2 && <p className='status paused'>paused</p> }
+            {elem.project_status === 3 && <p className='status closed'>completed</p> }
+            </p>
 
           <div className='description'>
-            <p>
-              Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis.
-            </p>
+            <p>{elem.project_description}</p>
           </div>
         </div>
         </div>

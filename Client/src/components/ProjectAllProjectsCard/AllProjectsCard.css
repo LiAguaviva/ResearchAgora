@@ -42,20 +42,21 @@
         font-weight: bold;
       }
     
-      .Status {
+      .status {
         width: max-content;
         padding-inline: var(--size05);
         padding-block: var(--size02);
         border-radius: 20rem;
+        color: var(--white);
       }
 
-      .pause {
+      .paused {
         background-color: var(--mandarina);
       }
-      .open {
+      .active {
         background-color: var(--aqua);
       }
-      .close {
+      .closed {
         background-color: var(--magenta);
       }
     

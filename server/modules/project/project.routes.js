@@ -11,7 +11,7 @@ router.get('/oneproject/:project_id', projectController.oneproject)
 router.put('/editproject', projectController.editproject)
 router.put('/deleteproject/:project_id', projectController.deleteproject)
 
-router.get('/findprojectbyskills', projectController.findProjectBySkills)
+router.post('/findprojectbyskills', projectController.findProjectBySkills)
 
 
 
