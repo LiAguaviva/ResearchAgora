@@ -2,6 +2,8 @@ import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { fetchDataValidation } from '../../helpers/axiosHelper'
 import { AgoraContext } from '../../context/ContextProvider'
+import { createProjectSchema } from '../../schemas/createProjectSchema'
+import { ZodError } from 'zod';
 
 const initialValue = {
   title:"",
@@ -21,14 +23,26 @@ export const CreateProjectForm = () => {
   const [msg, setMsg] = useState('')
   const [skills, setSkills] = useState([])
   const [inputValueSkills, setInputValueSkills] = useState("");
+  const [fields, setFields] = useState([]);
+  const [valErrors, setValErrors] = useState({})
+
+  const validateField = (name, value) => {
+    try {
+      createProjectSchema.pick({[name]: true}).parse({[name]:value});
+      setValErrors({...valErrors, [name]:''})
+    } catch (error) {
+      setValErrors({...valErrors, [name]:error.errors[0].message})
+    }
+  }
 
   const handleChange = (e)=> {
     const {name, value} = e.target;
     if(name === 'accept'){
-      setProject({...project, accept:e.target.checked })
+      setProject({...project, accept:e.target.checked });
     } else {
-      setProject({...project, [name]:value})
+      setProject({...project, [name]:value});
     }
+    validateField(name, value);
   } 
 
   const handleKeyDownSkill = (e) => {
@@ -60,6 +74,19 @@ export const CreateProjectForm = () => {
       const result = await fetchDataValidation(`http://localhost:4000/api/project/addproject/${user.user_id}`,'post', data);
       navigate('/profile')
     } catch (error) {
+
+      if (error instanceof ZodError){
+              error.errors.forEach((err)=>{
+                fieldErrors[err.path[0]]=err.message
+              })
+              setValErrors(fieldErrors)
+              console.log('fieldError', fieldErrors);
+            } else {
+              console.log(error);
+              setMsg(error.response.data.message)
+              
+              console.log('error message', error.response.data.message);
+            }
       console.log(error);
     }
   }
@@ -186,6 +213,11 @@ export const CreateProjectForm = () => {
       <div className='separator' />
 
       <div className="errorMsg">
+      {valErrors.title && <p>{valErrors.title}</p>}
+      {valErrors.city && <p>{valErrors.city}</p>}
+      {valErrors.country && <p>{valErrors.country}</p>}
+      {valErrors.user_description && <p>{valErrors.user_description}</p>}
+      {valErrors.max_member && <p>{valErrors.max_member}</p>}
       { <p>{msg}</p>}
       </div>
 

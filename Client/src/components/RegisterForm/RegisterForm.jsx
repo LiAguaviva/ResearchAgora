@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import './RegisterForm.css'
 import { fetchData } from '../../helpers/axiosHelper'
+import { ZodError } from 'zod'
+import { registerSchema } from '../../schemas/registerSchema'
 
 const initialValue = {
   email:"",
@@ -13,8 +15,18 @@ export const RegisterForm = ({showModal}) => {
 
   const navigate = useNavigate();
   const [register, setRegister] = useState(initialValue);
+  const [valErrors, setValErrors] = useState({})
   const [msg, setMsg] = useState('')
 
+
+  const validateField = (name, value) => {
+      try {
+        registerSchema.pick({[name]: true}).parse({[name]:value});
+        setValErrors({...valErrors, [name]:''})
+      } catch (error) {
+        setValErrors({...valErrors, [name]:error.errors[0].message})
+      }
+    }
   
 
   const handleChange = (e)=> {
@@ -24,6 +36,8 @@ export const RegisterForm = ({showModal}) => {
     } else {
       setRegister({...register, [name]:value})
     }
+
+    validateField(name, value)
   } 
 
   const onSubmit = async (e)=> {
@@ -37,6 +51,20 @@ export const RegisterForm = ({showModal}) => {
       // navigate('/login')
       
     } catch (error) {
+
+      const fieldErrors = {};
+
+      if (error instanceof ZodError){
+        error.errors.forEach((err)=>{
+          fieldErrors[err.path[0]]=err.message
+        })
+        setValErrors(fieldErrors)
+      } else {
+        console.log(error);
+        setMsg(error.response.data.message)
+        console.log('error message', error.response.data.message);
+      }
+
       console.log('ERRORRRRRR', error.response.data);
       setMsg(error.response.data)
       // console.log('MSG MSG MSG MSG', error.response);
@@ -93,6 +121,9 @@ export const RegisterForm = ({showModal}) => {
       <p>Already registered? <Link to={'/login'}  className="loginRegisterLink">LOG IN</Link></p>
 
       <div className="errorMsg">
+      {valErrors.email && <p>{valErrors.email}</p>}
+      {valErrors.password && <p>{valErrors.password}</p>}
+      {valErrors.repPassword && <p>{valErrors.repPassword}</p>}
       { <p>{msg}</p>}
       </div>
 

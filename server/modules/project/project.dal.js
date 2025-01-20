@@ -129,7 +129,6 @@ registerProject = async (values, skill_name) => {
   }
 };
 
-
   allProjects = async (values) => {
     try {
       let sql = 'SELECT p.project_id,p.project_title, p.project_description, s.skill_name, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id JOIN project_skill AS ps ON p.project_id = ps.project_id JOIN skill AS s ON ps.skill_id = s.skill_id WHERE ps.project_skill_is_disabled = 0;'

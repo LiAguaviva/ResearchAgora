@@ -1,11 +1,13 @@
--- drop database research_agora;
 CREATE DATABASE research_agora;
+-- DROP DATABASE research_agora;
 USE research_agora;
 
 CREATE TABLE field (
 	field_id INT UNSIGNED PRIMARY KEY,
     field_name VARCHAR(50) NOT NULL UNIQUE
 );
+
+
 
 CREATE TABLE user (
 	user_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -28,7 +30,6 @@ CREATE TABLE user (
 CREATE TABLE user_field (
 	user_id INT UNSIGNED NOT NULL,
 	field_id INT UNSIGNED NOT NULL,
-    user_field_is_disabled BOOLEAN NOT NULL DEFAULT 0,
     CONSTRAINT fk_user_6 FOREIGN KEY (user_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_field_1 FOREIGN KEY (field_id)
@@ -71,7 +72,7 @@ CREATE TABLE project (
     project_completed_on DATE,
     project_max_member INT UNSIGNED NOT NULL,
     project_updated_on DATE DEFAULT (CURRENT_DATE),
-    project_is_disabled BOOLEAN NOT NULL DEFAULT 0,
+    project_is_deleted BOOLEAN NOT NULL DEFAULT 0,
     creator_user_id INT UNSIGNED NOT NULL,
     CONSTRAINT fk_user_1 FOREIGN KEY (creator_user_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -98,7 +99,7 @@ CREATE TABLE skill (
 CREATE TABLE offer (
 	offer_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     project_id INT UNSIGNED NOT NULL,    
-    offer_title VARCHAR (255) NOT NULL,
+    offer_tile VARCHAR (255) NOT NULL,
     offer_description VARCHAR (255) NOT NULL,
     number_of_position SMALLINT UNSIGNED NOT NULL,
     is_deleted BOOLEAN NOT NULL DEFAULT 0,
@@ -109,7 +110,6 @@ CREATE TABLE offer (
 CREATE TABLE offer_skill (
 	offer_id INT UNSIGNED NOT NULL,
 	skill_id BIGINT UNSIGNED NOT NULL,
-	offer_skill_is_disabled BOOLEAN NOT NULL DEFAULT 0,
     CONSTRAINT fk_offer_1 FOREIGN KEY (offer_id)
 		REFERENCES offer(offer_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_skill_1 FOREIGN KEY (skill_id)
@@ -119,7 +119,6 @@ CREATE TABLE offer_skill (
 CREATE TABLE project_skill (
 	project_id INT UNSIGNED NOT NULL,
 	skill_id BIGINT UNSIGNED NOT NULL,
-     project_skill_is_disabled BOOLEAN NOT NULL DEFAULT 0,
     CONSTRAINT fk_project_3 FOREIGN KEY (project_id)
 		REFERENCES project(project_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_skill_2 FOREIGN KEY (skill_id)
@@ -129,7 +128,6 @@ CREATE TABLE project_skill (
 CREATE TABLE user_skill (
 	user_id INT UNSIGNED NOT NULL,
 	skill_id BIGINT UNSIGNED NOT NULL,
-    user_skill_is_disabled BOOLEAN NOT NULL DEFAULT 0,
     CONSTRAINT fk_user_3 FOREIGN KEY (user_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_skill_3 FOREIGN KEY (skill_id)
@@ -153,6 +151,13 @@ CREATE TABLE  review (
     -- user_id(author)
 );
 
+
+SELECT * FROM user;
+SELECT * FROM  project;
+SELECT * FROM user_field;
+SELECT * FROM user_skill;
+
+SELECT * FROM skill;
 
 
 /*
@@ -192,80 +197,4 @@ CREATE TABLE notification (
 -- announcement_id
 -- );
 
-INSERT INTO field (field_id, field_name) VALUES
-(1, 'Physics'),
-(2, 'Chemistry'),
-(3, 'Biology'),
-(4, 'Mathematics'),
-(5, 'Computer Science');
 
-INSERT INTO user (user_name, user_lastname, user_email, user_country, user_city, user_description, user_password, user_avatar, user_type, user_proficiency, user_is_verified, user_is_disabled) VALUES
-('Alice', 'Smith', 'alice.smith@example.com', 'USA', 'New York', 'Quantum mechanics researcher', 'password123', 'avatar1.png', 2, 'PhD', 1, 0),
-('Bob', 'Jones', 'bob.jones@example.com', 'UK', 'London', 'Biologist specializing in genetics', 'password456', 'avatar2.png', 2, 'PostDoc', 0, 0),
-('Charlie', 'Brown', 'charlie.brown@example.com', 'Canada', 'Toronto', 'Mathematics professor', 'password789', 'avatar3.png', 2, 'Doctorant', 1, 1),
-('Diana', 'Prince', 'diana.prince@example.com', 'France', 'Paris', 'Computer Science enthusiast', 'passwordabc', 'avatar4.png', 1, 'Lab Worker', 1, 0);
-
-INSERT INTO user_field (user_id, field_id, user_field_is_disabled) VALUES
-(1, 1, 0),
-(2, 3, 0),
-(3, 4, 0),
-(4, 5, 0);
-
-INSERT INTO project (project_title, project_city, project_country, project_description, project_type, project_status, project_outcome, project_link, project_max_member, creator_user_id) VALUES
-('Quantum Entanglement Studies', 'New York', 'USA', 'Researching entanglement phenomena', 0, 1, 'Manuscript', 'http://example.com/outcome1', 10, 1),
-('Genetic Engineering Project', 'London', 'UK', 'Exploring gene editing techniques', 1, 2, 'Patent', 'http://example.com/outcome2', 8, 2),
-('Machine Learning in Mathematics', 'Toronto', 'Canada', 'Applying ML techniques to solve complex equations', 0, 1, 'Research Paper', 'http://example.com/outcome3', 5, 3);
-
-INSERT INTO user_project (user_id, project_id, status) VALUES
-(1, 1, 2),
-(2, 2, 2),
-(3, 3, 1),
-(4, 1, 4);
-
-INSERT INTO skill (skill_id, skill_name) VALUES
-(1, 'Data Analysis'),
-(2, 'Machine Learning'),
-(3, 'Genetic Sequencing'),
-(4, 'Quantum Physics'),
-(5, 'Mathematical Modeling');
-
-INSERT INTO user_skill (user_id, skill_id, user_skill_is_disabled) VALUES
-(1, 4, 0),
-(2, 3, 0),
-(3, 2, 0),
-(4, 5, 0),
-(4, 1, 0);
-
-INSERT INTO offer (project_id, offer_title, offer_description, number_of_position) VALUES
-(1, 'PostDoc in Quantum Research', 'Researching advanced quantum theories', 2),
-(2, 'Genetic Lab Technician', 'Assisting in genetic modification experiments', 3),
-(3, 'Mathematics Research Assistant', 'Supporting ML-related projects in mathematics', 1);
-
-INSERT INTO offer_skill (offer_id, skill_id, offer_skill_is_disabled) VALUES
-(1, 4, 0),
-(2, 3, 0),
-(3, 5, 0),
-(3, 2, 0);
-
-INSERT INTO project_skill (project_id, skill_id, project_skill_is_disabled) VALUES
-(1, 4, 0),
-(2, 3, 0),
-(3, 2, 0),
-(3, 5, 0);
-
-select * from user;
-select * from user_skill;
-select * from user_field;
-SELECT * FROM project_skill;
- -- UPDATE user SET user_is_disabled = 0 WHERE user_id = 3;
- 
- SELECT * FROM project;
- SELECT * FROM skill;
- -- SELECT * FROM offer;
- SELECT * FROM user_project;
- SELECT * FROM project_skill;
- SELECT * FROM offer_skill;
-
- 
- 
- 
