@@ -1,4 +1,4 @@
--- drop database research_agora;
+drop database research_agora;
 CREATE DATABASE research_agora;
 USE research_agora;
 
@@ -147,22 +147,27 @@ CREATE TABLE  review (
  );
 
 
-/*
+
 
 
 CREATE TABLE message (
 	message_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     message_content VARCHAR (255) NOT NULL,
     message_date_time DATETIME DEFAULT CURRENT_TIMESTAMP, -- YYYY-MM-DD --HH-MM-SS
-    message_is_read BOOLEAN NOT NULL DEFAULT 0
-    -- project_id
+    message_is_read BOOLEAN NOT NULL DEFAULT 0,
+    sender_id INT UNSIGNED NOT NULL,
+    reciever_id INT UNSIGNED NOT NULL,
+    CONSTRAINT fk_user_8 FOREIGN KEY (sender_id)
+		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_user_9 FOREIGN KEY (reciever_id)
+		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+	-- project_id
     -- recieve_id (user_id)
     -- sender_id (user_id1)
-    
 );
 
 
-
+/*
 CREATE TABLE notification (
 	notification_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     notification_content VARCHAR (100) NOT NULL,
@@ -250,6 +255,7 @@ SELECT * FROM project_skill;
  SELECT * FROM project_skill;
  SELECT * FROM offer_skill;
  SELECT * FROM request;
+ SELECT * FROM message;
 
  
  
