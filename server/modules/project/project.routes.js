@@ -5,6 +5,7 @@ import { tokenVerify } from '../../middleware/verifyToken.js';
 const router = express.Router()
 router.post('/addproject/:creator_user_id', projectController.addproject)
 router.get('/allprojects', projectController.allprojects)
+router.get('/oneuserprojects', projectController.oneuserprojects)
 //bring a skill show offers
 router.get('/oneproject/:project_id', projectController.oneproject)
  //bring a skill show offers

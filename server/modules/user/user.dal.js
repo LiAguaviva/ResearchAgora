@@ -1,4 +1,5 @@
 import { dbPool, executeQuery } from "../../config/db.js";
+import { hashPassword } from "../../utils/hashUtils.js";
 
 class UserDal {
  
@@ -32,6 +33,14 @@ class UserDal {
     } catch (error) {
       throw error;
     }
+   }
+
+   resetPassword = async (user_id, newPassword) => {
+    const hashedPassword = await hashPassword(newPassword)
+    let sql = 'UPDATE user SET user_password = ? WHERE user_id = ?'
+    const result = await executeQuery(sql,[hashedPassword, user_id]);
+    console.log("new password", result)
+    return result
    }
 
    editUser = async (values, file) => {

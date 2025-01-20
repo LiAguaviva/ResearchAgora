@@ -88,6 +88,19 @@ class ProjectDal {
     }
   };
 
+  oneUserProjects = async (values) => {
+    try {
+      let sql = 'SELECT p.project_id,p.project_title, p.project_description, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id WHERE p.project_is_disabled = 0 AND u.user_id = ?;'
+
+      const result = await executeQuery(sql, values);
+      return result;
+    } catch (error) {
+      console.log("dal error", error);
+      
+      throw error;
+    }
+  };
+
   oneProject = async (project_id) => {
     //bring a skill show offers
     try {

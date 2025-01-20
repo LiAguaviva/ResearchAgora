@@ -3,7 +3,7 @@ import userDal from "./user.dal.js";
 import { registerSchema } from "../../schemas/registerSchema.js";
 import { emailValidationToken, generateToken, getIdFromToken } from "../../utils/tokenUtils.js";
 import { loginSchema } from "../../schemas/loginSchema.js";
-import { sendMailValidation } from "../../services/emailService.js";
+import { sendMailValidation, sendPasswordResetEmail  } from "../../services/emailService.js";
 import { dbPool } from "../../config/db.js";
 import {z} from "zod";
 
@@ -17,7 +17,7 @@ class UserController {
       } else {
         const hash = await hashPassword(password);
         const result = await userDal.register([email, hash]);
-        const token = await emailValidationToken(result.insertId)
+        const token = await emailValidationToken(result.insertId);
         // console.log("0000000000000000000", token);
         sendMailValidation(email, token)
         res.status(200).json({ msg: "ok" });
@@ -63,6 +63,38 @@ class UserController {
         const {token} = req.params;
         const id = await getIdFromToken(token);
         const result = await userDal.verifyUser(id);
+      } catch (error) {
+        res.status(500).json(error.message);
+      }       
+    }
+
+    forgottenPassword = async (req, res) => {     
+      try {const { email } = req.body;         
+      const user = await userDal.findUserbyEmail(email);         
+      if (user.length === 0) {             
+        return res.status(404).json({ message: "User not found" });         
+      }        
+      const token = generateToken(user[0].user_id); 
+      sendPasswordResetEmail(email, token);         
+      res.status(200).json({ message: "Password reset email sent" });     
+    } catch (error) { 
+      res.status(500).json({ message: error.message }); 
+    } 
+  }
+
+    resetPassword = async (req, res) => {
+      try {
+        const {token} = req.params;
+        const { newPassword, confirmNewPassword } = req.body;
+        
+        const parsedData = resetPasswordScheme.parse({
+          newPassword, confirmNewPassword
+        })
+        const user_id = await getIdFromToken(token);
+        const result = await userDal.resetPassword(user_id, parsedData.newPassword );
+        console.log(result);
+        res.status(200).json("password changed")
+        
       } catch (error) {
         res.status(500).json(error.message);
       }       
