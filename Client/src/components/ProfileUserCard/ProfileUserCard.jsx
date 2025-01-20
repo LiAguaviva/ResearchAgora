@@ -33,11 +33,13 @@ export const ProfileUserCard = () => {
       </div>  
 
       <div className='separatorThick' />
+      {user?.user_description && <>
       <div className='profileDescription'>
         <p>{user?.user_description}</p>
       </div>
 
       <div className='separatorThick' />
+      </>}
 
       {/* <TagsCard /> */}
     </div>

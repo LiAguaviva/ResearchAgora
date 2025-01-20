@@ -26,6 +26,7 @@
 
     .logoNavbar {
       height: var(--imgNavBarSize);
+      cursor: pointer;
 
       &:hover {
         filter: brightness(0);
@@ -77,6 +78,7 @@
       background-color: var(--magenta);
       width: var(--imgNavBarSize);
       height: var(--imgNavBarSize);
+      cursor: pointer;
 
       object-fit: cover;
       border-radius: 100%;

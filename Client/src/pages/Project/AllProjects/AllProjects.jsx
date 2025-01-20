@@ -97,17 +97,15 @@ export const AllProjects = () => {
 
       <div className='separatorThick' />
 
-      <div className='allProjectsGallery'>
-      <span>Search Results: {projects?.length}</span>
       {projects?.map((elem)=> {
         return(
-          <div  key={elem.project_id} >
-          <AllProjectsCard elem={elem}/>
-          <div className='separatorAllProjects' />
+          <div className='allProjectsGallery' key={elem.project_id} >
+            <span>Search Results: {projects?.length}</span>
+            <AllProjectsCard elem={elem}/>
+            <div className='separatorAllProjects' />
           </div>
         );
       })}
-      </div>
 
     </section>
   )

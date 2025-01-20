@@ -131,17 +131,17 @@ CREATE TABLE  review (
 );
 
  CREATE TABLE request (
- request_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 0 pending / 1 accepted / 2 declined,
- request_requested_on DATE DEFAULT (CURRENT_DATE),
- user_id INT UNSIGNED NOT NULL,
- project_id INT UNSIGNED NOT NULL,
- offer_id INT UNSIGNED,
-  CONSTRAINT fk_user_7 FOREIGN KEY (user_id)
-		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT fk_project_4 FOREIGN KEY (project_id)
-		REFERENCES project(project_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT fk_offer_2 FOREIGN KEY (offer_id)
-		REFERENCES offer(offer_id) ON DELETE CASCADE ON UPDATE CASCADE
+     request_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 0 pending / 1 accepted / 2 declined,
+     request_requested_on DATE DEFAULT (CURRENT_DATE),
+     user_id INT UNSIGNED NOT NULL,
+     project_id INT UNSIGNED NOT NULL,
+     offer_id INT UNSIGNED,
+      CONSTRAINT fk_user_7 FOREIGN KEY (user_id)
+    		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT fk_project_4 FOREIGN KEY (project_id)
+    		REFERENCES project(project_id) ON DELETE CASCADE ON UPDATE CASCADE,
+      CONSTRAINT fk_offer_2 FOREIGN KEY (offer_id)
+    		REFERENCES offer(offer_id) ON DELETE CASCADE ON UPDATE CASCADE
  );
 
 
