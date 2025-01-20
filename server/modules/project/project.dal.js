@@ -149,7 +149,7 @@ FROM project AS p
 JOIN user AS u ON p.creator_user_id = u.user_id 
 JOIN project_skill AS ps ON p.project_id = ps.project_id 
 JOIN skill AS s ON ps.skill_id = s.skill_id 
-WHERE ps.project_skill_is_disabled = 0 
+WHERE ps.project_skill_is_disabled = 0 AND p.project_type = 0
 GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
 `;
 
@@ -162,9 +162,9 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
 
   oneUserProjects = async (values) => {
     try {
-      let sql = 'SELECT p.project_id,p.project_title, p.project_description, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id WHERE p.project_is_disabled = 0 AND u.user_id = ?;'
+      let sql = 'SELECT p.project_id,p.project_title, p.project_description, p.project_status, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id WHERE p.project_is_disabled = 0 AND u.user_id = ?;'
 
-      const result = await executeQuery(sql, values);
+      const result = await executeQuery(sql, [values]);
       return result;
     } catch (error) {
       console.log("dal error", error);
