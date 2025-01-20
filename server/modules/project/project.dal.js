@@ -263,10 +263,28 @@ class ProjectDal {
       connection.release(); 
     }
   };
+
+
+
+  joinRequest = async(values) =>{
+    try {
+      let sql = 'INSERT INTO request (user_id, project_id, offer_id) VALUES (?, ?, ?)' 
+      await executeQuery(sql, values);
+
+    } catch (error) {
+      console.log("dal error", error);
+      throw error;
+    }
+  }
   
 }
 
 export default new ProjectDal();
+
+
+
+
+
 
 
 // registerProject = async (values, skill_name) => {

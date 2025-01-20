@@ -154,6 +154,77 @@ class UserDal {
   };
 
 
+  joinResponse = async (values) => {
+    const connection = await dbPool.getConnection();
+    const [user_id, project_id, offer_id] = values;
+
+    try {
+      await connection.beginTransaction();
+
+      let sql = 'SELECT number_of_position FROM offer WHERE offer_id = ?';
+      const [offer] = await connection.execute(sql, [offer_id]);
+       
+       if (offer.length === 0) {
+        throw new Error('Offer not found.');
+      }
+
+      let sqlUserProject = 'INSERT INTO user_project(user_id, project_id) VALUES (?, ?)'
+      await connection.execute(sqlUserProject, [user_id, project_id])
+    
+      await connection.commit();
+
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release()
+    }
+  }
+
+
+   updateRequestStatus = async (values, request_status) => {
+     const connection = await dbPool.getConnection();
+     const [user_id, project_id, offer_id] = values;
+       
+    try {
+      await connection.beginTransaction();
+
+      let sql = 'SELECT number_of_position FROM offer WHERE offer_id = ?';
+      const [offer] = await connection.execute(sql, [offer_id]);
+       
+       if (offer.length === 0) {
+        throw new Error('Offer not found.');
+      }
+
+      let currentNumberOfPositions = offer[0].number_of_position;
+  
+      if (currentNumberOfPositions <= 0) {
+        throw new Error('No positions available in the offer.');
+      }
+
+      let updatedNumberOfPositions = currentNumberOfPositions - 1;
+
+      let sqlOffer = 'UPDATE offer SET number_of_position = ? WHERE offer_id = ?'
+      await connection.execute(sqlOffer, [updatedNumberOfPositions, offer_id])
+
+      let sqlUserProject = 'INSERT INTO user_project(user_id, project_id) VALUES (?, ?)'
+      await connection.execute(sqlUserProject, [user_id, project_id])
+
+      let sqlRequest = 'UPDATE request SET request_status = ? WHERE offer_id = ? AND user_id = ?'
+      await connection.execute(sqlRequest, [request_status, offer_id, user_id])
+    
+      await connection.commit();
+
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release()
+    }
+  }
+
+
+
 }
 
 

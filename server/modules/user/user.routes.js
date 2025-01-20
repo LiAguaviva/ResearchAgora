@@ -16,6 +16,6 @@ router.get('/findUserById', tokenVerify, userController.findUserById)
 router.put('/editUser', tokenVerify , uploadImage('useravatar'), userController.editUser)
 router.put('/deleteUser/:user_id', userController.deleteUser )
 router.post('/getskills&fields', userController.getskillsfields)
-
-
+router.patch('/joinresponse', userController.joinResponse)
+router.patch('/updaterequeststatus', userController.updateRequestStatus)
 export default router

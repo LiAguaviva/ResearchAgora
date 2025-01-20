@@ -216,6 +216,33 @@ class UserController {
           res.status(500).json(error);
         }
       }
+
+
+      joinResponse = async (req,res) => {
+        const {user_id, project_id, offer_id}  = req.body;
+        const values = [user_id, project_id, offer_id];
+        try {
+           await userDal.joinResponse(values);
+           res.status(200).json("ok")
+        } catch (error) {         
+          res.status(500).json(error)
+        }
+      }
+
+
+      updateRequestStatus = async (req,res) => {
+        const {user_id, project_id, offer_id, request_status}  = req.body;
+        const values = [user_id, project_id, offer_id];
+        try {
+           await userDal.updateRequestStatus(values, request_status);
+          
+           
+           res.status(200).json("ok")
+        } catch (error) {
+          console.log(error);          
+          res.status(500).json(error)
+        }
+      }
       
 
 }

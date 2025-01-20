@@ -11,8 +11,8 @@ router.get('/oneproject/:project_id', projectController.oneproject)
  //bring a skill show offers
 router.put('/editproject', projectController.editproject)
 router.put('/deleteproject/:project_id', projectController.deleteproject)
-
 router.get('/findprojectbyskills', projectController.findProjectBySkills)
+router.post('/joinrequest', projectController.joinRequest)
 
 
 
