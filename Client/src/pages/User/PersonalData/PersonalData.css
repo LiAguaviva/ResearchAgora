@@ -1,0 +1,15 @@
+
+.personalDataPage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size2);
+  align-items: center;
+  padding-top: var(--size5);
+  
+  img {
+    width: 20rem;
+    height: 20rem;
+    border-radius: 100%;
+    object-fit: cover;
+  }
+}

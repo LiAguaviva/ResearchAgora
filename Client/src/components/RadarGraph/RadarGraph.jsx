@@ -30,7 +30,6 @@ const values = [
 //   { subject: "Policy writing", value: values[5], fullMark: 100 },
 // ];
 
-`Mentoring ${Math.floor(values[0])}`
 const data = [
   { subject: `Mentoring ${Math.floor(values[0])}`, value: values[0], fullMark: 100 },
   { subject: `Publications ${Math.floor(values[1])}`, value: values[1], fullMark: 100 },

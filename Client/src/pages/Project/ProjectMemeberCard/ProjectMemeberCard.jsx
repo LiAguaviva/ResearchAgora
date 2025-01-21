@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import avatarDefault from '../../assets/imgs/defaultIMG.png'
-import { AgoraContext } from '../../context/ContextProvider'
+import avatarDefault from '../../../assets/imgs/defaultIMG.png'
+import { AgoraContext } from '../../../context/ContextProvider'
 
-export const UserCard = () => {
+export const ProjectMemberCard = ({elem}) => {
 
   const {user} = useContext(AgoraContext)
-
+console.log('ELEMENTO DE PROJECT CARD ---> ', elem)
   return (
     <div>
       <div className='userCard'>
@@ -20,8 +20,8 @@ export const UserCard = () => {
 
         <div className='userCardData'>
           <p className='UserCardName'
-          > {user?.user_name} {user?.user_lastname}</p>
-          <p>profiency{user?.user_proficiency}</p>
+          > {elem?.user_name}</p>
+          <p>{elem?.fields}</p>
         </div>
       </div>  
     </div>

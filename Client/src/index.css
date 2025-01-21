@@ -54,7 +54,7 @@ p {
 }
 
 .containerPpal {
-  width: 1200px;
+  width: var(--widthPage);
   margin-inline: auto;
   padding-block: var(--size3);
   /* background-color: rgb(115, 141, 141); */
@@ -89,15 +89,21 @@ button {
   }
 }
 
+.tagsContainer {
+  display: flex;
+  column-gap: var(--size05);
+  row-gap: var(--size05);
+  flex-wrap: wrap;
+}
+
 .tag {
   width: max-content;
   border-radius: var(--size2);
   padding-inline: var(--size1);
-  padding-block: var(--size02);    
+  height: 1.5rem;
   background-color: var(--purple);
   color: var(--white);
-  cursor:pointer;
-
+  cursor: pointer;
 
   display: flex;
   gap: var(--size05);
@@ -106,6 +112,41 @@ button {
   &:hover {
     background-color: var(--magenta);
   }
+}
 
+.tagDeleteable {
+  width: max-content;
+  border-radius: var(--size2);
+  padding-inline: var(--size1);
+  height: 1.5rem;
+  background-color: var(--purple);
+  color: var(--white);
+  cursor:pointer;
   
+  display: flex;
+  gap: var(--size05);
+  align-items: center;
+
+  &:hover{
+    background-color: var(--purple);
+  }
+
+  .deleteBtn {
+    font-weight: bold;
+    font-size: var(--textM2);
+
+    &:hover {
+      color: var(--magenta);
+    }
+  }
+}
+
+.separatorThick {
+  width: 100%;
+  border-bottom: 7px solid var(--purple);
+  margin-inline: auto;
+}
+.separatorMid {
+  width: 100%;
+  border-bottom: 4px solid var(--purple);
 }

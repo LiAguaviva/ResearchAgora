@@ -1,0 +1,68 @@
+
+.AllProjectsCard{
+  
+  h4 {
+    margin-bottom: var(--size05);
+    &:hover {
+      color: var(--magenta);
+    }
+  }
+
+  .data {
+    display: flex;
+    align-items: center;
+    gap: var(--size1);
+
+    .profileProjectImg{
+      --imgSize: 10rem;
+  
+      object-fit: cover;
+      border-radius: 100%;
+      width: var(--imgSize);
+      height: var(--imgSize);
+  
+      &:hover {
+        filter: brightness(1.03);
+      }
+    }
+  
+    .projectTitle {
+      color: var(--purple);
+      font-weight: bold;
+    }
+    
+    
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size05);
+  
+      .Creator {
+        color: var(--aqua);
+        font-weight: bold;
+      }
+    
+      .status {
+        width: max-content;
+        padding-inline: var(--size05);
+        padding-block: var(--size02);
+        border-radius: 20rem;
+        color: var(--white);
+      }
+
+      .paused {
+        background-color: var(--mandarina);
+      }
+      .active {
+        background-color: var(--aqua);
+      }
+      .closed {
+        background-color: var(--magenta);
+      }
+    
+      .description {
+        width: 100%;
+      }
+    }
+  }
+}

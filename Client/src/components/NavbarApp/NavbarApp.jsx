@@ -15,23 +15,10 @@ export const NavbarApp = () => {
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.querySelector('.nav-links');
 
-  const [menuUser, setMenuUser] = useState(false)
-  const [menuAbout, setMenuAbout] = useState(false)
+  const [dropdownMenu, setDropdownMenu] = useState('');
 
-  const openUserMenu = () => {
-    setMenuUser(true)
-    setMenuAbout(false)
-  }
-
-  const openAboutMenu = () => {
-    setMenuUser(false)
-    setMenuAbout(true)
-  }
-
-  const closeDropdown = () => {
-    setMenuAbout(false)
-    setMenuUser(false)
-  }
+  const closeDropdown = () => {setDropdownMenu('')}
+ 
 
   const logOut = () => {
     localStorage.removeItem('agoraToken')
@@ -54,7 +41,6 @@ export const NavbarApp = () => {
           className="logoNavbar" alt="" 
         />
 
-        {/* ///////// LINKS ///////// */}
         <ul className='navLinks'>
         <li>
             <NavLink
@@ -65,42 +51,54 @@ export const NavbarApp = () => {
         </li>
         <li>
             <NavLink
-              to={'/infolayout'}
+              to={'/infolayout/about'}
               className={({ isActive })=>(isActive? 'active':'inactive')}
-              onMouseEnter={openAboutMenu}
+              onMouseEnter={()=>setDropdownMenu('about')}
             >About</NavLink>
         </li>
         <li>
-            {!user && <NavLink
-              to={'/register'}
+            <NavLink
+              to={'/allprojects'}
               className={({ isActive })=>(isActive? 'active':'inactive')}
-            >Sing Up</NavLink>}
+              onMouseEnter={()=>setDropdownMenu('projects')}
+            >projects</NavLink>
         </li>
-        <li>
-            {!user && <NavLink
-              to={'/login'}
-              className={({ isActive })=>(isActive? 'active':'inactive')}
-            >Log In</NavLink>}
+        <li className='loginRegisterButtons'>
+            {!user && <button
+              onClick={()=>navigate('/register')}
+            >Sing Up</button>}
+        </li>
+        <li className='loginRegisterButtons'>
+            {!user && <button
+              onClick={()=>navigate('/login')}
+            >Log In</button>}
         </li>
         <li>
         { user &&
               <div className='userNav'>
               <img 
                 className='avatarNav'
-                onMouseOver={openUserMenu}
+                onClick={()=>navigate('/profile')}
+                onMouseOver={()=>setDropdownMenu('userMenu')}
                 src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} alt="your avatar" 
               />
-              {menuUser && 
+
+              {dropdownMenu === 'userMenu' && 
              <div 
               className='menuDropdown menuUser' 
               id='menuUser'
-              onMouseLeave={()=>setMenuUser(false)}
+              onMouseLeave={closeDropdown}
              >
               <div className='separator' />
                 <NavLink
                     to={'/profile'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
-                  >profile</NavLink>
+                  >Profile</NavLink>
+                <div className='separator' />
+                <NavLink
+                    to={'/personalData'}
+                    className={({ isActive })=>(isActive? 'active':'inactive')}
+                  >Personal Data</NavLink>
                 <div className='separator' />
                 <NavLink
                     to={'/editProfile'}
@@ -114,38 +112,53 @@ export const NavbarApp = () => {
                   >Log Out</NavLink>
               </div>}
               
-              {menuAbout && 
+              {dropdownMenu === 'about' && 
                <div 
                 className='menuDropdown menuAbout' 
                 id='menuAbout'
-                onMouseLeave={()=>setMenuAbout(false)}
+                onMouseLeave={closeDropdown}
                >
                   <div className='separator' />
                 <NavLink
                     to={'/infolayout/about'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
-                    onMouseEnter={openAboutMenu}
                   >About</NavLink>
                   <div className='separator' />
                 <NavLink
                     to={'/infolayout/Metrics'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
-                    onMouseEnter={openAboutMenu}
                   >Metrics</NavLink>
                   <div className='separator' />
                 <NavLink
                     to={'/infolayout/Partnership'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
-                    onMouseEnter={openAboutMenu}
                   >Partnership</NavLink>
                   <div className='separator' />
                 <NavLink
                     to={'/infolayout/Contact'}
                     className={({ isActive })=>(isActive? 'active':'inactive')}
-                    onMouseEnter={openAboutMenu}
                   >Contact</NavLink>
                </div>}
-            </div>}
+
+              {dropdownMenu === 'projects' && 
+               <div 
+                className='menuDropdown menuProject' 
+                id='menuProject'
+                onMouseLeave={closeDropdown}
+               >
+                  <div className='separator' />
+                <NavLink
+                    to={'/allprojects'}
+                    className={({ isActive })=>(isActive? 'active':'inactive')}
+                  >All Projects</NavLink>
+                  <div className='separator' />
+                <NavLink
+                    to={'/createproject'}
+                    className={({ isActive })=>(isActive? 'active':'inactive')}
+                  >Create Project</NavLink>
+                  <div className='separator' />
+               </div>}
+              </div>}
         </li>
         </ul>
         </div>

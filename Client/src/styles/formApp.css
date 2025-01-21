@@ -1,10 +1,10 @@
-.myFormContainer {
+.formAppContainer {
   max-width: 25rem;
   display: flex;
   margin-inline: auto;
   padding-top: var(--size5);
 
-  .myForm {
+  .formApp {
     width: 100%;
     text-align: center;
 
@@ -16,10 +16,6 @@
       color: var(--purple);
       font-size: var(--textM1);
       font-weight: bold;
-    }
-
-    .separator {
-      border-bottom: 4px solid var(--purple);
     }
 
     .formSec {
@@ -37,13 +33,12 @@
       flex-direction: column;
       text-align: left;
 
-      input {
-        background-color: transparent;
+      input, select, textarea {
         color: var(--black);
-        border: 2px solid var(--black50);
+        border: 2px solid var(--purple);
         border-radius: 7px;
         padding-inline: var(--size05);
-        padding-block: 0.2rem;
+        padding-block: var(--size05);
 
         &:hover {
           border: 2px solid var(--black);
@@ -54,11 +49,8 @@
     .textareaBig {
       flex-direction: column;
   
-      .textarea {
-        background-color: transparent;
+      textarea {
         max-width: var(--offerFormWidth);
-        border: 2px solid var(--black50);
-        border-radius: 7px;
         scrollbar-width: none;
         height: 10rem;
       }
@@ -68,34 +60,10 @@
       /* flex-direction: column; */
       display: flex;
   
-      .textarea {
-        background-color: transparent;
+      textarea {
         max-width: var(--offerFormWidth);
-        border: 2px solid var(--black50);
-        border-radius: 7px;
         scrollbar-width: none;
         height: var(--size4);
-      }
-    }
-
-    .tagsContainer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--size02);
-
-      .tag {
-        &:hover{
-          background-color: var(--purple);
-        }
-
-        .deleteBtn {
-          font-weight: bold;
-          font-size: var(--textM2);
-      
-          &:hover {
-            color: var(--magenta);
-          }
-        }
       }
     }
 
@@ -134,5 +102,7 @@
         color: var(--color3);
       }
     }
+
   }
+  
 }

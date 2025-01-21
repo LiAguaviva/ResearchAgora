@@ -1,0 +1,11 @@
+.tagsCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size2);
+
+  .tagsCardSect {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size1);
+  }
+}

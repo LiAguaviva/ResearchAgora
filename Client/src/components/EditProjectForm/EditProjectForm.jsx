@@ -34,10 +34,10 @@ export const EditProjectForm = () => {
   }
 
   return (
-    <div className='myFormContainer'>
-    <form className='myForm'>
+    <div className='formAppContainer'>
+    <form className='formApp'>
       <p className='formTitle'>Edit a Project</p>
-      <div className='separator' />
+      <div className='separatorThick' />
       <fieldset>
         <label htmlFor="email">Title</label>
         <input 
@@ -151,7 +151,7 @@ export const EditProjectForm = () => {
      
         
 
-      <div className='separator' />
+      <div className='separatorThick' />
 
       <div className="errorMsg">
       { <p>{msg}</p>}

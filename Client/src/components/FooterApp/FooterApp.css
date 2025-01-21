@@ -5,8 +5,6 @@ footer {
   background-position: center;
   background-image: url('../../assets/imgs/defaultIMG.png');
 
- 
-
   .footerContent {
     background-color:  rgba(255, 255, 255, 0.505);
     width: 100%;
@@ -47,6 +45,7 @@ footer {
       font-size: var(--textSize4);
       text-decoration: none;
       font-weight: bold;
+      text-shadow: 1px 1px 3px var(--white);
       
       &:hover {
         color: var(--magenta);
@@ -86,5 +85,6 @@ footer {
 
   p {
     color: var(--white);
+    text-shadow: 1px 1px 1px var(--purple50);
   }
 }
