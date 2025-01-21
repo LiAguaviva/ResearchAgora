@@ -16,7 +16,7 @@ export const CreateOfferForm = () => {
 
   const [msg, setMsg] = useState('')
   const navigate = useNavigate();
-  const [offer, setOffer] = useState('')
+  const [offer, setOffer] = useState(initialValue)
   const {id}  = useParams();
   const [valErrors, setValErrors] = useState({});
   const [inputValueSkills, setInputValueSkills] = useState("");
@@ -64,12 +64,12 @@ export const CreateOfferForm = () => {
       e.preventDefault();
       const skillsString = skills.join(",");
       let data = { ...offer, skill_name: skillsString};
-      console.log(data);
-      console.log(data.offer);
-      console.log(data.skill_name);
+      console.log("data1", data);
+      
       
       await fetchData2(`offer/createoffer/${id}`, 'post', data)
-
+       console.log("envio de la data al back", data);
+       
     } catch (error) {  
       if (error instanceof ZodError){
         error.errors.forEach((err)=>{
