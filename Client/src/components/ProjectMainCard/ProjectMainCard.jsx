@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../context/ContextProvider'
+import './UserCard.css'
 
 export const UserCard = () => {
 

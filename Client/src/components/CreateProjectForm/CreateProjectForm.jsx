@@ -92,8 +92,8 @@ export const CreateProjectForm = () => {
   }
 
   return (
-    <div className='myFormContainer'>
-    <form className='myForm'>
+    <div className='formAppContainer'>
+    <form className='formApp'>
       <p className='formTitle'>Create a Project</p>
       <div className='separatorThick' />
       <fieldset>

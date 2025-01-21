@@ -164,8 +164,8 @@ export const EditProfileForm = () => {
   
   
   return (
-    <div className='myFormContainer'>
-    <form className='myForm'>
+    <div className='formAppContainer'>
+    <form className='formApp'>
       <p className='formTitle'>Edit Profile</p>
       <div className='separatorThick' />
       <fieldset>

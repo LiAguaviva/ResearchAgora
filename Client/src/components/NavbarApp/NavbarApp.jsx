@@ -66,13 +66,11 @@ export const NavbarApp = () => {
         <li className='loginRegisterButtons'>
             {!user && <button
               onClick={()=>navigate('/register')}
-              className={({ isActive })=>(isActive? 'active':'inactive')}
             >Sing Up</button>}
         </li>
         <li className='loginRegisterButtons'>
             {!user && <button
               onClick={()=>navigate('/login')}
-              className={({ isActive })=>(isActive? 'active':'inactive')}
             >Log In</button>}
         </li>
         <li>

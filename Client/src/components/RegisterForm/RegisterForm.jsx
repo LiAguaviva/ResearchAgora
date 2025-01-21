@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import './RegisterForm.css'
 import { fetchData } from '../../helpers/axiosHelper'
 import { ZodError } from 'zod'
 import { registerSchema } from '../../schemas/registerSchema'
@@ -77,8 +76,8 @@ export const RegisterForm = ({showModal}) => {
   
 
   return (
-    <div className='myFormContainer'>
-    <form className='myForm'>
+    <div className='formAppContainer'>
+    <form className='formApp'>
       <p className='formTitle'>Register</p>
       <div className='separatorThick' />
       <fieldset>

@@ -1,15 +1,16 @@
 import React from 'react'
 import { ProjectInfoCard } from '../../../components/ProjectInfoCard/ProjectInfoCard'
+import { OfferCard } from '../../../components/offerCard/offerCard'
 
 export const OneProject = () => {
   return (
     <div className='oneProjectPage'>
-      <div className='containerPpal'>
+      <section className='containerPpal'>
         <ProjectInfoCard />
-      </div>
-
-      <section>
-        
+      </section>
+      <div className='separatorThick' />
+      <section className='containerPpal'>
+        <OfferCard />
       </section>
     </div>
   )

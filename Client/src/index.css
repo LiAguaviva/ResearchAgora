@@ -54,7 +54,7 @@ p {
 }
 
 .containerPpal {
-  width: 1200px;
+  width: var(--widthPage);
   margin-inline: auto;
   padding-block: var(--size3);
   /* background-color: rgb(115, 141, 141); */
@@ -142,10 +142,11 @@ button {
 }
 
 .separatorThick {
-  width: 100%;
+  max-width: var(--widthPage);
   border-bottom: 7px solid var(--purple);
+  margin-inline: auto;
 }
 .separatorMid {
-  width: 100%;
+  max-width: var(--widthPage);
   border-bottom: 4px solid var(--purple);
 }

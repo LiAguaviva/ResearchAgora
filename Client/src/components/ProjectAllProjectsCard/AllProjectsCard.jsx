@@ -17,7 +17,7 @@ export const AllProjectsCard = ({elem}) => {
       <div className='data'>
        <div className='profileProjectImg'>
           <img 
-            onClick={navigate()}
+            // onClick={navigate('')}
             className='profileProjectImg'
             src={user?.project? `${url}/images/users/${user.avatar}` :projectDefaultIMG} 
             alt="your avatar" 
@@ -35,8 +35,8 @@ export const AllProjectsCard = ({elem}) => {
           </div>
           <p className='Status {stateClassname}'>
             {elem.project_status === 1 && <p className='status active'>active</p> }
-            {elem.project_status === 2 && <p className='status paused'>paused</p> }
-            {elem.project_status === 3 && <p className='status closed'>completed</p> }
+            {elem.project_status === 2 && <p className='status closed'>completed</p> }
+            {elem.project_status === 3 && <p className='status paused'>paused</p> }
           </p>
 
           <div className='description'>

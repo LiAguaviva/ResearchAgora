@@ -24,8 +24,8 @@ export const CreateOfferForm = () => {
   }
 
   return (
-    <div className='myFormContainer'>
-      <form className='myForm'>
+    <div className='formAppContainer'>
+      <form className='formApp'>
         <p className='formTitle'>Add an Offer</p>
         <div className='separatorThick' />
         <fieldset>

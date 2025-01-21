@@ -30,20 +30,20 @@ export const TagsCard = () => {
   return (
     <section className='tagsCard'>
       <div className="tagsCardSect">
-            <h4>Fields</h4>
-              <div className="tagsContainer">
-                {fields.map((field, index) => (
-                  <div key={index} className='tag'>
-                    {field}
-                    <span
-                      className="deleteBtn"
-                      value={field}
-                    >
-                    </span>
-                  </div>
-                ))}
+        <h4>Fields</h4>
+          <div className="tagsContainer">
+            {fields.map((field, index) => (
+              <div key={index} className='tag'>
+                {field}
+                <span
+                  className="deleteBtn"
+                  value={field}
+                >
+                </span>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
             
       <div className="tagsCardSect">
               <h4>Skills</h4>
