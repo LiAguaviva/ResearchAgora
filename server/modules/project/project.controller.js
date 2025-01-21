@@ -48,8 +48,10 @@ class ProjectController {
 
     oneproject = async (req, res) => {
       try {
-        const {project_id} = req.params;    
-        const result = await projectDal.oneProject(project_id);      
+        const {project_id} = req.params;
+        const result = await projectDal.oneProject(project_id);   
+        console.log('EL BACK MANDA ESTE RESULTADO --->', result)   
+        console.log('EL BACK MANDA EL PROJECT ID --->', project_id)   
         res.status(200).json(result)
       } catch (error) {
         res.status(500).json(error) 

@@ -60,7 +60,7 @@ export const AppRoutes = () => {
 
             {/* Project */}
             <Route path='/allprojects' element={<AllProjects />}/>
-            <Route path='/oneproject' element={<OneProject />}/>
+            <Route path='/oneproject/:id' element={<OneProject />}/>
             <Route path='/editproject' element={<EditProject />}/>
             <Route path='/createproject' element={<CreateProject />}/>
             

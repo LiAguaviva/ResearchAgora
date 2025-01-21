@@ -72,16 +72,25 @@ class ProjectDal {
   //     }
   //   };
 
+  // 
   registerProject = async (values, skill_name) => {
     const connection = await dbPool.getConnection();
     try {
       await connection.beginTransaction();
-
-      // Insertar el proyecto
+  
+      // Insert project
       let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_status, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
       const [projectResult] = await connection.execute(sql, values);
       const projectId = projectResult.insertId;
-
+  
+      // Extract creator_user_id from values (assuming it's the last parameter)
+      const creatorUserId = values[values.length - 1];
+  
+      // Insert project-creator relation into user_project
+      let sqlUserProject = `INSERT INTO user_project (user_id, project_id, status) VALUES (?, ?, ?)`;
+      await connection.execute(sqlUserProject, [creatorUserId, projectId, 2]); // Status = 2 (e.g., active/confirmed)
+  
+      // Process skills
       if (!Array.isArray(skill_name)) {
         skill_name =
           typeof skill_name === "string"
@@ -92,39 +101,35 @@ class ProjectDal {
                 .filter((skill) => skill)
             : [];
       }
-
+  
       const skillIds = [];
-
+  
       for (const elem of skill_name) {
-        // Verificar si la skill ya existe
+        // Check if skill exists
         let sqlCheckSkill = "SELECT skill_id FROM skill WHERE skill_name = ?";
         let [existingSkill] = await connection.execute(sqlCheckSkill, [elem]);
-
+  
         let skillId;
         if (existingSkill.length > 0) {
-          skillId = existingSkill[0].skill_id; // Obtener el ID de la skill existente
+          skillId = existingSkill[0].skill_id; // Existing skill
         } else {
-          // Si no existe, obtener el siguiente ID disponible y agregarla
+          // Get the next available skill ID
           let sqlMaxId = "SELECT MAX(skill_id) AS maxId FROM skill";
           let [maxIdResult] = await connection.execute(sqlMaxId);
-
-          // Si maxIdResult[0].maxId es null, usa 0, y luego suma 1
-          skillId =
-            (maxIdResult[0].maxId !== null ? maxIdResult[0].maxId : 0) + 1;
-
-          let sqlInsertSkill =
-            "INSERT INTO skill (skill_id, skill_name) VALUES (?, ?)";
+  
+          skillId = (maxIdResult[0].maxId !== null ? maxIdResult[0].maxId : 0) + 1;
+  
+          let sqlInsertSkill = "INSERT INTO skill (skill_id, skill_name) VALUES (?, ?)";
           await connection.execute(sqlInsertSkill, [skillId, elem]);
         }
-
-        // Insertar en la tabla `project_skill`
-        let sqlProjectSkill =
-          "INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)";
+  
+        // Insert into project_skill table
+        let sqlProjectSkill = "INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)";
         await connection.execute(sqlProjectSkill, [projectId, skillId]);
-
+  
         skillIds.push(skillId);
       }
-
+  
       await connection.commit();
       return projectId;
     } catch (error) {
@@ -134,6 +139,7 @@ class ProjectDal {
       connection.release();
     }
   };
+  
 
   allProjects = async (values) => {
     try {

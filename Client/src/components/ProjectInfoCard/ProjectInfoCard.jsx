@@ -6,17 +6,20 @@ import avatarDefault from '../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../context/ContextProvider';
 
 
-export const ProjectInfoCard = () => {
+export const ProjectInfoCard = ({project}) => {
 
-  const {user, project} = useContext(AgoraContext)
+  const {user} = useContext(AgoraContext)
+  console.log(project)
   
   return (
     <section className='projectInfoCard'>
-      <h2>Project Title. Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
+      <h2>{project?.project_title}</h2>
       <div>
         <div className="statusState">
           <p>Status</p>
-          <p>State</p>
+          <p>{project?.project_status === 1 && 'Active'}</p>
+          <p>{project?.project_status === 2 && 'Completed'}</p>
+          <p>{project?.project_status === 3 && 'Paused'}</p>
         </div>
         <div className="separatorThick" />
       </div>
@@ -40,13 +43,13 @@ export const ProjectInfoCard = () => {
     
             <div className="userCardData">
               <p className="UserCardName"
-              > {user?.user_name} {user?.user_lastname}</p>
+              > {project?.creator_name}</p>
               <p>profiency{user?.user_proficiency}</p>
             </div>
           </div> 
           
           <div className='description'>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibu</p>
+            <p>{project?.project_description}</p>
           </div>
         </div>
 
