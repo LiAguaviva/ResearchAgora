@@ -24,6 +24,7 @@ CREATE TABLE user (
 );  
 
 
+
 CREATE TABLE user_field (
 	user_id INT UNSIGNED NOT NULL,
 	field_id INT UNSIGNED NOT NULL,
@@ -33,7 +34,6 @@ CREATE TABLE user_field (
 	CONSTRAINT fk_field_1 FOREIGN KEY (field_id)
 		REFERENCES field(field_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 
 
 CREATE TABLE project (
@@ -132,7 +132,7 @@ CREATE TABLE  review (
     -- user_id(author)
 );
 
-CREATE TABLE request (
+ CREATE TABLE request (
  request_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 0 pending / 1 accepted / 2 declined,
  request_requested_on DATE DEFAULT (CURRENT_DATE),
  user_id INT UNSIGNED NOT NULL,
@@ -145,8 +145,6 @@ CREATE TABLE request (
   CONSTRAINT fk_offer_2 FOREIGN KEY (offer_id)
 		REFERENCES offer(offer_id) ON DELETE CASCADE ON UPDATE CASCADE
  );
-
-
 
 
 CREATE TABLE message (
@@ -196,8 +194,6 @@ CREATE TABLE notification (
     -- sender_id (user_id)
 );
 */
-
-
 
 INSERT INTO field (field_id, field_name) VALUES
 (1, 'Physics'),
@@ -268,33 +264,21 @@ SELECT * FROM project_skill;
  
  SELECT * FROM project;
  SELECT * FROM skill;
-SELECT * FROM offer;
+ SELECT * FROM offer;
  SELECT * FROM user_project;
  SELECT * FROM project_skill;
  SELECT * FROM offer_skill;
-
  SELECT * FROM request;
  SELECT * FROM message;
  SELECT * FROM invitation;
 
  
  UPDATE invitation SET invitation_status = 2 WHERE invitation_id = 1;
- UPDATE invitation SET invitation_status = 0 WHERE invitation_id = 1
+ UPDATE invitation SET invitation_status = 0 WHERE invitation_id = 1;
  
-
- SELECT p.project_id,p.project_title, p.project_description, s.skill_name, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id JOIN project_skill AS ps ON p.project_id = ps.project_id JOIN skill AS s ON ps.skill_id = s.skill_id WHERE ps.project_skill_is_disabled = 0;
-
+ UPDATE project SET project_type = 0 WHERE project_id = 4;
  
-SELECT p.project_id,p.project_title, p.project_description, s.skill_name, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id JOIN project_skill AS ps ON p.project_id = ps.project_id JOIN skill AS s ON ps.skill_id = s.skill_id WHERE ps.project_skill_is_disabled = 0;
-
  
-SELECT p.project_id,p.project_title, p.project_description, p.project_status, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id WHERE p.project_is_disabled = 0 AND u.user_id = 5;
-
-SELECT p.project_id,p.project_title, p.project_description, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id WHERE p.project_is_disabled = 0 AND u.user_id = 5;
+ INSERT INTO offer_skill (offer_id, skill_id) VALUES (14, 5);
  
-SELECT * FROM project WHERE project_id = 3;
-SELECT * FROM user_project WHERE project_id = 3;
-
-
-
-SELECT p.project_id, p.project_title, p.project_description, p.project_link, p.project_type, p.project_status, u.user_id, CONCAT(u.user_name, ' ', u.user_lastname) AS user_name, f.field_name, CONCAT(c.user_name, ' ', c.user_lastname) AS creator_name, sk.skill_id, sk.skill_name, r.review_content, r.review_created_on, CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name, off.offer_id, off.offer_title, off.offer_description FROM project p LEFT JOIN user_project up ON p.project_id = up.project_id LEFT JOIN user u ON up.user_id = u.user_id LEFT JOIN user_field uf ON u.user_id = uf.user_id LEFT JOIN field f ON uf.field_id = f.field_id LEFT JOIN user c ON p.creator_user_id = c.user_id LEFT JOIN user_skill us ON u.user_id = us.user_id LEFT JOIN skill sk ON us.skill_id = sk.skill_id LEFT JOIN review r ON u.user_id = r.reviewed_user_id LEFT JOIN user rev ON r.user_id = rev.user_id LEFT JOIN offer off ON p.project_id = off.project_id WHERE p.project_id = 3 AND up.status = 2;
+ DELETE FROM skill;
