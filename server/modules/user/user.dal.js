@@ -1,4 +1,5 @@
 import { dbPool, executeQuery } from "../../config/db.js";
+import { hashPassword } from "../../utils/hashUtils.js";
 
 class UserDal {
  
@@ -32,6 +33,14 @@ class UserDal {
     } catch (error) {
       throw error;
     }
+   }
+
+   resetPassword = async (user_id, newPassword) => {
+    const hashedPassword = await hashPassword(newPassword)
+    let sql = 'UPDATE user SET user_password = ? WHERE user_id = ?'
+    const result = await executeQuery(sql,[hashedPassword, user_id]);
+    console.log("new password", result)
+    return result
    }
 
    editUser = async (values, file) => {
@@ -126,6 +135,94 @@ class UserDal {
         throw error;
       }
   }
+
+  getskillsfields = async (id) => {
+    try {
+      let sql = `SELECT us.user_id,
+                GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name) AS skills,
+                GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name) AS fields
+                FROM user_skill us
+                LEFT JOIN skill s ON us.skill_id = s.skill_id
+                LEFT JOIN user_field uf ON us.user_id = uf.user_id
+                LEFT JOIN field f ON uf.field_id = f.field_id
+                WHERE us.user_id = ? GROUP BY us.user_id;`;
+      const res = await executeQuery(sql, [id]);
+      return res;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+
+  joinResponse = async (values) => {
+    const connection = await dbPool.getConnection();
+    const [user_id, project_id, offer_id] = values;
+
+    try {
+      await connection.beginTransaction();
+
+      let sql = 'SELECT number_of_position FROM offer WHERE offer_id = ?';
+      const [offer] = await connection.execute(sql, [offer_id]);
+       
+       if (offer.length === 0) {
+        throw new Error('Offer not found.');
+      }
+
+      let sqlUserProject = 'INSERT INTO user_project(user_id, project_id) VALUES (?, ?)'
+      await connection.execute(sqlUserProject, [user_id, project_id])
+    
+      await connection.commit();
+
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release()
+    }
+  }
+
+
+   updateRequestStatus = async (values, request_status) => {
+     const connection = await dbPool.getConnection();
+     const [user_id, project_id, offer_id] = values;
+       
+    try {
+      await connection.beginTransaction();
+
+      let sql = 'SELECT number_of_position FROM offer WHERE offer_id = ?';
+      const [offer] = await connection.execute(sql, [offer_id]);
+       
+       if (offer.length === 0) {
+        throw new Error('Offer not found.');
+      }
+
+      let currentNumberOfPositions = offer[0].number_of_position;
+  
+      if (currentNumberOfPositions <= 0) {
+        throw new Error('No positions available in the offer.');
+      }
+
+      let updatedNumberOfPositions = currentNumberOfPositions - 1;
+
+      let sqlOffer = 'UPDATE offer SET number_of_position = ? WHERE offer_id = ?'
+      await connection.execute(sqlOffer, [updatedNumberOfPositions, offer_id])
+
+      let sqlUserProject = 'INSERT INTO user_project(user_id, project_id) VALUES (?, ?)'
+      await connection.execute(sqlUserProject, [user_id, project_id])
+
+      let sqlRequest = 'UPDATE request SET request_status = ? WHERE offer_id = ? AND user_id = ?'
+      await connection.execute(sqlRequest, [request_status, offer_id, user_id])
+    
+      await connection.commit();
+
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release()
+    }
+  }
+
 
 
 }

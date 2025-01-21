@@ -30,7 +30,7 @@ const SkillsInput = ({ onSubmit }) => {
         <label htmlFor="skills">Skills</label>
         <div className="tagsContainer">
           {skills.map((skill, index) => (
-            <div key={index} className="tag">
+            <div key={index} className="tagDeleteable">
               {skill}
               <span onClick={() => removeSkill(index)} className="deleteBtn">
                 ×
@@ -52,45 +52,6 @@ const SkillsInput = ({ onSubmit }) => {
       </fieldset>
     </div>
   );
-};
-
-const styles = {
-  // container: {
-  //   display: "flex",
-  //   flexWrap: "wrap",
-  //   border: "1px solid #ccc",
-  //   padding: "8px",
-  //   borderRadius: "4px",
-  //   minHeight: "40px",
-  // },
-  // tag: {
-  //   backgroundColor: "#007bff",
-  //   color: "white",
-  //   padding: "5px 10px",
-  //   borderRadius: "20px",
-  //   margin: "5px",
-  //   display: "flex",
-  //   alignItems: "center",
-  // },
-  // removeBtn: {
-  //   marginLeft: "8px",
-  //   cursor: "pointer",
-  // },
-  // input: {
-  //   border: "none",
-  //   outline: "none",
-  //   padding: "5px",
-  //   flex: "1",
-  // },
-  // submitBtn: {
-  //   marginTop: "10px",
-  //   padding: "8px 15px",
-  //   backgroundColor: "#28a745",
-  //   color: "white",
-  //   border: "none",
-  //   borderRadius: "4px",
-  //   cursor: "pointer",
-  // },
 };
 
 export default SkillsInput;

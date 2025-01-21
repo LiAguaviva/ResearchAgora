@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { NavbarApp } from '../components/NavbarApp/NavbarApp'
 import { FooterApp } from '../components/FooterApp/FooterApp'
-import { AboutUs } from '../pages/Dashboard/AboutUs/AboutUs'
 import { Login } from '../pages/Auth/Login/Login'
 import { Register } from '../pages/Auth/Register/Register'
 import { Contact } from '../pages/Info/Contact'
@@ -22,6 +21,9 @@ import { Partnership } from '../pages/Info/Partnership'
 import { InfoLayout } from '../pages/Info/InfoLayout'
 import { AdminLayout } from '../pages/Admin/AdminLayout'
 import { AccountVerified } from '../pages/Auth/AccountVerified/AccountVerified'
+import { AboutUs } from '../pages/Info/AboutUs'
+import { PersonalData } from '../pages/User/PersonalData/PersonalData'
+import { EditProjectForm } from '../components/EditProjectForm/EditProjectForm'
 
 export const AppRoutes = () => {
   return (
@@ -31,13 +33,14 @@ export const AppRoutes = () => {
         <Routes>
           {/* Dashboard */}
             <Route path='/' element={<Home />}/>
-            <Route path='/aboutus' element={<AboutUs />}/>
 
             {/* info */}
             <Route path='/infolayout' element={< InfoLayout />} >
-                 <Route index element={<Contact/>} />
+                 {/* <Route index element={<AboutUs/>} /> */}
+                 <Route path='about' element={<AboutUs/>} />
                  <Route path='metrics' element={<Metrics/>} />
                  <Route path='partnership' element={<Partnership/>} />
+                 <Route path='contact' element={<Contact/>} />
             </Route> 
 
             {/* Auth */}
@@ -48,6 +51,7 @@ export const AppRoutes = () => {
             {/* User */}
             <Route path='/profile' element={<Profile />}/>
             <Route path='/editprofile' element={<EditProfile />}/> 
+            <Route path='/PersonalData' element={<PersonalData />}/> 
 
             {/* Offer */}
             <Route path='/createoffer' element={<CreateOffer />}/>
@@ -57,8 +61,8 @@ export const AppRoutes = () => {
 
             {/* Project */}
             <Route path='/allprojects' element={<AllProjects />}/>
-            <Route path='/oneproject' element={<OneProject />}/>
-            <Route path='/editproject' element={<EditProject />}/>
+            <Route path='/oneproject/:id' element={<OneProject />}/>
+            <Route path='/editproject/:id' element={<EditProjectForm />}/>
             <Route path='/createproject' element={<CreateProject />}/>
             
             {/* Admin */}

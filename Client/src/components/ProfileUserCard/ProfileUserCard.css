@@ -1,9 +1,12 @@
+
 .profileUserCard {
   display: flex;
   flex-direction: column;
   gap: var(--size2);
-  max-width: 50rem;
   flex-wrap: wrap;
+  /* max-width: 50rem; */
+  margin-inline: auto;
+  /* padding-block: 6.5rem; */
 
   .profileUserHeader {
     display: flex;
@@ -13,7 +16,7 @@
 
     .profileAvatar {
       --AvatarSize: 20rem;
-  
+      
       background-color: var(--purple);
       width: var(--AvatarSize);
       height: var(--AvatarSize);
@@ -21,22 +24,22 @@
       object-fit: cover;
       object-position: center;
     }
-  
+
     .userCardHeadData {
       display: flex;
       flex-direction: column;
       gap: var(--size1);
     }
   }
-
-  .separator {
-    width: 100%;
-    border-bottom: 6px solid var(--purple);
-  }
   
-
   .profileDescription {
-    /* line-height: var(--size2); */
-    line-height: 1.8rem;
+    /* width: 53rem; */
+    display: flex;
+    flex-direction: column;
+  
+    p {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
   }
 }

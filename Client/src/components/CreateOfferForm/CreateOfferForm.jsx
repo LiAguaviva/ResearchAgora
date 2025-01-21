@@ -24,10 +24,10 @@ export const CreateOfferForm = () => {
   }
 
   return (
-    <div className='myFormContainer'>
-      <form className='myForm'>
+    <div className='formAppContainer'>
+      <form className='formApp'>
         <p className='formTitle'>Add an Offer</p>
-        <div className='separator' />
+        <div className='separatorThick' />
         <fieldset>
           <label htmlFor="OfferTitle">OfferTitle</label>
           <input 
@@ -64,7 +64,7 @@ export const CreateOfferForm = () => {
         />
         </fieldset>
 
-        <div className='separator' />
+        <div className='separatorThick' />
 
         <div className="errorMsg">
         {/* {valErrors.password && <p>{valErrors.password}</p>} */}

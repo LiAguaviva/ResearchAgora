@@ -1,3 +1,4 @@
+
 import projectDal from "./project.dal.js";
 
 
@@ -5,14 +6,17 @@ class ProjectController {
 
     addproject = async (req, res) =>{
       try {
-        const {title, city, country, description, max_member, type} = req.body;
+        const {title, city, country, description, max_member, type, status, skill_name} = req.body;
         const {creator_user_id} = req.params;
-        const values = [title, city, country, description, max_member, type, creator_user_id];
-  
-        const result = await projectDal.registerProject(values);
+        const values = [title, city, country, description, type, status, max_member, creator_user_id];
+
+        const result = await projectDal.registerProject(values, skill_name);
+ 
+        res.status(200).json(result)
       } catch (error) {
-        console.log("errrrrorrrr", error);
+        console.log("eerrrrrrr", error);
         res.status(500).json(error)    
+        
      }
     
     
@@ -28,10 +32,24 @@ class ProjectController {
        }
     }
 
+    oneuserprojects = async (req, res) => {
+      const {user_id} = req.body;
+      console.log('user_id -----> ',user_id);
+      try {
+        const result = await projectDal.oneUserProjects(user_id);
+        res.status(200).json(result)
+
+      } catch (error) {
+        console.log("controller error", error);
+        
+       res.status(500).json(error) 
+      }
+   } 
+
     oneproject = async (req, res) => {
       try {
-        const {project_id} = req.params;    
-        const result = await projectDal.oneProject(project_id);      
+        const {project_id} = req.params;
+        const result = await projectDal.oneProject(project_id);   
         res.status(200).json(result)
       } catch (error) {
         res.status(500).json(error) 
@@ -67,21 +85,39 @@ class ProjectController {
      deleteproject = async (req, res) => {
          const {project_id} = req.params;
              try{
-               await userDal.deleteproject(project_id)
+               await projectDal.deleteproject(project_id)
                res.status(200).json("project disabled")
              }catch (error){
+              console.log("eeeeeeeeeee", error);
+              
                 res.status(500).json(error)
             }
      }
 
 
-
-
-
-
-    // findProjectBySkill = async(req, res) => {
+    findProjectBySkills = async(req, res) => {
+        const {skills} = req.body;
+        console.log('hola', req.body)
         
-    // }
+        try {
+          const result = await projectDal.findprojects(skills)
+               res.status(200).json(result)
+        } catch (error) {
+          res.status(500).json(error)
+        }                
+    }
+
+
+    joinRequest = async(req, res) => {
+      const {user_id, project_id, offer_id}  = req.body;
+      const values = [user_id, project_id, offer_id];
+      try {
+         await projectDal.joinRequest(values); 
+         res.status(200).json("ok")
+      } catch (error) {   
+        res.status(500).json(error)
+      }
+    }
 
    
 

@@ -61,10 +61,10 @@ export const LoginForm = () => {
   
 
   return (
-    <div className='myFormContainer'>
-      <form className='myForm'>
+    <div className='formAppContainer'>
+      <form className='formApp'>
         <p className='formTitle'>Log in</p>
-        <div className='separator' />
+        <div className='separatorThick' />
         <fieldset>
           <label htmlFor="email">Email</label>
           <input 
@@ -89,7 +89,7 @@ export const LoginForm = () => {
           />
         </fieldset>
 
-        <div className='separator' />
+        <div className='separatorThick' />
         <p>Not registered? <Link to={'/register'} className="loginRegisterLink">REGISTER</Link></p>
 
         <div className="errorMsg">

@@ -4,15 +4,18 @@
   --black50: rgb(20, 18, 24, 0.50);
   --purple: rgb(56, 0, 120);
   --purple50: rgba(56, 0, 120, 0.50);
+  --purple20: rgba(56, 0, 120, 0.20);
+  --purple10: rgba(56, 0, 120, 0.10);
   --nightPurple: rgb(38, 0, 82);
   --aqua: rgb(0, 190, 212);
   --magenta: rgb(230, 0, 96);
   --mandarina: rgb(255, 162, 0);
 
   /* VIEW */
-  --headerSize: 10vh;
-  --mainSize: 80vh;
-  --footerSize:10vh;
+  --headerSize: 3.5rem;
+  --mainSize: calc(100vh - 3.5rem - 11rem);
+  --footerSize:11rem;
+  --widthPage: 1200px;
 
     /* SIZES */
     --size02: 0.2rem;
@@ -24,9 +27,9 @@
     --size5: 5rem;
 
     /* TEXT SIZES */
-    --textL1: 5.2rem;
-    --textL2: 3.5rem;
-    --textM1: 3rem;
+    --textL1: 3rem;
+    --textL2: 2.5rem;
+    --textM1: 2rem;
     --textM2: 1.5rem;
     --textBody: 1rem;
 }

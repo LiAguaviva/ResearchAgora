@@ -1,8 +1,11 @@
 import { useState, useEffect, useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { fetchData } from '../../helpers/axiosHelper'
 import { AgoraContext } from '../../context/ContextProvider'
 import SkillsInput from '../SkillsInputs/SkillsInput'
+import { editProfileSchema } from '../../schemas/editProfileSchema'
+import { ZodError } from 'zod';
+import axios from 'axios'
 
 const initialValue = {
   user_name:"",
@@ -21,34 +24,65 @@ export const EditProfileForm = () => {
   const [editUser, setEditUser] = useState(initialValue);  
   const {user, setUser, token} = useContext(AgoraContext);
   const [msg, setMsg] = useState('');
-
+  const [valErrors, setValErrors] = useState({});
   const [file, setFile] = useState('')
-  const [fields, setFields] = useState([])
-  const [skills, setSkills] = useState([])
+  const [fields, setFields] = useState([]);
+  const [skills, setSkills] = useState([]);
   const [inputValueSkills, setInputValueSkills] = useState("");
   const [inputValueFields, setInputValueFields] = useState("");
 
-  useEffect(()=>{
-    if(user){
-      setEditUser(user)
+ 
+
+  useEffect(() => {
+    const fetchSkillsAndFields = async () => {
+      try {
+        const res = await axios.post(
+          "http://localhost:4000/api/user/getskills&fields",
+          { id: user?.user_id }
+        );
+        setSkills(res?.data[0]?.skills?.split(",") || []);
+        setFields(res?.data[0]?.fields?.split(",") || []);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (user || !user) {
+      if (Array.isArray(user) && user.length > 0) {
+        setEditUser(user[0]);
+      } else {
+        setEditUser(user);
+      }
+      fetchSkillsAndFields();
     }
-  }, [user])
+  }, [user]);
 
   // skills
   const handleKeyDownSkill = (e) => {
-    if (e.key === "Enter" && inputValueSkills.trim() !== "" && inputValueSkills.trim().length > 1) {
+    if (e.key === "Enter") {
       e.preventDefault();
-      setSkills([...skills, inputValueSkills.trim()]);
-      setInputValueSkills("");
+      if (
+        inputValueSkills.trim() !== "" &&
+        inputValueSkills.trim().length > 1 &&
+        /^[a-zA-Z0-9]+$/.test(inputValueSkills.trim())
+      ) {
+        setSkills([...skills, inputValueSkills.trim()]);
+        setInputValueSkills("");
+      }
     }
   };
 
   // field
   const handleKeyDownField = (e) => {
-    if (e.key === "Enter" && inputValueFields.trim() !== "" && inputValueFields.trim().length > 1) {
+    if (e.key === "Enter") {
       e.preventDefault();
-      setFields([...fields, inputValueFields.trim()]);
-      setInputValueFields("");
+      if (
+        inputValueFields.trim() !== "" &&
+        inputValueFields.trim().length > 1 &&
+        /^[a-zA-Z0-9]+$/.test(inputValueFields.trim())
+      ) {
+        setFields([...fields, inputValueFields.trim()]);
+        setInputValueFields("");
+      }
     }
   };
 
@@ -59,55 +93,88 @@ export const EditProfileForm = () => {
     setSkills(newSkills);
   };
 
+  const removeField = (index) => {
+    const newFields = [...fields];
+    newFields.splice(index, 1);
+    setFields(newFields);
+  };
+
+  const validateField = (name, value) => {
+    try {
+      editProfileSchema.pick({[name]: true}).parse({[name]:value});
+      setValErrors({...valErrors, [name]:''})
+    } catch (error) {
+      setValErrors({...valErrors, [name]:error.errors[0].message})
+    }
+  }
+
   const handleChange = (e)=> {
     const {name, value} = e.target;
+    
     if(name === 'accept'){
       setEditUser({...editUser, accept:e.target.checked })
     } else {
       setEditUser({...editUser, [name]:value})
     }
+    validateField(name, value)
   } 
 
   const handleFile = (e) => setFile(e.target.files[0]);
 
-  const onSubmit = async (e)=> {
-
+  const onSubmit = async (e) => {
     try {
       e.preventDefault();
+      editProfileSchema.parse(editUser);
+      
       const skillsString = skills.join(",");
       const fieldstring = fields.join(",");
-      
-      let data = {...editUser, skills:skillsString, fields:fieldstring}
+      let data = { ...editUser, skills: skillsString, fields: fieldstring,user_id : editUser?.user_id};
 
       const newFormData = new FormData();
-      newFormData.append('edit', JSON.stringify(data)); 
-      newFormData.append('file', file);
-
-
+      newFormData.append("edit", JSON.stringify(data));
+      newFormData.append("file", file);
       // setEditUser({...editUser, [skills]:skillsString, [fields]:fieldstring})
       //mandar data(variable temporal) al back con axios
-      console.log('token', token);
-      console.log('data', data);
-      const result = await fetchData('/editUser', 'put', newFormData, {Authorization:`Bearer ${token}`})
-      setUser(data);
-      navigate('/profile')
+      const result = await fetchData("/editUser", "put", newFormData, {
+        Authorization: `Bearer ${token}`,
+      });
+      setUser({...editUser, skills: skillsString, fields: fieldstring,user_avatar: result.img ? result?.img : user.user_avatar});
+      navigate("/profile");
+
     } catch (error) {
-      console.log(error);
+
+      const fieldErrors = {};
+
+      if (error instanceof ZodError){
+        error.errors.forEach((err)=>{
+          fieldErrors[err.path[0]]=err.message
+        })
+        setValErrors(fieldErrors)
+      } else {
+        console.log(error);
+        setMsg(error.response.data.message)
+        console.log('error message', error.response.data.message);
+      }
     }
-  }
+  };
+
+  // console.log('edituser', editUser);
+  // console.log('user', user);
+  
+  
   
   return (
-    <div className='myFormContainer'>
-    <form className='myForm'>
+    <div className='formAppContainer'>
+    <form className='formApp'>
       <p className='formTitle'>Edit Profile</p>
-      <div className='separator' />
+      <div className='separatorThick' />
       <fieldset>
         <label htmlFor="name">name</label>
         <input 
           id='name'
           type="name" 
           placeholder='Name'
-          value={editUser?.user_name}
+          value={editUser?.user_name?editUser?.user_name : ''}
           onChange={handleChange}
           name='user_name'
         />
@@ -119,7 +186,7 @@ export const EditProfileForm = () => {
           id='lastname'
           type="lastname" 
           placeholder='Lastname'
-          value={editUser?.user_lastname}
+          value={editUser?.user_lastname? editUser?.user_lastname : ''}
           onChange={handleChange}
           name='user_lastname'
         />
@@ -165,12 +232,12 @@ export const EditProfileForm = () => {
         <label htmlFor="skills">Skills</label>
         <div className="tagsContainer">
           {skills.map((skill, index) => (
-            <div key={index} className="tag">
+            <div key={index} className="tagDeleteable">
               {skill}
               <span 
                 onClick={() => removeSkill(index)} 
                 className="deleteBtn"
-                value={editUser?.skills ? editUser.skills : ''}
+                // value={editUser?.skills ? editUser.skills : ''}
               >
                 ×
               </span>
@@ -187,13 +254,14 @@ export const EditProfileForm = () => {
           />
       </fieldset>
         <fieldset className="textareaLit">
+          
         <label htmlFor="fields">Fields</label>
         <div className="tagsContainer">
           {fields.map((field, index) => (
-            <div key={index} className="tag">
+            <div key={index} className="tagDeleteable">
               {field}
               <span 
-                onClick={() => removeSkill(index)} 
+                onClick={() => removeField(index)} 
                 className="deleteBtn"
               >
                 ×
@@ -220,10 +288,15 @@ export const EditProfileForm = () => {
         </fieldset>
 
 
-      <div className='separator' />
-      {/* <p>Already registered? <Link to={'/login'}  className="formLink">LOG IN</Link></p> */}
+      <div className='separatorThick' />
 
       <div className="errorMsg">
+      {valErrors.user_name && <p>{valErrors.user_name}</p>}
+      {valErrors.user_lastname && <p>{valErrors.user_lastname}</p>}
+      {valErrors.user_country && <p>{valErrors.user_country}</p>}
+      {valErrors.user_city && <p>{valErrors.user_city}</p>}
+      {valErrors.user_description && <p>{valErrors.user_description}</p>}
+
       { <p>{msg}</p>}
       </div>
 
@@ -235,7 +308,7 @@ export const EditProfileForm = () => {
         <button 
           className="cancel"
           type='button'
-          onClick={()=>navigate('/')}
+          onClick={()=>navigate('/profile')}
         >CANCEL</button>
       </div>
     </form>

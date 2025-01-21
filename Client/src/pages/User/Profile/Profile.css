@@ -1,0 +1,11 @@
+
+.ProfileProjects {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size2);
+}
+.projectsGallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+}

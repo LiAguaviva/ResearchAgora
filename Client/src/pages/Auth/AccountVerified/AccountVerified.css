@@ -1,0 +1,38 @@
+
+.accountVerifiedSect{
+  height: 60vh;
+  align-content: center;
+
+  .accountVerified {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--size2);
+  
+    h2 {
+
+      @media (max-width: 400px) {
+        font-size: var(--textM2);
+      }
+    }
+  
+    .textInfo {
+      display: flex;
+      flex-direction: column;
+      gap: var(--size05);
+    }
+  
+    img {
+      width: 60%;
+      margin-bottom: var(--size4);
+  
+      @media (max-width: 800px) {
+        width: 100%;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+}
+

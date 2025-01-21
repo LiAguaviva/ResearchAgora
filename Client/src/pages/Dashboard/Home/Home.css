@@ -1,0 +1,57 @@
+
+.homeLogoSection {
+  background-image: 
+  linear-gradient(0deg, rgba(255, 255, 255, 0.4) 0%, rgba(255,255,255,0.4) 100%),
+  url('../../../assets/imgs/Lab1.jpg');
+
+  height: 40rem;
+  justify-content: center;
+  align-content: center;
+  background-position: center;
+  background-size: cover;
+  
+
+  .homeLogo {
+    text-align: center;
+    font-weight: bold;
+
+    img {
+      width: 70%;
+
+      @media (max-width: 1000px) {
+        width: 100%;
+      }
+    }
+
+    h1 {
+      @media (max-width: 630px) {
+        font-size: var(--textM1);
+      }
+      @media (max-width: 300px) {
+        font-size: var(--textM2);
+      }
+    }
+    
+    p {
+      font-size: var(--textM1);
+
+      @media (max-width: 630px) {
+        font-size: var(--textM2);
+      }
+      @media (max-width: 300px) {
+        font-size: var(--textBody);
+      }
+    }
+  }
+}
+
+.whoWeAreSection {
+  /* background-color: var(--purple50); */
+  padding-block: var(--size5);
+
+  .whoWeAre {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size1);
+  }
+}

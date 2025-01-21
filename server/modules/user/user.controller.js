@@ -1,11 +1,12 @@
 import { comparePassword, hashPassword } from "../../utils/hashUtils.js";
 import userDal from "./user.dal.js";
 import { registerSchema } from "../../schemas/registerSchema.js";
-import { emailValidationToken, generateToken, getIdFromToken } from "../../utils/tokenUtils.js";
+import { emailValidationToken, generateToken, getIdFromToken, generateTokenPassword } from "../../utils/tokenUtils.js";
 import { loginSchema } from "../../schemas/loginSchema.js";
-import { sendMailValidation } from "../../services/emailService.js";
+import { sendMailValidation, sendPasswordResetEmail  } from "../../services/emailService.js";
 import { dbPool } from "../../config/db.js";
 import {z} from "zod";
+import { resetPasswordScheme } from "../../schemas/resetPasswordScheme.js";
 
 
 class UserController {
@@ -17,7 +18,7 @@ class UserController {
       } else {
         const hash = await hashPassword(password);
         const result = await userDal.register([email, hash]);
-        const token = await emailValidationToken(result.insertId)
+        const token = await emailValidationToken(result.insertId);
         // console.log("0000000000000000000", token);
         sendMailValidation(email, token)
         res.status(200).json({ msg: "ok" });
@@ -63,6 +64,38 @@ class UserController {
         const {token} = req.params;
         const id = await getIdFromToken(token);
         const result = await userDal.verifyUser(id);
+      } catch (error) {
+        res.status(500).json(error.message);
+      }       
+    }
+
+    forgottenPassword = async (req, res) => {     
+      try {const { email } = req.body;         
+      const user = await userDal.findUserbyEmail(email);         
+      if (user.length === 0) {             
+        return res.status(404).json({ message: "User not found" });         
+      }        
+      const token = generateTokenPassword(user[0].user_id); 
+      sendPasswordResetEmail(email, token);         
+      res.status(200).json({ message: "Password reset email sent" });     
+    } catch (error) { 
+      res.status(500).json({ message: error.message }); 
+    } 
+  }
+
+    resetPassword = async (req, res) => {
+      try {
+        const {token} = req.params;
+        const { newPassword, confirmNewPassword } = req.body;
+        
+        const parsedData = resetPasswordScheme.parse({
+          newPassword, confirmNewPassword
+        })
+        const user_id = await getIdFromToken(token);
+        const result = await userDal.resetPassword(user_id, parsedData.newPassword );
+        console.log(result);
+        res.status(200).json("password changed")
+        
       } catch (error) {
         res.status(500).json(error.message);
       }       
@@ -121,36 +154,37 @@ class UserController {
       // console.log("reqqqqqq", JSON.parse(req.body.edit));
       // console.log("fileeeee", req.file);
       const data  = JSON.parse(req.body.edit)
-      console.log('data en back', data);
-      
+      let img = null;
+      if(req.file){
+          img= req.file.filename
+      }
       try {
         const {user_name, user_lastname, user_country, user_city, user_description, skills, fields, user_id} = data; //req.body.data
         const result = await  userDal.editUser([user_name, user_lastname, user_country, user_city, user_description, user_id], req.file);
-        if(skills != ""){
+        if(skills != "" || !skills){
           const results = await this.saveTags(skills, user_id, 'skill');
         }
-        if(fields != ""){
+        if(fields != "" || !fields){
           const res = await this.saveTags(fields, user_id, 'field');
         }
-        res.status(200).json('ok')
+        res.status(200).json({img})
       } catch (error) {
         console.log("'''''''''''''''''", error);
         res.status(500).json(error)
       }
- 
-      //¿qué tenemos que hacer? guardar los campos en la DB. 
-      //Guardar los datos normales (tabla user) y por otro las skills (tabla skills). 
+      //¿qué tenemos que hacer? guardar los campos en la DB.
+      //Guardar los datos normales (tabla user) y por otro las skills (tabla skills).
       //guardar en la tabla intermedia que usuario es con las skills
     }
 
     saveTags = async (data, user_id, type ) => {
-      try {
+        try {
         let name = 'skill_name'
-       let id = 'skill_id' 
-       if(type === 'field'){
-        name = 'field_name'
-        id = 'field_id'
-       } 
+        let id = 'skill_id' 
+         if(type === 'field'){
+          name = 'field_name'
+          id = 'field_id'
+         } 
        
        const dataArray = data.split(','); //si el string empieza en , o termina en , controlarlo
        let finalArrayData = dataArray.map(e => e.trim())
@@ -171,6 +205,45 @@ class UserController {
           res.status(500).json(error)
         }
       }
+
+      getskillsfields = async (req,res) => {
+        const {id} = req.body;
+        try {
+          const result = await userDal.getskillsfields(id);
+          console.log(result);
+          res.status(200).json(result)
+        } catch (error) {
+          res.status(500).json(error);
+        }
+      }
+
+
+      joinResponse = async (req,res) => {
+        const {user_id, project_id, offer_id}  = req.body;
+        const values = [user_id, project_id, offer_id];
+        try {
+           await userDal.joinResponse(values);
+           res.status(200).json("ok")
+        } catch (error) {         
+          res.status(500).json(error)
+        }
+      }
+
+
+      updateRequestStatus = async (req,res) => {
+        const {user_id, project_id, offer_id, request_status}  = req.body;
+        const values = [user_id, project_id, offer_id];
+        try {
+           await userDal.updateRequestStatus(values, request_status);
+          
+           
+           res.status(200).json("ok")
+        } catch (error) {
+          console.log(error);          
+          res.status(500).json(error)
+        }
+      }
+      
 
 }
 

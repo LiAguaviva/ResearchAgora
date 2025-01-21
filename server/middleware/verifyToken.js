@@ -34,3 +34,21 @@ export const tokenVerifyEmail = (req, res, next) =>{
         } )
 
 }
+
+export const forgottenPasswordEmail = (req, res, next) =>{
+    const {token} = req.params;
+    console.log("token forgotten password", token);
+    
+     jwt.verify(token, process.env.PASSWORD_KEY, (err)=>{
+        console.log("middleware", err);
+        
+        if(err){
+                    
+            res.status(401).json({message: "not authorized"})
+        }else{
+            req.token = token;
+            next();
+            }
+        } )
+
+}

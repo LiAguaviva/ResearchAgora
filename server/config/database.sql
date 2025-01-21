@@ -1,3 +1,4 @@
+-- drop database research_agora;
 CREATE DATABASE research_agora;
 USE research_agora;
 
@@ -191,12 +192,6 @@ CREATE TABLE notification (
 -- announcement_id
 -- );
 
-INSERT INTO user (user_name, user_lastname, user_email, user_country, user_city, user_description, user_password, user_avatar, user_type, user_proficiency, user_is_verified, user_is_disabled) VALUES
-('Alice', 'Smith', 'alice.smith@example.com', 'USA', 'New York', 'Researcher in quantum mechanics', 'password123', 'avatar1.png', 2, 'PhD', 1, 0),
-('Bob', 'Jones', 'bob.jones@example.com', 'UK', 'London', 'Biologist specializing in genetics', 'password456', 'avatar2.png', 2, 'PostDoc', 0, 0),
-('Charlie', 'Brown', 'charlie.brown@example.com', 'Canada', 'Toronto', 'Mathematics professor', 'password789', 'avatar3.png', 2, 'Doctorant', 1, 0),
-('Diana', 'Prince', 'diana.prince@example.com', 'France', 'Paris', 'Computer Science enthusiast', 'passwordabc', 'avatar4.png', 1, 'Lab Worker', 1, 0);
-
 INSERT INTO field (field_id, field_name) VALUES
 (1, 'Physics'),
 (2, 'Chemistry'),
@@ -204,11 +199,28 @@ INSERT INTO field (field_id, field_name) VALUES
 (4, 'Mathematics'),
 (5, 'Computer Science');
 
-INSERT INTO user_field (user_id, field_id) VALUES
-(1, 1),
-(2, 3),
-(3, 4),
-(4, 5);
+INSERT INTO user (user_name, user_lastname, user_email, user_country, user_city, user_description, user_password, user_avatar, user_type, user_proficiency, user_is_verified, user_is_disabled) VALUES
+('Alice', 'Smith', 'alice.smith@example.com', 'USA', 'New York', 'Quantum mechanics researcher', 'password123', 'avatar1.png', 2, 'PhD', 1, 0),
+('Bob', 'Jones', 'bob.jones@example.com', 'UK', 'London', 'Biologist specializing in genetics', 'password456', 'avatar2.png', 2, 'PostDoc', 0, 0),
+('Charlie', 'Brown', 'charlie.brown@example.com', 'Canada', 'Toronto', 'Mathematics professor', 'password789', 'avatar3.png', 2, 'Doctorant', 1, 1),
+('Diana', 'Prince', 'diana.prince@example.com', 'France', 'Paris', 'Computer Science enthusiast', 'passwordabc', 'avatar4.png', 1, 'Lab Worker', 1, 0);
+
+INSERT INTO user_field (user_id, field_id, user_field_is_disabled) VALUES
+(1, 1, 0),
+(2, 3, 0),
+(3, 4, 0),
+(4, 5, 0);
+
+INSERT INTO project (project_title, project_city, project_country, project_description, project_type, project_status, project_outcome, project_link, project_max_member, creator_user_id) VALUES
+('Quantum Entanglement Studies', 'New York', 'USA', 'Researching entanglement phenomena', 0, 1, 'Manuscript', 'http://example.com/outcome1', 10, 1),
+('Genetic Engineering Project', 'London', 'UK', 'Exploring gene editing techniques', 1, 2, 'Patent', 'http://example.com/outcome2', 8, 2),
+('Machine Learning in Mathematics', 'Toronto', 'Canada', 'Applying ML techniques to solve complex equations', 0, 1, 'Research Paper', 'http://example.com/outcome3', 5, 3);
+
+INSERT INTO user_project (user_id, project_id, status) VALUES
+(1, 1, 2),
+(2, 2, 2),
+(3, 3, 1),
+(4, 1, 4);
 
 INSERT INTO skill (skill_id, skill_name) VALUES
 (1, 'Data Analysis'),
@@ -217,20 +229,54 @@ INSERT INTO skill (skill_id, skill_name) VALUES
 (4, 'Quantum Physics'),
 (5, 'Mathematical Modeling');
 
-INSERT INTO user_skill (user_id, skill_id) VALUES
-(1, 4),
-(2, 3),
-(3, 2),
-(4, 5),
-(4, 1);
+INSERT INTO user_skill (user_id, skill_id, user_skill_is_disabled) VALUES
+(1, 4, 0),
+(2, 3, 0),
+(3, 2, 0),
+(4, 5, 0),
+(4, 1, 0);
+
+INSERT INTO offer (project_id, offer_title, offer_description, number_of_position) VALUES
+(1, 'PostDoc in Quantum Research', 'Researching advanced quantum theories', 2),
+(2, 'Genetic Lab Technician', 'Assisting in genetic modification experiments', 3),
+(3, 'Mathematics Research Assistant', 'Supporting ML-related projects in mathematics', 1);
+
+INSERT INTO offer_skill (offer_id, skill_id, offer_skill_is_disabled) VALUES
+(1, 4, 0),
+(2, 3, 0),
+(3, 5, 0),
+(3, 2, 0);
+
+INSERT INTO project_skill (project_id, skill_id, project_skill_is_disabled) VALUES
+(1, 4, 0),
+(2, 3, 0),
+(3, 2, 0),
+(3, 5, 0);
 
 select * from user;
 select * from user_skill;
 select * from user_field;
-SELECT * FROM project;
-SELECT * FROM user_project;
 SELECT * FROM project_skill;
-SELECT * FROM skill;
- UPDATE user SET user_is_disabled = 0 WHERE user_id = 3;
+ -- UPDATE user SET user_is_disabled = 0 WHERE user_id = 3;
  
+ SELECT * FROM project;
+ SELECT * FROM skill;
+ -- SELECT * FROM offer;
+ SELECT * FROM user_project;
+ SELECT * FROM project_skill;
+ SELECT * FROM offer_skill;
+ SELECT p.project_id,p.project_title, p.project_description, s.skill_name, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id JOIN project_skill AS ps ON p.project_id = ps.project_id JOIN skill AS s ON ps.skill_id = s.skill_id WHERE ps.project_skill_is_disabled = 0;
+
  
+SELECT p.project_id,p.project_title, p.project_description, s.skill_name, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id JOIN project_skill AS ps ON p.project_id = ps.project_id JOIN skill AS s ON ps.skill_id = s.skill_id WHERE ps.project_skill_is_disabled = 0;
+ 
+SELECT p.project_id,p.project_title, p.project_description, p.project_status, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id WHERE p.project_is_disabled = 0 AND u.user_id = 5;
+
+SELECT p.project_id,p.project_title, p.project_description, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id WHERE p.project_is_disabled = 0 AND u.user_id = 5;
+ 
+SELECT * FROM project WHERE project_id = 3;
+SELECT * FROM user_project WHERE project_id = 3;
+
+
+
+SELECT p.project_id, p.project_title, p.project_description, p.project_link, p.project_type, p.project_status, u.user_id, CONCAT(u.user_name, ' ', u.user_lastname) AS user_name, f.field_name, CONCAT(c.user_name, ' ', c.user_lastname) AS creator_name, sk.skill_id, sk.skill_name, r.review_content, r.review_created_on, CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name, off.offer_id, off.offer_title, off.offer_description FROM project p LEFT JOIN user_project up ON p.project_id = up.project_id LEFT JOIN user u ON up.user_id = u.user_id LEFT JOIN user_field uf ON u.user_id = uf.user_id LEFT JOIN field f ON uf.field_id = f.field_id LEFT JOIN user c ON p.creator_user_id = c.user_id LEFT JOIN user_skill us ON u.user_id = us.user_id LEFT JOIN skill sk ON us.skill_id = sk.skill_id LEFT JOIN review r ON u.user_id = r.reviewed_user_id LEFT JOIN user rev ON r.user_id = rev.user_id LEFT JOIN offer off ON p.project_id = off.project_id WHERE p.project_id = 3 AND up.status = 2;
