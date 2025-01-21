@@ -104,6 +104,23 @@ class UserDal {
     }
   }
 
+
+  allUsers = async () => {
+    try {
+      let sql = 'SELECT u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, u.user_city, u.user_description, u.user_proficiency, GROUP_CONCAT(DISTINCT s.skill_name) AS skills, GROUP_CONCAT(DISTINCT f.field_name) AS fields FROM user u LEFT JOIN user_skill us ON u.user_id = us.user_id LEFT JOIN skill s ON us.skill_id = s.skill_id LEFT JOIN user_field uf ON u.user_id = uf.user_id LEFT JOIN field f ON uf.field_id = f.field_id WHERE u.user_type = 2 AND u.user_is_disabled = 0 GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, u.user_city, u.user_description, u.user_proficiency;'
+
+      const result = await executeQuery(sql)
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+
+
+
+
   deleteUser = async(user_id) => {
     const connection = await dbPool.getConnection();
     try{
@@ -154,7 +171,7 @@ class UserDal {
   };
 
 
-  joinResponse = async (values) => {
+  requestResponse = async (values) => {
     const connection = await dbPool.getConnection();
     const [user_id, project_id, offer_id] = values;
 
@@ -222,6 +239,43 @@ class UserDal {
       connection.release()
     }
   }
+
+    
+   invite = async (values) => {
+     const {sender_id, receiver_id, project_id, offer_id, project_title, offer_title} = values;
+     const message_content = `This is an invitation for joining ${project_title} related to this ${offer_title}`
+     
+     const connection = await dbPool.getConnection();
+
+      try {
+        await connection.beginTransaction();
+        let sqlInvitation = 'INSERT INTO invitation (sender_id, receiver_id, project_id, offer_id) VALUES (?, ?, ?, ?)'
+        await connection.execute(sqlInvitation, [sender_id, receiver_id, project_id, offer_id])
+
+        let sqlMessage = 'INSERT INTO message (sender_id, message_content, receiver_id) VALUES (?, ?, ?)'
+        await connection.execute(sqlMessage, [sender_id, message_content, receiver_id]);
+
+         await connection.commit();
+      } catch (error) {
+        console.log("EERROR", error);
+        await connection.rollback();
+        throw error;
+      }finally {
+        connection.release();
+      }
+   }
+
+    
+   invitationResponse = async(values) =>{
+    const {invitation_id, invitation_status} = values;
+    
+      try {
+        let sql = 'UPDATE invitation SET invitation_status = ? WHERE invitation_id = ?'
+        await executeQuery(sql, [invitation_status, invitation_id])
+      } catch (error) {
+        throw error;
+      }
+   }
 
 
 
