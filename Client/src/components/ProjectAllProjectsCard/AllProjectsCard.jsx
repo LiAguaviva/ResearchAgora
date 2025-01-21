@@ -17,7 +17,7 @@ export const AllProjectsCard = ({elem}) => {
       <div className='data'>
        <div className='profileProjectImg'>
           <img 
-            onClick={navigate()}
+            onClick={() => navigate(`/oneproject/${elem.project_id}`)}
             className='profileProjectImg'
             src={user?.project? `${url}/images/users/${user.avatar}` :projectDefaultIMG} 
             alt="your avatar" 
