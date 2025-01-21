@@ -4,6 +4,7 @@ const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import projectDefaultIMG from '../../assets/imgs/defaultIMG.png'
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../context/ContextProvider';
+import { ProjectMainCard } from '../ProjectMainCard/ProjectMainCard';
 
 
 export const ProjectInfoCard = ({project}) => {
@@ -46,9 +47,10 @@ export const ProjectInfoCard = ({project}) => {
               > {project?.creator_name}</p>
               <p>Creator</p>
             </div>
+            {/* <ProjectMainCard /> */}
           </div> 
           
-          <div className='description'>
+          <div className='description' project={project}>
             <p>{project?.project_description}</p>
           </div>
         </div>

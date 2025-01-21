@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { ProjectInfoCard } from "../../../components/ProjectInfoCard/ProjectInfoCard";
 import { OfferCard } from "../../../components/offerCard/offerCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchDataValidation } from "../../../helpers/axiosHelper";
 import { UserCard } from "../../../components/UserCard/UserCard";
 import { ProjectMemberCard } from "../ProjectMemeberCard/ProjectMemeberCard";
 
 export const OneProject = () => {
+
+  const navigate = useNavigate();
   const { id } = useParams();
   const [project, setProject] = useState([]);
 
@@ -42,8 +44,11 @@ export const OneProject = () => {
         );
       })}
       <div className="separatorThick" />
-      <section className="containerPpal">
+
+      <section className="containerPpal offerGallery">
+        {/* map OfferCard */}
         <OfferCard />
+        <button onClick={()=>navigate('/createOffer')}>Create Offer</button>
       </section>
     </div>
   );

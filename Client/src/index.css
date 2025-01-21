@@ -142,11 +142,11 @@ button {
 }
 
 .separatorThick {
-  max-width: var(--widthPage);
+  width: 100%;
   border-bottom: 7px solid var(--purple);
   margin-inline: auto;
 }
 .separatorMid {
-  max-width: var(--widthPage);
+  width: 100%;
   border-bottom: 4px solid var(--purple);
 }
