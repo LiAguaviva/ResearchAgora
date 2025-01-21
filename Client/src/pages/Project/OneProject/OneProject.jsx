@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetchDataValidation } from "../../../helpers/axiosHelper";
 import { UserCard } from "../../../components/UserCard/UserCard";
 import { ProjectMemberCard } from "../ProjectMemeberCard/ProjectMemeberCard";
+import './OneProject.css'
 
 export const OneProject = () => {
 
@@ -34,6 +35,8 @@ export const OneProject = () => {
       <section className="containerPpal">
         <ProjectInfoCard project={project[0]} />
       </section>
+
+      <section className="containerPpal">
       {project?.map((elem,index) => {
         return (
           <section key={index}>
@@ -44,10 +47,21 @@ export const OneProject = () => {
         );
       })}
       <div className="separatorThick" />
+      </section>
 
-      <section className="containerPpal offerGallery">
+      <section className="containerPpal">
+        <div className="offerGallery">
         {/* map OfferCard */}
         <OfferCard />
+        <OfferCard />
+        <OfferCard />
+        <OfferCard />
+        <OfferCard />
+        <OfferCard />
+        <OfferCard />
+        <OfferCard />
+        <OfferCard />
+        </div>
         <button onClick={()=>navigate('/createOffer')}>Create Offer</button>
       </section>
     </div>

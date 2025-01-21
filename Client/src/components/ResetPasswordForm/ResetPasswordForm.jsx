@@ -11,7 +11,7 @@ const initialValue = {
   password:''
 }
 
-export const LoginForm = () => {
+export const ResetPasswordForm = () => {
 
   const {user, setUser, token, setToken, } = useContext(AgoraContext);
   const navigate = useNavigate();
@@ -19,7 +19,6 @@ export const LoginForm = () => {
   const [login, setLogin] = useState(initialValue)
   const [valErrors, setValErrors] = useState({})
   const [msg, setMsg] = useState('')
-  const [forgotpassword, setForgotpassword] = useState(false);
 
 
   const validateField = (name, value) => {
@@ -51,11 +50,10 @@ export const LoginForm = () => {
       localStorage.setItem('agoraToken', tokenLocal)
       setUser(resultUser);
       setToken(tokenLocal);
-      navigate('/profile');
+      navigate('/login');
       
     } catch (error) {
       console.log('login error', error);
-      setForgotpassword(true);
     }
   }
 
@@ -68,9 +66,9 @@ export const LoginForm = () => {
   return (
     <div className='formAppContainer'>
       <form className='formApp'>
-        <p className='formTitle'>Log in</p>
+        <p className='formTitle'>Reset Password</p>
         <div className='separatorThick' />
-        <fieldset>
+        {/* <fieldset>
           <label htmlFor="email">Email</label>
           <input 
             id='email'
@@ -80,7 +78,7 @@ export const LoginForm = () => {
             onChange={handleChange}
             name='email'
           />
-        </fieldset>
+        </fieldset> */}
 
         <fieldset>
           <label htmlFor="password">Password</label>
@@ -94,10 +92,20 @@ export const LoginForm = () => {
           />
         </fieldset>
 
+        <fieldset>
+          <label htmlFor="password">RepeatPassword</label>
+          <input 
+            id='password'
+            type="text" 
+            placeholder='Password'
+            value={login.password}
+            onChange={handleChange}
+            name='password'
+          />
+        </fieldset>
+
         <div className='separatorThick' />
         <p>Not registered? <Link to={'/register'} className="loginRegisterLink">REGISTER</Link></p>
-        {forgotpassword &&
-          <Link to={'/forgotPassword'} className="forgotPassword">Forgot your password?</Link>}
         <div className="errorMsg">
         {valErrors.email && <p>{valErrors.email}</p>}
         {valErrors.password && <p>{valErrors.password}</p>}

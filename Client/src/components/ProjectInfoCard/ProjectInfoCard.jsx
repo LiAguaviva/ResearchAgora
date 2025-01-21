@@ -10,17 +10,23 @@ import { ProjectMainCard } from '../ProjectMainCard/ProjectMainCard';
 export const ProjectInfoCard = ({project}) => {
 
   const {user} = useContext(AgoraContext)
-  console.log('SADASDSADSADAS',project)
+  console.log('PROJECT ON projectInfo',project)
   
   return (
     <section className='projectInfoCard'>
       <h2>{project?.project_title}</h2>
       <div>
         <div className="statusState">
-          <p>Status</p>
-          <p>{project?.project_status === 1 && 'Active'}</p>
-          <p>{project?.project_status === 2 && 'Completed'}</p>
-          <p>{project?.project_status === 3 && 'Paused'}</p>
+          <div>
+            <p>{project?.project_type === 0 && 'Public'}</p>
+            <p>{project?.project_type === 1 && 'Private'}</p>
+          </div>
+          
+          <div>
+            <p>{project?.project_status === 1 && 'Active'}</p>
+            <p>{project?.project_status === 2 && 'Completed'}</p>
+            <p>{project?.project_status === 3 && 'Paused'}</p>
+          </div>
         </div>
         <div className="separatorThick" />
       </div>
@@ -34,23 +40,10 @@ export const ProjectInfoCard = ({project}) => {
 
         <div className="data">
           <div className="userCard">
-            <div className="userCardAvatar">
-              <img 
-                className='userCardAvatar'
-                src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
-                alt="your avatar" 
-              />
-            </div>
-    
-            <div className="userCardData">
-              <p className="UserCardName"
-              > {project?.creator_name}</p>
-              <p>Creator</p>
-            </div>
-            {/* <ProjectMainCard /> */}
+            <ProjectMainCard  project={project} />
           </div> 
           
-          <div className='description' project={project}>
+          <div className='description'>
             <p>{project?.project_description}</p>
           </div>
         </div>

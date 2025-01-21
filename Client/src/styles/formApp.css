@@ -103,6 +103,10 @@
       }
     }
 
+    .forgotPassword {
+      color: var(--aqua);
+    }
+
   }
   
 }

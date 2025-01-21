@@ -23,6 +23,8 @@ import { AdminLayout } from '../pages/Admin/AdminLayout'
 import { AccountVerified } from '../pages/Auth/AccountVerified/AccountVerified'
 import { AboutUs } from '../pages/Info/AboutUs'
 import { PersonalData } from '../pages/User/PersonalData/PersonalData'
+import { ForgotPassword } from '../pages/Auth/ForgotPassword/ForgotPassword'
+import { ResetPassword } from '../pages/Auth/ResetPassword/ResetPassword'
 
 export const AppRoutes = () => {
   return (
@@ -46,6 +48,8 @@ export const AppRoutes = () => {
             <Route path='/register' element={<Register />}/>
             <Route path='/accountverified/:token' element={<AccountVerified />}/>
             <Route path='/login' element={<Login />}/>
+            <Route path='/forgotPassword' element={<ForgotPassword />}/>
+            <Route path='/resetPassword' element={<ResetPassword />}/>
 
             {/* User */}
             <Route path='/profile' element={<Profile />}/>

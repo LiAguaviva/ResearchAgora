@@ -20,4 +20,8 @@
       object-fit: cover;
       object-position: center;
     }
+
+    .creator {
+      color: var(--aqua);
+    }
   }

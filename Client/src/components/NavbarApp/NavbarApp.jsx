@@ -66,7 +66,7 @@ export const NavbarApp = () => {
         <li className='loginRegisterButtons'>
             {!user && <button
               onClick={()=>navigate('/register')}
-            >Sing Up</button>}
+            >Sign Up</button>}
         </li>
         <li className='loginRegisterButtons'>
             {!user && <button

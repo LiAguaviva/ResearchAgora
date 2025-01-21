@@ -39,8 +39,9 @@
       align-items: center;
       text-wrap: nowrap;
 
-      @media (max-width: 300px) {
+      @media (max-width: 500px) {
         flex-direction: column;
+        align-items: center;
         gap: var(--size1);
       }
 
@@ -67,6 +68,9 @@
     }
 
     .loginRegisterButtons {
+      display: flex;
+      gap: var(--size05);
+
       button {
         border-radius: 20px;
       }

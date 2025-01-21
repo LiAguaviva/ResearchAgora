@@ -10,11 +10,13 @@
   }
   
   .statusState {
+    margin-inline: auto;
     display: flex;
-    gap: var(--size2);
     justify-content: center;
+    gap: var(--size3);
     
     p {
+      text-align: center;
       color: var(--aqua);
       font-size: var(--textM2);
       font-weight: bold;
@@ -30,6 +32,7 @@
   .projectData {
     display: flex;
     gap: var(--size2);
+    flex-wrap: wrap;
     /* border: 3px solid salmon; */
     
     .projectImg {

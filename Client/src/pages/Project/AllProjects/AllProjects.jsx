@@ -93,6 +93,7 @@ export const AllProjects = () => {
           />
        <button onClick={onSubmit}>Search</button>
 
+      <p className='searchResults'>Search Results: {projects?.length}</p>
       </div>
 
       <div className='separatorThick' />
@@ -100,7 +101,6 @@ export const AllProjects = () => {
       {projects?.map((elem)=> {
         return(
           <div className='allProjectsGallery' key={elem.project_id} >
-            <span>Search Results: {projects?.length}</span>
             <AllProjectsCard elem={elem}/>
             <div className='separatorAllProjects' />
           </div>

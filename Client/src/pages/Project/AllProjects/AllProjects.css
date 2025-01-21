@@ -30,6 +30,11 @@
     }
   }
 
+  .searchResults {
+    font-weight: bold;
+    color: var(--magenta);
+  }
+
   .allProjectsGallery {
     display: flex;
     flex-direction: column;

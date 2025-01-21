@@ -23,7 +23,7 @@
       gap: var(--size05);
     }
   
-    img {
+    .logo {
       width: 60%;
       margin-bottom: var(--size4);
   
