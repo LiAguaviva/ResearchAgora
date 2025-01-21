@@ -17,9 +17,7 @@ class ProjectController {
         console.log("eerrrrrrr", error);
         res.status(500).json(error)    
         
-     }
-    
-    
+     }   
     }
 
     allprojects = async (req, res) => {

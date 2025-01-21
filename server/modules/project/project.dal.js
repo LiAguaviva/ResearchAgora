@@ -143,7 +143,6 @@ class ProjectDal {
 
   allProjects = async (values) => {
     try {
-      // let sql = 'SELECT p.project_id,p.project_title, p.project_description, s.skill_name, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id JOIN project_skill AS ps ON p.project_id = ps.project_id JOIN skill AS s ON ps.skill_id = s.skill_id WHERE ps.project_skill_is_disabled = 0;'
       let sql = `SELECT 
     p.project_id, 
     p.project_title, 
@@ -151,11 +150,11 @@ class ProjectDal {
     p.project_status,
     GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name SEPARATOR ', ') AS skills, 
     CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name 
-FROM project AS p 
-JOIN user AS u ON p.creator_user_id = u.user_id 
-JOIN project_skill AS ps ON p.project_id = ps.project_id 
-JOIN skill AS s ON ps.skill_id = s.skill_id 
-WHERE ps.project_skill_is_disabled = 0 AND p.project_type = 0
+  FROM project AS p 
+  JOIN user AS u ON p.creator_user_id = u.user_id 
+  LEFT JOIN project_skill AS ps ON p.project_id = ps.project_id AND ps.project_skill_is_disabled = 0
+LEFT JOIN skill AS s ON ps.skill_id = s.skill_id 
+WHERE p.project_type = 0
 GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
 `;
 

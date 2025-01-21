@@ -48,7 +48,7 @@ export const OneProject = () => {
       <section className="containerPpal offerGallery">
         {/* map OfferCard */}
         <OfferCard />
-        <button onClick={()=>navigate('/createOffer')}>Create Offer</button>
+        <button onClick={()=>navigate(`/createOffer/${id}`)}>Create Offer</button>
       </section>
     </div>
   );

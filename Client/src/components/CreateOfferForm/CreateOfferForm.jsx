@@ -1,11 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
+import { createOfferScheme } from '../../schemas/createOfferScheme';
+import { fetchData2 } from '../../helpers/axiosHelper';
+import { ZodError } from 'zod';
 
 const initialValue = {
   offer_title:'',
-  offer_description:'',
-  positionCont:''
+  number_of_position:'',
+  offer_description:''
+
 }
 
 export const CreateOfferForm = () => {
@@ -13,15 +17,80 @@ export const CreateOfferForm = () => {
   const [msg, setMsg] = useState('')
   const navigate = useNavigate();
   const [offer, setOffer] = useState('')
-  
-  const handleChange = (e)=> {
-    const {name, value} = e.target;
-    setLogin({...login, [name]:value})
+  const {id}  = useParams();
+  const [valErrors, setValErrors] = useState({});
+  const [inputValueSkills, setInputValueSkills] = useState("");
+  const [skills, setSkills] = useState([])
+
+   const validateField = (name, value) => {
+       try {
+         createOfferScheme.pick({[name]: true}).parse({[name]:value});
+         setValErrors({...valErrors, [name]:''})
+       } catch (error) {
+         setValErrors({...valErrors, [name]:error.errors[0].message})
+       }
+     }
+
+
+   const handleChange = (e)=> {
+     const {name, value} = e.target;
+     setOffer({...offer, [name]:value});
+     validateField(name, value);
   } 
 
-  const onSubmit = (e) => {
-    e.preventDefault()
+
+  const handleKeyDownSkill = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (
+        inputValueSkills.trim() !== "" &&
+        inputValueSkills.trim().length > 1 &&
+        /^[a-zA-Z0-9]+$/.test(inputValueSkills.trim())
+      ) {
+        setSkills([...skills, inputValueSkills.trim()]);
+        setInputValueSkills("");
+      }
+    }
+  };
+
+  const removeSkill = (index) => {
+    const newSkills = [...skills];
+    newSkills.splice(index, 1);
+    setSkills(newSkills);
+  };
+
+  const onSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const skillsString = skills.join(",");
+      let data = { ...offer, skill_name: skillsString};
+      console.log(data);
+      console.log(data.offer);
+      console.log(data.skill_name);
+      
+      await fetchData2(`offer/createoffer/${id}`, 'post', data)
+
+    } catch (error) {  
+      if (error instanceof ZodError){
+        error.errors.forEach((err)=>{
+          fieldErrors[err.path[0]]=err.message
+        })
+        setValErrors(fieldErrors)
+        console.log('fieldError', fieldErrors);
+      } else {
+        console.log(error);
+        setMsg(error.response.data.message)
+        
+        console.log('error message', error.response.data.message);
+      }
+console.log(error);    
+    }
   }
+
+  console.log(offer);
+  console.log(skills);
+
+  
 
   return (
     <div className='formAppContainer'>
@@ -31,38 +100,64 @@ export const CreateOfferForm = () => {
         <fieldset>
           <label htmlFor="OfferTitle">OfferTitle</label>
           <input 
-            id='OfferTitle'
+            id='offer_title'
             type="text" 
             placeholder='Offer Title'
             // value={login.password}
             onChange={handleChange}
-            name='OfferTitle'
+            name='offer_title'
           />
         </fieldset>
 
         <fieldset>
-          <label htmlFor="positionCont">Number of Positions</label>
+          <label htmlFor="number_of_position">Number of Positions</label>
           <input 
-            id='positionCont'
+            id='number_of_position'
             type="text" 
             placeholder='Number of positions'
-            value={offer.positionCont}
+            value={offer.number_of_position}
             onChange={handleChange}
-            name='positionCont'
+            name='number_of_position'
           />
         </fieldset>
 
         <fieldset className='textareaField'>
         <label htmlFor="description">Description</label>
         <textarea 
-          id="description" 
+          id="offer_description" 
           type="text"
           placeholder='description'
           value={offer.description}
           onChange={handleChange}
-          name="description" 
+          name="offer_description" 
         />
         </fieldset>
+
+        <fieldset className="textareaLit">
+        <label htmlFor="skills">Skills</label>
+        <div className="tagsContainer">
+          {skills.map((skill, index) => (
+            <div key={index} className="tagDeleteable">
+              {skill}
+              <span 
+                onClick={() => removeSkill(index)} 
+                className="deleteBtn"
+                // value={editUser?.skills ? editUser.skills : ''}
+              >
+                ×
+              </span>
+            </div>
+          ))}
+        </div>
+
+          <input 
+            type="text"
+            value={inputValueSkills}
+            onChange={(e) => setInputValueSkills(e.target.value)}
+            onKeyDown={handleKeyDownSkill}
+            placeholder="Añade una skill y pulsa Enter"
+          />
+      </fieldset>
 
         <div className='separatorThick' />
 
