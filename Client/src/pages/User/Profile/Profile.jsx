@@ -50,6 +50,9 @@ export const Profile = () => {
           <TagsCard />
     </div>
 
+    {/* <div className='containerPpal'>
+      <PersonalDataCard />
+    </div> */}
     </section>
 
     <section>

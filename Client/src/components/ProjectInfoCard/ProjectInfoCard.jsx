@@ -9,7 +9,7 @@ import { AgoraContext } from '../../context/ContextProvider';
 export const ProjectInfoCard = ({project}) => {
 
   const {user} = useContext(AgoraContext)
-  console.log(project)
+  console.log('SADASDSADSADAS',project)
   
   return (
     <section className='projectInfoCard'>
@@ -44,7 +44,7 @@ export const ProjectInfoCard = ({project}) => {
             <div className="userCardData">
               <p className="UserCardName"
               > {project?.creator_name}</p>
-              <p>profiency{user?.user_proficiency}</p>
+              <p>Creator</p>
             </div>
           </div> 
           
