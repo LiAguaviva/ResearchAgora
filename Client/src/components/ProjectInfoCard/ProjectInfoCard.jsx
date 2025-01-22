@@ -20,6 +20,11 @@ export const ProjectInfoCard = ({project}) => {
     setSkills(project?.project_skills?.split(",") || []);
   },[project])
 
+  console.log('user_id', user?.user_id);
+  console.log('creator user_id', project?.creator_user_id);
+  console.log('PROJECT', project);
+  
+  
   
   return (
     <section className='projectInfoCard'>

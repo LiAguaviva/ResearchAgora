@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../context/ContextProvider'
 const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
-import './ProfileUserCard.css'
 import { useNavigate } from 'react-router-dom';
 import { TagsCard } from '../TagsCard/TagsCard';
 
@@ -24,11 +23,16 @@ export const ProfileUserCard = () => {
         </div>
 
         <div className='userCardHeadData'>
+          <div className='userName' >
           <h2 className='profileUserName'
           > {user?.user_name} {user?.user_lastname}</h2>
-          <p>profiency{user?.user_proficiency}</p>
-         
           <button onClick={() => navigate('/editProfile')}>EDIT</button>
+          </div>
+          {/* <p>profiency{user?.user_proficiency}</p> */}
+      <TagsCard />
+
+         
+          {/* <button onClick={() => navigate('/editProfile')}>EDIT</button> */}
         </div>
       </div>  
 
@@ -41,7 +45,6 @@ export const ProfileUserCard = () => {
       <div className='separatorThick' />
       </>}
 
-      {/* <TagsCard /> */}
     </div>
   )
 }

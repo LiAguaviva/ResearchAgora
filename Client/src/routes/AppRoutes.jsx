@@ -27,6 +27,7 @@ import { ForgotPassword } from '../pages/Auth/ForgotPassword/ForgotPassword'
 import { ResetPassword } from '../pages/Auth/ResetPassword/ResetPassword'
 import { EditProjectForm } from '../components/EditProjectForm/EditProjectForm'
 import { AllUsers } from '../pages/User/AllUsers/AllUsers'
+import { Researcher } from '../pages/User/Researcher/Researcher'
 
 export const AppRoutes = () => {
   return (
@@ -58,6 +59,7 @@ export const AppRoutes = () => {
             <Route path='/editprofile' element={<EditProfile />}/> 
             <Route path='/PersonalData' element={<PersonalData />}/> 
             <Route path='/allUsers' element={<AllUsers />}/> 
+            <Route path='/researcher/:id' element={<Researcher />}/> 
 
             {/* Offer */}
             <Route path='/createoffer' element={<CreateOffer />}/>

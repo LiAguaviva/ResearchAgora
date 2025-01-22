@@ -14,6 +14,11 @@
     gap: var(--size2);
     flex-wrap: wrap;
 
+    .userName {
+      display: flex;
+      gap: var(--size1);
+    }
+
     .profileAvatar {
       --AvatarSize: 20rem;
       

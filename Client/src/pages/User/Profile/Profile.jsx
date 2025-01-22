@@ -46,9 +46,9 @@ export const Profile = () => {
     <div className='containerPpal'>
       <StatsRadarChart />
     </div>
-    <div className='containerPpal'>
+    {/* <div className='containerPpal'>
           <TagsCard />
-    </div>
+    </div> */}
 
     {/* <div className='containerPpal'>
       <PersonalDataCard />

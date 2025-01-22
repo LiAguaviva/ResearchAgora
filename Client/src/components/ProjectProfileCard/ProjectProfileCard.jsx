@@ -11,7 +11,7 @@ export const ProjectProfileCard = ({elem}) => {
   const [skills, setSkills] = useState(elem.skills?.split(","));
   const [stateClassname, setStateClassname] = useState('');
 
-  console.log('user en prof proj card', `${user.user_name}${user.user_lastname}`);
+  // console.log('user en prof proj card', `${user.user_name}${user.user_lastname}`);
   // console.log('creator id en prof proj card', elem);
   
 

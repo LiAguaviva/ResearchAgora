@@ -34,13 +34,8 @@ export const TagsCard = () => {
         <h4>Fields</h4>
           <div className="tagsContainer">
             {fields.map((field, index) => (
-              <div key={index} className='tag'>
-                {field}
-                <span
-                  className="deleteBtn"
-                  value={field}
-                >
-                </span>
+              <div key={index} className=''>
+                {field}<span value={field}> / </span>
               </div>
             ))}
           </div>

@@ -276,7 +276,7 @@ class UserDal {
         ...user,
         skills: skillResult
           .filter((s) => s.user_id === user.user_id)
-          .map((s) => s.kill_name)
+          .map((s) => s.skill_name)
           .join(", "),
       }));
 

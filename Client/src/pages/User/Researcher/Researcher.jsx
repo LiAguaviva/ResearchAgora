@@ -7,7 +7,6 @@ import { UserCard } from '../../../components/UserCard/UserCard'
 import StatsRadarChart from '../../../components/RadarGraph/RadarGraph'
 import axios from 'axios'
 
-import './Profile.css'
 import { TagsCard } from '../../../components/TagsCard/TagsCard'
 import { useNavigate } from 'react-router-dom'
 import { AgoraContext } from '../../../context/ContextProvider'
