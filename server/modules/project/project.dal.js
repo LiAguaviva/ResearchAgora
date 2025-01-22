@@ -181,7 +181,8 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
   oneProject = async (project_id) => {
     //bring a skill show offers
     try {
-      let sql = `SELECT 
+      let sql = `
+    SELECT 
       p.project_id, 
       p.project_title, 
       p.project_description, 
@@ -192,26 +193,30 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
       CONCAT(u.user_name, ' ', u.user_lastname) AS user_name, 
       GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name SEPARATOR ', ') AS fields, 
       CONCAT(c.user_name, ' ', c.user_lastname) AS creator_name, 
-      GROUP_CONCAT(DISTINCT sk.skill_name ORDER BY sk.skill_name SEPARATOR ', ') AS skills, 
+      GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name SEPARATOR ', ') AS project_skills, 
       r.review_content, 
       r.review_created_on, 
       CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name, 
       off.offer_id, 
       off.offer_title, 
-      off.offer_description 
-  FROM project p 
-  LEFT JOIN user_project up ON p.project_id = up.project_id 
-  LEFT JOIN user u ON up.user_id = u.user_id 
-  LEFT JOIN user_field uf ON u.user_id = uf.user_id 
-  LEFT JOIN field f ON uf.field_id = f.field_id 
-  LEFT JOIN user c ON p.creator_user_id = c.user_id 
-  LEFT JOIN user_skill us ON u.user_id = us.user_id 
-  LEFT JOIN skill sk ON us.skill_id = sk.skill_id 
-  LEFT JOIN review r ON u.user_id = r.reviewed_user_id 
-  LEFT JOIN user rev ON r.user_id = rev.user_id 
-  LEFT JOIN offer off ON p.project_id = off.project_id 
-  WHERE p.project_id = ? AND up.status = 2
-  GROUP BY 
+      off.offer_description, 
+      off.number_of_position,
+      GROUP_CONCAT(DISTINCT osk.skill_name ORDER BY osk.skill_name SEPARATOR ', ') AS offer_skills
+    FROM project p 
+    LEFT JOIN user_project up ON p.project_id = up.project_id 
+    LEFT JOIN user u ON up.user_id = u.user_id 
+    LEFT JOIN user_field uf ON u.user_id = uf.user_id 
+    LEFT JOIN field f ON uf.field_id = f.field_id 
+    LEFT JOIN user c ON p.creator_user_id = c.user_id 
+    LEFT JOIN project_skill ps ON p.project_id = ps.project_id 
+    LEFT JOIN skill s ON ps.skill_id = s.skill_id 
+    LEFT JOIN review r ON u.user_id = r.reviewed_user_id 
+    LEFT JOIN user rev ON r.user_id = rev.user_id 
+    LEFT JOIN offer off ON p.project_id = off.project_id 
+    LEFT JOIN offer_skill os ON off.offer_id = os.offer_id 
+    LEFT JOIN skill osk ON os.skill_id = osk.skill_id 
+    WHERE p.project_id = ? AND up.status = 2
+    GROUP BY 
       p.project_id, 
       p.project_title, 
       p.project_description, 
@@ -226,7 +231,8 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
       reviewer_name, 
       off.offer_id, 
       off.offer_title, 
-      off.offer_description;` 
+      off.offer_description;
+    `
       const result = await executeQuery(sql, [project_id]);
       return result;
     } catch (error) {

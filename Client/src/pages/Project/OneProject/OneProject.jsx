@@ -46,8 +46,14 @@ export const OneProject = () => {
       <div className="separatorThick" />
 
       <section className="containerPpal offerGallery">
-        {/* map OfferCard */}
-        <OfferCard />
+        {project?.map((elem) => {
+          return (
+           <div key={elem.offer_id}>
+             <OfferCard elem={elem}/> 
+           </div>
+          )
+        })}
+       
         <button onClick={()=>navigate(`/createOffer/${id}`)}>Create Offer</button>
       </section>
     </div>

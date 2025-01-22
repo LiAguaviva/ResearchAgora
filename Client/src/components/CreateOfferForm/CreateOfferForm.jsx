@@ -66,9 +66,9 @@ export const CreateOfferForm = () => {
       let data = { ...offer, skill_name: skillsString};
       console.log("data1", data);
       
-      
       await fetchData2(`offer/createoffer/${id}`, 'post', data)
        console.log("envio de la data al back", data);
+       navigate(`/oneproject/${id}`)
        
     } catch (error) {  
       if (error instanceof ZodError){
@@ -82,15 +82,10 @@ export const CreateOfferForm = () => {
         setMsg(error.response.data.message)
         
         console.log('error message', error.response.data.message);
-      }
-console.log(error);    
+      }   
     }
   }
 
-  console.log(offer);
-  console.log(skills);
-
-  
 
   return (
     <div className='formAppContainer'>

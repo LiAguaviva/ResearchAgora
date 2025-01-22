@@ -13,23 +13,23 @@ class OfferDal {
   //   const offerId = offerResult.insertId;
 
   //   let finalId = 1;
-  //   // console.log("skill_name*********************before", skill_name);
+     // console.log("skill_name*********************before", skill_name);
 
-  //   // if (Array.isArray(skill_name)) {
-  //   //   skill_name = skill_name
-  //   //     .map((skill) => skill.replace(/[\[\]]/g, "").trim()) // Remove brackets and trim
-  //   //     .filter((skill) => skill); // Remove empty strings
-  //   // } else if (typeof skill_name === "string") {
-  //   //   skill_name = skill_name
-  //   //     .replace(/[\[\]]/g, "") // Remove brackets
-  //   //     .split(",") // Split into array
-  //   //     .map((skill) => skill.trim()) // Trim whitespace
-  //   //     .filter((skill) => skill); // Remove empty strings
-  //   // } else {
-  //   //   skill_name = []; // Default to an empty array if no valid skills
-  //   // }
+   // if (Array.isArray(skill_name)) {
+     //   skill_name = skill_name
+   //     .map((skill) => skill.replace(/[\[\]]/g, "").trim()) // Remove brackets and trim
+   //     .filter((skill) => skill); // Remove empty strings
+     // } else if (typeof skill_name === "string") {
+     //   skill_name = skill_name
+     //     .replace(/[\[\]]/g, "") // Remove brackets
+     //     .split(",") // Split into array
+     //     .map((skill) => skill.trim()) // Trim whitespace
+     //     .filter((skill) => skill); // Remove empty strings
+    // } else {
+    //   skill_name = []; // Default to an empty array if no valid skills
+     // }
 
-  //   // console.log("skill_name..........after", skill_name);
+     // console.log("skill_name..........after", skill_name);
 
   //   const skillIds = [];
   //   for(const elem of skill_name){
@@ -40,8 +40,8 @@ class OfferDal {
 
   //       if(maxId[0].id != null) {
   //         finalId = maxId[0].id+1  
-  //     // console.log(" finalId //////////////////",finalId);
-  //     // console.log(" elemmmmmmmmmmmmmmmmm",elem); 
+       // console.log(" finalId //////////////////",finalId);
+       // console.log(" elemmmmmmmmmmmmmmmmm",elem); 
   //     const sqlSkill = 'INSERT INTO skill (skill_id, skill_name) VALUES (?,?)'
   //     const skill_id = finalId;
   //      console.log("skill id", skill_id);
