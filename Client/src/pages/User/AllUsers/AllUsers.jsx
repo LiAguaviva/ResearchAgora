@@ -6,7 +6,7 @@ import { UserAllUsersCard } from '../../../components/UserAllUsersCard/UserAllUs
 
 export const AllUsers = () => {
 
-  const [skills, setSkills] = useState([]);
+    const [skills, setSkills] = useState([]);
     const [inputValueSkills, setInputValueSkills] = useState("");
     const [users, setusers] = useState([])
     
@@ -49,12 +49,11 @@ export const AllUsers = () => {
     const onSubmit = async(e) => {
       e.preventDefault();
       try {
-        let data = {skills: skills.join(',')};
+        let data = {skills: skills?.join(',')};
         if (!skills.length) {
           fetchUsers()
         } else {
-          const result = await fetchDataValidation('http://localhost:4000/api/project/findprojectbyskills', 'post',data);
-          console.log(result)
+          const result = await fetchDataValidation('http://localhost:4000/api/user/findUsersBySkills', 'post',data);
           setusers(result)
         }
       } catch (error) {
@@ -66,7 +65,7 @@ export const AllUsers = () => {
   return (
     <section className='containerPpal allProjectsPage'>
            <div className='searchingTagContainer'>
-            <h2>All Users</h2>
+            <h2>All Researchers</h2>
             <div className="tagsContainerCenter">
               {skills?.map((skill, index) => (
                 <div key={index} className="tagDeleteable">
@@ -74,7 +73,6 @@ export const AllUsers = () => {
                   <span 
                     onClick={() => removeSkill(index)} 
                     className="deleteBtn"
-                    // value={editUser?.skills ? editUser.skills : ''}
                   >
                     ×
                   </span>

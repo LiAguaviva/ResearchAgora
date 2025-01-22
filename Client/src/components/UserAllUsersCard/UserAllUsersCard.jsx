@@ -1,29 +1,43 @@
-import React, { useContext } from 'react'
-import avatarDefault from '../../assets/imgs/defaultIMG.png'
-import { AgoraContext } from '../../context/ContextProvider'
+import React, { useContext } from "react";
+import avatarDefault from "../../assets/imgs/defaultIMG.png";
+import { AgoraContext } from "../../context/ContextProvider";
 
-export const UserAllUsersCard = () => {
-
-  const {user} = useContext(AgoraContext)
-
+export const UserAllUsersCard = ({ elem }) => {
+  const { user } = useContext(AgoraContext);
+  const fields = elem.fields?.split(", ");
   return (
     <div>
-      <div className='userCard'>
-        <div className='userCardAvatar'>
-          <img 
-            className='userCardAvatar'
-            // src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault}  
-            src={avatarDefault}
-            alt="your avatar" 
+      <div className="userCard">
+        <div className="userCardAvatar">
+          <img
+            className="userCardAvatar"
+            src={
+              elem?.user_avatar
+                ? `http://localhost:4000/images/useravatar/${elem?.user_avatar}`
+                : avatarDefault
+            }
+            alt="your avatar"
           />
         </div>
 
-        <div className='userCardData'>
-          <p className='UserCardName'
-          > {user?.user_name} {user?.user_lastname}</p>
-          <p>profiency{user?.user_proficiency}</p>
+        <div className="userCardData">
+          <p className="UserCardName">
+            {" "}
+            {elem?.user_name} {elem?.user_lastname}
+          </p>
+          <p>
+            {elem?.user_city}
+            {user?.user_proficiency}
+          </p>
+            <div className="tagsContainer">
+              {fields?.map((skill, index) => (
+                <div key={index} className="tagDeleteable">
+                  {skill}
+                </div>
+              ))}
+            </div>
         </div>
-      </div>  
+      </div>
     </div>
-  )
-}
+  );
+};
