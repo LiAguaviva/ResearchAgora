@@ -29,24 +29,8 @@ CREATE TABLE user_field (
 	CONSTRAINT fk_field_1 FOREIGN KEY (field_id)
 		REFERENCES field(field_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
--- CREATE TABLE user (
-	-- user_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-   -- user_name VARCHAR (50),
-   -- user_lastname VARCHAR (50),
-   -- user_email VARCHAR (100) UNIQUE NOT NULL,
-   -- field_id INT UNSIGNED,
-   -- user_country VARCHAR (100),
-   --  user_city VARCHAR (100),
-   --  user_description VARCHAR (250),
-   --  user_password VARCHAR (255) NOT NULL,
-    -- user_avatar VARCHAR (250),
-   --  user_type TINYINT UNSIGNED DEFAULT 2, -- 1 admin / 2 researcher
-   --  user_proficiency VARCHAR (50), -- student /lab worker / doctorant / PhD / postDoc
-   --  user_is_verified BOOLEAN NOT NULL DEFAULT 0, -- 0 not verified / 1 is verified
-   --  user_is_disabled BOOLEAN NOT NULL DEFAULT 0, -- logical delete
-   --  CONSTRAINT fk_field_1 FOREIGN KEY (field_id)
-		-- REFERENCES field(field_id) ON DELETE CASCADE ON UPDATE CASCADE
--- );
+
+
 CREATE TABLE project (
 	project_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     project_title VARCHAR (255) NOT NULL,
@@ -129,16 +113,60 @@ CREATE TABLE  review (
     -- user_id(target_user)
     -- user_id(author)
 );
-/*
+
+ CREATE TABLE request (
+ request_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 0 pending / 1 accepted / 2 declined,
+ request_requested_on DATE DEFAULT (CURRENT_DATE),
+ user_id INT UNSIGNED NOT NULL,
+ project_id INT UNSIGNED NOT NULL,
+ offer_id INT UNSIGNED,
+  CONSTRAINT fk_user_7 FOREIGN KEY (user_id)
+		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_project_4 FOREIGN KEY (project_id)
+		REFERENCES project(project_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_offer_2 FOREIGN KEY (offer_id)
+		REFERENCES offer(offer_id) ON DELETE CASCADE ON UPDATE CASCADE
+ );
+
+
 CREATE TABLE message (
 	message_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     message_content VARCHAR (255) NOT NULL,
     message_date_time DATETIME DEFAULT CURRENT_TIMESTAMP, -- YYYY-MM-DD --HH-MM-SS
-    message_is_read BOOLEAN NOT NULL DEFAULT 0
-    -- project_id
+    message_is_read BOOLEAN NOT NULL DEFAULT 0,
+    sender_id INT UNSIGNED NOT NULL,
+    receiver_id INT UNSIGNED NOT NULL,
+    CONSTRAINT fk_user_8 FOREIGN KEY (sender_id)
+		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT fk_user_9 FOREIGN KEY (receiver_id)
+		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+	-- project_id
     -- recieve_id (user_id)
     -- sender_id (user_id1)
 );
+
+
+
+ CREATE TABLE invitation (
+ invitation_id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+ invitation_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 0 pending / 1 accepted / 2 declined,
+ invitation_send_on DATE DEFAULT (CURRENT_DATE),
+ sender_id INT UNSIGNED NOT NULL,
+ receiver_id INT UNSIGNED NOT NULL,
+ project_id INT UNSIGNED NOT NULL,
+ offer_id INT UNSIGNED,
+  CONSTRAINT fk_user_10 FOREIGN KEY (sender_id)
+		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_user_11 FOREIGN KEY (receiver_id)
+		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_project_5 FOREIGN KEY (project_id)
+		REFERENCES project(project_id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT fk_offer_3 FOREIGN KEY (offer_id)
+		REFERENCES offer(offer_id) ON DELETE CASCADE ON UPDATE CASCADE
+ );
+
+
+/*
 CREATE TABLE notification (
 	notification_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     notification_content VARCHAR (100) NOT NULL,
@@ -148,13 +176,7 @@ CREATE TABLE notification (
     -- sender_id (user_id)
 );
 */
--- CREATE TABLE request (
--- request_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 0 pending / 1 accepted / 2 declined
--- request_requested_on DATE DEFAULT (CURRENT_DATE)
--- user_id
--- project_id
--- announcement_id
--- );
+
 INSERT INTO field (field_id, field_name) VALUES
 (1, 'Physics'),
 (2, 'Chemistry'),
@@ -213,11 +235,21 @@ SELECT * FROM project_skill;
  -- UPDATE user SET user_is_disabled = 0 WHERE user_id = 3;
  SELECT * FROM project;
  SELECT * FROM skill;
- -- SELECT * FROM offer;
+ SELECT * FROM offer;
  SELECT * FROM user_project;
  SELECT * FROM project_skill;
  SELECT * FROM offer_skill;
- SELECT * FROM user_project;
- SELECT p.project_id,p.project_title, p.project_description, s.skill_name, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id JOIN project_skill AS ps ON p.project_id = ps.project_id JOIN skill AS s ON ps.skill_id = s.skill_id WHERE ps.project_skill_is_disabled = 0;
-SELECT p.project_id,p.project_title, p.project_description, s.skill_name, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id JOIN project_skill AS ps ON p.project_id = ps.project_id JOIN skill AS s ON ps.skill_id = s.skill_id WHERE ps.project_skill_is_disabled = 0;
+ SELECT * FROM request;
+ SELECT * FROM message;
+ SELECT * FROM invitation;
 
+ 
+ UPDATE invitation SET invitation_status = 2 WHERE invitation_id = 1;
+ UPDATE invitation SET invitation_status = 0 WHERE invitation_id = 1;
+ 
+ UPDATE project SET project_type = 0 WHERE project_id = 4;
+ 
+ 
+ INSERT INTO offer_skill (offer_id, skill_id) VALUES (14, 5);
+ 
+ DELETE FROM skill;

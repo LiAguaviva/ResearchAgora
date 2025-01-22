@@ -1,14 +1,35 @@
-import React from 'react'
+import  { useEffect, useState } from 'react'
 import './OfferCard.css'
 
-export const OfferCard = () => {
+
+
+export const OfferCard = ({elem}) => {
+  const [skill, setSkill] = useState([]);
+  
+   
+  useEffect(() => {
+    setSkill(elem.offer_skills?.split(","))
+   
+    
+  }, [elem])
+  console.log("skillll", skill);
+  
   return (
     <div className='offerCard'>
-      <h4>Offer Title</h4>
-      <p className='vacancies'>Vacancies: 5</p>
+      <h4>{elem.offer_title}</h4>
+      <p className='vacancies'>Available positions: {elem.number_of_position}</p>
       <p>
-      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis.
+      {elem.offer_description}
       </p>
+      {skill?.map((el, index)=> {
+        return (
+          <div className='tag' key={index}>
+             {el}
+          </div>
+        )
+      }
+      )}
+     
       <button>Apply</button>
     </div>
   )

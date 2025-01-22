@@ -62,7 +62,7 @@ export const AppRoutes = () => {
             <Route path='/researcher/:id' element={<Researcher />}/> 
 
             {/* Offer */}
-            <Route path='/createoffer' element={<CreateOffer />}/>
+            <Route path='/createoffer/:id' element={<CreateOffer />}/>
             <Route path='/oneoffer' element={<OneOffer />}/>
             <Route path='/alloffer' element={<AllOffers />}/>
             <Route path='/edit' element={<EditOffer />}/>

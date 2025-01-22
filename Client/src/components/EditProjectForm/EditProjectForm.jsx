@@ -34,9 +34,9 @@ export const EditProjectForm = () => {
           `http://localhost:4000/api/project/oneproject/${id}`,
           "get"
         );
-        console.log("RESULT FORM BACK ------>", result);
+        // console.log("RESULT FORM BACK ------>", result);
         setSkills(result[0]?.project_skills?.split(",") || []);
-        setData(result[0]);
+        setData(result.project[0]);
       } catch (error) {
         console.log(error);
       }
@@ -108,7 +108,6 @@ export const EditProjectForm = () => {
         "put",
         data
       );
-      // console.log(result);
       navigate(`/oneproject/${id}`)
 
     } catch (error) {
@@ -128,8 +127,6 @@ export const EditProjectForm = () => {
     }
   };
 
-  console.log('status', project?.status);
-  
   return (
   <div className="formAppContainer">
     <form className="formApp">

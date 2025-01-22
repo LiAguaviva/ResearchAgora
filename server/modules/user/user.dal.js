@@ -96,6 +96,45 @@ class UserDal {
       await connection.commit();
       return "ok";
     } catch (error) {
+      await connection.rollback()
+      throw error;
+    } finally {
+     connection.release();
+    }
+  }
+
+
+  allUsers = async () => {
+    try {
+      let sql = 'SELECT u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, u.user_city, u.user_description, u.user_proficiency, GROUP_CONCAT(DISTINCT s.skill_name) AS skills, GROUP_CONCAT(DISTINCT f.field_name) AS fields FROM user u LEFT JOIN user_skill us ON u.user_id = us.user_id LEFT JOIN skill s ON us.skill_id = s.skill_id LEFT JOIN user_field uf ON u.user_id = uf.user_id LEFT JOIN field f ON uf.field_id = f.field_id WHERE u.user_type = 2 AND u.user_is_disabled = 0 GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, u.user_city, u.user_description, u.user_proficiency;'
+
+      const result = await executeQuery(sql)
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
+
+
+
+
+  deleteUser = async(user_id) => {
+    const connection = await dbPool.getConnection();
+    try{
+      await connection.beginTransaction();
+      let sqlUser = 'UPDATE user SET user_is_disabled = 1 WHERE user_id = ?'
+      await connection.execute(sqlUser, [user_id]);
+
+      let sqlSkill = 'UPDATE user_skill SET user_skill_is_disabled = 1 WHERE user_id = ?'
+      await connection.execute(sqlSkill, [user_id]);
+
+      let sqlField = 'UPDATE user_field SET user_field_is_disabled = 1 WHERE user_id = ?'
+      await connection.execute(sqlField, [user_id]);
+
+      await connection.commit();   
+    }catch (error){
       await connection.rollback();
       throw error;
     } finally {
@@ -155,7 +194,8 @@ class UserDal {
     }
   };
 
-  joinResponse = async (values) => {
+
+  requestResponse = async (values) => {
     const connection = await dbPool.getConnection();
     const [user_id, project_id, offer_id] = values;
 
@@ -230,38 +270,30 @@ class UserDal {
       .replace(/[\[\]]/g, "")
       .split(",") // Split by comma
       .map((skill) => skill.trim());
-
     if (skillArray.length === 0) {
       throw new Error("No skills provided");
     }
-
     const placeholders = skillArray.map(() => "?").join(",");
-
     const connection = await dbPool.getConnection();
-
     try {
       const usersSql = `SELECT DISTINCT u.*
         FROM user u
         JOIN user_skill us ON u.user_id = us.user_id
         JOIN skill s ON us.skill_id = s.skill_id
-        WHERE s.skill_name IN (${placeholders}) 
+        WHERE s.skill_name IN (${placeholders})
         AND us.user_skill_is_disabled = 0
         AND u.user_is_disabled = 0
         GROUP BY u.user_id
         HAVING COUNT(DISTINCT s.skill_id) = ?;`;
-
       const [users] = await connection.execute(usersSql, [
         ...skillArray,
         skillArray.length,
       ]);
-
       if (users.length === 0) {
         return [];
       }
-
       const usersIds = users.map((u) => u.user_id);
       const skillPlaceholders = usersIds.map(() => "?").join(",");
-
       const skillsSql = `
         SELECT us.user_id, s.skill_name
         FROM user_skill us
@@ -269,9 +301,7 @@ class UserDal {
         WHERE us.user_id IN (${skillPlaceholders})
           AND us.user_skill_is_disabled = 0;
         `;
-
       const [skillResult] = await connection.execute(skillsSql, usersIds);
-
       const usersMap = users.map((user) => ({
         ...user,
         skills: skillResult
@@ -279,7 +309,6 @@ class UserDal {
           .map((s) => s.skill_name)
           .join(", "),
       }));
-
       return usersMap;
     } catch (error) {
       throw error;
@@ -287,6 +316,42 @@ class UserDal {
       connection.release();
     }
   };
+
+  invite = async (values) => {
+    const {sender_id, receiver_id, project_id, offer_id, project_title, offer_title} = values;
+    const message_content = `This is an invitation for joining ${project_title} related to this ${offer_title}`
+    
+    const connection = await dbPool.getConnection();
+
+     try {
+       await connection.beginTransaction();
+       let sqlInvitation = 'INSERT INTO invitation (sender_id, receiver_id, project_id, offer_id) VALUES (?, ?, ?, ?)'
+       await connection.execute(sqlInvitation, [sender_id, receiver_id, project_id, offer_id])
+
+       let sqlMessage = 'INSERT INTO message (sender_id, message_content, receiver_id) VALUES (?, ?, ?)'
+       await connection.execute(sqlMessage, [sender_id, message_content, receiver_id]);
+
+        await connection.commit();
+     } catch (error) {
+       console.log("EERROR", error);
+       await connection.rollback();
+       throw error;
+     }finally {
+       connection.release();
+     }
+  }
+ 
+     
+  invitationResponse = async(values) =>{
+   const {invitation_id, invitation_status} = values;
+   
+     try {
+       let sql = 'UPDATE invitation SET invitation_status = ? WHERE invitation_id = ?'
+       await executeQuery(sql, [invitation_status, invitation_id])
+     } catch (error) {
+       throw error;
+     }
+  }
 
   allUsers = async (values) => {
     try {
@@ -303,13 +368,13 @@ class UserDal {
     u.user_proficiency, 
     u.user_is_verified,
     GROUP_CONCAT(DISTINCT sk.skill_name ORDER BY sk.skill_name SEPARATOR ', ') AS skills
-FROM user AS u
-LEFT JOIN user_skill AS us ON u.user_id = us.user_id
-LEFT JOIN skill AS sk ON us.skill_id = sk.skill_id
-WHERE u.user_is_disabled = 0 AND us.user_skill_is_disabled = 0
-GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
-         u.user_city, u.user_description, u.user_avatar, u.user_type, u.user_proficiency, 
-         u.user_is_verified;
+    FROM user AS u
+    LEFT JOIN user_skill AS us ON u.user_id = us.user_id
+    LEFT JOIN skill AS sk ON us.skill_id = sk.skill_id
+    WHERE u.user_is_disabled = 0 AND us.user_skill_is_disabled = 0
+    GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
+             u.user_city, u.user_description, u.user_avatar, u.user_type, u.user_proficiency, 
+             u.user_is_verified;
 `;
 
       const result = await executeQuery(sql, values);

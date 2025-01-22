@@ -8,9 +8,10 @@ import { ProjectMainCard } from '../ProjectMainCard/ProjectMainCard';
 import { useNavigate } from 'react-router-dom';
 
 
+// add skills on prop and change everithing related to skills
 export const ProjectInfoCard = ({project}) => {
 
-  // console.log('PROJECT ON projectInfo',project)
+  console.log('PROJECT ON projectInfo',project)
 
   const {user} = useContext(AgoraContext)
   const navigate = useNavigate()

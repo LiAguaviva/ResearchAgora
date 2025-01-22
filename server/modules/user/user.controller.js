@@ -147,8 +147,8 @@ class UserController {
             type:user[0].type
         },
         user
-    } */
-    res.status(200).json(user)  
+      } */
+      res.status(200).json(user)  
     }
 
     editUser = async (req, res) => {
@@ -195,7 +195,7 @@ class UserController {
         throw error;
         
       }    
-      }
+    }
 
       deleteUser = async(req, res) => {
         const {user_id} = req.params;
@@ -219,11 +219,11 @@ class UserController {
       }
 
 
-      joinResponse = async (req,res) => {
+      requestResponse = async (req,res) => {
         const {user_id, project_id, offer_id}  = req.body;
         const values = [user_id, project_id, offer_id];
         try {
-           await userDal.joinResponse(values);
+           await userDal.requestResponse(values);
            res.status(200).json("ok")
         } catch (error) {         
           res.status(500).json(error)
@@ -257,19 +257,41 @@ class UserController {
         }
       }
 
-      allUsers = async (req, res) => {
+      allUsers  = async (req, res) => {
+         try {
+           const result = await userDal.allUsers();
+           res.status(200).json(result)
+  
+         } catch (error) {    
+          res.status(500).json(error) 
+         }
+      }
 
+      invite = async (req, res) => {
+        const values = req.body;
+                
         try {
-          const result = await userDal.allUsers();
-          res.status(200).json(result);
-          
+          await userDal.invite(values);
+          res.status(200).json('ok')
+        } catch (error) {      
+              res.status(500).json(error) 
+        }
+      }
+
+      invitationResponse = async(req,res) => {
+          const values = req.body;
+        try {
+           await userDal.invitationResponse(values)
+           res.status(200).json('ok')
         } catch (error) {
-          res.status(500).json(error);
+                 
+           res.status(500).json(error) 
         }
       }
       
 
 }
+
 
 export default new UserController();
 
