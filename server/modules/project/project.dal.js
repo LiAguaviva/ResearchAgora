@@ -180,65 +180,180 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
 
   oneProject = async (project_id) => {
     //bring a skill show offers
+    // try {
+    //   let sql = `
+    // SELECT 
+    //   p.project_id, 
+    //   p.project_title, 
+    //   p.project_description, 
+    //   p.project_link, 
+    //   p.project_type, 
+    //   p.project_status, 
+    //   u.user_id, 
+    //   CONCAT(u.user_name, ' ', u.user_lastname) AS user_name, 
+    //   GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name SEPARATOR ', ') AS fields, 
+    //   CONCAT(c.user_name, ' ', c.user_lastname) AS creator_name, 
+    //   GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name SEPARATOR ', ') AS project_skills, 
+    //   r.review_content, 
+    //   r.review_created_on, 
+    //   CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name, 
+    //   off.offer_id, 
+    //   off.offer_title, 
+    //   off.offer_description, 
+    //   off.number_of_position,
+    //   GROUP_CONCAT(DISTINCT osk.skill_name ORDER BY osk.skill_name SEPARATOR ', ') AS offer_skills
+    // FROM project p 
+    // LEFT JOIN user_project up ON p.project_id = up.project_id 
+    // LEFT JOIN user u ON up.user_id = u.user_id 
+    // LEFT JOIN user_field uf ON u.user_id = uf.user_id 
+    // LEFT JOIN field f ON uf.field_id = f.field_id 
+    // LEFT JOIN user c ON p.creator_user_id = c.user_id 
+    // LEFT JOIN project_skill ps ON p.project_id = ps.project_id 
+    // LEFT JOIN skill s ON ps.skill_id = s.skill_id 
+    // LEFT JOIN review r ON u.user_id = r.reviewed_user_id 
+    // LEFT JOIN user rev ON r.user_id = rev.user_id 
+    // LEFT JOIN offer off ON p.project_id = off.project_id 
+    // LEFT JOIN offer_skill os ON off.offer_id = os.offer_id 
+    // LEFT JOIN skill osk ON os.skill_id = osk.skill_id 
+    // WHERE p.project_id = ? AND up.status = 2
+    // GROUP BY 
+    //   p.project_id, 
+    //   p.project_title, 
+    //   p.project_description, 
+    //   p.project_link, 
+    //   p.project_type, 
+    //   p.project_status, 
+    //   u.user_id, 
+    //   user_name, 
+    //   creator_name, 
+    //   r.review_content, 
+    //   r.review_created_on, 
+    //   reviewer_name, 
+    //   off.offer_id, 
+    //   off.offer_title, 
+    //   off.offer_description;
+    // `
+    //   const result = await executeQuery(sql, [project_id]);
+    //   let finalResult = null;
+    //   result.forEach(elem=>{
+    //    project = {
+    // project_id: elem.project_id,
+    // project_title: elem.project_title, 
+    // project_description: elem.project_description,
+    // project_link: elem.project_link,
+    // project_type: elem.project_type, 
+    // project_status: elem.project_status
+    //     }
+    //   })
+    //   console.log("*******", result);
+    //   console.log("--------", finalResult);
+      
+    //   return finalResult;
+    // } catch (error) {
+    //   throw error;
+    // }
+
+
     try {
       let sql = `
-    SELECT 
-      p.project_id, 
-      p.project_title, 
-      p.project_description, 
-      p.project_link, 
-      p.project_type, 
-      p.project_status, 
-      u.user_id, 
-      CONCAT(u.user_name, ' ', u.user_lastname) AS user_name, 
-      GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name SEPARATOR ', ') AS fields, 
-      CONCAT(c.user_name, ' ', c.user_lastname) AS creator_name, 
-      GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name SEPARATOR ', ') AS project_skills, 
-      r.review_content, 
-      r.review_created_on, 
-      CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name, 
-      off.offer_id, 
-      off.offer_title, 
-      off.offer_description, 
-      off.number_of_position,
-      GROUP_CONCAT(DISTINCT osk.skill_name ORDER BY osk.skill_name SEPARATOR ', ') AS offer_skills
-    FROM project p 
-    LEFT JOIN user_project up ON p.project_id = up.project_id 
-    LEFT JOIN user u ON up.user_id = u.user_id 
-    LEFT JOIN user_field uf ON u.user_id = uf.user_id 
-    LEFT JOIN field f ON uf.field_id = f.field_id 
-    LEFT JOIN user c ON p.creator_user_id = c.user_id 
-    LEFT JOIN project_skill ps ON p.project_id = ps.project_id 
-    LEFT JOIN skill s ON ps.skill_id = s.skill_id 
-    LEFT JOIN review r ON u.user_id = r.reviewed_user_id 
-    LEFT JOIN user rev ON r.user_id = rev.user_id 
-    LEFT JOIN offer off ON p.project_id = off.project_id 
-    LEFT JOIN offer_skill os ON off.offer_id = os.offer_id 
-    LEFT JOIN skill osk ON os.skill_id = osk.skill_id 
-    WHERE p.project_id = ? AND up.status = 2
-    GROUP BY 
-      p.project_id, 
-      p.project_title, 
-      p.project_description, 
-      p.project_link, 
-      p.project_type, 
-      p.project_status, 
-      u.user_id, 
-      user_name, 
-      creator_name, 
-      r.review_content, 
-      r.review_created_on, 
-      reviewer_name, 
-      off.offer_id, 
-      off.offer_title, 
-      off.offer_description;
-    `
+        SELECT
+          p.project_id,
+          p.project_title,
+          p.project_description,
+          p.project_link,
+          p.project_type,
+          p.project_status,
+          u.user_id,
+          CONCAT(u.user_name, ' ', u.user_lastname) AS user_name,
+          GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name SEPARATOR ', ') AS fields,
+          CONCAT(c.user_name, ' ', c.user_lastname) AS creator_name,
+          GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name SEPARATOR ', ') AS project_skills,
+          r.review_content,
+          r.review_created_on,
+          CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name,
+          off.offer_id,
+          off.offer_title,
+          off.offer_description,
+          off.number_of_position,
+          GROUP_CONCAT(DISTINCT osk.skill_name ORDER BY osk.skill_name SEPARATOR ', ') AS offer_skills
+        FROM project p
+        LEFT JOIN user_project up ON p.project_id = up.project_id
+        LEFT JOIN user u ON up.user_id = u.user_id
+        LEFT JOIN user_field uf ON u.user_id = uf.user_id
+        LEFT JOIN field f ON uf.field_id = f.field_id
+        LEFT JOIN user c ON p.creator_user_id = c.user_id
+        LEFT JOIN project_skill ps ON p.project_id = ps.project_id
+        LEFT JOIN skill s ON ps.skill_id = s.skill_id
+        LEFT JOIN review r ON u.user_id = r.reviewed_user_id
+        LEFT JOIN user rev ON r.user_id = rev.user_id
+        LEFT JOIN offer off ON p.project_id = off.project_id
+        LEFT JOIN offer_skill os ON off.offer_id = os.offer_id
+        LEFT JOIN skill osk ON os.skill_id = osk.skill_id
+        WHERE p.project_id = ? AND up.status = 2
+        GROUP BY
+          p.project_id,
+          p.project_title,
+          p.project_description,
+          p.project_link,
+          p.project_type,
+          p.project_status,
+          u.user_id,
+          user_name,
+          creator_name,
+          r.review_content,
+          r.review_created_on,
+          reviewer_name,
+          off.offer_id,
+          off.offer_title,
+          off.offer_description;
+      `;
+   
       const result = await executeQuery(sql, [project_id]);
-      return result;
+   
+      // Construct the final result
+      let finalResult = null;
+      result.forEach((elem) => {
+        if (!finalResult) {
+          // Initialize the project data
+          finalResult = {
+            project_id: elem.project_id,
+            project_title: elem.project_title,
+            project_description: elem.project_description,
+            project_link: elem.project_link,
+            project_type: elem.project_type,
+            project_status: elem.project_status,
+            project_skills: elem.project_skills ? elem.project_skills.split(",") : [],
+            fields: elem.fields ? elem.fields.split(",") : [],
+            creator_name: elem.creator_name,
+            offers: [], // Initialize an empty array for offers
+          };
+        }
+   
+        // Add the current offer to the project's offers array
+        if (elem.offer_id) {
+          finalResult.offers.push({
+            offer_id: elem.offer_id,
+            offer_title: elem.offer_title,
+            offer_description: elem.offer_description,
+            number_of_position: elem.number_of_position,
+            offer_skills: elem.offer_skills ? elem.offer_skills.split(",") : [],
+          });
+        }
+      });
+   
+      console.log("******* Result: ", result);
+      console.log("-------- Final Result: ", finalResult);
+   
+      return finalResult;
     } catch (error) {
+      console.error("Error in oneProject:", error);
       throw error;
     }
   };
+
+
+
+  
 
   editProject = async (values) => {
     let sql =
@@ -427,6 +542,7 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
   }
   
 }
+
 
 export default new ProjectDal();
 

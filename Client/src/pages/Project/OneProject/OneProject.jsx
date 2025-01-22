@@ -45,7 +45,7 @@ export const OneProject = () => {
         <h3>Members of the project</h3>
 
         <div className="membersGallery">
-        {project?.map((elem,index) => {
+        {project?.offers.map((elem,index) => {
           return (
             <section >
                 <ProjectMemberCard key={index} elem={elem}/>

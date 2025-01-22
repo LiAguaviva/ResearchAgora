@@ -8,11 +8,9 @@ export const OfferCard = ({elem}) => {
   
    
   useEffect(() => {
-    setSkill(elem.offer_skills.split(","))
+    setSkill(elem.offer_skills?.split(","))
    
-    return () => {
     
-    }
   }, [elem])
   console.log("skillll", skill);
   
