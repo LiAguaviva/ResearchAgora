@@ -13,6 +13,10 @@ export const OneProject = () => {
 
   const { id } = useParams();
   const [project, setProject] = useState([]);
+  const [members, setMembers] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [review, setReview] = useState([]);
+  const [offers, setOffers] = useState([]);
 
   const fetchOneProject = async () => {
     try {
@@ -21,7 +25,11 @@ export const OneProject = () => {
         "get"
       );
       console.log("RESULT FORM BACK ------>", result);
-      setProject(result);
+      setProject(result.project); 
+      setMembers(result.members);
+      setSkills(result.skills);
+      setOffers(result.offers);
+      //setReview(result.review);
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +53,7 @@ export const OneProject = () => {
         <h3>Members of the project</h3>
 
         <div className="membersGallery">
-        {project?.map((elem) => {
+        {members?.map((elem) => {
           return (
             <section >
                 <ProjectMemberCard key={elem.user_id} elem={elem}/>
@@ -57,7 +65,7 @@ export const OneProject = () => {
 
       <section className="containerPpal offersSection">
         <div className="offerGallery">
-        {project?.map((elem) => {
+        {offers?.map((elem) => {
           return (
            <div key={elem.offer_id}>
              <OfferCard elem={elem}/> 

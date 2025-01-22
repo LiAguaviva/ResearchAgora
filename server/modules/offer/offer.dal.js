@@ -67,13 +67,11 @@ class OfferDal {
   // }
   //};
    
-  //funciona pero hay que echarle un ojo
   createOffer = async (values, skill_name) => {  
     const connection = await dbPool.getConnection();   
     try {
       await connection.beginTransaction();
   
-      // Insertar en la tabla 'offer'
       let sql = `INSERT INTO offer (project_id, offer_title, offer_description, number_of_position) VALUES (?, ?, ?, ?)`;
       const [offerResult] = await connection.execute(sql, values);
       const offerId = offerResult.insertId;
@@ -81,27 +79,25 @@ class OfferDal {
        let data = skill_name.split(",")
      
   
-      // Procesar cada skill
       for (const elem of data) {
-        // Buscar si la skill ya existe en la tabla 'skill'
         const sqlCheckSkill = 'SELECT skill_id FROM skill WHERE skill_name = ?';
         const [existingSkill] = await connection.execute(sqlCheckSkill, [elem]);
   
         let skill_id;
         if (existingSkill.length > 0) {
-          // La skill ya existe, usar su skill_id
+        
           skill_id = existingSkill[0].skill_id;
         } else {
-          // La skill no existe, insertarla con un nuevo skill_id
+         
           const sqlMaxId = 'SELECT max(skill_id) AS id FROM skill';
           const [maxId] = await connection.execute(sqlMaxId);
   
-          skill_id = maxId[0].id != null ? maxId[0].id + 1 : 1; // Manejar tabla vacía
+          skill_id = maxId[0].id != null ? maxId[0].id + 1 : 1; 
           const sqlInsertSkill = 'INSERT INTO skill (skill_id, skill_name) VALUES (?, ?)';
           await connection.execute(sqlInsertSkill, [skill_id, elem]);
         }
   
-        // Asociar la skill al offer en la tabla 'offer_skill'
+     
         const sqlOfferSkill = 'INSERT INTO offer_skill (offer_id, skill_id) VALUES (?, ?)';
         await connection.execute(sqlOfferSkill, [offerId, skill_id]);
       }
@@ -116,11 +112,6 @@ class OfferDal {
     }
   };
   
-
-
-
-
-
   allOffers = async () => {
     console.log('in offer dal');
     
@@ -157,7 +148,6 @@ class OfferDal {
   findOfferBySkill = async ({ skills }) => {
     console.log("skills in dal", skills);
   
-    // Convert `skills` string to an array
     const skillArray = skills
       .replace(/[\[\]]/g, "") // Remove square brackets
       .split(",") // Split by comma
@@ -169,7 +159,7 @@ class OfferDal {
       throw new Error("No skills provided.");
     }
   
-    const placeholders = skillArray.map(() => "?").join(","); // Create placeholders for the SQL query
+    const placeholders = skillArray.map(() => "?").join(","); 
     console.log("placeholders",placeholders);
     
    

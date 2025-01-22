@@ -1,96 +1,21 @@
 import { dbPool, executeQuery } from "../../config/db.js";
 
 class ProjectDal {
-  //   registerProject = async (values, skill_name) => {
-  //     const connection = await dbPool.getConnection();
-  //     try {
-  //       await connection.beginTransaction();
-  //       let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_status, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-  //       /* console.log("values++++++++++",values);
-  //       console.log("skill_name-------",skill_name); */
-
-  //       const [projectResult] = await connection.execute(sql, values);
-  //       const projectId = projectResult.insertId;
-
-  //       let finalId = 1;
-  //       console.log("skill_name-----------before",skill_name);
-
-  //       if (Array.isArray(skill_name)) {
-  //         skill_name = skill_name
-  //           .map((skill) => skill.replace(/[\[\]]/g, "").trim()) // Remove brackets and trim
-  //           .filter((skill) => skill); // Remove empty strings
-  //       } else if (typeof skill_name === "string") {
-  //         skill_name = skill_name
-  //           .replace(/[\[\]]/g, "") // Remove brackets
-  //           .split(",") // Split into array
-  //           .map((skill) => skill.trim()) // Trim whitespace
-  //           .filter((skill) => skill); // Remove empty strings
-  //       } else {
-  //         skill_name = []; // Default to an empty array if no valid skills
-  //       }
-
-  //         console.log("skill_name-----------after",skill_name);
-
-  //       const skillIds = [];
-  //        for(const elem of skill_name){
-  //         let sqlId = 'SELECT max(skill_id) AS id FROM skill'
-  //         let [maxId] = await connection.execute(sqlId)
-
-  //        /*  console.log("max iddddddddddddd",maxId);
-  //         console.log("max id.iddddddddddd",maxId[0].id); */
-  //         if(maxId[0].id != null) {
-  //           finalId = maxId[0].id+1
-  //           /* console.log(" finalId //////////////////",finalId);
-  //           console.log(" elemmmmmmmmmmmmmmmmm",elem); */
-  //           const sqlSkill = 'INSERT INTO skill (skill_id,skill_name) VALUES (?,?)'
-  //           await connection.execute(sqlSkill, [finalId,elem ])
-  //           let sqlId2 = 'SELECT skill_id AS id2 FROM skill WHERE skill_name = ?'
-  //           let [skill_idResult] = await connection.execute(sqlId2,[elem])
-
-  //           const skill_id = skill_idResult.insertId;
-  //           console.log("skill_idResult*************",skill_idResult[0].id2);
-  //           console.log("project_id*************",projectId);
-  //           console.log("skill_id*************",skill_id);
-
-  //           const sqlProjectSkill = 'INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)'
-  //           await connection.execute(sqlProjectSkill, [projectId,skill_idResult[0].id2 ]);
-  //         }
-  //         // await executeQuery(sqlSkill,[skill_name,finalId])
-  //        }
-
-  // /*
-  //       let sql3 = 'INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)'
-  //       await executeQuery(sql3, [projectId, skill_id]); */
-  //       await connection.commit()
-  //       return projectId;
-
-  //     } catch (error) {
-  //       await connection.rollback();
-  //       throw error;
-  //     }finally{
-  //       connection.release()
-  //     }
-  //   };
-
-  // 
   registerProject = async (values, skill_name) => {
     const connection = await dbPool.getConnection();
     try {
       await connection.beginTransaction();
   
-      // Insert project
       let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_status, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
       const [projectResult] = await connection.execute(sql, values);
       const projectId = projectResult.insertId;
   
-      // Extract creator_user_id from values (assuming it's the last parameter)
       const creatorUserId = values[values.length - 1];
   
-      // Insert project-creator relation into user_project
       let sqlUserProject = `INSERT INTO user_project (user_id, project_id, status) VALUES (?, ?, ?)`;
-      await connection.execute(sqlUserProject, [creatorUserId, projectId, 2]); // Status = 2 (e.g., active/confirmed)
+      await connection.execute(sqlUserProject, [creatorUserId, projectId, 2]); 
+      // Status = 2 (e.g., active/confirmed)
   
-      // Process skills
       if (!Array.isArray(skill_name)) {
         skill_name =
           typeof skill_name === "string"
@@ -105,15 +30,13 @@ class ProjectDal {
       const skillIds = [];
   
       for (const elem of skill_name) {
-        // Check if skill exists
         let sqlCheckSkill = "SELECT skill_id FROM skill WHERE skill_name = ?";
         let [existingSkill] = await connection.execute(sqlCheckSkill, [elem]);
   
         let skillId;
         if (existingSkill.length > 0) {
-          skillId = existingSkill[0].skill_id; // Existing skill
+          skillId = existingSkill[0].skill_id; 
         } else {
-          // Get the next available skill ID
           let sqlMaxId = "SELECT MAX(skill_id) AS maxId FROM skill";
           let [maxIdResult] = await connection.execute(sqlMaxId);
   
@@ -123,7 +46,6 @@ class ProjectDal {
           await connection.execute(sqlInsertSkill, [skillId, elem]);
         }
   
-        // Insert into project_skill table
         let sqlProjectSkill = "INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)";
         await connection.execute(sqlProjectSkill, [projectId, skillId]);
   
@@ -179,69 +101,85 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
   };
 
   oneProject = async (project_id) => {
-    //bring a skill show offers
+
     try {
-      let sql = 
-      `
-    SELECT 
-      p.project_id, 
-      p.project_title, 
-      p.project_description, 
-      p.project_link, 
-      p.project_type, 
-      p.project_status, 
-      u.user_id, 
-      CONCAT(u.user_name, ' ', u.user_lastname) AS user_name, 
-      GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name SEPARATOR ', ') AS fields, 
-      CONCAT(c.user_name, ' ', c.user_lastname) AS creator_name, 
-      GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name SEPARATOR ', ') AS project_skills, 
-      r.review_content, 
-      r.review_created_on, 
-      CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name, 
-      off.offer_id, 
-      off.offer_title, 
-      off.offer_description, 
-      off.number_of_position,
-      GROUP_CONCAT(DISTINCT osk.skill_name ORDER BY osk.skill_name SEPARATOR ', ') AS offer_skills
-    FROM project p 
-    LEFT JOIN user_project up ON p.project_id = up.project_id 
-    LEFT JOIN user u ON up.user_id = u.user_id 
-    LEFT JOIN user_field uf ON u.user_id = uf.user_id 
-    LEFT JOIN field f ON uf.field_id = f.field_id 
-    LEFT JOIN user c ON p.creator_user_id = c.user_id 
-    LEFT JOIN project_skill ps ON p.project_id = ps.project_id 
-    LEFT JOIN skill s ON ps.skill_id = s.skill_id 
-    LEFT JOIN review r ON u.user_id = r.reviewed_user_id 
-    LEFT JOIN user rev ON r.user_id = rev.user_id 
-    LEFT JOIN offer off ON p.project_id = off.project_id 
-    LEFT JOIN offer_skill os ON off.offer_id = os.offer_id 
-    LEFT JOIN skill osk ON os.skill_id = osk.skill_id 
-    WHERE p.project_id = ? AND up.status = 2 
-    GROUP BY 
-      p.project_id, 
-      p.project_title, 
-      p.project_description, 
-      p.project_link, 
-      p.project_type, 
-      p.project_status, 
-      u.user_id, 
-      user_name, 
-      creator_name, 
-      r.review_content, 
-      r.review_created_on, 
-      reviewer_name, 
-      off.offer_id, 
-      off.offer_title, 
-      off.offer_description;
-    `
+      // show one project info
+      let sqlProject = `SELECT  
+    project_id, 
+    project_title, 
+    project_description, 
+    project_link, 
+    project_type, 
+    project_status, 
+    CONCAT(user_name, ' ', user_lastname) AS creator_name
+FROM project
+LEFT JOIN user creator_name ON creator_user_id = user_id
+WHERE project_id = ?;`
 
+const project = await executeQuery(sqlProject, [project_id]);
 
-      const result = await executeQuery(sql, [project_id]);
-      
-      
-      return result;
-    } catch (error) {
-      throw error;
+//show all members
+  let sqlMembers = `SELECT     
+user.user_id,     
+CONCAT(user.user_name, ' ', user.user_lastname) AS user_name,    
+ GROUP_CONCAT(DISTINCT field.field_name ORDER BY field.field_name SEPARATOR ', ') 
+AS fields FROM user_project
+JOIN user ON user_project.user_id = user.user_id 
+LEFT JOIN user_field ON user.user_id = user_field.user_id
+LEFT JOIN field ON user_field.field_id = field.field_id 
+WHERE user_project.project_id = ? 
+AND user_project.status = 2 
+GROUP BY user.user_id;`
+
+const members = await executeQuery(sqlMembers, [project_id]);
+//show skill in one project
+
+ let sqlSkills = `SELECT     
+project.project_id,    
+project.project_title,    
+skill.skill_id,    
+skill.skill_name
+FROM project
+JOIN project_skill ON project.project_id = project_skill.project_id
+JOIN skill ON project_skill.skill_id = skill.skill_id 
+WHERE project.project_id = ?;`
+
+const skills = await executeQuery(sqlSkills, [project_id]);
+//review in one project
+/* let sqlReview = `SELECT  
+    r.review_content, 
+    r.review_created_on, 
+    CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name
+FROM review r
+LEFT JOIN user rev ON r.user_id = rev.user_id
+WHERE r.reviewed_user_id IN (
+    SELECT u.user_id
+    FROM user_project up
+    WHERE up.project_id = ? AND up.status = 2
+);`
+
+const review = await executeQuery(sqlReview, [project_id]); */
+//show all offers under one project
+//reduce number_of_positions based on accepted requests
+let sqlOffers = `SELECT  
+    offer.offer_id, 
+    offer.offer_title, 
+    offer.offer_description, 
+    offer.number_of_position,
+    GROUP_CONCAT(DISTINCT skill.skill_name ORDER BY skill.skill_name SEPARATOR ', ') AS offer_skills
+FROM offer 
+LEFT JOIN offer_skill ON offer.offer_id = offer_skill.offer_id
+LEFT JOIN skill ON offer_skill.skill_id = skill.skill_id
+WHERE offer.project_id = ?
+GROUP BY offer.offer_id, offer.offer_title, offer.offer_description, offer.number_of_position;`
+
+const offers = await executeQuery(sqlOffers, [project_id]);
+
+const result = {project, members, skills, offers} 
+   
+  return result;
+  } catch (error) {
+    throw error;
     }
     
   };
@@ -319,7 +257,7 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
         "UPDATE project_skill SET project_skill_is_disabled = 1 WHERE project_id = ?";
       await connection.execute(sqlSkill, [project_id]);
 
-      let sqlOffer = "UPDATE offer SET is_deleted = 1 WHERE project_id = ?"; //change by disabled
+      let sqlOffer = "UPDATE offer SET is_deleted = 1 WHERE project_id = ?"; 
       await connection.execute(sqlOffer, [project_id]);
 
       let sqlUser = "UPDATE user_project SET status = 3 WHERE project_id = ?";
@@ -350,10 +288,9 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
   findprojects = async (skills) => {
     console.log("Skills in DAL:", skills);
   
-    // Convert `skills` string to an array
     const skillArray = skills
-      .replace(/[\[\]]/g, "") // Remove square brackets
-      .split(",") // Split by comma
+      .replace(/[\[\]]/g, "") 
+      .split(",") 
       .map((skill) => skill.trim());
   
     console.log("Skills in DAL after:", skillArray);
@@ -362,12 +299,11 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
       throw new Error("No skills provided.");
     }
   
-    const placeholders = skillArray.map(() => "?").join(","); // Create placeholders for SQL query
+    const placeholders = skillArray.map(() => "?").join(","); 
     console.log("Placeholders:", placeholders);
   
     const connection = await dbPool.getConnection();
     try {
-      // Obtener los proyectos que cumplen con las skills
       const projectSql = `
         SELECT DISTINCT p.*
         FROM project p
@@ -382,7 +318,7 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
   
       const [projects] = await connection.execute(projectSql, [
         ...skillArray,
-        skillArray.length, // Ensures all skills are matched
+        skillArray.length, 
       ]);
   
       if (projects.length === 0) {
@@ -390,7 +326,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
         return [];
       }
   
-      // Obtener todas las skills de los proyectos encontrados
       const projectIds = projects.map((p) => p.project_id);
       const skillPlaceholders = projectIds.map(() => "?").join(",");
   
@@ -404,7 +339,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
   
       const [skillsResult] = await connection.execute(skillSql, projectIds);
   
-      // Mapear las skills a cada proyecto
       const projectMap = projects.map((project) => ({
         ...project,
         skills: skillsResult
@@ -447,25 +381,3 @@ export default new ProjectDal();
 
 
 
-// registerProject = async (values, skill_name) => {
-//   const connection = await dbPool.getConnection();
-//   try {
-//     let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_status, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-
-//     values[4] = Number(values[4]); //delete once front is running
-//     values[5] = Number(values[5]);
-//     values[6] = Number(values[6]);
-//     const result = await executeQuery(sql, values);
-
-//     let sql2 = 'SELECT skill_id FROM skill WHERE skill_name = ?';
-//     const skillResult = await executeQuery(sql2, [skill_name]);
-
-//     let sql3 = 'INSERT INTO project_skill (project_id, skill_id) VALUES (?, ?)'
-//     await executeQuery(sql3, [projectId, skill_id]);
-
-//     return result;
-
-//   } catch (error) {
-//     throw error;
-//   }
-//};
