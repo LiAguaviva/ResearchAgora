@@ -182,7 +182,8 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
   oneProject = async (project_id) => {
     //bring a skill show offers
     try {
-      let sql = `SELECT 
+      /* let sql = `SELECT 
+<<<<<<< HEAD
       p.project_id, 
       p.project_title, 
       p.project_description, 
@@ -228,6 +229,63 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
       off.offer_id, 
       off.offer_title, 
       off.offer_description;` 
+======= */
+let sql = `SELECT 
+  p.project_id, 
+  p.project_title, 
+  p.project_description, 
+  p.project_link, 
+  p.project_type, 
+  p.project_status,
+  p.creator_user_id,
+  p.project_city, 
+  p.project_country,
+  p.project_max_member,
+  p.project_link,
+  p.project_outcome,
+  u.user_id, 
+  CONCAT(u.user_name, ' ', u.user_lastname) AS user_name, 
+  GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name SEPARATOR ', ') AS fields, 
+  CONCAT(c.user_name, ' ', c.user_lastname) AS creator_name, 
+  GROUP_CONCAT(DISTINCT sk.skill_name ORDER BY sk.skill_name SEPARATOR ', ') AS project_skills,  -- Fetch skills from the project
+  r.review_content, 
+  r.review_created_on, 
+  CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name, 
+  off.offer_id, 
+  off.offer_title, 
+  off.offer_description 
+FROM project p 
+LEFT JOIN user_project up ON p.project_id = up.project_id 
+LEFT JOIN user u ON up.user_id = u.user_id 
+LEFT JOIN user_field uf ON u.user_id = uf.user_id 
+LEFT JOIN field f ON uf.field_id = f.field_id 
+LEFT JOIN user c ON p.creator_user_id = c.user_id 
+LEFT JOIN review r ON u.user_id = r.reviewed_user_id 
+LEFT JOIN user rev ON r.user_id = rev.user_id 
+LEFT JOIN offer off ON p.project_id = off.project_id 
+-- Now we join project_skill to get the skills for the project
+LEFT JOIN project_skill ps ON p.project_id = ps.project_id 
+LEFT JOIN skill sk ON ps.skill_id = sk.skill_id  -- This fetches skills for the project
+WHERE p.project_id = ? AND up.status = 2
+GROUP BY 
+  p.project_id, 
+  p.project_title, 
+  p.project_description, 
+  p.project_link, 
+  p.project_type, 
+  p.project_status, 
+  u.user_id, 
+  user_name, 
+  creator_name, 
+  r.review_content, 
+  r.review_created_on, 
+  reviewer_name, 
+  off.offer_id, 
+  off.offer_title, 
+  off.offer_description;
+
+` 
+// >>>>>>> main
       const result = await executeQuery(sql, [project_id]);
       return result;
     } catch (error) {
@@ -238,9 +296,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
   editProject = async (values) => {
     let sql =
       "UPDATE project SET project_title = ?, project_city = ?, project_country = ?, project_description = ?, project_type = ?, project_status = ?, project_outcome = ?, project_link = ?, project_max_member = ? WHERE project_id = ?";
-    values[4] = Number(values[4]); //delete once front is running
-    values[5] = Number(values[5]); //delete once front is running
-    values[9] = Number(values[9]); //delete once front is running
     try {
       const result = await executeQuery(sql, values);
       return result;
@@ -248,6 +303,8 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
       throw error;
     }
   };
+  
+  
 
   editSkill = async (project_id, finalArrayData) => {
     const connection = await dbPool.getConnection();

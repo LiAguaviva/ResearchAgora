@@ -10,6 +10,7 @@ import './OneProject.css'
 export const OneProject = () => {
 
   const navigate = useNavigate();
+
   const { id } = useParams();
   const [project, setProject] = useState([]);
 
@@ -36,31 +37,36 @@ export const OneProject = () => {
         <ProjectInfoCard project={project[0]} />
       </section>
 
-      <section className="containerPpal">
-      {project?.map((elem,index) => {
-        return (
-          <section key={index}>
-            <div className="containerPpal">
-              <ProjectMemberCard elem={elem}/>
-            </div>
-          </section>
-        );
-      })}
-      <div className="separatorThick" />
+      <div className="containerPpal">
+        <div className="separatorThick" />
+      </div>
+      
+      <section className="containerPpal membersSection">
+        <h3>Members of the project</h3>
+
+
+        <div className="membersGallery">
+        {project?.map((elem,index) => {
+          return (
+            <section >
+                <ProjectMemberCard key={index} elem={elem}/>
+            </section>
+          );
+        })}
+        </div>
       </section>
 
-      <section className="containerPpal">
+      <section className="containerPpal offersSection">
         <div className="offerGallery">
-        {/* map OfferCard */}
         <OfferCard />
         <OfferCard />
         <OfferCard />
         <OfferCard />
-        <OfferCard />
-        <OfferCard />
-        <OfferCard />
-        <OfferCard />
-        <OfferCard />
+        {/* {project?.map((elem, index) => {
+          return (
+            <OfferCard />
+          )
+        })} */}
         </div>
         <button onClick={()=>navigate('/createOffer')}>Create Offer</button>
       </section>

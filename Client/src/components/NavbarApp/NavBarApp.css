@@ -40,8 +40,9 @@
       text-wrap: nowrap;
 
       @media (max-width: 500px) {
-        flex-direction: column;
+        /* flex-direction: column; */
         align-items: center;
+
         gap: var(--size1);
       }
 
@@ -90,10 +91,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-
+/* 
       img {
         width: var(--avatarSize);
-      }
+      } */
 
       &:hover {
         filter: brightness(1.2);
@@ -154,6 +155,5 @@
     width: 100%;
     border-bottom: 1px solid var(--aqua);
   }
-
-  
 }
+

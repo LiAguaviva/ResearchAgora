@@ -25,6 +25,7 @@ import { AboutUs } from '../pages/Info/AboutUs'
 import { PersonalData } from '../pages/User/PersonalData/PersonalData'
 import { ForgotPassword } from '../pages/Auth/ForgotPassword/ForgotPassword'
 import { ResetPassword } from '../pages/Auth/ResetPassword/ResetPassword'
+import { EditProjectForm } from '../components/EditProjectForm/EditProjectForm'
 
 export const AppRoutes = () => {
   return (
@@ -65,7 +66,7 @@ export const AppRoutes = () => {
             {/* Project */}
             <Route path='/allprojects' element={<AllProjects />}/>
             <Route path='/oneproject/:id' element={<OneProject />}/>
-            <Route path='/editproject' element={<EditProject />}/>
+            <Route path='/editproject/:id' element={<EditProjectForm />}/>
             <Route path='/createproject' element={<CreateProject />}/>
             
             {/* Admin */}

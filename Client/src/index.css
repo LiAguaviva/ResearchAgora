@@ -153,3 +153,7 @@ button {
   width: 100%;
   border-bottom: 4px solid var(--purple);
 }
+
+ul {
+  padding: 0;
+}

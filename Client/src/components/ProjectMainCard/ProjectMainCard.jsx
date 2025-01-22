@@ -24,6 +24,7 @@ export const ProjectMainCard = ({project}) => {
            > {project?.creator_name}</p>
            <p className='creator'>Creator</p>
          </div>
+
       </div>  
     </div>
   )
