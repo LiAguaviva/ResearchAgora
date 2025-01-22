@@ -47,7 +47,6 @@ export const RegisterForm = ({showModal}) => {
       // console.log(res);
       showModal();
       setMsg('');
-      // navigate('/login')
       
     } catch (error) {
 
@@ -67,8 +66,6 @@ export const RegisterForm = ({showModal}) => {
       console.log('ERRORRRRRR', error.response.data);
       setMsg(error.response.data)
       // console.log('MSG MSG MSG MSG', error.response);
-      
-
     }
   }
 

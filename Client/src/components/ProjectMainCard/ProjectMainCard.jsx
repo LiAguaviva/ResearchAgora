@@ -7,7 +7,6 @@ const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
 export const ProjectMainCard = ({project}) => {
 
   const {user} = useContext(AgoraContext)
-  console.log('main', user);
   
   return (
     <div>
@@ -23,8 +22,9 @@ export const ProjectMainCard = ({project}) => {
          <div className="userCardData">
            <p className="UserCardName"
            > {project?.creator_name}</p>
-           <p>Creator</p>
+           <p className='creator'>Creator</p>
          </div>
+
       </div>  
     </div>
   )

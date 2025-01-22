@@ -26,7 +26,7 @@ export const AccountVerified = () => {
   return (
     <section className='accountVerifiedSect'>
       <div className='containerPpal accountVerified'>
-        <img src={logo} alt="Research Agora Logo" className='homeLogo'/>
+        <img src={logo} alt="Research Agora Logo" className='logo'/>
         <h2>Welcome Aboard!</h2>
         <div className='textInfo'>
         <p>Your account has been successfully verified.</p>

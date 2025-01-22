@@ -70,7 +70,9 @@ class UserController {
     }
 
     forgottenPassword = async (req, res) => {     
-      try {const { email } = req.body;         
+      try {
+      const { email } = req.body;         
+      console.log(email)
       const user = await userDal.findUserbyEmail(email);         
       if (user.length === 0) {             
         return res.status(404).json({ message: "User not found" });         
@@ -87,7 +89,6 @@ class UserController {
       try {
         const {token} = req.params;
         const { newPassword, confirmNewPassword } = req.body;
-        
         const parsedData = resetPasswordScheme.parse({
           newPassword, confirmNewPassword
         })

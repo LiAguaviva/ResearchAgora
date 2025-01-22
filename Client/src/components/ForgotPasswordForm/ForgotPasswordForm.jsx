@@ -6,21 +6,14 @@ import { ZodError } from 'zod';
 import axios from 'axios';
 import { fetchData } from '../../helpers/axiosHelper';
 
-const initialValue = {
-  email:'',
-  password:''
-}
 
-export const LoginForm = () => {
 
-  const {user, setUser, token, setToken, } = useContext(AgoraContext);
+export const ForgotPasswordForm = ({showModal}) => {
+
   const navigate = useNavigate();
-  
-  const [login, setLogin] = useState(initialValue)
+  const [login, setLogin] = useState('')
   const [valErrors, setValErrors] = useState({})
   const [msg, setMsg] = useState('')
-  const [forgotpassword, setForgotpassword] = useState(false);
-
 
   const validateField = (name, value) => {
     try {
@@ -38,37 +31,44 @@ export const LoginForm = () => {
     validateField(name, value)
   } 
 
-  const onSubmit = async (e) => {
-    e.preventDefault()
-
-    // if (!login.password)
-
+  const onSubmit = async (e)=> {
+    e.preventDefault();
     try {
-      const tokenLocal = await fetchData('/login', 'post', login);
-      
-      const resultUser = await fetchData('/findUserById', 'get', null, {Authorization:`Bearer ${tokenLocal}`});
-      console.log('result user', resultUser);
-      localStorage.setItem('agoraToken', tokenLocal)
-      setUser(resultUser);
-      setToken(tokenLocal);
-      navigate('/profile');
-      
+      let data = {email: login.email}
+      const res = await fetchData('/forgottenPassword', 'post', data)
+      console.log(res);
+      showModal();
+      setMsg('');
+
     } catch (error) {
-      console.log('login error', error);
-      setForgotpassword(true);
+
+      const fieldErrors = {};
+
+      if (error instanceof ZodError){
+        error.errors.forEach((err)=>{
+          fieldErrors[err.path[0]]=err.message
+        })
+        setValErrors(fieldErrors)
+      } else {
+        console.log(error);
+        setMsg(error.response.data.message)
+        console.log('error message', error.response.data.message);
+      }
+
+      console.log('ERRORRRRRR', error.response.data);
+      setMsg(error.response.data)
+      // console.log('MSG MSG MSG MSG', error.response);
     }
   }
 
   // console.log('login', login);
-  console.log('userContext', user);
   // console.log('tokenContext', token);
-
   
 
   return (
     <div className='formAppContainer'>
       <form className='formApp'>
-        <p className='formTitle'>Log in</p>
+        <p className='formTitle'>Forgot your password?</p>
         <div className='separatorThick' />
         <fieldset>
           <label htmlFor="email">Email</label>
@@ -82,25 +82,10 @@ export const LoginForm = () => {
           />
         </fieldset>
 
-        <fieldset>
-          <label htmlFor="password">Password</label>
-          <input 
-            id='password'
-            type="text" 
-            placeholder='Password'
-            value={login.password}
-            onChange={handleChange}
-            name='password'
-          />
-        </fieldset>
-
         <div className='separatorThick' />
-        <p>Not registered? <Link to={'/register'} className="loginRegisterLink">REGISTER</Link></p>
-        {forgotpassword &&
-          <Link to={'/forgotPassword'} className="forgotPassword">Forgot your password?</Link>}
+
         <div className="errorMsg">
         {valErrors.email && <p>{valErrors.email}</p>}
-        {valErrors.password && <p>{valErrors.password}</p>}
         <p>{msg}</p>
         </div>
 

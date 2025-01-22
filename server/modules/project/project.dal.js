@@ -243,9 +243,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
   editProject = async (values) => {
     let sql =
       "UPDATE project SET project_title = ?, project_city = ?, project_country = ?, project_description = ?, project_type = ?, project_status = ?, project_outcome = ?, project_link = ?, project_max_member = ? WHERE project_id = ?";
-    values[4] = Number(values[4]); //delete once front is running
-    values[5] = Number(values[5]); //delete once front is running
-    values[9] = Number(values[9]); //delete once front is running
     try {
       const result = await executeQuery(sql, values);
       return result;
@@ -253,6 +250,8 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
       throw error;
     }
   };
+  
+  
 
   editSkill = async (project_id, finalArrayData) => {
     const connection = await dbPool.getConnection();

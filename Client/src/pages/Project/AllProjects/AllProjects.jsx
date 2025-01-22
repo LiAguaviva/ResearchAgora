@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 import './AllProjects.css'
-import { AllProjectsCard } from '../../../components/ProjectAllProjectsCard/AllProjectsCard';
 import { fetchDataValidation } from '../../../helpers/axiosHelper';
-import { ProjectAllProjectsCard } from '../../../components/ProjectAllProjectsCard/ProjectAllProjectsCard';
-// import { ProjectAllProjectsCard } from '../../../components/ProjectAllProjectsCard/ProjectAllProjectsCard'
+import { AllProjectsCard } from '../../../components/AllProjectsCard/AllProjectsCard';
 
 export const AllProjects = () => {
 
@@ -93,6 +91,7 @@ export const AllProjects = () => {
           />
        <button onClick={onSubmit}>Search</button>
 
+      <p className='searchResults'>Search Results: {projects?.length}</p>
       </div>
 
       <div className='separatorThick' />
@@ -100,7 +99,6 @@ export const AllProjects = () => {
       {projects?.map((elem)=> {
         return(
           <div className='allProjectsGallery' key={elem.project_id} >
-            <span>Search Results: {projects?.length}</span>
             <AllProjectsCard elem={elem}/>
             <div className='separatorAllProjects' />
           </div>

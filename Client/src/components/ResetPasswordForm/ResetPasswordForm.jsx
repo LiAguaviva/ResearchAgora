@@ -1,25 +1,25 @@
 import { AgoraContext } from '../../context/ContextProvider';
 import { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { loginSchema } from '../../schemas/loginSchema';
 import { ZodError } from 'zod';
 import axios from 'axios';
-import { fetchData } from '../../helpers/axiosHelper';
+import { fetchData, fetchDataValidation } from '../../helpers/axiosHelper';
 
 const initialValue = {
-  email:'',
-  password:''
+  newPassword:'',
+  confirmNewPassword: ''
 }
 
-export const LoginForm = () => {
+export const ResetPasswordForm = () => {
 
   const {user, setUser, token, setToken, } = useContext(AgoraContext);
   const navigate = useNavigate();
+  const passwordToken = useParams()
   
   const [login, setLogin] = useState(initialValue)
   const [valErrors, setValErrors] = useState({})
   const [msg, setMsg] = useState('')
-  const [forgotpassword, setForgotpassword] = useState(false);
 
 
   const validateField = (name, value) => {
@@ -41,36 +41,27 @@ export const LoginForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault()
 
-    // if (!login.password)
-
     try {
-      const tokenLocal = await fetchData('/login', 'post', login);
-      
-      const resultUser = await fetchData('/findUserById', 'get', null, {Authorization:`Bearer ${tokenLocal}`});
-      console.log('result user', resultUser);
-      localStorage.setItem('agoraToken', tokenLocal)
-      setUser(resultUser);
-      setToken(tokenLocal);
-      navigate('/profile');
+
+      const resultUser = await fetchData(`/resetPassword/${passwordToken.token}`, 'post', login);
+      navigate('/login');
       
     } catch (error) {
       console.log('login error', error);
-      setForgotpassword(true);
     }
   }
 
-  // console.log('login', login);
-  console.log('userContext', user);
-  // console.log('tokenContext', token);
+  console.log('login', login);
+  console.log(passwordToken.token);
 
   
 
   return (
     <div className='formAppContainer'>
       <form className='formApp'>
-        <p className='formTitle'>Log in</p>
+        <p className='formTitle'>Reset Password</p>
         <div className='separatorThick' />
-        <fieldset>
+        {/* <fieldset>
           <label htmlFor="email">Email</label>
           <input 
             id='email'
@@ -80,24 +71,34 @@ export const LoginForm = () => {
             onChange={handleChange}
             name='email'
           />
-        </fieldset>
+        </fieldset> */}
 
         <fieldset>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="newPassword">Password</label>
           <input 
-            id='password'
+            id='newPassword'
             type="text" 
             placeholder='Password'
             value={login.password}
             onChange={handleChange}
-            name='password'
+            name='newPassword'
+          />
+        </fieldset>
+
+        <fieldset>
+          <label htmlFor="confirmNewPassword">RepeatPassword</label>
+          <input 
+            id='confirmNewPassword'
+            type="text" 
+            placeholder='Password'
+            value={login.repPassword}
+            onChange={handleChange}
+            name='confirmNewPassword'
           />
         </fieldset>
 
         <div className='separatorThick' />
         <p>Not registered? <Link to={'/register'} className="loginRegisterLink">REGISTER</Link></p>
-        {forgotpassword &&
-          <Link to={'/forgotPassword'} className="forgotPassword">Forgot your password?</Link>}
         <div className="errorMsg">
         {valErrors.email && <p>{valErrors.email}</p>}
         {valErrors.password && <p>{valErrors.password}</p>}

@@ -64,7 +64,7 @@ transporter.sendMail({
 } */
 
 export const sendPasswordResetEmail = (email, token) => {
-  const resetLink = `${process.env.VITE_SERVER_URL}reset-password/${token}`;
+  const resetLink = `http://localhost:5173/resetPassword/${token}`;
  
   transporter.sendMail({
     from: 'socratesters@gmail.com',

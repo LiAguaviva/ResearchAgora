@@ -5,10 +5,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { fetchDataValidation } from "../../../helpers/axiosHelper";
 import { UserCard } from "../../../components/UserCard/UserCard";
 import { ProjectMemberCard } from "../ProjectMemeberCard/ProjectMemeberCard";
+import './OneProject.css'
 
 export const OneProject = () => {
 
   const navigate = useNavigate();
+
   const { id } = useParams();
   const [project, setProject] = useState([]);
 
@@ -34,18 +36,27 @@ export const OneProject = () => {
       <section className="containerPpal">
         <ProjectInfoCard project={project[0]} />
       </section>
-      {project?.map((elem,index) => {
-        return (
-          <section key={index}>
-            <div className="containerPpal">
-              <ProjectMemberCard elem={elem}/>
-            </div>
-          </section>
-        );
-      })}
-      <div className="separatorThick" />
+             
+      <div className="containerPpal">
+        <div className="separatorThick" />
+      </div>
+      
+      <section className="containerPpal membersSection">
+        <h3>Members of the project</h3>
 
-      <section className="containerPpal offerGallery">
+        <div className="membersGallery">
+        {project?.map((elem,index) => {
+          return (
+            <section >
+                <ProjectMemberCard key={index} elem={elem}/>
+            </section>
+          );
+        })}
+        </div>
+      </section>
+
+      <section className="containerPpal offersSection">
+        <div className="offerGallery">
         {project?.map((elem) => {
           return (
            <div key={elem.offer_id}>
@@ -53,8 +64,9 @@ export const OneProject = () => {
            </div>
           )
         })}
-       
+        </div>
         <button onClick={()=>navigate(`/createOffer/${id}`)}>Create Offer</button>
+
       </section>
     </div>
   );

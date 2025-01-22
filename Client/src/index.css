@@ -51,6 +51,9 @@ h4 {
 p {
   font-size: var(--textBody);
   line-height: 1.6rem;
+
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .containerPpal {
@@ -149,4 +152,8 @@ button {
 .separatorMid {
   width: 100%;
   border-bottom: 4px solid var(--purple);
+}
+
+ul {
+  padding: 0;
 }
