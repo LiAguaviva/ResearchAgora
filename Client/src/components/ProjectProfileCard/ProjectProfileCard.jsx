@@ -1,27 +1,51 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AgoraContext } from '../../context/ContextProvider'
 import projectDefaultIMG from '../../assets/imgs/lab1.jpg'
-import './ProjectProfileCard.css'
+// import './AllProjectsCard.css'
 import { useNavigate } from 'react-router-dom'
 
 export const ProjectProfileCard = ({elem}) => {
 
-  const {user} = useContext(AgoraContext)
-  const navigate = useNavigate()
-  console.log(elem)
+  const navigate = useNavigate();
+  const {user, project} = useContext(AgoraContext)
+  const [skills, setSkills] = useState(elem.skills?.split(","));
+  const [stateClassname, setStateClassname] = useState('');
+
+  console.log('user en prof proj card', `${user.user_name}${user.user_lastname}`);
+  // console.log('creator id en prof proj card', elem);
+  
+
   return (
-    <div className='projectProfileCard'>
-       <div className='profileProjectImg'>
+    <div className='projectCard'>
           <img 
-            className='profileProjectImg'
             onClick={() => navigate(`/oneproject/${elem.project_id}`)}
+            className='profileProjectImg'
             src={user?.project? `${url}/images/users/${user.avatar}` :projectDefaultIMG} 
             alt="your avatar" 
           />
-        </div>
-        <div className='text'>
-        <h4 className='projectName'>{elem.project_title}</h4>
-        <p className='projectName'>{elem.project_status}</p>
+
+        <div className='info infoProfile'>
+          <h4 className='projectTitle'>{elem.project_title}</h4>
+          {`${user.user_name}${user.user_lastname}` === elem.creator_name && 
+          <p className='creatorResearcher'>Creator</p> }
+          {`${user.user_name}${user.user_lastname}` !== elem.creator_name && 
+          <p className='creatorResearcher'>Researcher</p> }
+          <div className='tagsContainer'>
+          {skills?.map((skill, index) => (
+            <div key={index} className="tag">
+              {skill}
+            </div>
+          ))}
+          </div>
+          <p className='Status {stateClassname}'>
+            {elem.project_status === 1 && <p className='status active'>active</p> }
+            {elem.project_status === 2 && <p className='status closed'>completed</p> }
+            {elem.project_status === 3 && <p className='status paused'>paused</p> }
+          </p>
+
+          <div className='description'>
+            <p>{elem.project_description}</p>
+          </div>
         </div>
     </div>
   )

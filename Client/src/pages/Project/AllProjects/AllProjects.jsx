@@ -100,7 +100,7 @@ export const AllProjects = () => {
         return(
           <div className='allProjectsGallery' key={elem.project_id} >
             <AllProjectsCard elem={elem}/>
-            <div className='separatorAllProjects' />
+            <div className='separatorProjects' />
           </div>
         );
       })}

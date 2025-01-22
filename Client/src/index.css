@@ -157,3 +157,9 @@ button {
 ul {
   padding: 0;
 }
+
+.separatorProjects {
+  width: 100%;
+  border-bottom: 4px solid var(--aqua);
+  margin-inline: auto;
+}

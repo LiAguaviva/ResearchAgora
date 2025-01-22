@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { AgoraContext } from '../../context/ContextProvider'
 import projectDefaultIMG from '../../assets/imgs/lab1.jpg'
-import './AllProjectsCard.css'
 import { useNavigate } from 'react-router-dom'
 
 export const AllProjectsCard = ({elem}) => {
@@ -12,9 +11,7 @@ export const AllProjectsCard = ({elem}) => {
   const [stateClassname, setStateClassname] = useState('');
 
   return (
-    <div className='AllProjectsCard'>
-          <h4 className='projectTitle'>{elem.project_title}</h4>
-      <div className='data'>
+    <div className='projectCard'>
        <div className='profileProjectImg'>
           <img 
             onClick={() => navigate(`/oneproject/${elem.project_id}`)}
@@ -24,7 +21,8 @@ export const AllProjectsCard = ({elem}) => {
           />
         </div>
 
-        <div className='info'>
+        <div className='info infoAllProjects'>
+        <h4 className='projectTitle'>{elem.project_title}</h4>
           <p className='Creator'>{elem.creator_name}</p>
           <div className='tagsContainer'>
           {skills?.map((skill, index) => (
@@ -42,7 +40,6 @@ export const AllProjectsCard = ({elem}) => {
           <div className='description'>
             <p>{elem.project_description}</p>
           </div>
-        </div>
         </div>
     </div>
   )

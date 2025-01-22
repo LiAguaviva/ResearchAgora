@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import { AgoraContext } from '../../../context/ContextProvider'
 import { fetchDataValidation } from '../../../helpers/axiosHelper'
 
-export const Profile = () => {
+export const Researcher = () => {
 
   const {user} = useContext(AgoraContext)
   const navigate = useNavigate()

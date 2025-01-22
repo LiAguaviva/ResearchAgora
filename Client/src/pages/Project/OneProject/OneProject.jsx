@@ -20,7 +20,7 @@ export const OneProject = () => {
         `http://localhost:4000/api/project/oneproject/${id}`,
         "get"
       );
-      console.log("RESULT FORM BACK ------>", result);
+      // console.log("RESULT FORM BACK ------>", result);
       setProject(result);
     } catch (error) {
       console.log(error);
@@ -46,11 +46,9 @@ export const OneProject = () => {
 
 
         <div className="membersGallery">
-        {project?.map((elem,index) => {
+        {project?.map((elem, index) => {
           return (
-            <section >
-                <ProjectMemberCard key={index} elem={elem}/>
-            </section>
+            <ProjectMemberCard key={index} elem={elem}/>
           );
         })}
         </div>
