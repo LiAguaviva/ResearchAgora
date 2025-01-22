@@ -34,8 +34,9 @@ export const ForgotPasswordForm = ({showModal}) => {
   const onSubmit = async (e)=> {
     e.preventDefault();
     try {
-      const res = await fetchData('/forgottenPassword', 'get', register)
-      // console.log(res);
+      let data = {email: login.email}
+      const res = await fetchData('/forgottenPassword', 'post', data)
+      console.log(res);
       showModal();
       setMsg('');
 

@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.get('/verifyAccount/:token', tokenVerifyEmail, userController.verifyAccount)
-router.get('/forgottenPassword', userController.forgottenPassword)
+router.post('/forgottenPassword', userController.forgottenPassword)
 router.post('/resetPassword/:token', forgottenPasswordEmail, userController.resetPassword)
 router.get('/findUserById', tokenVerify, userController.findUserById)
 router.put('/editUser', tokenVerify , uploadImage('useravatar'), userController.editUser)
