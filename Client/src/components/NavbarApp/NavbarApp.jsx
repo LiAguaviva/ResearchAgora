@@ -63,6 +63,13 @@ export const NavbarApp = () => {
               onMouseEnter={()=>setDropdownMenu('projects')}
             >projects</NavLink>
         </li>
+        <li>
+            <NavLink
+              to={'/allUsers'}
+              className={({ isActive })=>(isActive? 'active':'inactive')}
+              onMouseEnter={()=>setDropdownMenu('')}
+            >Researchers</NavLink>
+        </li>
         <li className='loginRegisterButtons'>
             {!user && <button
               onClick={()=>navigate('/register')}

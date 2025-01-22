@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { NavbarApp } from '../components/NavbarApp/NavbarApp'
+import { NavbarApp } from '../components/NavbarApp2/NavbarApp'
 import { FooterApp } from '../components/FooterApp/FooterApp'
 import { Login } from '../pages/Auth/Login/Login'
 import { Register } from '../pages/Auth/Register/Register'
@@ -26,6 +26,7 @@ import { PersonalData } from '../pages/User/PersonalData/PersonalData'
 import { ForgotPassword } from '../pages/Auth/ForgotPassword/ForgotPassword'
 import { ResetPassword } from '../pages/Auth/ResetPassword/ResetPassword'
 import { EditProjectForm } from '../components/EditProjectForm/EditProjectForm'
+import { AllUsers } from '../pages/User/AllUsers/AllUsers'
 
 export const AppRoutes = () => {
   return (
@@ -56,6 +57,7 @@ export const AppRoutes = () => {
             <Route path='/profile' element={<Profile />}/>
             <Route path='/editprofile' element={<EditProfile />}/> 
             <Route path='/PersonalData' element={<PersonalData />}/> 
+            <Route path='/allUsers' element={<AllUsers />}/> 
 
             {/* Offer */}
             <Route path='/createoffer' element={<CreateOffer />}/>

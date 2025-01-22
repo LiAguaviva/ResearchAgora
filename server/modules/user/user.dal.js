@@ -223,6 +223,103 @@ class UserDal {
     }
   }
 
+  findUsersBySkills = async (skills) => {
+
+    const skillArray = skills
+      .replace(/[\[\]]/g, "") 
+      .split(",") // Split by comma
+      .map((skill) => skill.trim());
+    
+      if (skillArray.length === 0) {
+        throw new Error('No skills provided');
+      }
+
+      const placeholders = skillArray.map(()=> '?').join(',');
+
+      const connection = await dbPool.getConnection();
+
+      try {
+        const usersSql = `
+        SELECT DISTINCT u.*
+        FROM user u
+        JOIN user_skill us ON u.user_id = us.user_is
+        WHERE s.skill_name IN (${placeholders})
+          AND us.user_skill_is_disabled = 0
+          AND u.user_is_disabled = 0
+        GROUP BY u.user_id
+        HAVING COUNT(DISTINCT s.skill_id) = ?;
+        `;
+
+        const [users] = await connection.execute(usersSql, [ ...skillArray,
+          skillArray.length,
+        ]);
+
+        if (users.length === 0) {
+          return [];
+        }
+
+        const usersIds = users.map((u) => u.user_id);
+        const skillPlaceholders = usersIds.map(() => '?').join(',');
+
+        const skillsSql = `
+        SELECT us.user_id, s.skill_name
+        FROM user_skill us
+        JOIN skill s ON us.skill_id = s.skill_id
+        WHERE us.user_id IN (${skillPlaceholders})
+          AND us.user_skill_is_disabled = 0;
+        `;
+
+        const [skillResult] = await connection.execute(skillsSql, usersIds);
+
+        const usersMap = users.map((user) => ({
+          ...user,
+          skills: skillResult
+            .filter((s) => s.user_id === user.user_id)
+            .map((s) => s.kill_name)
+            .join(', ')
+        }));
+
+        return usersMap;
+
+      } catch (error) {
+        throw error;
+      } finally {
+        connection.release();
+      }
+  }
+
+  allUsers = async (values) => {
+    try {
+      let sql = `
+    SELECT 
+        u.user_id, 
+        u.user_name, 
+        u.user_lastname, 
+        u.user_email, 
+        u.user_country, 
+        u.user_city, 
+        u.user_description, 
+        u.user_avatar, 
+        u.user_type, 
+        u.user_proficiency, 
+        u.user_is_verified,
+        GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name SEPARATOR ', ') AS fields
+    FROM user AS u
+    LEFT JOIN user_field AS uf ON u.user_id = uf.user_id
+    LEFT JOIN field AS f ON uf.field_id = f.field_id
+    WHERE u.user_is_disabled = 0
+    GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
+             u.user_city, u.user_description, u.user_avatar, u.user_type, u.user_proficiency, 
+             u.user_is_verified;
+`;
+
+      const result = await executeQuery(sql, values);
+      return result;
+
+    } catch (error) {
+      throw error;
+    }
+  }
 
 
 }

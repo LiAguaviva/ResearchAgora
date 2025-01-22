@@ -244,6 +244,29 @@ class UserController {
           res.status(500).json(error)
         }
       }
+
+      findUsersBySkills = async (req, res) => {
+        const {skills} = req.body;
+
+        try {
+          const result = await userDal.findUsersBySkills(skills);
+          res.status(200).json(result);
+
+        } catch (error) {
+          res.status(500).json(error)
+        }
+      }
+
+      allUsers = async (req, res) => {
+
+        try {
+          const result = await userDal.allUsers();
+          res.status(200).json(result);
+          
+        } catch (error) {
+          res.status(500).json(error);
+        }
+      }
       
 
 }

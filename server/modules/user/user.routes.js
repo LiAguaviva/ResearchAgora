@@ -18,4 +18,6 @@ router.put('/deleteUser/:user_id', userController.deleteUser )
 router.post('/getskills&fields', userController.getskillsfields)
 router.patch('/joinresponse', userController.joinResponse)
 router.patch('/updaterequeststatus', userController.updateRequestStatus)
+router.post('/findUsersBySkills', userController.findUsersBySkills)
+router.get('/allUsers', userController.allUsers)
 export default router
