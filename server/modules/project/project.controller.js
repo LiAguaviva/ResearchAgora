@@ -52,6 +52,8 @@ class ProjectController {
         console.log('EL BACK MANDA EL PROJECT ID --->', project_id)   
         res.status(200).json(result)
       } catch (error) {
+        console.log("eerror", error);
+        
         res.status(500).json(error) 
       }
     }

@@ -4,7 +4,7 @@ import { OfferCard } from "../../../components/offerCard/offerCard";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchDataValidation } from "../../../helpers/axiosHelper";
 import { UserCard } from "../../../components/UserCard/UserCard";
-import { ProjectMemberCard } from "../ProjectMemeberCard/ProjectMemeberCard";
+import { ProjectMemberCard } from "../ProjectMemberCard/ProjectMemberCard";
 import './OneProject.css'
 
 export const OneProject = () => {
@@ -45,10 +45,10 @@ export const OneProject = () => {
         <h3>Members of the project</h3>
 
         <div className="membersGallery">
-        {project?.offers.map((elem,index) => {
+        {project?.map((elem) => {
           return (
             <section >
-                <ProjectMemberCard key={index} elem={elem}/>
+                <ProjectMemberCard key={elem.user_id} elem={elem}/>
             </section>
           );
         })}
