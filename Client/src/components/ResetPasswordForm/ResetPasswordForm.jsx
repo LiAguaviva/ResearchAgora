@@ -1,20 +1,21 @@
 import { AgoraContext } from '../../context/ContextProvider';
 import { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { loginSchema } from '../../schemas/loginSchema';
 import { ZodError } from 'zod';
 import axios from 'axios';
-import { fetchData } from '../../helpers/axiosHelper';
+import { fetchData, fetchDataValidation } from '../../helpers/axiosHelper';
 
 const initialValue = {
-  email:'',
-  password:''
+  newPassword:'',
+  confirmNewPassword: ''
 }
 
 export const ResetPasswordForm = () => {
 
   const {user, setUser, token, setToken, } = useContext(AgoraContext);
   const navigate = useNavigate();
+  const passwordToken = useParams()
   
   const [login, setLogin] = useState(initialValue)
   const [valErrors, setValErrors] = useState({})
@@ -40,16 +41,9 @@ export const ResetPasswordForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault()
 
-    // if (!login.password)
-
     try {
-      const tokenLocal = await fetchData('/login', 'post', login);
-      
-      const resultUser = await fetchData('/findUserById', 'get', null, {Authorization:`Bearer ${tokenLocal}`});
-      console.log('result user', resultUser);
-      localStorage.setItem('agoraToken', tokenLocal)
-      setUser(resultUser);
-      setToken(tokenLocal);
+
+      const resultUser = await fetchData(`/resetPassword/${passwordToken.token}`, 'post', login);
       navigate('/login');
       
     } catch (error) {
@@ -57,9 +51,8 @@ export const ResetPasswordForm = () => {
     }
   }
 
-  // console.log('login', login);
-  console.log('userContext', user);
-  // console.log('tokenContext', token);
+  console.log('login', login);
+  console.log(passwordToken.token);
 
   
 
@@ -81,26 +74,26 @@ export const ResetPasswordForm = () => {
         </fieldset> */}
 
         <fieldset>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="newPassword">Password</label>
           <input 
-            id='password'
+            id='newPassword'
             type="text" 
             placeholder='Password'
             value={login.password}
             onChange={handleChange}
-            name='password'
+            name='newPassword'
           />
         </fieldset>
 
         <fieldset>
-          <label htmlFor="password">RepeatPassword</label>
+          <label htmlFor="confirmNewPassword">RepeatPassword</label>
           <input 
-            id='password'
+            id='confirmNewPassword'
             type="text" 
             placeholder='Password'
-            value={login.password}
+            value={login.repPassword}
             onChange={handleChange}
-            name='password'
+            name='confirmNewPassword'
           />
         </fieldset>
 

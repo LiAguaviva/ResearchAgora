@@ -3,12 +3,12 @@ import { LoginForm } from '../../../components/LoginForm/LoginForm'
 import { ForgotPasswordForm } from '../../../components/ForgotPasswordForm/ForgotPasswordForm'
 import logo from '../../../assets/logo/Logo_full_PurpleBlue.png'
 import './ForgotPassword.css'
-import { VerificationModal } from '../../../components/VerificationModal/VerificationModal'
+import { ForgotPasswordModal } from '../../../components/ForgotPasswordModal/ForgotPasswordModal'
 
-export const ForgotPassword = ({showModal}) => {
+export const ForgotPassword = () => {
 
     const [modalShowed, setModalShowed] = useState(true);
-  
+    const showModal = ()=> setModalShowed(!modalShowed)
 
   return (
     <section className='forgotpasswordPage'>
@@ -18,7 +18,7 @@ export const ForgotPassword = ({showModal}) => {
       showModal={showModal}
       />
       </div>
-      {!modalShowed && <VerificationModal />}
+      {!modalShowed && <ForgotPasswordModal />}
     </section>
   )
 }

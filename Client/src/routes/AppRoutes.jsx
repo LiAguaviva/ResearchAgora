@@ -49,7 +49,7 @@ export const AppRoutes = () => {
             <Route path='/accountverified/:token' element={<AccountVerified />}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/forgotPassword' element={<ForgotPassword />}/>
-            <Route path='/resetPassword' element={<ResetPassword />}/>
+            <Route path='/resetPassword/:token' element={<ResetPassword />}/>
 
             {/* User */}
             <Route path='/profile' element={<Profile />}/>
