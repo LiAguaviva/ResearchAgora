@@ -54,6 +54,7 @@ export const AllUsers = () => {
           fetchUsers()
         } else {
           const result = await fetchDataValidation('http://localhost:4000/api/user/findUsersBySkills', 'post',data);
+          console.log('result: ', result)
           setusers(result)
         }
       } catch (error) {
