@@ -276,7 +276,7 @@ class UserDal {
         ...user,
         skills: skillResult
           .filter((s) => s.user_id === user.user_id)
-          .map((s) => s.kill_name)
+          .map((s) => s.skill_name)
           .join(", "),
       }));
 
@@ -290,27 +290,26 @@ class UserDal {
 
   allUsers = async (values) => {
     try {
-      let sql = `
-    SELECT 
-        u.user_id, 
-        u.user_name, 
-        u.user_lastname, 
-        u.user_email, 
-        u.user_country, 
-        u.user_city, 
-        u.user_description, 
-        u.user_avatar, 
-        u.user_type, 
-        u.user_proficiency, 
-        u.user_is_verified,
-        GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name SEPARATOR ', ') AS fields
-    FROM user AS u
-    LEFT JOIN user_field AS uf ON u.user_id = uf.user_id
-    LEFT JOIN field AS f ON uf.field_id = f.field_id
-    WHERE u.user_is_disabled = 0
-    GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
-             u.user_city, u.user_description, u.user_avatar, u.user_type, u.user_proficiency, 
-             u.user_is_verified;
+      let sql = `SELECT 
+    u.user_id, 
+    u.user_name, 
+    u.user_lastname, 
+    u.user_email, 
+    u.user_country, 
+    u.user_city, 
+    u.user_description, 
+    u.user_avatar, 
+    u.user_type, 
+    u.user_proficiency, 
+    u.user_is_verified,
+    GROUP_CONCAT(DISTINCT sk.skill_name ORDER BY sk.skill_name SEPARATOR ', ') AS skills
+FROM user AS u
+LEFT JOIN user_skill AS us ON u.user_id = us.user_id
+LEFT JOIN skill AS sk ON us.skill_id = sk.skill_id
+WHERE u.user_is_disabled = 0 AND us.user_skill_is_disabled = 0
+GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
+         u.user_city, u.user_description, u.user_avatar, u.user_type, u.user_proficiency, 
+         u.user_is_verified;
 `;
 
       const result = await executeQuery(sql, values);

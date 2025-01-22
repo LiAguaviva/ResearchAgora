@@ -4,7 +4,7 @@ import { AgoraContext } from "../../context/ContextProvider";
 
 export const UserAllUsersCard = ({ elem }) => {
   const { user } = useContext(AgoraContext);
-  const fields = elem.fields?.split(", ");
+  const skills = elem.skills?.split(", ");
   return (
     <div>
       <div className="userCard">
@@ -30,7 +30,7 @@ export const UserAllUsersCard = ({ elem }) => {
             {user?.user_proficiency}
           </p>
             <div className="tagsContainer">
-              {fields?.map((skill, index) => (
+              {skills?.map((skill, index) => (
                 <div key={index} className="tagDeleteable">
                   {skill}
                 </div>

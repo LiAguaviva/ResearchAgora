@@ -183,17 +183,13 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
     //bring a skill show offers
     try {
       let sql = `SELECT 
-      p.project_id, 
-      p.project_title, 
-      p.project_description, 
-      p.project_link, 
-      p.project_type, 
-      p.project_status, 
+      p.*,  -- Todas las columnas de project
       u.user_id, 
       CONCAT(u.user_name, ' ', u.user_lastname) AS user_name, 
       GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name SEPARATOR ', ') AS fields, 
       CONCAT(c.user_name, ' ', c.user_lastname) AS creator_name, 
       GROUP_CONCAT(DISTINCT sk.skill_name ORDER BY sk.skill_name SEPARATOR ', ') AS skills, 
+      GROUP_CONCAT(DISTINCT sk2.skill_name ORDER BY sk2.skill_name SEPARATOR ', ') AS project_skills, -- Skills del proyecto
       r.review_content, 
       r.review_created_on, 
       CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name, 
@@ -208,17 +204,14 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
   LEFT JOIN user c ON p.creator_user_id = c.user_id 
   LEFT JOIN user_skill us ON u.user_id = us.user_id 
   LEFT JOIN skill sk ON us.skill_id = sk.skill_id 
+  LEFT JOIN project_skill ps ON p.project_id = ps.project_id  -- Relación de proyectos con skills
+  LEFT JOIN skill sk2 ON ps.skill_id = sk2.skill_id  -- Obtener nombres de skills del proyecto
   LEFT JOIN review r ON u.user_id = r.reviewed_user_id 
   LEFT JOIN user rev ON r.user_id = rev.user_id 
   LEFT JOIN offer off ON p.project_id = off.project_id 
   WHERE p.project_id = ? AND up.status = 2
   GROUP BY 
-      p.project_id, 
-      p.project_title, 
-      p.project_description, 
-      p.project_link, 
-      p.project_type, 
-      p.project_status, 
+      p.project_id,  -- Usar solo la clave primaria de la tabla project
       u.user_id, 
       user_name, 
       creator_name, 
@@ -227,7 +220,8 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
       reviewer_name, 
       off.offer_id, 
       off.offer_title, 
-      off.offer_description;` 
+      off.offer_description;
+` 
       const result = await executeQuery(sql, [project_id]);
       return result;
     } catch (error) {

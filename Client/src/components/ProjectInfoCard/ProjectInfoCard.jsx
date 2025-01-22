@@ -20,7 +20,7 @@ export const ProjectInfoCard = ({project}) => {
     setSkills(project?.project_skills?.split(",") || []);
   },[project])
 
-  
+  console.log(project)
   return (
     <section className='projectInfoCard'>
       <h2>{project?.project_title}</h2>
