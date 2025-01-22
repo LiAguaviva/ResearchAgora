@@ -24,7 +24,6 @@ export const AllUsers = () => {
       console.log('users', users);
       
     }, [])
-    console.log(users)
   
    const handleKeyDownSkill = (e) => {
       if (e.key === "Enter") {

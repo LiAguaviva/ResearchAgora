@@ -35,7 +35,7 @@ export const EditProjectForm = () => {
           "get"
         );
         // console.log("RESULT FORM BACK ------>", result);
-        setSkills(result[0]?.project_skills?.split(",") || []);
+        setSkills(result.skills.map(skill => skill.skill_name));
         setData(result.project[0]);
       } catch (error) {
         console.log(error);

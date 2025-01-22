@@ -9,7 +9,7 @@ export const AllProjectsCard = ({elem}) => {
   const {user, project} = useContext(AgoraContext)
   const [skills, setSkills] = useState(elem.skills?.split(","));
   const [stateClassname, setStateClassname] = useState('');
-
+  
   return (
     <div className='projectCard'>
        <div className='profileProjectImg'>

@@ -27,7 +27,7 @@ export const OneProject = () => {
       console.log("RESULT FORM BACK ------>", result);
       setProject(result.project); 
       setMembers(result.members);
-      setSkills(result.skills);
+      setSkills(result.skills.map(skill => skill.skill_name));
       setOffers(result.offers);
       //setReview(result.review);
     } catch (error) {

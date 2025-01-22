@@ -72,7 +72,7 @@ export const CreateProjectForm = () => {
       let data = { ...project, skill_name: skillsString};
       console.log(data);
       const result = await fetchDataValidation(`http://localhost:4000/api/project/addproject/${user.user_id}`,'post', data);
-      navigate('/profile')
+      navigate(`/oneproject/${result}`)
     } catch (error) {
 
       if (error instanceof ZodError){

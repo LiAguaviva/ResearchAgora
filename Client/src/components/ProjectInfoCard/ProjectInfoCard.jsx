@@ -9,18 +9,19 @@ import { useNavigate } from 'react-router-dom';
 
 
 // add skills on prop and change everithing related to skills
-export const ProjectInfoCard = ({project}) => {
+export const ProjectInfoCard = ({project,skills}) => {
 
   console.log('PROJECT ON projectInfo',project)
 
   const {user} = useContext(AgoraContext)
   const navigate = useNavigate()
-  const [skills, setSkills] = useState([]);
+  // const [skills, setSkills] = useState([]);
 
-  useEffect(() => {
-    setSkills(project?.project_skills?.split(",") || []);
-  },[project])
+  // useEffect(() => {
+  //   setSkills(project?.project_skills?.split(",") || []);
+  // },[project])
 
+  console.log('SKILSSLSLSLSLSL',skills)
   return (
     <section className='projectInfoCard'>
       <h2>{project?.project_title}</h2>
