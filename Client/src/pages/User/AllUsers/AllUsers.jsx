@@ -3,12 +3,16 @@ import React, { useEffect, useState } from 'react'
 import { fetchDataValidation } from '../../../helpers/axiosHelper';
 // import { AllProjectsCard } from '../../../components/AllProjectsCard/AllProjectsCard';
 import { UserAllUsersCard } from '../../../components/usersComp/UserAllUsersCard';
+import { RequestModal } from '../../../components/offerComps/RequestModal/RequestModal';
 
 export const AllUsers = () => {
 
-    const [skills, setSkills] = useState([]);
-    const [inputValueSkills, setInputValueSkills] = useState("");
-    const [users, setusers] = useState([])
+  const [skills, setSkills] = useState([]);
+  const [inputValueSkills, setInputValueSkills] = useState("");
+  const [users, setusers] = useState([]);
+  const [modalShowed, setModalShowed] = useState(true);
+    
+  const showRequestModal = ()=> setModalShowed(!modalShowed)
     
     const fetchUsers = async() => {
       try {
@@ -102,6 +106,7 @@ export const AllUsers = () => {
               </div>
             );
           })}
+          <RequestModal />
         </section>
   )
 }

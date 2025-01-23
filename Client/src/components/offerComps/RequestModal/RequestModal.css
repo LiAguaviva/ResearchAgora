@@ -10,9 +10,7 @@
   justify-items: center;
   z-index: 1000;
 
- 
-
-  .verificationModal{
+  .requestModal{
     width: max-content;
     padding: var(--size2);
     display: flex;
@@ -35,5 +33,14 @@
       margin-bottom: var(--size05);
       color: var(--purple);
     }
+
   }
+}
+
+.selectModal {
+  width: 10rem;
+}
+
+.optionModal {
+  width: 10rem;
 }

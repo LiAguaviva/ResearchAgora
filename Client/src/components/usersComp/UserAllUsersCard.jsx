@@ -6,7 +6,7 @@ export const UserAllUsersCard = ({ elem }) => {
   const { user } = useContext(AgoraContext);
   const skills = elem.skills?.split(", ");
   return (
-    <div>
+    <div className="userCardWithButton">
       <div className="userCard">
         <div className="userCardAvatar">
           <img
@@ -38,6 +38,7 @@ export const UserAllUsersCard = ({ elem }) => {
             </div>
         </div>
       </div>
+            <button>Send invitation</button>
     </div>
   );
 };

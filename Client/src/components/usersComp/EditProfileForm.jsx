@@ -252,8 +252,8 @@ export const EditProfileForm = () => {
             placeholder="Add a skill"
           />
       </fieldset>
+      
         <fieldset className="textareaLit">
-          
         <label htmlFor="fields">Fields</label>
         <div className="tagsContainer">
           {fields.map((field, index) => (

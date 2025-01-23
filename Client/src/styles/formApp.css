@@ -1,93 +1,96 @@
 .formAppContainer {
-  max-width: 25rem;
+  --offerFormWidth: 25rem;
+  
+  max-width: var(--offerFormWidth);
   display: flex;
   margin-inline: auto;
   padding-top: var(--size5);
   padding-bottom: var(--size5);
 
-  .formApp {
-    width: 100%;
-    text-align: center;
+}
 
+.formApp {
+  width: 100%;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--size2);
+
+  .formTitle {
+    color: var(--purple);
+    font-size: var(--textM1);
+    font-weight: bold;
+  }
+
+  .formSec {
     display: flex;
-    flex-direction: column;
     gap: var(--size2);
+    flex-wrap: wrap;
+  }
 
-    .formTitle {
-      color: var(--purple);
-      font-size: var(--textM1);
-      font-weight: bold;
-    }
+  fieldset {
+    font-size: var(--textBody);
+    border: none;
+    padding: 0;
+    display: flex;
+    gap: var(--size05);
+    flex-direction: column;
+    text-align: left;
 
-    .formSec {
-      display: flex;
-      gap: var(--size2);
-      flex-wrap: wrap;
-    }
-
-    fieldset {
-      font-size: var(--textSize5);
-      border: none;
-      padding: 0;
-      display: flex;
-      gap: var(--size05);
-      flex-direction: column;
-      text-align: left;
-
-      input, select, textarea {
-        color: var(--black);
-        border: 2px solid var(--purple);
-        border-radius: 7px;
-        padding-inline: var(--size05);
-        padding-block: var(--size05);
-
-        &:hover {
-          border: 2px solid var(--black);
-        }
-      }
-    }
-
-    .textareaBig {
-      flex-direction: column;
-  
-      textarea {
-        max-width: var(--offerFormWidth);
-        scrollbar-width: none;
-        height: 10rem;
-      }
-    } 
-
-     .textareaLit {
-      /* flex-direction: column; */
-      display: flex;
-  
-      textarea {
-        max-width: var(--offerFormWidth);
-        scrollbar-width: none;
-        height: var(--size4);
-      }
-    }
-
-    .loginRegisterLink {
-      color: var(--aqua);
-      &:hover {
-        color: var(--mandarina);
-      }
-    }
-
-    
-
-    a {
-      color: var(--color1);
-      font-weight: 900;
+    input, select, textarea {
+      color: var(--black);
+      border: 2px solid var(--purple);
+      border-radius: 7px;
+      padding-inline: var(--size05);
+      padding-block: var(--size05);
 
       &:hover {
-        color: var(--color3);
+        border: 2px solid var(--black);
       }
     }
+  }
 
-    .forgotPassword {
-      color: var(--aqua);
+  .textareaBig {
+    /* flex-direction: column; */
+
+    textarea, .textarea {
+      max-width: var(--offerFormWidth);
+      scrollbar-width: none;
+      height: 10rem;
     }
+  } 
+
+   .textareaLit {
+    /* flex-direction: column; */
+    display: flex;
+
+    textarea, .textarea {
+      max-width: var(--offerFormWidth);
+      scrollbar-width: none;
+      height: var(--size4);
+    }
+  }
+
+  .loginRegisterLink {
+    color: var(--aqua);
+    &:hover {
+      color: var(--mandarina);
+    }
+  }
+
+  
+
+  a {
+    color: var(--color1);
+    font-weight: 900;
+
+    &:hover {
+      color: var(--color3);
+    }
+  }
+
+  .forgotPassword {
+    color: var(--aqua);
   }
 }
