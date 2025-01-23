@@ -8,6 +8,8 @@ import './OneProject.css'
 import { OfferCard } from "../../../components/offerComps/OfferCard/OfferCard";
 import { GoBack } from "../../../components/navigationComps/GoBack/GoBack";
 import { AgoraContext } from "../../../context/ContextProvider";
+import { ProjectReviewCard } from "../../../components/projectsComp/ProjectReviewCard";
+
 
 export const OneProject = () => {
 
@@ -33,6 +35,7 @@ export const OneProject = () => {
       setMembers(result.members);
       setSkills(result.skills.map(skill => skill.skill_name));
       setOffers(result.offers);
+      setReview(result.review);
       //setReview(result.review);
     } catch (error) {
       console.log(error);
@@ -91,6 +94,21 @@ export const OneProject = () => {
         </div>
           <button onClick={()=>navigate(`/createOffer/${id}`)}
           >Create Offer</button>
+
+
+      </section>
+      <section className="containerPpal offersSection">
+        <div className="offerGallery">
+        {review?.map((elem,index) => {
+          return (
+             <ProjectReviewCard
+              key={index} 
+              elem={elem}
+             /> 
+          )
+        })}
+        </div>
+          
 
         <GoBack />
 

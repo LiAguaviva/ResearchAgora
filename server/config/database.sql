@@ -107,6 +107,9 @@ CREATE TABLE  review (
     review_content TEXT,
     review_created_on DATETIME DEFAULT CURRENT_TIMESTAMP, -- timestamp?
     review_is_deleted BOOLEAN NOT NULL DEFAULT 0,
+    review_rate tinyint(5) NOT NULL, 
+    CONSTRAINT chk_review_rate CHECK (review_rate BETWEEN 1 AND 5),
+    CONSTRAINT unique_reviewer_reviewed UNIQUE (user_id, reviewed_user_id),
     CONSTRAINT fk_user_4 FOREIGN KEY (user_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_user_5 FOREIGN KEY (reviewed_user_id)

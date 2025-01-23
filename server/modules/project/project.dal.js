@@ -153,19 +153,24 @@ WHERE project.project_id = ?;`
 
 const skills = await executeQuery(sqlSkills, [project_id]);
 //review in one project
-/* let sqlReview = `SELECT  
-    r.review_content, 
-    r.review_created_on, 
-    CONCAT(rev.user_name, ' ', rev.user_lastname) AS reviewer_name
-FROM review r
-LEFT JOIN user rev ON r.user_id = rev.user_id
-WHERE r.reviewed_user_id IN (
-    SELECT u.user_id
-    FROM user_project up
-    WHERE up.project_id = ? AND up.status = 2
-);`
+let sqlReview = `SELECT 
+    review.review_content,
+    review.review_created_on,
+    reviewed_user.user_id AS reviewed_user_id,
+    reviewed_user.user_name AS reviewed_user_name,
+    reviewed_user.user_lastname AS reviewed_user_lastname,
+    reviewer.user_id AS reviewer_user_id,
+    reviewer.user_name AS reviewer_user_name,
+    reviewer.user_lastname AS reviewer_user_lastname,
+    review.review_rate,
+    project.project_title
+FROM review
+JOIN user AS reviewed_user ON review.reviewed_user_id = reviewed_user.user_id
+JOIN user AS reviewer ON review.user_id = reviewer.user_id
+JOIN project ON project.creator_user_id = reviewed_user.user_id
+WHERE project.project_id = ?;`
 
-const review = await executeQuery(sqlReview, [project_id]); */
+const review = await executeQuery(sqlReview, [project_id]);
 //show all offers under one project
 //reduce number_of_positions based on accepted requests
 let sqlOffers = `SELECT  
@@ -182,7 +187,7 @@ GROUP BY offer.offer_id, offer.offer_title, offer.offer_description, offer.numbe
 
 const offers = await executeQuery(sqlOffers, [project_id]);
 
-const result = {project, members, skills, offers} 
+const result = {project, members, skills, offers,review} 
    
   return result;
   } catch (error) {
