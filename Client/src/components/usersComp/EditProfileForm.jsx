@@ -249,7 +249,7 @@ export const EditProfileForm = () => {
             value={inputValueSkills}
             onChange={(e) => setInputValueSkills(e.target.value)}
             onKeyDown={handleKeyDownSkill}
-            placeholder="Añade una skill y pulsa Enter"
+            placeholder="Add a skill"
           />
       </fieldset>
         <fieldset className="textareaLit">
@@ -274,7 +274,7 @@ export const EditProfileForm = () => {
             value={inputValueFields}
             onChange={(e) => setInputValueFields(e.target.value)}
             onKeyDown={handleKeyDownField}
-            placeholder="Añade una skill y pulsa Enter"
+            placeholder="Add a field"
           />
       </fieldset>
 

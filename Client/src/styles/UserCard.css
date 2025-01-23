@@ -11,7 +11,7 @@
     }
   
     .userCardAvatar {
-      --AvatarSize: 4.5rem;
+      --AvatarSize: 6rem;
   
       width: var(--AvatarSize);
       height: var(--AvatarSize);

@@ -200,7 +200,7 @@ export const EditProjectForm = () => {
             value={inputValueSkills}
             onChange={(e) => setInputValueSkills(e.target.value)}
             onKeyDown={handleKeyDownSkill}
-            placeholder="Añade una skill y pulsa Enter"
+            placeholder="Add a skill"
           />
         </fieldset>
 

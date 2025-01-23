@@ -27,8 +27,12 @@ import { AllUsers } from '../pages/User/AllUsers/AllUsers'
 import { Researcher } from '../pages/User/Researcher/Researcher'
 import { FooterApp } from '../components/navigationComps/FooterApp/FooterApp'
 import { NavbarApp } from '../components/navigationComps/NavbarApp2/NavbarApp'
+import { ScrollToTop } from '../components/navigationComps/ScrollToTop/ScrollToTop'
+import { useRef } from 'react'
 
 export const AppRoutes = () => {
+
+
   return (
     <BrowserRouter >
         <NavbarApp />

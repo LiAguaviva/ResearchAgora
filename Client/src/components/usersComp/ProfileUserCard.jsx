@@ -28,8 +28,9 @@ export const ProfileUserCard = () => {
           > {user?.user_name} {user?.user_lastname}</h2>
           <button onClick={() => navigate('/editProfile')}>EDIT</button>
           </div>
+          <p>{user?.user_city}, {user?.user_country}</p>
           {/* <p>profiency{user?.user_proficiency}</p> */}
-      <TagsCard />
+          <TagsCard />
 
          
           {/* <button onClick={() => navigate('/editProfile')}>EDIT</button> */}

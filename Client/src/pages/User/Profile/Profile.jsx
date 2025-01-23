@@ -63,13 +63,13 @@ export const Profile = () => {
       </div>
     </section>
 
-    <section>
+    {/* <section>
       <div className='containerPpal'>
         <div className='reviewGallery'>
           <ReviewCard />
         </div>
       </div>
-    </section>
+    </section> */}
     </>
   )
 }

@@ -4,20 +4,21 @@ import { AgoraContext } from '../../context/ContextProvider'
 const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
 
 
-export const ProjectMainCard = ({project}) => {
+export const ProjectMainCard = ({project, members}) => {
 
   const {user} = useContext(AgoraContext)
   
-  console.log('user on projectMainCard', project);
-  
+  // console.log('user on projectMainCard', project);
 
+  const creator = members?.find(member => member.user_id === project?.creator_user_id);
+  
   return (
     <div>
       <div className='userCard'>
        <div className="userCardAvatar">
            <img 
              className='userCardAvatar'
-             src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
+             src={creator?.user_avatar? `${url}/useravatar/${creator.user_avatar}` : avatarDefault} 
              alt="your avatar" 
            />
          </div>

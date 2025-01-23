@@ -12,7 +12,8 @@ export const OfferCard = ({elem, project}) => {
   useEffect(() => {
     setSkill(elem.offer_skills?.split(","))    
   }, [elem])
-  console.log("elem", elem);
+
+  // console.log("elem", elem);
 
   const deleteOffer = () => {
    

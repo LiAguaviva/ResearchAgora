@@ -1,0 +1,9 @@
+
+.scrollToTop {
+  position: fixed;
+  z-index: 10;
+  top: 92vh;
+  right: 5vw;
+
+  height: 3.5rem;
+}

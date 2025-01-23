@@ -10,22 +10,22 @@ import { ProjectMainCard } from '../ProjectMainCard';
 
 // add skills on prop and change everithing related to skills
 
-export const ProjectInfoCard = ({project,skills}) => {
+export const ProjectInfoCard = ({project,skills, members}) => {
 
-  console.log('PROJECT ON projectInfo', project)
+  // console.log('PROJECT ON projectInfo', project)
 
   const {user} = useContext(AgoraContext)
   const navigate = useNavigate()
   // const [skills, setSkills] = useState([]);
 
 
-  console.log('skills on info card', skills);
+  // console.log('skills on info card', skills);
   
   // useEffect(() => {
   //   setSkills(project?.project_skills?.split(",") || []);
   // },[project])
 
-  console.log('SKILSSLSLSLSLSL',skills)
+  // console.log('SKILSSLSLSLSLSL',skills)
   return (
     <section className='projectInfoCard'>
       <h2>{project?.project_title}</h2>
@@ -61,7 +61,10 @@ export const ProjectInfoCard = ({project,skills}) => {
 
         <div className="data">
           <div className="userCard">
-            <ProjectMainCard  project={project} />
+            <ProjectMainCard  
+              project={project} 
+              members={members}
+            />
           </div> 
           
           <div className='description'>

@@ -5,7 +5,7 @@ import { AgoraContext } from '../../../context/ContextProvider'
 export const ProjectMemberCard = ({elem}) => {
 
   const {user} = useContext(AgoraContext)
-  console.log('ELEMENTO DE PROJECT CARD ---> ', elem)
+  // console.log('ELEMENTO DE PROJECT CARD ---> ', elem)
   return (
     <div>
       <div className='userCard'>

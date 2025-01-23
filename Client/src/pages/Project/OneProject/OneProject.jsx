@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { ProjectInfoCard } from "../../../components/projectsComp/ProjectInfoCard/ProjectInfoCard";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchDataValidation } from "../../../helpers/axiosHelper";
@@ -6,11 +6,15 @@ import { UserCard } from "../../../components/usersComp/UserCard";
 import { ProjectMemberCard } from "../ProjectMemberCard/ProjectMemberCard";
 import './OneProject.css'
 import { OfferCard } from "../../../components/offerComps/OfferCard/OfferCard";
+import { GoBack } from "../../../components/navigationComps/GoBack/GoBack";
+import { AgoraContext } from "../../../context/ContextProvider";
 
 export const OneProject = () => {
 
   const navigate = useNavigate();
+  const scrollGoUp = useRef();
 
+  const {user} = useContext(AgoraContext)
   const { id } = useParams();
   const [project, setProject] = useState([]);
   const [members, setMembers] = useState([]);
@@ -24,7 +28,7 @@ export const OneProject = () => {
         `http://localhost:4000/api/project/oneproject/${id}`,
         "get"
       );
-      console.log("RESULT FORM BACK ------>", result);
+      // console.log("RESULT FORM BACK ------>", result);
       setProject(result.project); 
       setMembers(result.members);
       setSkills(result.skills.map(skill => skill.skill_name));
@@ -36,19 +40,23 @@ export const OneProject = () => {
   };
 
   useEffect(() => {
+    scrollGoUp.current.scrollIntoView({behavior:'smooth'})
     fetchOneProject();
   }, []);
 
-  // console.log('PROJECT on oneproject', project);
+
+
+  console.log('PROJECT on oneproject', project);
   // console.log('ONE PROJECT skills', skills);
   
 
   return (
-    <div className="oneProjectPage">
+    <div ref={scrollGoUp} className="oneProjectPage">
       <section className="containerPpal">
         <ProjectInfoCard 
           project={project[0]} 
           skills={skills}
+          members={members}
         />
       </section>
              
@@ -81,7 +89,10 @@ export const OneProject = () => {
           )
         })}
         </div>
-        <button onClick={()=>navigate(`/createOffer/${id}`)}>Create Offer</button>
+          <button onClick={()=>navigate(`/createOffer/${id}`)}
+          >Create Offer</button>
+
+        <GoBack />
 
       </section>
     </div>

@@ -97,8 +97,6 @@ button {
   display: flex;
   justify-content: center;
   gap: var(--size05);
-
-  
 }
 
 .accept {
@@ -114,6 +112,7 @@ button {
     background-color: var(--magenta);
   }
 }
+
 
 .tagsContainer {
   display: flex;

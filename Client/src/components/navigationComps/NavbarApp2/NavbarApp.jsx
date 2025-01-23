@@ -1,13 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import logo from '../../../../src/assets/logo/Logo_short_WhiteBlue.png'
 import './NavbarApp.css'
 import { NavLink, useNavigate } from 'react-router-dom'
 import avatarDefault from '../../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../../context/ContextProvider'
+import { ScrollToTop } from '../ScrollToTop/ScrollToTop'
 const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
 
 
-export const NavbarApp = () => {
+export const NavbarApp = ({ref}) => {
 
   const navigate = useNavigate()
   const {user, setToken} = useContext(AgoraContext)
@@ -18,7 +19,7 @@ export const NavbarApp = () => {
   const [dropdownMenu, setDropdownMenu] = useState('');
 
   const closeDropdown = () => {setDropdownMenu('')}
- 
+  const scrollGoUp = useRef();
 
   const logOut = () => {
     localStorage.removeItem('agoraToken')
@@ -31,7 +32,8 @@ export const NavbarApp = () => {
   });
 
   return (
-    <header>
+    <header ref={scrollGoUp}  >
+      <ScrollToTop scrollGoUp={scrollGoUp} />
       <nav className='myNavBar'>
         <div className='bar'>
         <img 

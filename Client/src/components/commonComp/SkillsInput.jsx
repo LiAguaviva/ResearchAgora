@@ -44,7 +44,7 @@ const SkillsInput = ({ onSubmit }) => {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Añade una skill y pulsa Enter"
+            placeholder="Add a skill"
           />
       <button onClick={handleSubmit} style={styles.submitBtn}>
         Accept
