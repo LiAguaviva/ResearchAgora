@@ -6,6 +6,7 @@ router.post('/createoffer/:project_id', offerController.createOffer)
 router.get('/alloffers', offerController.allOffers)
 router.put('/deleteoffer/:offer_id', offerController.deleteOffer)
 router.get('/findofferbyskill', offerController.findOfferBySkill)
+router.get('/offersbyproject/:project_id', offerController.offersByProject)
 
 
 

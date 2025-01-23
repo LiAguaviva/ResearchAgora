@@ -10,9 +10,9 @@ export const AllUsers = () => {
   const [skills, setSkills] = useState([]);
   const [inputValueSkills, setInputValueSkills] = useState("");
   const [users, setusers] = useState([]);
-  const [modalShowed, setModalShowed] = useState(true);
+  const [modalShowed, setModalShowed] = useState(false);
     
-  const showRequestModal = ()=> setModalShowed(!modalShowed)
+  const showRequestModal = ()=> setModalShowed(!modalShowed);
     
     const fetchUsers = async() => {
       try {
@@ -101,12 +101,12 @@ export const AllUsers = () => {
           {users?.map((elem)=> {
             return(
               <div className='allusersGallery' key={elem.user_id} >
-                <UserAllUsersCard elem={elem}/>
+                <UserAllUsersCard showRequestModal={showRequestModal} elem={elem}/>
                 <div className='separatorAllProjects' />
               </div>
             );
           })}
-          <RequestModal />
+          {modalShowed && <RequestModal showRequestModal={showRequestModal} />}
         </section>
   )
 }

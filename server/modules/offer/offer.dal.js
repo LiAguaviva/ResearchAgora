@@ -197,6 +197,24 @@ class OfferDal {
       connection.release(); 
     }
   };
+
+  offersByProject = async (project_id) => {
+    try {
+      const sql = `
+      SELECT offer.offer_id, offer.offer_title 
+      FROM offer 
+      WHERE offer.is_deleted = 0
+      AND offer.project_id = ?`
+
+      const result = await executeQuery(sql, project_id);
+      console.log('result en DAAAAALLLLL', result);
+      
+      return result;
+
+    } catch (error) {
+      throw error;
+    }
+  }
   
 
 

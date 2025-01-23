@@ -2,9 +2,14 @@ import React, { useContext } from "react";
 import avatarDefault from "../../assets/imgs/defaultIMG.png";
 import { AgoraContext } from "../../context/ContextProvider";
 
-export const UserAllUsersCard = ({ elem }) => {
+export const UserAllUsersCard = ({ elem, showRequestModal }) => {
+
   const { user } = useContext(AgoraContext);
   const skills = elem.skills?.split(", ");
+
+  console.log('elem on UserAllUsersCard', elem );
+  
+
   return (
     <div className="userCardWithButton">
       <div className="userCard">
@@ -38,7 +43,8 @@ export const UserAllUsersCard = ({ elem }) => {
             </div>
         </div>
       </div>
-            <button>Send invitation</button>
+            { user?.user_id !== elem.user_id &&
+              <button onClick={()=>showRequestModal()}>Send invitation</button>}
     </div>
   );
 };

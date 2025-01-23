@@ -41,17 +41,37 @@ deleteOffer =  async (req,res)=>{
          }
 }
 
-findOfferBySkill = async(req,res)=>{
-  const skills = req.body;
-          
-          try {
-            await offerDal.findOfferBySkill(skills)
-                 res.status(200).json("offers found")
-          } catch (error) {
-            console.log(error);
+  findOfferBySkill = async(req,res)=>{
+    const skills = req.body;
             
-            res.status(500).json(error)
-          }
-}
+            try {
+              await offerDal.findOfferBySkill(skills)
+                   res.status(200).json("offers found")
+            } catch (error) {
+              console.log(error);
+              
+              res.status(500).json(error)
+            }
+  }
+
+  offersByProject = async(req, res) => {
+    try {
+      const {project_id} = req.params;
+      const result = await offerDal.offersByProject(project_id)
+      // console.log('result on CONTROLLER', result);
+      // console.log('req.params CONTROLLER', req.params);
+      
+      res.status(200).json(result)
+    } catch (error) {
+      
+      console.log(error);
+      res.status(500).json(error)      
+    }
+
+  }
+
+
+
+
 }
 export default new OfferController();
