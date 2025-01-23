@@ -116,7 +116,15 @@ class OfferDal {
     console.log('in offer dal');
     
     try {
-          let sql = 'SELECT o.offer_id, o.offer_title, o.offer_description, o.project_id, p.project_title, sk.skill_id, sk.skill_name FROM offer o JOIN project p ON o.project_id = p.project_id LEFT JOIN offer_skill os ON o.offer_id = os.offer_id LEFT JOIN skill sk ON os.skill_id = sk.skill_id WHERE o.is_deleted = 0;'
+      let sql = `SELECT o.offer_id, o.offer_title, o.number_of_position, o.offer_description, o.project_id, p.project_title,
+      GROUP_CONCAT(DISTINCT sk.skill_name ORDER BY sk.skill_name SEPARATOR ', ') AS skills
+      FROM offer o 
+      JOIN project p ON o.project_id = p.project_id 
+      LEFT JOIN offer_skill os ON o.offer_id = os.offer_id 
+      LEFT JOIN skill sk ON os.skill_id = sk.skill_id 
+      WHERE o.is_deleted = 0
+      GROUP BY o.offer_id, o.offer_title, o.number_of_position, o.offer_description, o.project_id
+;`
          
           const result = await executeQuery(sql);
           return result; 

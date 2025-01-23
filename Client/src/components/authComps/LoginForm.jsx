@@ -64,7 +64,7 @@ export const LoginForm = () => {
   }
 
   // console.log('login', login);
-  console.log('userContext', user);
+  // console.log('userContext', user);
   // console.log('tokenContext', token);
 
   

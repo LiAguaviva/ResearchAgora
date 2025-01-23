@@ -24,11 +24,11 @@ export const RequestModal = ({showRequestModal}) => {
     try {
       const response = await fetchDataValidation(`http://localhost:4000/api/offer/offersbyproject/${projectId}`, 'get');
 
-      console.log('response on fetchDataValidation', response);
+      // console.log('response on fetchDataValidation', response);
       setOffers(response);
       
     } catch (error) {
-      console.error('Error fetching offers:', error);
+      // console.error('Error fetching offers:', error);
     }
   };
   
@@ -54,7 +54,7 @@ export const RequestModal = ({showRequestModal}) => {
   },[user])
 
   // console.log('projects on REQUESTMODAL', projects);
-  console.log('offers on REQUESTMODAL', offers);
+  // console.log('offers on REQUESTMODAL', offers);
   
   
   return (

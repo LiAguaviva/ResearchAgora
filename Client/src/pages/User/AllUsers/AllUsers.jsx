@@ -25,7 +25,7 @@ export const AllUsers = () => {
   
     useEffect(() => {
       fetchUsers();
-      console.log('users', users);
+      // console.log('users', users);
       
     }, [])
   

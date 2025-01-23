@@ -213,7 +213,7 @@ SELECT * FROM project_skill;
  -- UPDATE user SET user_is_disabled = 0 WHERE user_id = 3;
  SELECT * FROM project;
  SELECT * FROM skill;
- -- SELECT * FROM offer;
+ SELECT * FROM offer;
  SELECT * FROM user_project;
  SELECT * FROM project_skill;
  SELECT * FROM offer_skill;
@@ -222,27 +222,10 @@ SELECT * FROM project_skill;
 SELECT p.project_id,p.project_title, p.project_description, s.skill_name, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id JOIN project_skill AS ps ON p.project_id = ps.project_id JOIN skill AS s ON ps.skill_id = s.skill_id WHERE ps.project_skill_is_disabled = 0;
 
 
-INSERT INTO user (user_name, user_lastname, user_email, user_country, user_city, user_description, user_password, user_avatar, user_type, user_proficiency, user_is_verified, user_is_disabled)
-VALUES ('Carlos', 'Sánchez', 'carlos.sanchez@email.com', 'España', 'Madrid', 'Investigador en biología molecular.', 'password123', 'avatar1.jpg', 2, 'doctorant', 1, 0);
-
-INSERT INTO user (user_name, user_lastname, user_email, user_country, user_city, user_description, user_password, user_avatar, user_type, user_proficiency, user_is_verified, user_is_disabled)
-VALUES ('Laura', 'Gómez', 'laura.gomez@email.com', 'Argentina', 'Buenos Aires', 'Estudiante de física aplicada con interés en la astrofísica.', 'password456', 'avatar2.jpg', 2, 'student', 1, 0);
-
-INSERT INTO user (user_name, user_lastname, user_email, user_country, user_city, user_description, user_password, user_avatar, user_type, user_proficiency, user_is_verified, user_is_disabled)
-VALUES ('Marco', 'Lopez', 'marco.lopez@email.com', 'México', 'Ciudad de México', 'Postdoctorado en genética de plantas.', 'password789', 'avatar3.jpg', 2, 'postDoc', 0, 0);
-
-INSERT INTO user (user_name, user_lastname, user_email, user_country, user_city, user_description, user_password, user_avatar, user_type, user_proficiency, user_is_verified, user_is_disabled)
-VALUES ('Ana', 'Martínez', 'ana.martinez@email.com', 'Chile', 'Santiago', 'Investigadora en biotecnología aplicada.', 'password321', 'avatar4.jpg', 2, 'PhD', 1, 0);
-
-
-INSERT INTO project (project_title, project_city, project_country, project_description, project_type, project_status, project_outcome, project_link, project_max_member, creator_user_id)
-VALUES ('Molecular Biology Project', 'Madrid', 'Spain', 'Research on new genetic therapies for the treatment of rare diseases.', 0, 1, 'Manuscript', 'https://www.external.com/manuscript', 5, 1);
-
-INSERT INTO project (project_title, project_city, project_country, project_description, project_type, project_status, project_outcome, project_link, project_max_member, creator_user_id)
-VALUES ('Advanced Astrophysics', 'Buenos Aires', 'Argentina', 'Study on the expansion of the universe using new astronomical data analysis methods.', 0, 1, 'Patent', 'https://www.external.com/patent', 3, 2);
-
-INSERT INTO project (project_title, project_city, project_country, project_description, project_type, project_status, project_outcome, project_link, project_max_member, creator_user_id)
-VALUES ('Plant Genetics', 'Mexico City', 'Mexico', 'Development of plant varieties resistant to extreme climate changes.', 0, 2, 'Manuscript', 'https://www.external.com/genetics', 6, 3);
-
-INSERT INTO project (project_title, project_city, project_country, project_description, project_type, project_status, project_outcome, project_link, project_max_member, creator_user_id)
-VALUES ('Applied Biotechnology', 'Santiago', 'Chile', 'Research on the use of biotechnology for the improvement of agricultural crops.', 1, 1, 'Manuscript', 'https://www.external.com/biotechnology', 4, 4);
+SELECT o.offer_id, o.number_of_position, o.offer_title, o.offer_description, o.project_id, p.project_title, sk.skill_id, sk.skill_name 
+FROM offer o 
+JOIN project p ON o.project_id = p.project_id 
+LEFT JOIN offer_skill os ON o.offer_id = os.offer_id 
+LEFT JOIN skill sk ON os.skill_id = sk.skill_id 
+WHERE o.is_deleted = 0
+GROUP BY offer_id;

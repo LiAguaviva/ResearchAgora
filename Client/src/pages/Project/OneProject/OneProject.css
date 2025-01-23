@@ -24,10 +24,10 @@
     align-items: center;
   }
 
-  .offerGallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--size1);
-    justify-content: center;
-  }
+}
+.offerGallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--size1);
+  justify-content: center;
 }

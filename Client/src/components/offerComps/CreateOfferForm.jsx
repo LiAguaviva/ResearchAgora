@@ -108,7 +108,7 @@ export const CreateOfferForm = () => {
           <label htmlFor="number_of_position">Number of Positions</label>
           <input 
             id='number_of_position'
-            type="text" 
+            type="number" 
             placeholder='Number of positions'
             value={offer.number_of_position}
             onChange={handleChange}
