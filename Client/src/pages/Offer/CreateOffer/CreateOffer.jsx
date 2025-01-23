@@ -1,5 +1,5 @@
 import React from 'react'
-import { CreateOfferForm } from '../../../components/CreateOfferForm/CreateOfferForm'
+import { CreateOfferForm } from '../../../components/offerComps/CreateOfferForm'
 
 export const CreateOffer = () => {
   return (

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { ProjectInfoCard } from "../../../components/ProjectInfoCard/ProjectInfoCard";
-import { OfferCard } from "../../../components/offerCard/offerCard";
+import { ProjectInfoCard } from "../../../components/projectsComp/ProjectInfoCard/ProjectInfoCard";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchDataValidation } from "../../../helpers/axiosHelper";
-import { UserCard } from "../../../components/UserCard/UserCard";
+import { UserCard } from "../../../components/usersComp/UserCard";
 import { ProjectMemberCard } from "../ProjectMemberCard/ProjectMemberCard";
 import './OneProject.css'
+import { OfferCard } from "../../../components/offerComps/OfferCard/OfferCard";
 
 export const OneProject = () => {
 
@@ -27,7 +27,7 @@ export const OneProject = () => {
       console.log("RESULT FORM BACK ------>", result);
       setProject(result.project); 
       setMembers(result.members);
-      setSkills(result.skills);
+      setSkills(result.skills.map(skill => skill.skill_name));
       setOffers(result.offers);
       //setReview(result.review);
     } catch (error) {
@@ -39,8 +39,8 @@ export const OneProject = () => {
     fetchOneProject();
   }, []);
 
-  console.log('PROJECT on oneproject', project);
-  console.log('ONE PROJECT skills', skills);
+  // console.log('PROJECT on oneproject', project);
+  // console.log('ONE PROJECT skills', skills);
   
 
   return (
@@ -73,9 +73,11 @@ export const OneProject = () => {
         <div className="offerGallery">
         {offers?.map((elem) => {
           return (
-           <div key={elem.offer_id}>
-             <OfferCard elem={elem}/> 
-           </div>
+             <OfferCard 
+              key={elem.offer_id} 
+              elem={elem}
+              project={project}
+             /> 
           )
         })}
         </div>

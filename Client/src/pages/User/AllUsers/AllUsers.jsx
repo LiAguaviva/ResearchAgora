@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 import { fetchDataValidation } from '../../../helpers/axiosHelper';
-import { AllProjectsCard } from '../../../components/AllProjectsCard/AllProjectsCard';
-import { UserAllUsersCard } from '../../../components/UserAllUsersCard/UserAllUsersCard';
+// import { AllProjectsCard } from '../../../components/AllProjectsCard/AllProjectsCard';
+import { UserAllUsersCard } from '../../../components/usersComp/UserAllUsersCard';
 
 export const AllUsers = () => {
 
@@ -103,7 +103,6 @@ export const AllUsers = () => {
               </div>
             );
           })}
-    
         </section>
   )
 }

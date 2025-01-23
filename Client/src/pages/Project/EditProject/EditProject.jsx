@@ -1,5 +1,5 @@
 import React from 'react'
-import { EditProjectForm } from '../../../components/EditProjectForm/EditProjectForm'
+import { EditProjectForm } from '../../../components/projectsComp/EditProjectForm'
 
 export const EditProject = () => {
   return (

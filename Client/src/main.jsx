@@ -7,6 +7,7 @@ import '../src/styles/formApp.css'
 import '../src/styles/userCard.css'
 import '../src/styles/projectCard.css'
 import '../src/styles/ProfileResearcherCard.css'
+import '../src/styles/VerificationModal.css'
 //  import 'bootstrap/dist/css/bootstrap.min.css';
 
 createRoot(document.getElementById('root')).render(

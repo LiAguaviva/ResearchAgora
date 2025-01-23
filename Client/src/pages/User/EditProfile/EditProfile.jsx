@@ -1,5 +1,5 @@
 import React from 'react'
-import { EditProfileForm } from '../../../components/EditProfileForm/EditProfileForm'
+import { EditProfileForm } from '../../../components/usersComp/EditProfileForm'
 
 export const EditProfile = () => {
   return (

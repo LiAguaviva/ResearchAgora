@@ -1,5 +1,5 @@
 import React from 'react'
-import { CreateProjectForm } from '../../../components/CreateProjectForm/CreateProjectForm'
+import { CreateProjectForm } from '../../../components/projectsComp/CreateProjectForm'
 
 export const CreateProject = () => {
   return (

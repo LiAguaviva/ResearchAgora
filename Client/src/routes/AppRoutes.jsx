@@ -1,6 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { NavbarApp } from '../components/NavbarApp2/NavbarApp'
-import { FooterApp } from '../components/FooterApp/FooterApp'
 import { Login } from '../pages/Auth/Login/Login'
 import { Register } from '../pages/Auth/Register/Register'
 import { Contact } from '../pages/Info/Contact'
@@ -25,9 +23,10 @@ import { AboutUs } from '../pages/Info/AboutUs'
 import { PersonalData } from '../pages/User/PersonalData/PersonalData'
 import { ForgotPassword } from '../pages/Auth/ForgotPassword/ForgotPassword'
 import { ResetPassword } from '../pages/Auth/ResetPassword/ResetPassword'
-import { EditProjectForm } from '../components/EditProjectForm/EditProjectForm'
 import { AllUsers } from '../pages/User/AllUsers/AllUsers'
 import { Researcher } from '../pages/User/Researcher/Researcher'
+import { FooterApp } from '../components/navigationComps/FooterApp/FooterApp'
+import { NavbarApp } from '../components/navigationComps/NavbarApp2/NavbarApp'
 
 export const AppRoutes = () => {
   return (
@@ -70,7 +69,7 @@ export const AppRoutes = () => {
             {/* Project */}
             <Route path='/allprojects' element={<AllProjects />}/>
             <Route path='/oneproject/:id' element={<OneProject />}/>
-            <Route path='/editproject/:id' element={<EditProjectForm />}/>
+            <Route path='/editproject/:id' element={<EditProject />}/>
             <Route path='/createproject' element={<CreateProject />}/>
             
             {/* Admin */}

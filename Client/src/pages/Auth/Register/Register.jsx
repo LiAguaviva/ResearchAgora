@@ -1,9 +1,7 @@
 import React from 'react'
-import { RegisterForm } from '../../../components/RegisterForm/RegisterForm'
-import SkillsInput from '../../../components/SkillsInputs/SkillsInput'
-import { VerificationModal } from '../../../components/VerificationModal/VerificationModal'
 import { useState } from 'react'
-import './Register.css'
+import { RegisterForm } from '../../../components/authComps/RegisterForm'
+import { VerificationModal } from '../../../components/authComps/VerificationModal'
 
 export const Register = () => {
 

@@ -93,6 +93,28 @@ button {
   }
 }
 
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--size05);
+
+  
+}
+
+.accept {
+  background-color: var(--aqua);
+  &:hover {
+    background-color: var(--mandarina);
+  }
+}
+
+.cancel {
+  background-color: var(--purple);
+  &:hover {
+    background-color: var(--magenta);
+  }
+}
+
 .tagsContainer {
   display: flex;
   column-gap: var(--size05);

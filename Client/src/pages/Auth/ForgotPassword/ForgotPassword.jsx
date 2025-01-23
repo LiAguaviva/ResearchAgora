@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { LoginForm } from '../../../components/LoginForm/LoginForm'
-import { ForgotPasswordForm } from '../../../components/ForgotPasswordForm/ForgotPasswordForm'
 import logo from '../../../assets/logo/Logo_full_PurpleBlue.png'
 import './ForgotPassword.css'
-import { ForgotPasswordModal } from '../../../components/ForgotPasswordModal/ForgotPasswordModal'
+import { ForgotPasswordForm } from '../../../components/authComps/ForgotPasswordForm'
+import { ForgotPasswordModal } from '../../../components/authComps/ForgotPasswordModal'
 
 export const ForgotPassword = () => {
 

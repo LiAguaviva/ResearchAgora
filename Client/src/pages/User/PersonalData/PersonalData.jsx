@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
-import { PersonalDataCard } from '../../../components/PersonalDataCard/PersonalDataCard'
 import './PersonalData.css'
 import { useNavigate } from 'react-router-dom'
 import avatarDefault from '../../../assets/imgs/defaultIMG.png'
 const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import { AgoraContext } from '../../../context/ContextProvider'
+import { PersonalDataCard } from '../../../components/usersComp/PersonalDataCard/PersonalDataCard';
 
 export const PersonalData = () => {
 
@@ -19,7 +19,7 @@ export const PersonalData = () => {
                   alt="your avatar" 
                 />
               </div>
-      <PersonalDataCard />
+              <PersonalDataCard />
       <button onClick={() => navigate('/editProfile')}>Edit</button>
     </section>
   )

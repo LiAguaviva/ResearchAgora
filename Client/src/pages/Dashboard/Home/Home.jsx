@@ -1,10 +1,4 @@
 import React from 'react'
-import { RegisterForm } from '../../../components/RegisterForm/RegisterForm'
-import { CreateOfferForm } from '../../../components/CreateOfferForm/CreateOfferForm'
-import { CreateProjectForm } from '../../../components/CreateProjectForm/CreateProjectForm'
-import { EditProfileForm } from '../../../components/EditProfileForm/EditProfileForm'
-import { EditProjectForm } from '../../../components/EditProjectForm/EditProjectForm'
-import { LoginForm } from '../../../components/LoginForm/LoginForm'
 import logo from '../../../assets/logo/Logo_full_PurpleBlue.png'
 import avatarDefault from '../../../assets/imgs/defaultIMG.png'
 import './Home.css'
@@ -35,21 +29,6 @@ export const Home = () => {
 
     <section className='researchers'>
     <div>
-          <div className='userCard'>
-            <div className='userCardAvatar'>
-              <img 
-                className='userCardAvatar'
-                // src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault}  
-                src={avatarDefault}
-                alt="your avatar" 
-              />
-            </div>
-    
-            <div className='containerPpal userCardData'>
-              <p className='UserCardName'>David Lynch</p>
-              <p>Audiovisual,</p>
-            </div>
-          </div>  
         </div>
     </section>
 

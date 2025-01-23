@@ -9,7 +9,6 @@
   align-content: center;
   background-position: center;
   background-size: cover;
-  
 
   .homeLogo {
     text-align: center;
@@ -27,6 +26,7 @@
       @media (max-width: 630px) {
         font-size: var(--textM1);
       }
+
       @media (max-width: 300px) {
         font-size: var(--textM2);
       }
@@ -34,6 +34,7 @@
     
     p {
       font-size: var(--textM1);
+      margin-inline: auto;
 
       @media (max-width: 630px) {
         font-size: var(--textM2);

@@ -1,16 +1,15 @@
 import { useContext, useEffect, useState } from 'react'
-import { ProfileUserCard } from '../../../components/ProfileUserCard/ProfileUserCard'
-import { PersonalDataCard } from '../../../components/PersonalDataCard/PersonalDataCard'
-import { ProjectProfileCard } from '../../../components/ProjectProfileCard/ProjectProfileCard'
-import { ReviewCard } from '../../../components/ReviewCard/ReviewCard'
-import { UserCard } from '../../../components/UserCard/UserCard'
-import StatsRadarChart from '../../../components/RadarGraph/RadarGraph'
+import { ProfileUserCard } from '../../../components/usersComp/ProfileUserCard'
+import { UserCard } from '../../../components/usersComp/UserCard'
 import axios from 'axios'
 
-import { TagsCard } from '../../../components/TagsCard/TagsCard'
 import { useNavigate } from 'react-router-dom'
 import { AgoraContext } from '../../../context/ContextProvider'
 import { fetchDataValidation } from '../../../helpers/axiosHelper'
+import { ProjectProfileCard } from '../../../components/projectsComp/ProjectProfileCard/ProjectProfileCard'
+import StatsRadarChart from '../../../components/usersComp/RadarGraph'
+import { ReviewCard } from '../../../components/commonComp/ReviewCard/ReviewCard'
+import { TagsCard } from '../../../components/commonComp/TagsCard/TagsCard'
 
 export const Researcher = () => {
 
@@ -49,9 +48,6 @@ export const Researcher = () => {
           <TagsCard />
     </div>
 
-    {/* <div className='containerPpal'>
-      <PersonalDataCard />
-    </div> */}
     </section>
 
     <section>

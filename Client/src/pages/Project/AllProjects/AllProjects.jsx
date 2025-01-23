@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import './AllProjects.css'
 import { fetchDataValidation } from '../../../helpers/axiosHelper';
-import { AllProjectsCard } from '../../../components/AllProjectsCard/AllProjectsCard';
+import { AllProjectsCard } from '../../../components/projectsComp/AllProjectsCard';
 
 export const AllProjects = () => {
 
