@@ -12,7 +12,6 @@ export const AllProjectsCard = ({elem}) => {
 
   console.log('elem on allproject card', elem);
   
-
   return (
     <div className='projectCard'>
        <div className='profileProjectImg'>

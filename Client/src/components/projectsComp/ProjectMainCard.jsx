@@ -8,6 +8,9 @@ export const ProjectMainCard = ({project}) => {
 
   const {user} = useContext(AgoraContext)
   
+  console.log('user on projectMainCard', project);
+  
+
   return (
     <div>
       <div className='userCard'>

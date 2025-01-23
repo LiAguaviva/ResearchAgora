@@ -126,7 +126,8 @@ const project = await executeQuery(sqlProject, [project_id]);
 
 //show all members
   let sqlMembers = `SELECT     
-user.user_id,     
+user.user_id,
+user.user_avatar,     
 CONCAT(user.user_name, ' ', user.user_lastname) AS user_name,    
  GROUP_CONCAT(DISTINCT field.field_name ORDER BY field.field_name SEPARATOR ', ') 
 AS fields FROM user_project

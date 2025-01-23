@@ -51,7 +51,11 @@ export const LoginForm = () => {
       localStorage.setItem('agoraToken', tokenLocal)
       setUser(resultUser);
       setToken(tokenLocal);
-      navigate('/profile');
+      if (resultUser[0]?.user_name){
+        navigate('/profile');
+      } else {
+        navigate('/editprofile')
+      }
       
     } catch (error) {
       console.log('login error', error);
