@@ -42,11 +42,10 @@ deleteOffer =  async (req,res)=>{
 }
 
   findOfferBySkill = async(req,res)=>{
-    const skills = req.body;
-            
+    const {skills} = req.body;
             try {
-              await offerDal.findOfferBySkill(skills)
-                   res.status(200).json("offers found")
+              const result = await offerDal.findOfferBySkill(skills)
+              res.status(200).json(result)
             } catch (error) {
               console.log(error);
               
