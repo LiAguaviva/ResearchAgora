@@ -6,12 +6,13 @@ import { fetchData2, fetchDataValidation } from '../../../helpers/axiosHelper';
 
 
 
-export const OfferCard = ({elem, project}) => {
+export const OfferCard = ({elem, project, changeApplyButton, applyButton}) => {
 
   const [skill, setSkill] = useState([]);
   const {user} = useContext(AgoraContext);
   const project_id = useParams();
-  useEffect(() => {
+
+  // useEffect(() => {
     
     // const fetchJoinRequestFn = async () => {
     //   try {
@@ -24,8 +25,8 @@ export const OfferCard = ({elem, project}) => {
     //   }
     // }
     // fetchJoinRequestFn();
-    fetchJoinRequest();
-  }, [])
+    // fetchJoinRequest();
+  // }, [])
 
   const deleteOffer = async () => {
     try {
@@ -36,19 +37,19 @@ export const OfferCard = ({elem, project}) => {
     }
   }
 
-  const fetchJoinRequest = async () => {
-    try {
-      let data = {user_id: user?.user_id,
-                  project_id: project?.project_id
-      }
+  // const fetchJoinRequest = async () => {
+  //   try {
+  //     let data = {user_id: user?.user_id,
+  //                 project_id: project?.project_id
+  //     }
 
-      const result = await fetchDataValidation(`http://localhost:4000/api/project/allrequests`, 'post', data);
-      console.log('fetchJoinRequest result', result);
+  //     const result = await fetchDataValidation(`http://localhost:4000/api/project/allrequests`, 'post', data);
+  //     console.log('fetchJoinRequest result', result);
       
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
 
   // ///////////////////////////////////////
@@ -70,17 +71,20 @@ export const OfferCard = ({elem, project}) => {
   // ///////////////////////////////////////
   
   const onSubmit = async (e) => {
-    e.preventDefault()
-    try {
-      let data = {offer_id: elem.offer_id,
-                  user_id: user?.user_id,
-                  project_id: project_id.id
+    if (applyButton === 'apply'){
+      e.preventDefault()
+      changeApplyButton();
+      try {
+        let data = {offer_id: elem.offer_id,
+                    user_id: user?.user_id,
+                    project_id: project_id.id
+        }
+        let joinrequest = await fetchData2(`offer/joinrequest`, 'post', data)
+        console.log('joinrequest', joinrequest);
+        
+      } catch (error) {
+        console.log(error);
       }
-      let joinrequest = await fetchData2(`offer/joinrequest`, 'post', data)
-      console.log('joinrequest', joinrequest);
-      
-    } catch (error) {
-      console.log(error);
     }
   }
   
@@ -112,16 +116,38 @@ export const OfferCard = ({elem, project}) => {
 
      <div className='buttons'>
      {user?.user_id !== project?.creator_user_id && 
-    //  user?.user_id !==
+       applyButton === 'apply' &&
           <button 
             onClick={onSubmit}
             className='accept'
           >Apply</button>}
 
+     {user?.user_id !== project?.creator_user_id && 
+       applyButton === 'applied' &&
+          <button 
+            // onClick={onSubmit}
+            className='applied'
+          >Applied</button>}
+
+     {user?.user_id !== project?.creator_user_id && 
+       applyButton === 'teamMember' &&
+          <button 
+            // onClick={onSubmit}
+            className='accept'
+          >Team Member</button>}
+
+     {user?.user_id !== project?.creator_user_id && 
+       applyButton === 'notSelected' &&
+          <button 
+            // onClick={onSubmit}
+            className='accept'
+          >Not selected</button>}
+
       {user?.user_id === project?.creator_user_id &&
+        applyButton === 'applied' &&
         <button 
           className='cancel'
-          onClick={deleteOffer}
+          // onClick={deleteOffer}
       >Delete</button>}
       </div>
     </div>

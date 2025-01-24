@@ -21,11 +21,10 @@ export const OneProject = () => {
   const [skills, setSkills] = useState([]);
   const [review, setReview] = useState([]);
   const [offers, setOffers] = useState([]);
-  const [applyButton, setApplyButton] = useState(true);
 
-  // const changeApplyButton = () => {
-  //   if (project.request_status )
-  // }
+  const [applyButton, setApplyButton] = useState('apply');
+
+ 
 
 
   const fetchOneProject = async () => {
@@ -49,7 +48,7 @@ export const OneProject = () => {
     scrollGoUp.current.scrollIntoView({behavior:'smooth'})
     fetchOneProject();
     fetchJoinRequest();
-  }, [user]);
+  }, [user, applyButton]);
 
   const fetchJoinRequest = async () => {
     try {
@@ -60,13 +59,29 @@ export const OneProject = () => {
       
       const result = await fetchDataValidation(`http://localhost:4000/api/project/allrequests`, 'post', data);
       console.log('fetchJoinRequest result', result);
+
+      if(result[0].request_status === 1){
+        setApplyButton('applied')
+      } else if (result[0].request_status === 2){
+        setApplyButton('teamMember')
+      } if(result[0].request_status === 3){
+        setApplyButton('notSelected')
+      }
+      console.log('apply button', applyButton);
+      console.log('result.request_status', result[0].request_status);
       
     } catch (error) {
       console.log(error);
     }
   }
 
-  // console.log('PROJECT on oneproject', project);
+  const changeApplyButton = (requestStatus) => {     if (requestStatus === 0) {       setApplyButton("apply"); // User can apply    
+  } else if (requestStatus === 1) {       setApplyButton("applied"); // Request already sent    
+  } else if (requestStatus === 2 || requestStatus === 3) {       setApplyButton("hidden"); // User is already a member or request denied    
+  } else { setApplyButton("hidden"); // Default state 
+  } };
+
+  console.log('PROJECT on oneproject', project);
   // console.log('USER on oneproject', user);
   // console.log('ONE PROJECT skills', skills);
   
@@ -106,6 +121,8 @@ export const OneProject = () => {
               key={elem.offer_id} 
               elem={elem}
               project={project}
+              changeApplyButton={changeApplyButton}
+              applyButton={applyButton}
              /> 
           )
         })}

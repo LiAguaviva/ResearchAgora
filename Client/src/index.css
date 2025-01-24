@@ -113,6 +113,12 @@ button {
   }
 }
 
+.applied {
+  background-color: var(--mandarina);
+  &:hover {
+    background-color: var(--aqua);
+  }
+}
 
 .tagsContainer {
   display: flex;
