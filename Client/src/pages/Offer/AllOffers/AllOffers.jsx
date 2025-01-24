@@ -51,7 +51,7 @@ export const AllOffers = () => {
         if (!skills.length) {
           fetchOffers()
         } else {
-          const result = await fetchDataValidation('http://localhost:4000/api/offer/alloffers', 'post', data);
+          const result = await fetchDataValidation('http://localhost:4000/api/offer/findofferbyskill', 'post', data);
           console.log(result)
           setOffers(result)
         }

@@ -153,7 +153,7 @@ class OfferDal {
     }
   }
 
-  findOfferBySkill = async ({ skills }) => {
+  findOfferBySkill = async (skills) => {
     console.log("skills in dal", skills);
   
     const skillArray = skills
@@ -175,22 +175,30 @@ class OfferDal {
     try {
       // Correct SQL query
       const sql = `
-        SELECT DISTINCT o.*
-          FROM offer o
-          JOIN offer_skill os ON o.offer_id = os.offer_id
-          JOIN skill s ON os.skill_id = s.skill_id
-          WHERE s.skill_name IN (${placeholders})
-            AND os.offer_skill_is_disabled = 0
-            AND o.is_deleted = 0
-            AND o.offer_id IN (
-              SELECT os2.offer_id
-              FROM offer_skill os2
-              JOIN skill s2 ON os2.skill_id = s2.skill_id
-              WHERE s2.skill_name IN (${placeholders})
-                AND os2.offer_skill_is_disabled = 0
-              GROUP BY os2.offer_id
-              HAVING COUNT(DISTINCT s2.skill_id) = ?
-            );
+SELECT o.*, 
+       (SELECT GROUP_CONCAT(s2.skill_name ORDER BY s2.skill_name SEPARATOR ', ')
+        FROM offer_skill os2
+        JOIN skill s2 ON os2.skill_id = s2.skill_id
+        WHERE os2.offer_id = o.offer_id
+          AND os2.offer_skill_is_disabled = 0
+       ) AS skills
+FROM offer o
+JOIN offer_skill os ON o.offer_id = os.offer_id
+JOIN skill s ON os.skill_id = s.skill_id
+WHERE s.skill_name IN (${placeholders})
+  AND os.offer_skill_is_disabled = 0
+  AND o.is_deleted = 0
+  AND o.offer_id IN (
+    SELECT os2.offer_id
+    FROM offer_skill os2
+    JOIN skill s2 ON os2.skill_id = s2.skill_id
+    WHERE s2.skill_name IN (${placeholders})
+      AND os2.offer_skill_is_disabled = 0
+    GROUP BY os2.offer_id
+    HAVING COUNT(DISTINCT s2.skill_id) = ?
+  )
+GROUP BY o.offer_id;
+
       `;
   
       const [offers] = await connection.execute(sql, [...skillArray, ...skillArray, skillArray.length]);
