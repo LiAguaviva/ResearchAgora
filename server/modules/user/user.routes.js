@@ -20,7 +20,6 @@ router.post('/getskills&fields', userController.getskillsfields)
 router.patch('/requestresponse', userController.requestResponse)  //request to join project response
 router.patch('/updaterequeststatus', userController.updateRequestStatus)
 router.post('/findUsersBySkills', userController.findUsersBySkills)
-router.get('/allUsers', userController.allUsers)
 router.put('/invite', userController.invite)
 router.patch('/invitationresponse', userController.invitationResponse)
 

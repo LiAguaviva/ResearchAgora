@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { fetchData } from '../../helpers/axiosHelper'
 import { AgoraContext } from '../../context/ContextProvider'
 import { editProfileSchema } from '../../schemas/editProfileSchema'
 import { ZodError } from 'zod';
 import axios from 'axios'
+import { fetchData } from '../../helpers/axiosHelper';
 
 const initialValue = {
   user_name:"",

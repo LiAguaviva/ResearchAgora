@@ -1,5 +1,6 @@
 import  { useContext, useEffect, useState } from 'react'
 import { AgoraContext } from '../../context/ContextProvider';
+import { Link } from 'react-router-dom';
 
 
 
@@ -20,12 +21,14 @@ export const AllOffersCard = ({offer}) => {
   
   return (
     <div className='offerCard'>
+      <div className='headOffer'>
       <h4>{offer.offer_title}</h4>
-      <h4>Title lorem bla bla bla</h4>
       <p className='vacancies'>Available positions: {offer.number_of_position}</p>
+      </div>
       <p>
       {offer.offer_description}
       </p>
+      <Link to={`/oneproject/${offer.project_id}`}>About the project</Link>
 
       <div className='tagsContainer'>
       {skills?.map((el, index)=> {

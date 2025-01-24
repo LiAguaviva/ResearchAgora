@@ -365,18 +365,20 @@ const result = {project, members, skills, offers}
     }
   };
 
-
-
-  joinRequest = async(values) =>{
+  allrequests = async(user_id, project_id) => {
     try {
-      let sql = 'INSERT INTO request (user_id, project_id, offer_id) VALUES (?, ?, ?)' 
-      await executeQuery(sql, values);
-
+      let sql = `SELECT *
+      FROM request
+      WHERE user_id = ? AND project_id = ?;`
+      const result = await executeQuery(sql, [user_id, project_id]);
+      return result;
     } catch (error) {
-      console.log("dal error", error);
       throw error;
     }
   }
+
+
+
   
 }
 

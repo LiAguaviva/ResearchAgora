@@ -3,42 +3,42 @@
   flex-direction: column;
   gap: var(--size5);
 
-  .searchingTagContainer {
+}
+.searchingTagContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size1);
+  align-items: center;
+
+  .tagsContainerCenter {
     display: flex;
-    flex-direction: column;
-    gap: var(--size1);
-    align-items: center;
+    gap: var(--size05);
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
 
-    .tagsContainerCenter {
-      display: flex;
-      gap: var(--size05);
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-    }
+  input {
+    padding-block: var(--size05);
+    border-radius: 20px;
+    border: 2px solid var(--purple);
+    text-align: center;
 
-    input {
-      padding-block: var(--size05);
-      border-radius: 20px;
-      border: 2px solid var(--purple);
+    &::placeholder {
+      color: var(--purple50);
       text-align: center;
-
-      &::placeholder {
-        color: var(--purple50);
-        text-align: center;
-      }
     }
   }
+}
 
-  .searchResults {
-    font-weight: bold;
-    color: var(--magenta);
-  }
+.searchResults {
+  font-weight: bold;
+  color: var(--magenta);
+}
 
-  .allProjectsGallery {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size4);
-  }
+.allProjectsGallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size4);
 }
 

@@ -21,6 +21,12 @@ export const OneProject = () => {
   const [skills, setSkills] = useState([]);
   const [review, setReview] = useState([]);
   const [offers, setOffers] = useState([]);
+  const [applyButton, setApplyButton] = useState(true);
+
+  // const changeApplyButton = () => {
+  //   if (project.request_status )
+  // }
+
 
   const fetchOneProject = async () => {
     try {
@@ -42,11 +48,26 @@ export const OneProject = () => {
   useEffect(() => {
     scrollGoUp.current.scrollIntoView({behavior:'smooth'})
     fetchOneProject();
-  }, []);
+    fetchJoinRequest();
+  }, [user]);
 
+  const fetchJoinRequest = async () => {
+    try {
+      let data = {user_id: user?.user_id,
+                  project_id: id
+      }
+      console.log('data on fetchJoinRequest', data);
+      
+      const result = await fetchDataValidation(`http://localhost:4000/api/project/allrequests`, 'post', data);
+      console.log('fetchJoinRequest result', result);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-
-  console.log('PROJECT on oneproject', project);
+  // console.log('PROJECT on oneproject', project);
+  // console.log('USER on oneproject', user);
   // console.log('ONE PROJECT skills', skills);
   
 

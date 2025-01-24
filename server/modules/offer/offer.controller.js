@@ -70,6 +70,19 @@ deleteOffer =  async (req,res)=>{
 
   }
 
+  joinRequest = async(req, res) => {
+    const {user_id, project_id, offer_id}  = req.body;
+    const values = [user_id, project_id, offer_id];
+    try {
+       await offerDal.joinRequest(values); 
+       res.status(200).json("ok")
+    } catch (error) {   
+      console.log('error JOINREQUEST', error);
+      
+      res.status(500).json(error)
+    }
+  }
+
 
 
 

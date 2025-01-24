@@ -1,5 +1,5 @@
 
-.myNavBar {
+.navbarApp {
   --imgNavBarSize: 3rem;
   position: fixed;
   width: 100%;
@@ -8,7 +8,7 @@
   background-color: var(--purple);
   color: var(--white);
   align-content: center;
-  padding-block: var(--size05);
+  padding-block: var(--size1);
 
   .bar {
     display: flex;

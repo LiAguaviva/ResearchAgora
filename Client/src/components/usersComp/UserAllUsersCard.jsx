@@ -7,7 +7,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
   const { user } = useContext(AgoraContext);
   const skills = elem.skills?.split(", ");
 
-  // console.log('elem on UserAllUsersCard', elem );
+  console.log('elem on UserAllUsersCard', elem );
   
 
   return (

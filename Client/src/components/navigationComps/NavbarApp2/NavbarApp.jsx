@@ -34,7 +34,7 @@ export const NavbarApp = ({ref}) => {
   return (
     <header ref={scrollGoUp}  >
       <ScrollToTop scrollGoUp={scrollGoUp} />
-      <nav className='myNavBar'>
+      <nav className='navbarApp'>
         <div className='bar'>
         <img 
           onClick={()=>navigate('/')}
@@ -170,7 +170,7 @@ export const NavbarApp = ({ref}) => {
           <NavLink
               to={'/alloffer'}
               className={({ isActive })=>(isActive? 'active':'inactive')}
-            >Bulleting Board</NavLink>
+            >Collaboration Board</NavLink>
             <div className='separator' />
          
          </div>}

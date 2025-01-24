@@ -18,6 +18,13 @@
   background-color: rgb(255, 255, 255);
   box-shadow: 0 0 15px 1px var(--purple10);
 
+  .headOffer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size05);
+    align-items: center;
+  }
+
   .vacancies {
     font-weight: bold;
   }
@@ -25,5 +32,9 @@
   .buttons {
     display: flex;
     gap: var(--size05);
+  }
+
+  a {
+    color: var(--aqua);
   }
 }

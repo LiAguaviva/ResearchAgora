@@ -108,19 +108,20 @@ class ProjectController {
           res.status(500).json(error)
         }                
     }
-
-
-    joinRequest = async(req, res) => {
-      const {user_id, project_id, offer_id}  = req.body;
-      const values = [user_id, project_id, offer_id];
+ 
+    allrequests = async (req,res) => {
       try {
-         await projectDal.joinRequest(values); 
-         res.status(200).json("ok")
-      } catch (error) {   
-        res.status(500).json(error)
+        const {user_id, project_id} = req.body;
+        const result = await projectDal.allrequests(user_id, project_id);
+        res.status(200).json(result);
+      } catch (error) {
+        res.status(500).json(error);
       }
     }
+ 
 
+
+    
    
 
 }

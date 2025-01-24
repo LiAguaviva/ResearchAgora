@@ -19,6 +19,8 @@
     font-weight: bold;
   }
 
+ 
+
   .userCardAvatar {
     --AvatarSize: 6rem;
 
@@ -28,6 +30,12 @@
     border-radius: 100%;
     object-fit: cover;
     object-position: center;
+
+    img {
+      height: var(--AvatarSize);
+      width: var(--AvatarSize);
+      background-color: transparent;
+    }
   }
 
   .creator {

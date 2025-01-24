@@ -65,22 +65,23 @@ export const AllOffers = () => {
 
   return (
       <div className='alloffersPage'>
-        <section className='containerPpal'>
+        <section className='containerPpal '>
         <h2>Collaboration Bulletin Board</h2>
-        <div className="tagsContainerCenter">
-          {skills?.map((skill, index) => (
-            <div key={index} className="tagDeleteable">
-              {skill}
-              <span 
-                onClick={() => removeSkill(index)} 
-                className="deleteBtn"
-                // value={editUser?.skills ? editUser.skills : ''}
-              >
-                ×
-              </span>
-            </div>
-          ))}
-        </div>
+        <div className='searchingTagContainer'>
+          <div className="tagsContainerCenter">
+            {skills?.map((skill, index) => (
+              <div key={index} className="tagDeleteable">
+                {skill}
+                <span 
+                  onClick={() => removeSkill(index)} 
+                  className="deleteBtn"
+                  // value={editUser?.skills ? editUser.skills : ''}
+                >
+                  ×
+                </span>
+              </div>
+            ))}
+          </div>
           
           <input 
             type="text"
@@ -88,12 +89,14 @@ export const AllOffers = () => {
             onChange={(e) => setInputValueSkills(e.target.value)}
             onKeyDown={handleKeyDownSkill}
             placeholder="Add skills for searching"
-          />
-       <button onClick={onSubmit}>Search</button>
+            />
+          <button onClick={onSubmit}>Search</button>
 
-        <p className='searchResults'>Search Results: {offers?.length}</p>
+          <p className='searchResults'>Search Results: {offers?.length}</p>
+          </div>
         </section>
-
+        
+        <section className='containerPpal offersSection'>
         <div className='offerGallery'>
           {offers?.map((offer) => {
             return(
@@ -101,6 +104,7 @@ export const AllOffers = () => {
             )
           })}
         </div>
+        </section>
       </div>
   )
 }
