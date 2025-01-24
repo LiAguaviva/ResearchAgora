@@ -29,6 +29,7 @@ import { FooterApp } from '../components/navigationComps/FooterApp/FooterApp'
 import { NavbarApp } from '../components/navigationComps/NavbarApp2/NavbarApp'
 import { ScrollToTop } from '../components/navigationComps/ScrollToTop/ScrollToTop'
 import { useRef } from 'react'
+import { Chat } from '../pages/Chat/Chat'
 
 export const AppRoutes = () => {
 
@@ -78,6 +79,9 @@ export const AppRoutes = () => {
             
             {/* Admin */}
             <Route path='/admin' element={<AdminLayout />}/>
+            
+            {/* Chat */}
+            <Route path='/chat/:receiver_id' element={<Chat />}/>
              
            {/* Error */}
             <Route path='*' element={<ErrorPage />}/>   

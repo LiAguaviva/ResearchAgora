@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react'
 import { fetchDataValidation } from '../../../helpers/axiosHelper';
 // import { AllProjectsCard } from '../../../components/AllProjectsCard/AllProjectsCard';
 import { UserAllUsersCard } from '../../../components/usersComp/UserAllUsersCard';
+import { useNavigate } from 'react-router-dom';
+
 
 export const AllUsers = () => {
 
     const [skills, setSkills] = useState([]);
     const [inputValueSkills, setInputValueSkills] = useState("");
-    const [users, setusers] = useState([])
+    const [users, setusers] = useState([]);
+    const navigate = useNavigate();
     
     const fetchUsers = async() => {
       try {
@@ -61,6 +64,9 @@ export const AllUsers = () => {
       }
     }
 
+  
+
+
 
   return (
     <section className='containerPpal allProjectsPage'>
@@ -97,7 +103,9 @@ export const AllUsers = () => {
           {users?.map((elem)=> {
             return(
               <div className='allusersGallery' key={elem.user_id} >
-                <UserAllUsersCard elem={elem}/>
+                <UserAllUsersCard 
+                  elem={elem}
+                />
                 <div className='separatorAllProjects' />
               </div>
             );
