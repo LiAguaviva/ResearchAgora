@@ -28,6 +28,7 @@ export const OneProject = () => {
 
 
   const fetchOneProject = async () => {
+
     try {
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/oneproject/${id}`,
@@ -75,11 +76,6 @@ export const OneProject = () => {
     }
   }
 
-  const changeApplyButton = (requestStatus) => {     if (requestStatus === 0) {       setApplyButton("apply"); // User can apply    
-  } else if (requestStatus === 1) {       setApplyButton("applied"); // Request already sent    
-  } else if (requestStatus === 2 || requestStatus === 3) {       setApplyButton("hidden"); // User is already a member or request denied    
-  } else { setApplyButton("hidden"); // Default state 
-  } };
 
   console.log('PROJECT on oneproject', project);
   // console.log('USER on oneproject', user);
@@ -121,7 +117,6 @@ export const OneProject = () => {
               key={elem.offer_id} 
               elem={elem}
               project={project}
-              changeApplyButton={changeApplyButton}
               applyButton={applyButton}
              /> 
           )

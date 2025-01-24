@@ -35,6 +35,7 @@
       height: var(--AvatarSize);
       width: var(--AvatarSize);
       background-color: transparent;
+      color: var(--aqua);
     }
   }
 

@@ -6,27 +6,11 @@ import { fetchData2, fetchDataValidation } from '../../../helpers/axiosHelper';
 
 
 
-export const OfferCard = ({elem, project, changeApplyButton, applyButton}) => {
+export const OfferCard = ({elem, project, applyButton}) => {
 
   const [skill, setSkill] = useState([]);
   const {user} = useContext(AgoraContext);
   const project_id = useParams();
-
-  // useEffect(() => {
-    
-    // const fetchJoinRequestFn = async () => {
-    //   try {
-    //     console.log('befor the await');
-        
-    //     setSkill(elem.offer_skills?.split(","))    
-    //     await fetchJoinRequest();
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
-    // fetchJoinRequestFn();
-    // fetchJoinRequest();
-  // }, [])
 
   const deleteOffer = async () => {
     try {
@@ -37,39 +21,6 @@ export const OfferCard = ({elem, project, changeApplyButton, applyButton}) => {
     }
   }
 
-  // const fetchJoinRequest = async () => {
-  //   try {
-  //     let data = {user_id: user?.user_id,
-  //                 project_id: project?.project_id
-  //     }
-
-  //     const result = await fetchDataValidation(`http://localhost:4000/api/project/allrequests`, 'post', data);
-  //     console.log('fetchJoinRequest result', result);
-      
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-
-  // ///////////////////////////////////////
-  /* const onSubmit = async(e) => {
-    e.preventDefault();
-    try {
-      let data = {skills: skills?.join(',')};
-      if (!skills.length) {
-        fetchUsers()
-      } else {
-        const result = await fetchDataValidation('http://localhost:4000/api/user/findUsersBySkills', 'post',data);
-        console.log('result: ', result)
-        setusers(result)
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  } */
-  // ///////////////////////////////////////
-  
   const onSubmit = async (e) => {
     if (applyButton === 'apply'){
       e.preventDefault()
@@ -133,14 +84,14 @@ export const OfferCard = ({elem, project, changeApplyButton, applyButton}) => {
        applyButton === 'teamMember' &&
           <button 
             // onClick={onSubmit}
-            className='accept'
+            className='disabled'
           >Team Member</button>}
 
      {user?.user_id !== project?.creator_user_id && 
        applyButton === 'notSelected' &&
           <button 
             // onClick={onSubmit}
-            className='accept'
+            className='disabled'
           >Not selected</button>}
 
       {user?.user_id === project?.creator_user_id &&

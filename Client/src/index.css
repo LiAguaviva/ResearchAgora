@@ -116,6 +116,13 @@ button {
 .applied {
   background-color: var(--mandarina);
   &:hover {
+    background-color: var(--mandarina);
+  }
+}
+
+.disabled {
+  background-color: var(--aqua);
+  &:hover {
     background-color: var(--aqua);
   }
 }
