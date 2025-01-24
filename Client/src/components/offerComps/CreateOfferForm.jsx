@@ -79,7 +79,7 @@ export const CreateOfferForm = () => {
         console.log('fieldError', fieldErrors);
       } else {
         console.log(error);
-        setMsg(error.response.data.message)
+        setMsg(error.response?.data.message)
         
         console.log('error message', error.response.data.message);
       }   

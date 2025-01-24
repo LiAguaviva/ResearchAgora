@@ -89,7 +89,19 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
 
   oneUserProjects = async (values) => {
     try {
-      let sql = 'SELECT p.project_id,p.project_title, p.project_description, p.project_status, CONCAT(u.user_name, u.user_lastname) AS creator_name FROM project AS p JOIN user AS u ON p.creator_user_id = u.user_id WHERE p.project_is_disabled = 0 AND u.user_id = ?;'
+      let sql = `SELECT p.project_id, 
+       p.project_title, 
+       p.project_description, 
+       p.project_status,
+       p.creator_user_id, 
+       CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name
+FROM project AS p
+JOIN user AS u ON p.creator_user_id = u.user_id
+JOIN user_project AS up ON p.project_id = up.project_id
+WHERE p.project_is_disabled = 0 
+  AND up.user_id = ?
+  AND up.status = 2
+GROUP BY p.project_id, p.project_title, p.project_description, p.project_status, u.user_name, u.user_lastname;`
 
       const result = await executeQuery(sql, [values]);
       return result;
@@ -177,7 +189,7 @@ let sqlOffers = `SELECT
 FROM offer 
 LEFT JOIN offer_skill ON offer.offer_id = offer_skill.offer_id
 LEFT JOIN skill ON offer_skill.skill_id = skill.skill_id
-WHERE offer.project_id = ?
+WHERE offer.project_id = ? AND offer.is_deleted = 0
 GROUP BY offer.offer_id, offer.offer_title, offer.offer_description, offer.number_of_position;`
 
 const offers = await executeQuery(sqlOffers, [project_id]);

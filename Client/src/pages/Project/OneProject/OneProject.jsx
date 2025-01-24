@@ -22,6 +22,7 @@ export const OneProject = () => {
   const [review, setReview] = useState([]);
   const [offers, setOffers] = useState([]);
   const [applyButton, setApplyButton] = useState(true);
+  const [requests, setrequests] = useState([]);
 
   // const changeApplyButton = () => {
   //   if (project.request_status )
@@ -59,7 +60,7 @@ export const OneProject = () => {
       console.log('data on fetchJoinRequest', data);
       
       const result = await fetchDataValidation(`http://localhost:4000/api/project/allrequests`, 'post', data);
-      console.log('fetchJoinRequest result', result);
+      setrequests(result);
       
     } catch (error) {
       console.log(error);
@@ -68,7 +69,7 @@ export const OneProject = () => {
 
   // console.log('PROJECT on oneproject', project);
   // console.log('USER on oneproject', user);
-  // console.log('ONE PROJECT skills', skills);
+  console.log('ONE PROJECT MEMBERS', members);
   
 
   return (
@@ -106,12 +107,15 @@ export const OneProject = () => {
               key={elem.offer_id} 
               elem={elem}
               project={project}
+              requests={requests}
              /> 
           )
         })}
         </div>
+        {user?.user_id === project[0]?.creator_user_id && 
           <button onClick={()=>navigate(`/createOffer/${id}`)}
           >Create Offer</button>
+        }
 
         <GoBack />
 

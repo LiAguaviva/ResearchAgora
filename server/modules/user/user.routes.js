@@ -22,6 +22,8 @@ router.patch('/updaterequeststatus', userController.updateRequestStatus)
 router.post('/findUsersBySkills', userController.findUsersBySkills)
 router.put('/invite', userController.invite)
 router.patch('/invitationresponse', userController.invitationResponse)
+router.post('/allrequests', userController.allrequests)
+router.post('/managerequests', userController.managerequests)
 
 
 

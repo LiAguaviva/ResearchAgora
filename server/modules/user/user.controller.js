@@ -222,6 +222,7 @@ class UserController {
       requestResponse = async (req,res) => {
         const {user_id, project_id, offer_id}  = req.body;
         const values = [user_id, project_id, offer_id];
+        console.log('HOliwis', user_id, project_id, offer_id)
         try {
            await userDal.requestResponse(values);
            res.status(200).json("ok")
@@ -232,10 +233,11 @@ class UserController {
 
 
       updateRequestStatus = async (req,res) => {
-        const {user_id, project_id, offer_id, request_status}  = req.body;
+        const {user_id, project_id, offer_id, request_status,choose}  = req.body;
         const values = [user_id, project_id, offer_id];
+        console.log('LLEGO')
         try {
-           await userDal.updateRequestStatus(values, request_status);
+           await userDal.updateRequestStatus(values, request_status,choose);
           
            
            res.status(200).json("ok")
@@ -289,6 +291,26 @@ class UserController {
         }
       }
       
+      allrequests = async() => {
+        try {
+          const {user_id} = req.body;
+          const result = await userDal.allrequests(user_id);
+          res.status(200).json(result);
+        } catch (error) {
+          res.status(500).json(error);
+        }
+      }
+
+      managerequests = async(req,res) => {
+        try {
+          const {user_id} = req.body;
+          const result = await userDal.managerequests(user_id);
+          console.log('REQUESTS BACKKSIDE', result)
+          res.status(200).json(result)
+        } catch (error) {
+          res.status(500).json(error);
+        }
+      }
 
 }
 
