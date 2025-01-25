@@ -222,7 +222,7 @@ class UserDal {
     }
   };
 
-  updateRequestStatus = async (values, request_status) => {
+  updateRequestStatus = async (values, request_status,choose) => {
     const connection = await dbPool.getConnection();
     const [user_id, project_id, offer_id] = values;
 
@@ -242,16 +242,18 @@ class UserDal {
         throw new Error("No positions available in the offer.");
       }
 
-      let updatedNumberOfPositions = currentNumberOfPositions - 1;
-
-      let sqlOffer =
-        "UPDATE offer SET number_of_position = ? WHERE offer_id = ?";
-      await connection.execute(sqlOffer, [updatedNumberOfPositions, offer_id]);
-
+      
       let sqlUserProject =
-        "INSERT INTO user_project(user_id, project_id) VALUES (?, ?)";
-      await connection.execute(sqlUserProject, [user_id, project_id]);
-
+      "INSERT INTO user_project(user_id, project_id,status) VALUES (?, ?, ?)";
+      await connection.execute(sqlUserProject, [user_id, project_id, choose]);
+      if (choose === 2) {
+        let updatedNumberOfPositions = currentNumberOfPositions - 1;
+        
+        let sqlOffer =
+        "UPDATE offer SET number_of_position = ? WHERE offer_id = ?";
+        await connection.execute(sqlOffer, [updatedNumberOfPositions, offer_id]);
+      }
+      
       let sqlRequest =
         "UPDATE request SET request_status = ? WHERE offer_id = ? AND user_id = ?";
       await connection.execute(sqlRequest, [request_status, offer_id, user_id]);
@@ -383,6 +385,42 @@ class UserDal {
       throw error;
     }
   };
+
+  allrequests = async(user_id) => {
+    try {
+      let sql = ``;
+      const result = await executeQuery(sql,[user_id]);
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+  managerequests = async(user_id) => {
+    try {
+      let sql = `SELECT 
+  u.user_name AS user_name,
+  u.user_id AS user_id,
+  p.project_title AS project_name, 
+  o.offer_title AS offer_title, 
+  r.request_status AS status,
+  u.user_avatar AS user_image,  -- Trae la imagen del usuario
+  p.project_id AS project_id,   -- Incluye el project_id
+  o.offer_id AS offer_id        -- Incluye el offer_id
+FROM request r
+JOIN user u ON r.user_id = u.user_id
+JOIN project p ON r.project_id = p.project_id
+JOIN offer o ON r.offer_id = o.offer_id
+WHERE p.creator_user_id = ? AND r.request_status = 0;
+
+
+
+`;
+const result = await executeQuery(sql, [user_id]);
+return result;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default new UserDal();

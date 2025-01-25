@@ -21,8 +21,13 @@ export const OneProject = () => {
   const [skills, setSkills] = useState([]);
   const [review, setReview] = useState([]);
   const [offers, setOffers] = useState([]);
+  // const [applyButton, setApplyButton] = useState(true);
+  const [requests, setrequests] = useState([]);
 
   const [applyButton, setApplyButton] = useState('apply');
+  // const changeApplyButton = () => {
+  //   if (project.request_status )
+  // }
 
 
   const fetchOneProject = async () => {
@@ -57,15 +62,16 @@ export const OneProject = () => {
       
       const result = await fetchDataValidation(`http://localhost:4000/api/project/allrequests`, 'post', data);
 
-      if(result[0].request_status === 1){
+    /*   if(result[0].request_status === 1){
         setApplyButton('applied')
       } else if (result[0].request_status === 2){
         setApplyButton('teamMember')
       } if(result[0].request_status === 3){
         setApplyButton('notSelected')
-      }
+      } */
       // console.log('apply button', applyButton);
       // console.log('result.request_status', result[0].request_status);
+      setrequests(result);
       
     } catch (error) {
       console.log(error);
@@ -75,7 +81,7 @@ export const OneProject = () => {
 
   // console.log('PROJECT on oneproject', project);
   // console.log('USER on oneproject', user);
-  // console.log('ONE PROJECT skills', skills);
+  console.log('ONE PROJECT MEMBERS', members);
   
 
   return (
@@ -113,13 +119,16 @@ export const OneProject = () => {
               key={elem.offer_id} 
               elem={elem}
               project={project}
+              requests={requests}
               applyButton={applyButton}
              /> 
           )
         })}
         </div>
+        {user?.user_id === project[0]?.creator_user_id && 
           <button onClick={()=>navigate(`/createOffer/${id}`)}
           >Create Offer</button>
+        }
 
 
       </section>

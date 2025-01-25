@@ -116,7 +116,7 @@ button {
   }
 }
 
-.applied {
+.applied, .edit {
   background-color: var(--mandarina);
   &:hover {
     background-color: var(--mandarina);

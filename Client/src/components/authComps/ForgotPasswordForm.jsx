@@ -54,8 +54,7 @@ export const ForgotPasswordForm = ({showModal}) => {
         // console.log('error message', error.response.data.message);
       }
 
-      // console.log('ERRORRRRRR', error.response.data);
-      setMsg(error.response.data)
+      setMsg(error.response.data.message)
       // console.log('MSG MSG MSG MSG', error.response);
     }
   }
