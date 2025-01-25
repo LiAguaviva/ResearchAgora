@@ -269,30 +269,42 @@ GROUP BY o.offer_id;
        }
     }
 
-    updateOffer = async (offer_id) => {
-    try {
-    let sql = `
-    UPDATE 
-    offer o
-    SET 
-      o.offer_title = ?, 
-      o.offer_description = ?, 
-      o.number_of_position = ?, 
-      s.skill_id = ?
-      s.skill_name = ?
-      LEFT JOIN offer_skill os
-      ON o.offer_id = os.offer_id
-      LEFT JOIN skill s
-      ON os.skill_id = s.skill_id
-    WHERE offer_id = ? 
-  `;
-  const result = await executeQuery(sql, [offer_id]);
-        return result;
+    updateOffer = async (values) => {
+      const connection = await db.getConnection(); 
+      const{ offer_id, offer_title, offer_description, number_of_position, is_deleted, project_id, skill} = values; 
+      try {     
+        await connection.beginTransaction(); 
+         let sqlOffer =  'UPDATE  offer SET offer_title = ?, offer_description = ?, number_of_position = ? WHERE offer_id = ?'      
+             
+      const resultOffer =   await connection.execute(sqlOffer, [offer_title, offer_description, number_of_position, offer_id])
         
-       } catch (error) {
-         console.log("Edit oneOffer error", error);
-         throw error;
-       }
+            
+           let sqlSkillRemove = 'DELETE FROM offer_skill WHERE offer_id = ? AND skill_id IN (?)'        
+            const resultSkillRemove =   await connection.execute(sqlSkillRemove, [offer_id, skillsToRemove])   
+        
+             
+          let sqlSkillAdd =  'INSERT INTO offer_skill (offer_id, skill_id, offer_skill_is_disabled) VALUES (?, ?, ?)'        
+                 
+            const resultSkillAdd =   await connection.execute(sqlSkillAdd, [skillValues] ) 
+          
+           
+          for (const skill of skillsToEdit) {         
+            const { skill_id, skill_name } = skill;         
+            let sqlSkillEdit = 'UPDATE skill SET skill_name = ? WHERE skill_id = ?'         
+                
+              const result =   await connection.execute(sqlSkillEdit, [skill_name, skill_id])
+               
+          }    
+            
+        await connection.commit();
+        return "offer updated correctly"
+        
+      } catch (error) { 
+        await connection.rollback();
+        throw error
+      } finally { 
+        connection.release(); 
+      }
     }
   }
 

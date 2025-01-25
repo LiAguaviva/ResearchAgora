@@ -82,16 +82,16 @@ deleteOffer =  async (req,res)=>{
     }
   }
 
-  editoffer = async(req, res) => {
+  /* editoffer = async(req, res) => {
     console.log('editoffer req.body', req.body);
 
     try {
-      // const {id, }
+      
 
     } catch (error) {
       res.status(500).json(error)  
     }
-  }
+  } */
 
 
 
@@ -111,20 +111,20 @@ deleteOffer =  async (req,res)=>{
   }
 
   updateOffer = async(req,res) => {
-    const {offer_id} = req.params;
-
-  try {
-   const result = await offerDal.updateOffer(offer_id); 
-   console.log("edit result",result);
-   res.status(200).json(result)
+    try{
+       const {offer_id, offer_title, offer_description, number_of_position, is_deleted,  project_id, skill} = req.body;
+      const values = [offer_id, offer_title, offer_description, number_of_position, is_deleted, project_id, skill]; 
+   console.log("req body*********************", req.body );
    
 
-  } catch (error) {
-    console.log('updateOffer dal', error)
-    res.status(500).json(error)
-    console.log('edit oneOffer', error);  
-  }
-}
+     const result = await offerDal.createOffer(values) 
+     res.status(200).json("dal ok");
+   
+     }catch(error){
+      console.log('updateOffer', error)
+       res.status(500).json(error)
+     }
+   }
 
 
 }
