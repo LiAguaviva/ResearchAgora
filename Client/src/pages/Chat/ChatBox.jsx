@@ -1,28 +1,34 @@
 import React from 'react';
 import '../../pages/Chat/chat.css';
 
-export const ChatBox = ({ messages, sendMessage, inputText, setInputText, userId }) => {
+export const ChatBox = ({ messages, sendMessage , inputText, setInputText, userId , deleteMessage }) => {
     return (
-        <div>
-            <div className="messages" style={{ width: '100%', overflow: 'auto', maxHeight: '400px' }}>
+        <div className="chat-container">
+            <div className="messages" >
                 {messages.map((msg, index) => (
-                  <div style={{ 
-                    backgroundColor: msg.sender_id === userId ? 'rgb(255, 162, 0)' : 'rgb(0, 190, 212)',
-                    color: 'white',
-                    padding: '5px 10px',
-                    borderRadius: '10px',
-                    margin: '5px',
-                    maxWidth: '80%', 
-                }}>
-                    <p key={index} >
+                  <div key={index} className={`message-content ${msg.sender_id === userId ? 'message-owner' : 'message-other'}`} >
+                    <p  >
                         {msg.message_content}
+                        {msg.sender_id === userId && (
+                            <span className="delete-btn" onClick={() => deleteMessage(msg.message_id)}>
+                                ×
+                            </span>
+                        )}
                     </p>
                   </div>
                     
                 ))}
             </div>
-            <input type="text" value={inputText} onChange={(e) => setInputText(e.target.value)} />
-            <button onClick={sendMessage}>Send</button>
+            <div className="input-container">
+                <input
+                    type="text"
+                    placeholder='Message'
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    className="message-input"
+                />
+                <button  className='cancel' onClick={sendMessage}>Send</button>
+            </div>
         </div>
     );
 };
