@@ -40,7 +40,7 @@ class MessageDal {
   getChatUsers = async (userId) =>{
     try {
         let sql = `
-            SELECT DISTINCT u.user_id, u.user_name, u.user_avatar
+            SELECT DISTINCT u.user_id, u.user_name,u.user_lastname ,u.user_avatar
             FROM message m
             JOIN user u ON u.user_id = m.receiver_id OR u.user_id = m.sender_id
             WHERE (m.sender_id = ? OR m.receiver_id = ?)

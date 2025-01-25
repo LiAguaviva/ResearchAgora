@@ -54,6 +54,9 @@ export const Chat = () => {
       const response = await fetchDataValidation('http://localhost:4000/api/message/sendmessage', 'POST', payload);
       setMessages([...messages, response]); 
       setInputText("");
+      setTimeout(() => {
+        window.location.reload();
+    }, 1);
     } catch (error) {
       console.error("Failed to send message:", error);
     }
@@ -63,19 +66,30 @@ export const Chat = () => {
     setCurrentReceiverId(userId);
 };
 
-  return (
-    <>
+const deleteMessage = async (messageId) => {
+  try {
+      await fetchDataValidation(`http://localhost:4000/api/message/deletemessage`, 'DELETE', { message_id: messageId });
+      setMessages(messages => messages.filter(msg => msg.message_id !== messageId));
+  } catch (error) {
+      console.error("Failed to delete message:", error);
+  }
+};
+
+return (
+  <div className="chat-container">
+    <div className="chat-user">
+      <ChatUsers currentUserId={user?.user_id} onUserClick={handleUserClick} />
+    </div>
+    <div className="chat-box-container">
       <ChatBox
-                messages={messages}
-                sendMessage={sendMessage}
-                inputText={inputText}
-                setInputText={setInputText}
-                userId={user?.user_id}
-            />
-      <div>
-       <ChatUsers currentUserId={user?.user_id} onUserClick={handleUserClick}/>
-      </div>
-    </>
-    
+          messages={messages}
+          sendMessage={sendMessage}
+          inputText={inputText}
+          setInputText={setInputText}
+          userId={user?.user_id}
+          deleteMessage={deleteMessage}
+      />
+    </div>
+  </div>
   );
 };
