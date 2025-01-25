@@ -89,11 +89,25 @@ deleteOffer =  async (req,res)=>{
       // const {id, }
 
     } catch (error) {
-      res.status(500).json(error)
-      console.log('editoffer ERROR', error);
-      
+      res.status(500).json(error)  
     }
-    
+  }
+
+
+
+  oneOffer = async(req,res) => {
+      const {offer_id} = req.params;
+
+    try {
+     const result = await offerDal.oneOffer(offer_id); 
+     console.log("result",result);
+     res.status(200).json(result)
+     
+
+    } catch (error) {
+      res.status(500).json(error)
+      console.log('ONEOFFER', error);  
+    }
   }
 
 

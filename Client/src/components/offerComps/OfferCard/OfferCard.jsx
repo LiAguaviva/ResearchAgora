@@ -27,6 +27,7 @@ export const OfferCard = ({ elem, project, requests }) => {
 
   const editOffer = async (e) => {
     e.preventDefault();
+    navigate(`/edit/${elem.offer_id}`)
     
   }
 
@@ -43,7 +44,8 @@ export const OfferCard = ({ elem, project, requests }) => {
       console.log(error);
     }
   };
-
+  console.log("ELEM", elem);
+  
 
   return (
     <div className="offerCard">
@@ -143,7 +145,8 @@ export const OfferCard = ({ elem, project, requests }) => {
 
         {user?.user_id === project[0]?.creator_user_id && (
           <>
-            <button className="edit" onClick={editOffer}>
+            <button className="edit" 
+            onClick={editOffer}>
               Edit
             </button>
             <button className="cancel" onClick={deleteOffer}>

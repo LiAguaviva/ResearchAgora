@@ -243,7 +243,31 @@ GROUP BY o.offer_id;
     }
   }
   
-  
+     oneOffer = async(offer_id)=> {
+       try {
+        let sql = `SELECT    
+            o.offer_id,
+            o.offer_title, 
+            o.offer_description, 
+            o.number_of_position,
+            o.is_deleted,  
+            o.project_id, 
+            s.skill_id,   
+            s.skill_name 
+             FROM  offer o 
+             LEFT JOIN     offer_skill os 
+             ON o.offer_id = os.offer_id 
+              LEFT JOIN skill s 
+                  ON os.skill_id = s.skill_id 
+                  WHERE o.is_deleted = 0 AND o.offer_id = ?;`
+        const result = await executeQuery(sql, [offer_id]);
+        return result;
+        
+       } catch (error) {
+         console.log("oneOffer error", error);
+         throw error;
+       }
+    }
 
 
 }

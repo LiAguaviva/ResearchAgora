@@ -82,6 +82,7 @@ export const OneProject = () => {
   // console.log('PROJECT on oneproject', project);
   // console.log('USER on oneproject', user);
   console.log('ONE PROJECT MEMBERS', members);
+  console.log("OFFERSSS", offers);
   
 
   return (

@@ -71,7 +71,7 @@ export const AppRoutes = () => {
             <Route path='/createoffer/:id' element={<CreateOffer />}/>
             <Route path='/oneoffer' element={<OneOffer />}/>
             <Route path='/alloffer' element={<AllOffers />}/>
-            <Route path='/edit' element={<EditOffer />}/>
+            <Route path='/edit/:id' element={<EditOffer />}/>
 
             {/* Project */}
             <Route path='/allprojects' element={<AllProjects />}/>
