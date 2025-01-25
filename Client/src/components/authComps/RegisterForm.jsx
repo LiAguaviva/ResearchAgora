@@ -93,7 +93,7 @@ export const RegisterForm = ({showModal}) => {
         <label htmlFor="password">Password</label>
         <input 
           id='password'
-          type="text" 
+          type="password" 
           placeholder='Password'
           value={register.password}
           onChange={handleChange}
@@ -105,7 +105,7 @@ export const RegisterForm = ({showModal}) => {
         <label htmlFor="repPassword">Repeat Password</label>
         <input 
           id='repPassword'
-          type="text" 
+          type="password" 
           placeholder='Repeat Password'
           value={register.repPassword}
           onChange={handleChange}

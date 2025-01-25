@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import logo from '../../../../src/assets/logo/Logo_short_WhiteBlue.png'
 import './NavbarApp.css'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -8,8 +8,10 @@ import { ScrollToTop } from '../ScrollToTop/ScrollToTop'
 const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
 
 
-export const NavbarApp = ({ref}) => {
+export const NavbarApp = () => {
 
+  const scrollGoUp = useRef();
+  
   const navigate = useNavigate()
   const {user, setToken} = useContext(AgoraContext)
 
@@ -19,7 +21,6 @@ export const NavbarApp = ({ref}) => {
   const [dropdownMenu, setDropdownMenu] = useState('');
 
   const closeDropdown = () => {setDropdownMenu('')}
-  const scrollGoUp = useRef();
 
   const logOut = () => {
     localStorage.removeItem('agoraToken')
@@ -30,8 +31,10 @@ export const NavbarApp = ({ref}) => {
   hamburger?.addEventListener('click', () => {
       navLinks.classList.toggle('active');
   });
+  
 
   return (
+
     <header ref={scrollGoUp}  >
       <ScrollToTop scrollGoUp={scrollGoUp} />
       <nav className='navbarApp'>

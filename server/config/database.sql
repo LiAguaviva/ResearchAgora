@@ -1,4 +1,4 @@
--- drop database research_agora;
+drop database research_agora;
 CREATE DATABASE research_agora;
 USE research_agora;
 CREATE TABLE field (
@@ -29,8 +29,7 @@ CREATE TABLE user_field (
 	CONSTRAINT fk_field_1 FOREIGN KEY (field_id)
 		REFERENCES field(field_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
- 
- 
+
 CREATE TABLE project (
 	project_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     project_title VARCHAR (255) NOT NULL,
@@ -124,15 +123,16 @@ request_requested_on DATE DEFAULT (CURRENT_DATE),
 user_id INT UNSIGNED NOT NULL,
 project_id INT UNSIGNED NOT NULL,
 offer_id INT UNSIGNED,
+
   CONSTRAINT fk_user_7 FOREIGN KEY (user_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT fk_project_4 FOREIGN KEY (project_id)
 		REFERENCES project(project_id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT fk_offer_2 FOREIGN KEY (offer_id)
 		REFERENCES offer(offer_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
- 
- 
+ );
+
+
 CREATE TABLE message (
     message_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     message_content VARCHAR(255) NOT NULL,
@@ -148,17 +148,20 @@ CREATE TABLE message (
     CONSTRAINT fk_project FOREIGN KEY (project_id)
         REFERENCES project(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
- 
- 
- 
-CREATE TABLE invitation (
-invitation_id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-invitation_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 0 pending / 1 accepted / 2 declined,
-invitation_send_on DATE DEFAULT (CURRENT_DATE),
-sender_id INT UNSIGNED NOT NULL,
-receiver_id INT UNSIGNED NOT NULL,
-project_id INT UNSIGNED NOT NULL,
-offer_id INT UNSIGNED,
+
+
+
+
+
+ CREATE TABLE invitation (
+ invitation_id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+ invitation_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 1 pending / 2 accepted / 3 declined,
+ invitation_send_on DATE DEFAULT (CURRENT_DATE),
+ sender_id INT UNSIGNED NOT NULL,
+ receiver_id INT UNSIGNED NOT NULL,
+ project_id INT UNSIGNED NOT NULL,
+ offer_id INT UNSIGNED,
+>>>>>>> featuring
   CONSTRAINT fk_user_10 FOREIGN KEY (sender_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT fk_user_11 FOREIGN KEY (receiver_id)
@@ -167,9 +170,9 @@ offer_id INT UNSIGNED,
 		REFERENCES project(project_id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT fk_offer_3 FOREIGN KEY (offer_id)
 		REFERENCES offer(offer_id) ON DELETE CASCADE ON UPDATE CASCADE
-);
- 
- 
+ );
+
+
 /*
 CREATE TABLE notification (
 	notification_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -193,7 +196,7 @@ INSERT INTO field (field_id, field_name) VALUES
 (8, 'Mathematics'),
 (9, 'Medicine'),
 (10, 'Psychology');
- 
+
 -- Insert Users
 INSERT INTO user (user_name, user_lastname, user_email, user_country, user_city, user_description, user_password, user_avatar, user_type, user_proficiency, user_is_verified) VALUES
 ('Ali', 'Besmi', 'ali.besmi@gmail.com', 'USA', 'New York', 'Researcher in CS', '$2b$10$KpMYUNCNIBhw/nIv8E.PXeVwEH69YXBZGV0tBiDLYlrNssgh9//zS', 'path_to_avatar1.jpg', 2, 'PhD', 1),
@@ -206,11 +209,12 @@ INSERT INTO user (user_name, user_lastname, user_email, user_country, user_city,
 ('Frank', 'Lee', 'frank.lee@email.com', 'Italy', 'Rome', 'Psychologist', '$2b$10$KpMYUNCNIBhw/nIv8E.PXeVwEH69YXBZGV0tBiDLYlrNssgh9//zS', 'path_to_avatar8.jpg', 2, 'PhD', 1),
 ('Grace', 'Harris', 'grace.harris@email.com', 'Netherlands', 'Amsterdam', 'Engineer', '$2b$10$KpMYUNCNIBhw/nIv8E.PXeVwEH69YXBZGV0tBiDLYlrNssgh9//zS', 'path_to_avatar9.jpg', 2, 'Student', 1),
 ('Henry', 'White', 'henry.white@email.com', 'Brazil', 'Sao Paulo', 'Biologist', '$2b$10$KpMYUNCNIBhw/nIv8E.PXeVwEH69YXBZGV0tBiDLYlrNssgh9//zS', 'path_to_avatar10.jpg', 2, 'PostDoc', 1);
- 
+
+
 -- Insert User Fields
 INSERT INTO user_field (user_id, field_id) VALUES
 (1, 2), (2, 1), (3, 3), (4, 5), (5, 4), (6, 7), (7, 8), (8, 9), (9, 6), (10, 10);
- 
+
 -- Insert Projects
 INSERT INTO project (project_title, project_city, project_country, project_description, project_type, project_status, project_outcome, project_link, project_max_member, creator_user_id) VALUES
 ('AI Research', 'San Francisco', 'USA', 'Artificial Intelligence in medicine', 0, 1, 'Manuscript', 'http://linktoproject.com', 5, 1),
@@ -223,7 +227,7 @@ INSERT INTO project (project_title, project_city, project_country, project_descr
 ('Neuroscience', 'Paris', 'France', 'Brain-computer interfaces', 0, 1, 'Manuscript', 'http://neuroscience.com', 3, 8),
 ('Mechanical Design', 'Milan', 'Italy', 'Innovative machine designs', 1, 2, 'Patent', 'http://mechdesign.com', 5, 9),
 ('Cognitive Therapy', 'Madrid', 'Spain', 'New therapies for depression', 0, 1, 'Manuscript', 'http://cogtherapy.com', 4, 10);
- 
+
 -- Insert User Projects
 INSERT INTO user_project (user_id, project_id, status) VALUES
 (1, 1, 2), (2, 2, 2), (3, 3, 2), (4, 4, 2), (5, 5, 2),
@@ -241,7 +245,7 @@ INSERT INTO skill (skill_id, skill_name) VALUES
 (1008, 'Rocket Science'),
 (1009, 'Neuroimaging'),
 (1010, 'Cognitive Behavioral Therapy');
- 
+
 -- Insert Offers
 INSERT INTO offer (project_id, offer_title, offer_description, number_of_position) VALUES
 (1, 'Data Scientist', 'Looking for an experienced data scientist', 2),
@@ -254,22 +258,22 @@ INSERT INTO offer (project_id, offer_title, offer_description, number_of_positio
 (8, 'Neuroscientist', 'Experience with BCI is a must', 2),
 (9, 'Mechanical Engineer', 'Innovative mechanical engineer needed', 2),
 (10, 'Therapist', 'Therapist specialized in CBT needed', 3);
- 
+
 -- Insert Offer Skills
 INSERT INTO offer_skill (offer_id, skill_id) VALUES
 (1, 1001), (2, 1002), (3, 1004), (4, 1005), (5, 1006),
 (6, 1007), (7, 1008), (8, 1009), (9, 1007), (10, 1010);
- 
+
 -- Insert Project Skills
 INSERT INTO project_skill (project_id, skill_id) VALUES
 (1, 1001), (2, 1002), (3, 1004), (4, 1005), (5, 1006),
 (6, 1007), (7, 1008), (8, 1009), (9, 1007), (10, 1010);
- 
+
 -- Insert User Skills
 INSERT INTO user_skill (user_id, skill_id) VALUES
 (1, 1001), (2, 1002), (3, 1004), (4, 1005), (5, 1006),
 (6, 1007), (7, 1008), (8, 1009), (9, 1007), (10, 1010);
- 
+
 -- Insert Reviews
 INSERT INTO review (user_id, reviewed_user_id, review_content, review_rate) VALUES
 (1, 2, 'Excellent collaborator with innovative ideas.', 5),
@@ -282,7 +286,7 @@ INSERT INTO review (user_id, reviewed_user_id, review_content, review_rate) VALU
 (8, 9, 'Outstanding researcher with great insights.', 4),
 (9, 10, 'Dedicated and highly professional.', 5),
 (10, 1, 'Excellent skills in project management.', 4);
- 
+
 -- Insert Requests
 INSERT INTO request (request_status, user_id, project_id, offer_id) VALUES
 (0, 3, 1, 1),
@@ -295,7 +299,7 @@ INSERT INTO request (request_status, user_id, project_id, offer_id) VALUES
 (1, 8, 8, 8),
 (0, 9, 9, 9),
 (1, 10, 10, 10);
- 
+
 -- Insert Messages
 INSERT INTO message (message_content, message_date_time, message_is_read, sender_id, receiver_id, project_id) VALUES
 ('Can you update the project docs?', CURRENT_TIMESTAMP, 0, 1, 2, 1),
@@ -308,7 +312,7 @@ INSERT INTO message (message_content, message_date_time, message_is_read, sender
 ('Lets discuss the recent findings.', CURRENT_TIMESTAMP, 1, 8, 9, 8),
 ('Update on project status needed.', CURRENT_TIMESTAMP, 0, 9, 10, 9),
 ('Your feedback on the prototype is required.', CURRENT_TIMESTAMP, 1, 10, 1, 10);
- 
+
 -- Insert Invitations
 INSERT INTO invitation (invitation_status, sender_id, receiver_id, project_id, offer_id) VALUES
 (0, 1, 3, 1, 1),
@@ -321,22 +325,12 @@ INSERT INTO invitation (invitation_status, sender_id, receiver_id, project_id, o
 (1, 8, 9, 8, 8),
 (0, 9, 10, 9, 9),
 (1, 10, 1, 10, 10);
- 
+
 select * from user;
 select * from user_skill;
 select * from user_field;
 SELECT * FROM project_skill;
 -- UPDATE user SET user_is_disabled = 0 WHERE user_id = 3;
-SELECT * FROM project;
-SELECT * FROM skill;
-SELECT * FROM offer;
-SELECT * FROM user_project;
-SELECT * FROM project_skill;
-SELECT * FROM offer_skill;
-SELECT * FROM request;
-SELECT * FROM message;
-SELECT * FROM invitation;
-SELECT * FROM review;
 -- insert into review (user_id,reviewed_user_id,review_content,review_rate) values (4,1,"Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, quod?",4);
 insert into user_project  (user_id,project_id,status) values (2,1,2);
 
@@ -349,3 +343,29 @@ SELECT *
       WHERE user_id = 1 AND project_id = 2;
 
 UPDATE request SET request_status = 2 WHERE user_id = 5 AND project_id = 1 AND offer_id = 1;
+ -- UPDATE user SET user_is_disabled = 0 WHERE user_id = 3;
+ SELECT * FROM project;
+ SELECT * FROM skill;
+ SELECT * FROM offer;
+ SELECT * FROM user_project;
+ SELECT * FROM project_skill;
+ SELECT * FROM offer_skill;
+ SELECT * FROM request;
+ SELECT * FROM message;
+ SELECT * FROM invitation;
+ SELECT * FROM review;
+-- insert into review (user_id,reviewed_user_id,review_content,review_rate) values (4,1,"Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, quod?",4);
+insert into user_project  (user_id,project_id,status) values (2,1,2);
+
+SELECT * FROM message 
+                   WHERE (sender_id = 1 AND receiver_id = 2) 
+                      OR (sender_id = 2 AND receiver_id = 1) 
+                   ORDER BY message_date_time ASC;
+
+SHOW TABLES;
+
+SELECT DISTINCT u.user_id, u.user_name, u.user_avatar
+            FROM message m
+            JOIN user u ON u.user_id = m.receiver_id OR u.user_id = m.sender_id
+            WHERE m.sender_id = 1 OR m.receiver_id = 1
+            AND u.user_id != 1;

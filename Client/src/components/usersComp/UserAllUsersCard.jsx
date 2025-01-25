@@ -1,15 +1,23 @@
 import React, { useContext } from "react";
 import avatarDefault from "../../assets/imgs/defaultIMG.png";
 import { AgoraContext } from "../../context/ContextProvider";
+import { useNavigate } from "react-router-dom";
+import '../../pages/Chat/chat.css';
 
 export const UserAllUsersCard = ({ elem, showRequestModal }) => {
 
   const { user } = useContext(AgoraContext);
   const skills = elem.skills?.split(", ");
+  const navigate = useNavigate();
 
   console.log('elem on UserAllUsersCard', elem );
   
 
+
+  const onMessageClick = () => {
+    navigate(`/chat/${elem.user_id}`)
+  }
+  
   return (
     <div className="userCardWithButton">
       <div className="userCard">
@@ -41,6 +49,9 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
                 </div>
               ))}
             </div>
+            <button onClick={onMessageClick} className="messageButton">
+              Message
+            </button>
         </div>
       </div>
             { user?.user_id !== elem.user_id &&

@@ -90,7 +90,7 @@ export const LoginForm = () => {
           <label htmlFor="password">Password</label>
           <input 
             id='password'
-            type="text" 
+            type="password" 
             placeholder='Password'
             value={login.password}
             onChange={handleChange}

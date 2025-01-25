@@ -82,6 +82,20 @@ deleteOffer =  async (req,res)=>{
     }
   }
 
+  editoffer = async(req, res) => {
+    console.log('editoffer req.body', req.body);
+
+    try {
+      // const {id, }
+
+    } catch (error) {
+      res.status(500).json(error)
+      console.log('editoffer ERROR', error);
+      
+    }
+    
+  }
+
 
 
 

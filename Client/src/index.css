@@ -8,6 +8,9 @@
 
 main {
   min-height: var(--mainSize);
+  @media(max-width: 500px){
+    padding-top: 5rem;
+  }
 }
 
 header {

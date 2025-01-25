@@ -77,21 +77,21 @@ export const ResetPasswordForm = () => {
           <label htmlFor="newPassword">Password</label>
           <input 
             id='newPassword'
-            type="text" 
+            type="password" 
             placeholder='Password'
-            value={login.password}
+            value={login.newPassword}
             onChange={handleChange}
             name='newPassword'
           />
         </fieldset>
 
         <fieldset>
-          <label htmlFor="confirmNewPassword">RepeatPassword</label>
+          <label htmlFor="confirmNewPassword">Repeat Password</label>
           <input 
             id='confirmNewPassword'
             type="text" 
             placeholder='Password'
-            value={login.repPassword}
+            value={login.confirmNewPassword}
             onChange={handleChange}
             name='confirmNewPassword'
           />

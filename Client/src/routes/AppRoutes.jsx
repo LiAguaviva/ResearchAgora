@@ -29,12 +29,15 @@ import { FooterApp } from '../components/navigationComps/FooterApp/FooterApp'
 import { NavbarApp } from '../components/navigationComps/NavbarApp2/NavbarApp'
 import { ScrollToTop } from '../components/navigationComps/ScrollToTop/ScrollToTop'
 import { useRef } from 'react'
+import { Chat } from '../pages/Chat/Chat'
+import ScrollToTopAuto from '../components/navigationComps/ScrollToTop/ScrollToTopAuto'
 
 export const AppRoutes = () => {
 
 
   return (
     <BrowserRouter >
+        <ScrollToTopAuto />
         <NavbarApp />
         <main className='ppal'>
         <Routes>
@@ -78,6 +81,9 @@ export const AppRoutes = () => {
             
             {/* Admin */}
             <Route path='/admin' element={<AdminLayout />}/>
+            
+            {/* Chat */}
+            <Route path='/chat/:receiver_id' element={<Chat />}/>
              
            {/* Error */}
             <Route path='*' element={<ErrorPage />}/>   

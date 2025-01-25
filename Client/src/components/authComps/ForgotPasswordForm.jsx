@@ -49,12 +49,12 @@ export const ForgotPasswordForm = ({showModal}) => {
         })
         setValErrors(fieldErrors)
       } else {
-        console.log(error);
+        // console.log(error);
         setMsg(error.response.data.message)
-        console.log('error message', error.response.data.message);
+        // console.log('error message', error.response.data.message);
       }
 
-      console.log('ERRORRRRRR', error.response.data);
+      // console.log('ERRORRRRRR', error.response.data);
       setMsg(error.response.data)
       // console.log('MSG MSG MSG MSG', error.response);
     }

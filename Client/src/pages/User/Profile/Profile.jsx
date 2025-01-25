@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { ProfileUserCard } from '../../../components/usersComp/ProfileUserCard'
-import { UserCard } from '../../../components/usersComp/UserCard'
+
 import axios from 'axios'
 
 import './Profile.css'
@@ -10,12 +10,15 @@ import { fetchDataValidation } from '../../../helpers/axiosHelper'
 import { ProjectProfileCard } from '../../../components/projectsComp/ProjectProfileCard/ProjectProfileCard'
 import StatsRadarChart from '../../../components/usersComp/RadarGraph'
 import { ReviewCard } from '../../../components/commonComp/ReviewCard/ReviewCard'
+import { WriteReviewCard } from '../../../components/usersComp/WriteReviewCard'
+import { ReviewModal } from '../../../components/usersComp/ReviewModal'
 
 export const Profile = () => {
 
   const {user} = useContext(AgoraContext)
   const navigate = useNavigate()
   const [projects, setProjects] = useState([])
+  const [show,setShow]= useState(false);
 
   const fetchProjects = async() => {
     try {
@@ -50,12 +53,12 @@ export const Profile = () => {
       <div className='containerPpal ProfileProjects'>
         <h3>Projects</h3>
         <div className='projectsGallery'>
-          {projects?.map((elem) => {
+          {projects?.map((elem, index) => {
             return(
-              <>
-                <ProjectProfileCard key={elem.project_id} elem={elem}/>
+              <div key={elem.project_id}>
+                <ProjectProfileCard  elem={elem}/>
                 <div className='separatorProjects' />
-              </>
+              </div>
             )
           })}
         </div>
@@ -63,13 +66,18 @@ export const Profile = () => {
       </div>
     </section>
 
-    {/* <section>
+    <button onClick={() => setShow(!show)}>{!show?"Write a review":null}</button>
+    
+    {show && 
+    <section>
       <div className='containerPpal'>
         <div className='reviewGallery'>
-          <ReviewCard />
+          <ReviewModal show = {show} setShow = {setShow} />
         </div>
       </div>
-    </section> */}
+    </section>
+    }
+    
     </>
   )
 }

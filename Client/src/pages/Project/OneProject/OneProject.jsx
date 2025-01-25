@@ -8,12 +8,12 @@ import './OneProject.css'
 import { OfferCard } from "../../../components/offerComps/OfferCard/OfferCard";
 import { GoBack } from "../../../components/navigationComps/GoBack/GoBack";
 import { AgoraContext } from "../../../context/ContextProvider";
+import { ProjectReviewCard } from "../../../components/projectsComp/ProjectReviewCard";
+
 
 export const OneProject = () => {
 
   const navigate = useNavigate();
-  const scrollGoUp = useRef();
-
   const {user} = useContext(AgoraContext)
   const { id } = useParams();
   const [project, setProject] = useState([]);
@@ -23,8 +23,6 @@ export const OneProject = () => {
   const [offers, setOffers] = useState([]);
 
   const [applyButton, setApplyButton] = useState('apply');
-
- 
 
 
   const fetchOneProject = async () => {
@@ -39,6 +37,7 @@ export const OneProject = () => {
       setMembers(result.members);
       setSkills(result.skills.map(skill => skill.skill_name));
       setOffers(result.offers);
+      setReview(result.review);
       //setReview(result.review);
     } catch (error) {
       console.log(error);
@@ -46,7 +45,6 @@ export const OneProject = () => {
   };
 
   useEffect(() => {
-    scrollGoUp.current.scrollIntoView({behavior:'smooth'})
     fetchOneProject();
     fetchJoinRequest();
   }, [user, applyButton]);
@@ -56,10 +54,8 @@ export const OneProject = () => {
       let data = {user_id: user?.user_id,
                   project_id: id
       }
-      console.log('data on fetchJoinRequest', data);
       
       const result = await fetchDataValidation(`http://localhost:4000/api/project/allrequests`, 'post', data);
-      console.log('fetchJoinRequest result', result);
 
       if(result[0].request_status === 1){
         setApplyButton('applied')
@@ -68,8 +64,8 @@ export const OneProject = () => {
       } if(result[0].request_status === 3){
         setApplyButton('notSelected')
       }
-      console.log('apply button', applyButton);
-      console.log('result.request_status', result[0].request_status);
+      // console.log('apply button', applyButton);
+      // console.log('result.request_status', result[0].request_status);
       
     } catch (error) {
       console.log(error);
@@ -77,13 +73,13 @@ export const OneProject = () => {
   }
 
 
-  console.log('PROJECT on oneproject', project);
+  // console.log('PROJECT on oneproject', project);
   // console.log('USER on oneproject', user);
   // console.log('ONE PROJECT skills', skills);
   
 
   return (
-    <div ref={scrollGoUp} className="oneProjectPage">
+    <div className="oneProjectPage">
       <section className="containerPpal">
         <ProjectInfoCard 
           project={project[0]} 
@@ -124,6 +120,21 @@ export const OneProject = () => {
         </div>
           <button onClick={()=>navigate(`/createOffer/${id}`)}
           >Create Offer</button>
+
+
+      </section>
+      <section className="containerPpal offersSection">
+        <div className="offerGallery">
+        {review?.map((elem,index) => {
+          return (
+             <ProjectReviewCard
+              key={index} 
+              elem={elem}
+             /> 
+          )
+        })}
+        </div>
+          
 
         <GoBack />
 

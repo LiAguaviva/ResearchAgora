@@ -4,6 +4,9 @@ import { fetchDataValidation } from '../../../helpers/axiosHelper';
 // import { AllProjectsCard } from '../../../components/AllProjectsCard/AllProjectsCard';
 import { UserAllUsersCard } from '../../../components/usersComp/UserAllUsersCard';
 import { RequestModal } from '../../../components/offerComps/RequestModal/RequestModal';
+import { useNavigate } from 'react-router-dom';
+
+
 
 export const AllUsers = () => {
 
@@ -13,21 +16,23 @@ export const AllUsers = () => {
   const [modalShowed, setModalShowed] = useState(false);
     
   const showRequestModal = ()=> setModalShowed(!modalShowed);
+
+  const navigate = useNavigate();
     
-    const fetchUsers = async() => {
-      try {
-        const result = await fetchDataValidation('http://localhost:4000/api/user/allUsers', 'get');
-        setusers(result)
-      } catch (error) {
-        console.log(error)
-      }
+  const fetchUsers = async() => {
+    try {
+      const result = await fetchDataValidation('http://localhost:4000/api/user/allUsers', 'get');
+      setusers(result)
+    } catch (error) {
+      console.log(error)
     }
-  
-    useEffect(() => {
-      fetchUsers();
-      // console.log('users', users);
-      
-    }, [])
+  }
+
+  useEffect(() => {
+    fetchUsers();
+    // console.log('users', users);
+    
+  }, [])
   
    const handleKeyDownSkill = (e) => {
       if (e.key === "Enter") {
@@ -64,6 +69,9 @@ export const AllUsers = () => {
         console.log(error);
       }
     }
+
+  
+
 
 
   return (

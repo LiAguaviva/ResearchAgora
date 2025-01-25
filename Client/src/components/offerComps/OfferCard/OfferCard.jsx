@@ -21,6 +21,11 @@ export const OfferCard = ({elem, project, applyButton}) => {
     }
   }
 
+  const editOffer = async (e) => {
+    e.preventDefault();
+    
+  }
+
   const onSubmit = async (e) => {
     if (applyButton === 'apply'){
       e.preventDefault()
@@ -42,6 +47,9 @@ export const OfferCard = ({elem, project, applyButton}) => {
   // console.log("elem (offer) on offerCARD", elem);
   // console.log("project_id on offerCARD", project_id);
   // console.log('project on OFFER CARD', project);
+  // console.log('user_id on OfferCard', user?.user_id);
+  // console.log('creator_user_id on OfferCard', project[0]?.creator_user_id);
+  // console.log('project on OfferCard', project);
   
   
   return (
@@ -66,36 +74,41 @@ export const OfferCard = ({elem, project, applyButton}) => {
      </div>
 
      <div className='buttons'>
-     {user?.user_id !== project?.creator_user_id && 
+     {user?.user_id !== project[0]?.creator_user_id && 
        applyButton === 'apply' &&
           <button 
             onClick={onSubmit}
             className='accept'
           >Apply</button>}
 
-     {user?.user_id !== project?.creator_user_id && 
+     {user?.user_id !== project[0]?.creator_user_id && 
        applyButton === 'applied' &&
           <button 
             // onClick={onSubmit}
             className='applied'
           >Applied</button>}
 
-     {user?.user_id !== project?.creator_user_id && 
+     {user?.user_id !== project[0]?.creator_user_id && 
        applyButton === 'teamMember' &&
           <button 
             // onClick={onSubmit}
             className='disabled'
           >Team Member</button>}
 
-     {user?.user_id !== project?.creator_user_id && 
+     {user?.user_id !== project[0]?.creator_user_id && 
        applyButton === 'notSelected' &&
           <button 
             // onClick={onSubmit}
             className='disabled'
           >Not selected</button>}
 
-      {user?.user_id === project?.creator_user_id &&
-        applyButton === 'applied' &&
+      {user?.user_id === project[0]?.creator_user_id &&
+        <button 
+          className='accept'
+          // onClick={editOffer}
+      >edit</button>}
+
+      {user?.user_id === project[0]?.creator_user_id &&
         <button 
           className='cancel'
           // onClick={deleteOffer}
