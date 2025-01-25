@@ -110,7 +110,21 @@ deleteOffer =  async (req,res)=>{
     }
   }
 
+  updateOffer = async(req,res) => {
+    const {offer_id} = req.params;
 
+  try {
+   const result = await offerDal.updateOffer(offer_id); 
+   console.log("edit result",result);
+   res.status(200).json(result)
+   
+
+  } catch (error) {
+    console.log('updateOffer dal', error)
+    res.status(500).json(error)
+    console.log('edit oneOffer', error);  
+  }
+}
 
 
 }

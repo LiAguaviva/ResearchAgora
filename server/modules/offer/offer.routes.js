@@ -10,7 +10,7 @@ router.get('/offersbyproject/:project_id', offerController.offersByProject)
 router.post('/joinrequest', offerController.joinRequest)
 router.post('/editoffer', offerController.editoffer)
 router.get('/oneoffer/:offer_id', offerController.oneOffer)
-
+router.put('/updateoffer/:offer_id', offerController.updateOffer)
 
 // router.put('/editoffer', offerController.editoffer)  ///for future use
 export default router

@@ -19,37 +19,44 @@ export const EditOfferCard = () => {
   const [inputValueSkills, setInputValueSkills] = useState("");
   const [valErrors, setValErrors] = useState({});
   const [data, setData] = useState([]);
-  const navigate = useNavigate();
   const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
+  
 
-
+  useEffect(() => {
       const fetchOneOffer = async () => {
       try {
         const result = await fetchData2(
-          `offer/oneoffer/${id}`,
+          `offer/oneoffer/${id}`, 
           "get"
         );
          console.log("OFFFFEEEEEEEEEEEEER", result);
-         if (result && result.length > 0 && result[0].skills) {
+
+         if (result && result[0]) {
           // Si result[0].skills es un array de objetos, extraemos los skill_name
-          setSkills(result.map(skill => skill.skill_name));
+          const skills = result.map((skill) => skill.skill_name);
+          setSkills(skills);
+         
+          console.log("skill, offer", result)
         } else {
           console.log("No skills found in the result.");
-        }
-         
+        } 
         setOffer(result[0]);
-       
       } catch (error) {
         console.log(error);
       }
     };
+
+    fetchOneOffer();
+    }, [id]);
+    
       
     // useEffect(() => {
     //   fetchOneOffer();
     // }, [id]);
 
    
-    useEffect(() => {
+    /* useEffect(() => { //last version with Alba
       const fetchOneOffer = async () => {
         try {
           const result = await fetchData2(`offer/oneoffer/${id}`, "get");
@@ -66,7 +73,7 @@ export const EditOfferCard = () => {
       };
     
       fetchOneOffer();
-    }, [id]);
+    }, [id]); */
     
    
     const validateField = (name, value) => {
@@ -109,33 +116,33 @@ export const EditOfferCard = () => {
     };
 
      const onSubmit = async (e) => {
-        //  try {
-        //    e.preventDefault();
-        //    const skillsString = skills.join(",");
-        //   //  let data = { ...offer, skill: skillsString, id: id };
-        //   //  console.log("----> data al back", data);
-        //    const result = await fetchDataValidation(
-        //      `http://localhost:4000/api/project/editproject`,
-        //      "put",
-        //      data
-        //    );
-        //    navigate(`/oneproject/${id}`)
-     
-        //  } catch (error) {
-        //    if (error instanceof ZodError) {
-        //      error.errors.forEach((err) => {
-        //        fieldErrors[err.path[0]] = err.message;
-        //      });
-        //      setValErrors(fieldErrors);
-        //      console.log("fieldError", fieldErrors);
-        //    } else {
-        //      console.log(error);
-        //      setMsg(error.response.data.message);
-     
-        //      console.log("error message", error.response.data.message);
-        //    }
-        //    console.log(error);
-        //  }
+      e.preventDefault();
+        try {
+         const skillsString = skills.join(",");
+         const data = { ...offer, skill: skillsString, offer_id: id };
+         console.log("----> submitting data to back", data);
+        const result = await fetchData2(
+        `offer/updateoffer/${id}`,
+         "put",
+        data
+        );
+        console.log('response', result);
+        navigate(`/oneoffer/${id}`)
+      } catch (error) {
+         if (error instanceof ZodError) {
+          const fieldErrors = {};
+             error.errors.forEach((err) => {
+             fieldErrors[err.path[0]] = err.message;
+        });
+          setValErrors(fieldErrors);
+             console.log("fieldError", fieldErrors);
+          } else {
+            console.log('Error updating offer', error);
+            setMsg(error.response?.data?.message);
+            console.log("error message", error.response.data.message);
+        }
+            console.log(error);
+         }
        };
 
       
@@ -145,27 +152,27 @@ export const EditOfferCard = () => {
   return (
     <div className="formAppContainer">
      <form className="formApp">
-       <p className="formTitle">Edit an Offer</p>
+       <p className="formTitle">Edit the Offer</p>
       <div className="separatorThick" />
 
       <fieldset>
-        <label htmlFor="email">Title</label>
+        <label htmlFor="offer_title">Title</label>
        <input
-          id="title"
+          id="offer_title"
           type="text"
           placeholder="Title"
           value={offer?.offer_title}
           onChange={handleChange}
-          name="title"
+          name="offer_title"
         />
       </fieldset>
 
 
 
         <fieldset>
-          <label htmlFor="Number of positions">Number of positions</label>
+          <label htmlFor="number_of_position">Number of positions</label>
           <input
-            id="Number of positions"
+            id="number_of_position"
             type="number"
             placeholder="Number of positions"
             value={offer?.number_of_position}
@@ -175,11 +182,11 @@ export const EditOfferCard = () => {
         </fieldset>
 
         <fieldset>
-          <label htmlFor="description">description</label>
+          <label htmlFor="offer_description">Description</label>
           <input
-            id="description"
+            id="offer_description"
             type="text"
-            placeholder="description"
+            placeholder="Description"
             value={offer?.offer_description}
             onChange={handleChange}
             name="offer_description"
@@ -228,7 +235,8 @@ export const EditOfferCard = () => {
           <button
             className="cancel"
             type="button"
-            onClick={() => navigate(`/oneoffer/${data?.offer_id}`)}
+            //onClick={() => navigate(`/oneoffer/${data?.offer_id}`)} //last version with Alba
+            onClick={() => navigate(`/oneoffer/${id}`)}
           >
             CANCEL
           </button>

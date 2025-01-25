@@ -269,8 +269,32 @@ GROUP BY o.offer_id;
        }
     }
 
-
-}
+    updateOffer = async (offer_id) => {
+    try {
+    let sql = `
+    UPDATE 
+    offer o
+    SET 
+      o.offer_title = ?, 
+      o.offer_description = ?, 
+      o.number_of_position = ?, 
+      s.skill_id = ?
+      s.skill_name = ?
+      LEFT JOIN offer_skill os
+      ON o.offer_id = os.offer_id
+      LEFT JOIN skill s
+      ON os.skill_id = s.skill_id
+    WHERE offer_id = ? 
+  `;
+  const result = await executeQuery(sql, [offer_id]);
+        return result;
+        
+       } catch (error) {
+         console.log("Edit oneOffer error", error);
+         throw error;
+       }
+    }
+  }
 
 
 export default new OfferDal();
