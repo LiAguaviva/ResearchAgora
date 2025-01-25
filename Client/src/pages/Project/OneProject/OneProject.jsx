@@ -30,6 +30,7 @@ export const OneProject = () => {
 
 
   const fetchOneProject = async () => {
+
     try {
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/oneproject/${id}`,
@@ -50,7 +51,7 @@ export const OneProject = () => {
     scrollGoUp.current.scrollIntoView({behavior:'smooth'})
     fetchOneProject();
     fetchJoinRequest();
-  }, [user]);
+  }, [user, applyButton]);
 
   const fetchJoinRequest = async () => {
     try {
@@ -67,7 +68,8 @@ export const OneProject = () => {
     }
   }
 
-  // console.log('PROJECT on oneproject', project);
+
+  console.log('PROJECT on oneproject', project);
   // console.log('USER on oneproject', user);
   console.log('ONE PROJECT MEMBERS', members);
   
@@ -108,6 +110,7 @@ export const OneProject = () => {
               elem={elem}
               project={project}
               requests={requests}
+              applyButton={applyButton}
              /> 
           )
         })}

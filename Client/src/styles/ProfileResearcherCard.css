@@ -28,6 +28,11 @@
       border-radius: 100%;
       object-fit: cover;
       object-position: center;
+
+      img {
+        height: var(--AvatarSize);
+        background-color: transparent;
+      }
     }
 
     .userCardHeadData {

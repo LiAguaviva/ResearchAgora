@@ -119,7 +119,7 @@ CREATE TABLE  review (
  
  
 CREATE TABLE request (
-request_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 0 pending / 1 accepted / 2 declined,
+request_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 1 pending / 2 accepted / 3 declined,
 request_requested_on DATE DEFAULT (CURRENT_DATE),
 user_id INT UNSIGNED NOT NULL,
 project_id INT UNSIGNED NOT NULL,
@@ -341,3 +341,11 @@ SELECT * FROM review;
 insert into user_project  (user_id,project_id,status) values (2,1,2);
 
 # 123456sS$
+
+SELECT * FROM user_project;
+
+SELECT *
+      FROM request
+      WHERE user_id = 1 AND project_id = 2;
+
+UPDATE request SET request_status = 2 WHERE user_id = 5 AND project_id = 1 AND offer_id = 1;
