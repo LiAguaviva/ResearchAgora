@@ -335,11 +335,12 @@ const result = {project, members, skills, offers,review}
   
     const connection = await dbPool.getConnection();
     try {
-      const projectSql = `
-        SELECT DISTINCT p.*
+      const projectSql = `SELECT DISTINCT p.*, 
+               CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name
         FROM project p
         JOIN project_skill ps ON p.project_id = ps.project_id
         JOIN skill s ON ps.skill_id = s.skill_id
+        JOIN user u ON p.creator_user_id = u.user_id  -- Agregamos el JOIN con la tabla user
         WHERE s.skill_name IN (${placeholders})
           AND ps.project_skill_is_disabled = 0
           AND p.project_is_disabled = 0
