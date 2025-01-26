@@ -11,6 +11,7 @@ import { ProfileUserCard } from "../../../components/usersComp/ProfileUserCard";
 import { UserCard } from "../../../components/usersComp/UserCard";
 import axios from "axios";
 import './Profile.css'
+import { RequestCard } from '../../../components/usersComp/RequestCard/RequestCard'
 
 
 export const Profile = () => {
@@ -89,7 +90,7 @@ export const Profile = () => {
       
     }
   }
-  
+
   return (
     <>
     <section>
@@ -121,37 +122,18 @@ export const Profile = () => {
         </button>
     </section>
 
-    <section>
-      <div className="containerPpal ProfileProjects">
-        <h3>Requests To Join</h3>
-        <div className="projectsGallery">
+    <section className="containerPpal requestSection">
+        <h3>You have requests to join on your projects!</h3>
+        <div className="requestGallery">
           {requests?.map((elem) => {
             return (
-              <>
-                <img
-                  src={`http://localhost:4000/images/useravatar/${elem.user_image}`}
-                  alt=""
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                  }}
-                />
-
-                <span>{elem.user_name}</span>
-                <span>{elem.project_name}</span>
-                <span>{elem.offer_title}</span>
-                <button onClick={() => updateRequest(elem,1,2)}>✅</button>
-                <button onClick={() => updateRequest(elem,2, 1)}>❌</button>
-              </>
+              <RequestCard elem={elem} />
             );
           })}
         </div>
-      </div>
      </section>
 
-      {invites.length && 
+    {invites.length > 0 && 
      <section>
       <div className="containerPpal ProfileProjects">
         <h3>Invitations</h3>

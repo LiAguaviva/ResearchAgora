@@ -2,13 +2,7 @@
 
   .projectCard{
     
-    h4 {
-      cursor: pointer;
-      /* margin-bottom: var(--size05); */
-      &:hover {
-        color: var(--magenta);
-      }
-    }
+    
   
       display: flex;
       /* align-items: center; */
@@ -72,5 +66,13 @@
       color: var(--purple);
       font-weight: bold;
     } */
+  }
+}
+
+.projectCardTitle {
+  cursor: pointer;
+  /* margin-bottom: var(--size05); */
+  &:hover {
+    color: var(--magenta);
   }
 }

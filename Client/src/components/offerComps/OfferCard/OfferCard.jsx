@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./OfferCard.css";
 import { AgoraContext } from "../../../context/ContextProvider";
-import { fetchData2, fetchDataValidation } from "../../../helpers/axiosHelper";
+import { fetchData2 } from "../../../helpers/axiosHelper";
 
 export const OfferCard = ({ elem, project, requests, isMember }) => {
   const [skill, setSkill] = useState([]);
@@ -11,39 +11,40 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
 
   useEffect(() => {
     setSkill(elem.offer_skills?.split(","));
-  }, [user, project]); // Asegurar que se ejecuta cuando `user` o `project` cambian
+  }, [user, project]);
 
   const deleteOffer = async () => {
     try {
-      let result = await fetchData2(
-        `offer/deleteoffer/${elem.offer_id}`,
-        "put"
-      );
-      window.location.reload()();
+      await fetchData2(`offer/deleteoffer/${elem.offer_id}`, "put");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const editOffer = async (e) => {
+  const editOffer = (e) => {
     e.preventDefault();
-    
-  }
+  };
 
-  const onSubmit = async (e) => {
+  const onSubmit = async () => {
     try {
       let data = {
         offer_id: elem.offer_id,
         user_id: user?.user_id,
         project_id: project[0].project_id,
       };
-      let joinrequest = await fetchData2(`offer/joinrequest`, "post", data);
+      await fetchData2(`offer/joinrequest`, "post", data);
       window.location.reload();
     } catch (error) {
       console.log(error);
     }
   };
-  
+
+
+  const userRequest = requests.find(
+    (req) => req.user_id === user?.user_id && req.offer_id === elem.offer_id
+  );
+
   return (
     <div className="offerCard">
       <div className="headOffer">
@@ -110,37 +111,23 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
 
 
 <div className="buttons">
-  {user?.user_id !== project[0]?.creator_user_id && !isMember && 
-    !requests.some(
-      (req) =>
-        req.user_id === user?.user_id &&
-        req.project_id === project[0]?.project_id &&
-        req.request_status === 2
-    ) &&
-    (() => {
-      if (
-        requests.some(
-          (req) =>
-            req.offer_id === elem.offer_id && req.request_status === 0
-        )
-      ) {
-        return (
-          <button className="applied" disabled>
-            Applied
-          </button>
-        );
-      } else if (
-        !requests.some((req) => req.offer_id === elem.offer_id) &&
-        elem.number_of_position > 0
-      ) {
-        return (
-          <button onClick={onSubmit} className="accept">
-            Apply
-          </button>
-        );
-      }
-      return null;
-    })()}
+  {user?.user_id !== project[0]?.creator_user_id && !isMember && (
+    <>
+      {userRequest?.request_status === 0 ? (
+        <button className="applied" disabled>
+          Applied
+        </button>
+      ) : userRequest?.request_status === 2 ? (
+        <button className="disabled" disabled>
+          Rejected
+        </button>
+      ) : elem.number_of_position > 0 ? (
+        <button onClick={onSubmit} className="accept">
+          Apply
+        </button>
+      ) : null}
+    </>
+  )}
 
   {user?.user_id === project[0]?.creator_user_id && (
     <>
@@ -153,7 +140,6 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
     </>
   )}
 </div>
-
 
     </div>
   );

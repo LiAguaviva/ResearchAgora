@@ -41,7 +41,7 @@ export const FooterApp = () => {
                 </nav>
 
                 <div className='socialMediaIcons'>
-                    <div className='icon'><img className='icon' src={fb} alt="" /></div>
+                    <img className='icon' src={fb} alt="" />
                     <img className='icon' src={ig} alt="" />
                     <img className='icon' src={linkedin} alt="" />
                     <img className='icon' src={x} alt="" />

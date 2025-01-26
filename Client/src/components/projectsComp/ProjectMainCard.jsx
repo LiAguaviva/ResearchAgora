@@ -15,13 +15,11 @@ export const ProjectMainCard = ({project, members}) => {
   return (
     <div>
       <div className='userCard'>
-       <div className="userCardAvatar">
            <img 
              className='userCardAvatar'
              src={creator?.user_avatar? `${url}/useravatar/${creator.user_avatar}` : avatarDefault} 
              alt="your avatar" 
            />
-         </div>
  
          <div className="userCardData">
            <p className="UserCardName"

@@ -69,6 +69,10 @@ footer {
     display: flex;
     gap: var(--size2);
 
+    .icon {
+      cursor: pointer;
+    }
+
     @media (max-width: 500px) {
       gap: var(--size05);
     }

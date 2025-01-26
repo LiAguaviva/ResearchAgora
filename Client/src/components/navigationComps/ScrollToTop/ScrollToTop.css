@@ -2,8 +2,11 @@
 .scrollToTop {
   position: fixed;
   z-index: 10;
-  top: 92vh;
-  right: 5vw;
-
+  top: 90vh;
+  right: 1vw;
   height: 3.5rem;
+
+  &:hover {
+    filter: brightness(0);
+  } 
 }

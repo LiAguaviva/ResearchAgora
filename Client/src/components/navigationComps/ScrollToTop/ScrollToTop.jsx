@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import arrowup from '../../../assets/icons/arrowUp.svg'
 import './ScrollToTop.css'
 
 export const ScrollToTop = ({scrollGoUp}) => {
@@ -9,9 +10,10 @@ export const ScrollToTop = ({scrollGoUp}) => {
   }
 
   return (
-    <button 
+    <img 
       className='scrollToTop'
       onClick={()=> scrollToTop()}
-    >Top</button>
+      src={arrowup} alt="" 
+    />
   )
 }

@@ -30,6 +30,7 @@
     .logoNavbar {
       height: var(--imgNavBarSize);
       cursor: pointer;
+      object-fit: contain;
 
       &:hover {
         filter: brightness(0);

@@ -201,3 +201,16 @@ ul {
   border-bottom: 4px solid var(--aqua);
   margin-inline: auto;
 }
+
+.logo {
+  object-fit: contain;
+}
+
+.messageIcon {
+  width: var(--size2);
+  height: var(--size2);
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+}

@@ -36,12 +36,14 @@ export const TagsCard = () => {
         <h4>Fields</h4>
           <div className="tagsContainer">
             {fields.map((field, index) => (
-              <div key={index} className=''>
-                {field}<span value={field}> / </span>
+              <div key={index} className="">
+                {field}
+                {index < fields.length - 1 && <span> / </span>}
               </div>
             ))}
           </div>
         </div>}
+        
             
       {skills.length > 0 &&
         <div className="tagsCardSect">

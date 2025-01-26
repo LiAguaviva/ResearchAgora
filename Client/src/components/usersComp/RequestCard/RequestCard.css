@@ -1,0 +1,29 @@
+
+.requestCard {
+  display: flex;
+
+  .offerTitle {
+    color: var(--aqua);
+    font-weight: bold;
+  }
+
+  .data {
+    display: flex;
+    gap: var(--size1);
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: var(--size2);
+      width: max-content;
+      cursor: pointer;
+      
+      &:hover {
+        filter: brightness(0);
+      }
+    }
+  }
+}

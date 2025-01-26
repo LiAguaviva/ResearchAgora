@@ -3,7 +3,11 @@
 .goBack {
   position: fixed;
   z-index: 10;
-  top: 85vh;
-  right: 5vw;
+  top: 91vh;
   height: 3.5rem;
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0);
+  } 
 }

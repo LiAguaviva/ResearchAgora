@@ -9,14 +9,12 @@ export const ProjectMemberCard = ({elem}) => {
   return (
     <div>
       <div className='userCard'>
-        <div className='userCardAvatar'>
           <img 
             className='userCardAvatar'
             src={elem?.user_avatar? `http://localhost:4000/images/useravatar/${elem.user_avatar}` : avatarDefault}  
             // src={avatarDefault}
             alt="your avatar" 
           />
-        </div>
 
         <div className='userCardData'>
           <p className='UserCardName'

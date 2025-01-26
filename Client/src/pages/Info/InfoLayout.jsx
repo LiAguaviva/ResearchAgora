@@ -11,7 +11,7 @@ export const InfoLayout = () => {
     <section className='infoLayoutSect'>
           <div className='containerPpal infoLayout'>
             <div className='infoLayoutHeader'>
-            <img src={logo} alt="Research Agora Logo" className='homeLogo'/>
+            <img src={logo} alt="Research Agora Logo" className='logo'/>
               <h3>We are here to make things different.</h3>
               <p className='subtitle'>Modern day research shaped by scientists for scientists</p>
             </div>

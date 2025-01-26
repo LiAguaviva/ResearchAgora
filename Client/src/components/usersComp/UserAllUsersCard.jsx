@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import avatarDefault from "../../assets/imgs/defaultIMG.png";
 import { AgoraContext } from "../../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
+import message from '../../assets/icons/message.svg'
 import '../../pages/Chat/chat.css';
 
 export const UserAllUsersCard = ({ elem, showRequestModal }) => {
@@ -18,7 +19,6 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
   return (
     <div className="userCardWithButton">
       <div className="userCard">
-        <div className="userCardAvatar">
           <img
             className="userCardAvatar"
             src={
@@ -28,7 +28,6 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
             }
             alt="your avatar"
           />
-        </div>
 
         <div className="userCardData">
           <p className="UserCardName">
@@ -37,6 +36,8 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
           </p>
           <p>
             {elem?.user_city}
+          </p>
+          <p>
             {user?.user_proficiency}
           </p>
             <div className="tagsContainer">
@@ -46,13 +47,19 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
                 </div>
               ))}
             </div>
-            <button onClick={onMessageClick} className="messageButton">
-              Message
-            </button>
         </div>
       </div>
-            { user?.user_id !== elem.user_id &&
-              <button onClick={()=>showRequestModal()}>Send invitation</button>}
+      <div className="buttons">
+        {/* <button onClick={onMessageClick} className="messageButton"
+        >Message </button> */}
+        <img 
+          src={message} alt="" 
+          onClick={onMessageClick}
+          className="messageIcon"
+        />
+        { user?.user_id !== elem.user_id &&
+          <button onClick={()=>showRequestModal()}>Invite</button>}
+      </div>
     </div>
   );
 };

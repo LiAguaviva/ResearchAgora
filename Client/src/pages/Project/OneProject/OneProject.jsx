@@ -35,7 +35,7 @@ export const OneProject = () => {
   useEffect(() => {
     setIsMember(members.some(member => member.user_id === user?.user_id));
   }, [members, user]);
-  
+
   const fetchOneProject = async () => {
 
     try {
@@ -60,6 +60,7 @@ export const OneProject = () => {
     fetchJoinRequest();
   }, [user, applyButton]);
 
+  console.log('---->',requests)
   const fetchJoinRequest = async () => {
     try {
       let data = {user_id: user?.user_id,

@@ -29,7 +29,10 @@ export const ProjectProfileCard = ({ elem }) => {
       </div>
 
       <div className="info infoAllProjects">
-        <h4 className="projectTitle">{elem.project_title}</h4>
+        <h4 
+          className="projectTitle"
+          onClick={() => navigate(`/oneproject/${elem.project_id}`)}
+        >{elem.project_title}</h4>
         {user?.user_id === elem?.creator_user_id ? (
           <p className="creatorResearcher">Creator</p>
         ) : (

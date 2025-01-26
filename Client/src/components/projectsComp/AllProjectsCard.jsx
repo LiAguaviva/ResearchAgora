@@ -25,7 +25,7 @@ export const AllProjectsCard = ({elem}) => {
 
         <div className='info infoAllProjects'>
         <h4 
-          className='projectTitle'
+          className='projectCardTitle'
           onClick={() => navigate(`/oneproject/${elem.project_id}`)}
         >{elem.project_title}</h4>
         
