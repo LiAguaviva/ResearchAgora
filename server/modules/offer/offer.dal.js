@@ -220,7 +220,7 @@ GROUP BY o.offer_id;
       SELECT offer.offer_id, offer.offer_title 
       FROM offer 
       WHERE offer.is_deleted = 0
-      AND offer.project_id = ?`
+      AND offer.project_id = ? AND offer.number_of_position > 0`
 
       const result = await executeQuery(sql, project_id);
       console.log('result en DAAAAALLLLL', result);

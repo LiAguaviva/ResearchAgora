@@ -87,7 +87,7 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
     }
   };
 
-  oneUserProjects = async (values) => {
+  oneUserProjects = async (user_id,inviter_id) => {
     try {
       let sql = `SELECT p.project_id, 
        p.project_title, 
@@ -97,13 +97,19 @@ GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
        CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name
 FROM project AS p
 JOIN user AS u ON p.creator_user_id = u.user_id
-JOIN user_project AS up ON p.project_id = up.project_id
+JOIN user_project AS up_inviter 
+       ON p.project_id = up_inviter.project_id  
+       AND up_inviter.user_id = ?
+LEFT JOIN user_project AS up_invited 
+       ON p.project_id = up_invited.project_id 
+       AND up_invited.user_id = ?
 WHERE p.project_is_disabled = 0 
-  AND up.user_id = ?
-  AND up.status = 2
-GROUP BY p.project_id, p.project_title, p.project_description, p.project_status, u.user_name, u.user_lastname;`
+  AND up_inviter.status = 2 
+  AND (up_invited.user_id IS NULL OR up_invited.status != 2)
+GROUP BY p.project_id, p.project_title, p.project_description, p.project_status, u.user_name, u.user_lastname;
+`
 
-      const result = await executeQuery(sql, [values]);
+      const result = await executeQuery(sql, [user_id,inviter_id]);
       return result;
     } catch (error) {
       console.log("dal error", error);

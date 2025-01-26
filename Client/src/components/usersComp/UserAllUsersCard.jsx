@@ -8,10 +8,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
 
   const { user } = useContext(AgoraContext);
   const skills = elem.skills?.split(", ");
-  const navigate = useNavigate();
-
-  console.log('elem on UserAllUsersCard', elem );
-  
+  const navigate = useNavigate();  
 
 
   const onMessageClick = () => {

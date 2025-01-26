@@ -4,7 +4,7 @@ import "./OfferCard.css";
 import { AgoraContext } from "../../../context/ContextProvider";
 import { fetchData2, fetchDataValidation } from "../../../helpers/axiosHelper";
 
-export const OfferCard = ({ elem, project, requests }) => {
+export const OfferCard = ({ elem, project, requests, isMember }) => {
   const [skill, setSkill] = useState([]);
   const { user } = useContext(AgoraContext);
   const navigate = useNavigate();
@@ -43,8 +43,6 @@ export const OfferCard = ({ elem, project, requests }) => {
       console.log(error);
     }
   };
-
-
   return (
     <div className="offerCard">
       <div className="headOffer">
@@ -108,50 +106,51 @@ export const OfferCard = ({ elem, project, requests }) => {
       </div> */}
 
 
-      <div className="buttons">
-        {user?.user_id !== project[0]?.creator_user_id &&
-          !requests.some(
-            (req) =>
-              req.user_id === user?.user_id &&
-              req.project_id === project[0]?.project_id &&
-              req.request_status === 2
-          ) &&
-          (() => {
-            if (
-              requests.some(
-                (req) =>
-                  req.offer_id === elem.offer_id && req.request_status === 0
-              )
-            ) {
-              return (
-                <button className="applied" disabled>
-                  Applied
-                </button>
-              );
-            } else if (
-              !requests.some((req) => req.offer_id === elem.offer_id) &&
-              elem.number_of_position > 0
-            ) {
-              return (
-                <button onClick={onSubmit} className="accept">
-                  Apply
-                </button>
-              );
-            }
-            return null;
-          })()}
+<div className="buttons">
+  {user?.user_id !== project[0]?.creator_user_id && !isMember && 
+    !requests.some(
+      (req) =>
+        req.user_id === user?.user_id &&
+        req.project_id === project[0]?.project_id &&
+        req.request_status === 2
+    ) &&
+    (() => {
+      if (
+        requests.some(
+          (req) =>
+            req.offer_id === elem.offer_id && req.request_status === 0
+        )
+      ) {
+        return (
+          <button className="applied" disabled>
+            Applied
+          </button>
+        );
+      } else if (
+        !requests.some((req) => req.offer_id === elem.offer_id) &&
+        elem.number_of_position > 0
+      ) {
+        return (
+          <button onClick={onSubmit} className="accept">
+            Apply
+          </button>
+        );
+      }
+      return null;
+    })()}
 
-        {user?.user_id === project[0]?.creator_user_id && (
-          <>
-            <button className="edit" onClick={editOffer}>
-              Edit
-            </button>
-            <button className="cancel" onClick={deleteOffer}>
-              Delete
-            </button>
-          </>
-        )}
-      </div>
+  {user?.user_id === project[0]?.creator_user_id && (
+    <>
+      <button className="edit" onClick={editOffer}>
+        Edit
+      </button>
+      <button className="cancel" onClick={deleteOffer}>
+        Delete
+      </button>
+    </>
+  )}
+</div>
+
 
     </div>
   );

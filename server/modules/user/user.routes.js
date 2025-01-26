@@ -24,6 +24,7 @@ router.put('/invite', userController.invite)
 router.patch('/invitationresponse', userController.invitationResponse)
 router.post('/allrequests', userController.allrequests)
 router.post('/managerequests', userController.managerequests)
+router.post('/allinvites', userController.allinvites)
 
 
 

@@ -23,13 +23,19 @@ export const OneProject = () => {
   const [offers, setOffers] = useState([]);
   // const [applyButton, setApplyButton] = useState(true);
   const [requests, setrequests] = useState([]);
+  const [isMember, setIsMember] = useState(false);
 
   const [applyButton, setApplyButton] = useState('apply');
   // const changeApplyButton = () => {
   //   if (project.request_status )
   // }
 
-
+  const memberStatus = members.some(member => member.user_id === user?.user_id);
+  
+  useEffect(() => {
+    setIsMember(members.some(member => member.user_id === user?.user_id));
+  }, [members, user]);
+  
   const fetchOneProject = async () => {
 
     try {
@@ -79,9 +85,9 @@ export const OneProject = () => {
   }
 
 
-  // console.log('PROJECT on oneproject', project);
-  // console.log('USER on oneproject', user);
-  console.log('ONE PROJECT MEMBERS', members);
+  // console.log('PROJECT on oneproject', user);
+  // console.log('Memebrs on one project', members);
+  // console.log('ONE PROJECT MEMBERS', isMember);
   
 
   return (
@@ -121,6 +127,7 @@ export const OneProject = () => {
               project={project}
               requests={requests}
               applyButton={applyButton}
+              isMember = {isMember}
              /> 
           )
         })}

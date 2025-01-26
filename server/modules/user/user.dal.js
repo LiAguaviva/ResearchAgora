@@ -267,43 +267,113 @@ class UserDal {
     }
   };
 
-  findUsersBySkills = async (skills) => {
+  // findUsersBySkills = async (skills) => {
+  //   const skillArray = skills
+  //     .replace(/[\[\]]/g, "")
+  //     .split(",") // Split by comma
+  //     .map((skill) => skill.trim());
+  //   if (skillArray.length === 0) {
+  //     throw new Error("No skills provided");
+  //   }
+  //   const placeholders = skillArray.map(() => "?").join(",");
+  //   const connection = await dbPool.getConnection();
+  //   try {
+  //     const usersSql = `SELECT DISTINCT u.*
+  //       FROM user u
+  //       JOIN user_skill us ON u.user_id = us.user_id
+  //       JOIN skill s ON us.skill_id = s.skill_id
+  //       WHERE s.skill_name IN (${placeholders})
+  //       AND us.user_skill_is_disabled = 0
+  //       AND u.user_is_disabled = 0
+  //       GROUP BY u.user_id
+  //       HAVING COUNT(DISTINCT s.skill_id) = ?;`;
+  //     const [users] = await connection.execute(usersSql, [
+  //       ...skillArray,
+  //       skillArray.length,
+  //     ]);
+  //     if (users.length === 0) {
+  //       return [];
+  //     }
+  //     const usersIds = users.map((u) => u.user_id);
+  //     const skillPlaceholders = usersIds.map(() => "?").join(",");
+  //     const skillsSql = `
+  //       SELECT us.user_id, s.skill_name
+  //       FROM user_skill us
+  //       JOIN skill s ON us.skill_id = s.skill_id
+  //       WHERE us.user_id IN (${skillPlaceholders})
+  //         AND us.user_skill_is_disabled = 0;
+  //       `;
+  //     const [skillResult] = await connection.execute(skillsSql, usersIds);
+  //     const usersMap = users.map((user) => ({
+  //       ...user,
+  //       skills: skillResult
+  //         .filter((s) => s.user_id === user.user_id)
+  //         .map((s) => s.skill_name)
+  //         .join(", "),
+  //     }));
+  //     return usersMap;
+  //   } catch (error) {
+  //     throw error;
+  //   } finally {
+  //     connection.release();
+  //   }
+  // };
+
+  findUsersBySkills = async (skills, name) => {
     const skillArray = skills
+      ? skills
       .replace(/[\[\]]/g, "")
-      .split(",") // Split by comma
-      .map((skill) => skill.trim());
-    if (skillArray.length === 0) {
-      throw new Error("No skills provided");
+      .split(",")
+      .map((skill) => skill.trim()).filter((skill) => skill.length > 0)
+      : [];
+  
+    const hasSkills = skillArray.length > 0;
+    const hasName = name && name.trim().length > 0;
+    if (!hasSkills && !hasName) {
+      return [];
     }
-    const placeholders = skillArray.map(() => "?").join(",");
+  
+    const placeholders = hasSkills ? skillArray.map(() => "?").join(",") : null;
     const connection = await dbPool.getConnection();
+  
     try {
-      const usersSql = `SELECT DISTINCT u.*
+      const usersSql = `
+        SELECT DISTINCT u.*
         FROM user u
-        JOIN user_skill us ON u.user_id = us.user_id
-        JOIN skill s ON us.skill_id = s.skill_id
-        WHERE s.skill_name IN (${placeholders})
-        AND us.user_skill_is_disabled = 0
-        AND u.user_is_disabled = 0
+        LEFT JOIN user_skill us ON u.user_id = us.user_id
+        LEFT JOIN skill s ON us.skill_id = s.skill_id
+        WHERE u.user_is_disabled = 0
+        ${hasSkills ? `AND s.skill_name IN (${placeholders})` : ""}
+        ${hasName ? `AND u.user_name LIKE CONCAT('%', ?, '%')` : ""}
         GROUP BY u.user_id
-        HAVING COUNT(DISTINCT s.skill_id) = ?;`;
-      const [users] = await connection.execute(usersSql, [
-        ...skillArray,
-        skillArray.length,
-      ]);
+        ${hasSkills ? "HAVING COUNT(DISTINCT s.skill_id) = ?" : ""};
+      `;
+  
+      const queryParams = [
+        ...(hasSkills ? skillArray : []),
+        ...(hasName ? [name] : []),
+        ...(hasSkills ? [skillArray.length] : [])
+      ];
+  
+      const [users] = await connection.execute(usersSql, queryParams);
       if (users.length === 0) {
         return [];
       }
+  
       const usersIds = users.map((u) => u.user_id);
+      if (usersIds.length === 0) return users;
+  
       const skillPlaceholders = usersIds.map(() => "?").join(",");
       const skillsSql = `
         SELECT us.user_id, s.skill_name
         FROM user_skill us
         JOIN skill s ON us.skill_id = s.skill_id
         WHERE us.user_id IN (${skillPlaceholders})
-          AND us.user_skill_is_disabled = 0;
-        `;
+        AND us.user_skill_is_disabled = 0;
+      `;
+  
       const [skillResult] = await connection.execute(skillsSql, usersIds);
+  
       const usersMap = users.map((user) => ({
         ...user,
         skills: skillResult
@@ -311,13 +381,16 @@ class UserDal {
           .map((s) => s.skill_name)
           .join(", "),
       }));
+  
       return usersMap;
+  
     } catch (error) {
       throw error;
     } finally {
       connection.release();
     }
   };
+  
 
   invite = async (values) => {
     const {sender_id, receiver_id, project_id, offer_id, project_title, offer_title} = values;
@@ -344,16 +417,72 @@ class UserDal {
   }
  
      
-  invitationResponse = async(values) =>{
-   const {invitation_id, invitation_status} = values;
-   
-     try {
-       let sql = 'UPDATE invitation SET invitation_status = ? WHERE invitation_id = ?'
-       await executeQuery(sql, [invitation_status, invitation_id])
-     } catch (error) {
-       throw error;
-     }
-  }
+  // invitationResponse = async (values) => {
+  //   const { invitation_id, invitation_status, user_id, project_id } = values;
+  
+  //   try {
+  //     // Actualizar el estado de la invitación
+  //     let sql = "UPDATE invitation SET invitation_status = ? WHERE invitation_id = ?";
+  //     await executeQuery(sql, [invitation_status, invitation_id]);
+  
+  //     // Si la invitación es aceptada, insertar en user_project
+  //     if (invitation_status === 1) {
+  //       let insertSql = `
+  //         INSERT INTO user_project (user_id, project_id, status)
+  //         VALUES (?, ?, 2)
+  //         ON DUPLICATE KEY UPDATE status = 2;
+  //       `;
+  //       await executeQuery(insertSql, [user_id, project_id]);
+  //     }
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
+
+  invitationResponse = async (values, invitation_status) => {
+    const connection = await dbPool.getConnection();
+    const { invitation_id, user_id, project_id, offer_id } = values;
+    console.log('Hola -->', invitation_id, user_id, project_id, offer_id ,invitation_status)
+
+    try {
+        await connection.beginTransaction();
+
+        // Actualizar el estado de la invitación
+        let sqlUpdateInvitation = "UPDATE invitation SET invitation_status = ? WHERE invitation_id = ?";
+        await connection.execute(sqlUpdateInvitation, [invitation_status, invitation_id]);
+
+        if (invitation_status === 1) { // Si la invitación es aceptada
+            // Insertar en user_project con estado 2 (miembro del proyecto)
+            let sqlInsertUserProject = `
+                INSERT INTO user_project (user_id, project_id, status)
+                VALUES (?, ?, 2)
+                ON DUPLICATE KEY UPDATE status = 2;
+            `;
+            await connection.execute(sqlInsertUserProject, [user_id, project_id]);
+
+            // Si hay una oferta asociada, reducir el número de posiciones disponibles
+            if (offer_id) {
+                let sqlGetOffer = "SELECT number_of_position FROM offer WHERE offer_id = ?";
+                const [offer] = await connection.execute(sqlGetOffer, [offer_id]);
+
+                if (offer.length > 0 && offer[0].number_of_position > 0) {
+                    let updatedPositions = offer[0].number_of_position - 1;
+                    let sqlUpdateOffer = "UPDATE offer SET number_of_position = ? WHERE offer_id = ?";
+                    await connection.execute(sqlUpdateOffer, [updatedPositions, offer_id]);
+                }
+            }
+        }
+
+        await connection.commit();
+    } catch (error) {
+        await connection.rollback();
+        throw error;
+    } finally {
+        connection.release();
+    }
+};
+
+  
 
   allUsers = async (values) => {
     try {
@@ -403,9 +532,9 @@ class UserDal {
   p.project_title AS project_name, 
   o.offer_title AS offer_title, 
   r.request_status AS status,
-  u.user_avatar AS user_image,  -- Trae la imagen del usuario
-  p.project_id AS project_id,   -- Incluye el project_id
-  o.offer_id AS offer_id        -- Incluye el offer_id
+  u.user_avatar AS user_image,
+  p.project_id AS project_id,
+  o.offer_id AS offer_id 
 FROM request r
 JOIN user u ON r.user_id = u.user_id
 JOIN project p ON r.project_id = p.project_id
@@ -417,6 +546,32 @@ WHERE p.creator_user_id = ? AND r.request_status = 0;
 `;
 const result = await executeQuery(sql, [user_id]);
 return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  allinvites = async(user_id) => {
+    try {
+      let sql = `SELECT 
+    MIN(i.invitation_id) AS invitation_id,
+    i.receiver_id,
+    i.sender_id,
+    u.user_name AS sender_name,  
+    i.project_id,
+    i.offer_id,
+    p.project_title,
+    o.offer_title
+FROM invitation i
+JOIN project p ON i.project_id = p.project_id
+JOIN offer o ON i.offer_id = o.offer_id
+JOIN user u ON i.sender_id = u.user_id  -- Relacionamos con la tabla de usuarios
+WHERE i.receiver_id = ? 
+AND i.invitation_status = 0
+GROUP BY i.receiver_id, i.sender_id, u.user_name, i.project_id, i.offer_id, p.project_title, o.offer_title;
+`;
+      const result = await executeQuery(sql, [user_id]);
+      return result;
     } catch (error) {
       throw error;
     }

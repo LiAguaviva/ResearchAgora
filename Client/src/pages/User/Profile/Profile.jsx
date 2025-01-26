@@ -18,6 +18,7 @@ export const Profile = () => {
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [requests, setrequests] = useState([]);
+  const [invites, setInvites] = useState([]);
   const [show,setShow]= useState(false);
 
   const fetchProjects = async () => {
@@ -33,6 +34,16 @@ export const Profile = () => {
       console.log(error);
     }
   };
+
+  const fetchInvitations = async () => {
+    try {
+      let data = {user_id: user?.user_id}
+      const result = await fetchDataValidation('http://localhost:4000/api/user/allinvites', 'post', data);
+      setInvites(result)
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const fetchJoinRequest = async () => {
     try {
@@ -53,6 +64,7 @@ export const Profile = () => {
     if (user?.user_id) {
       fetchProjects();
       fetchJoinRequest();
+      fetchInvitations();
     }
   }, [user]);
   console.log('---->',projects)
@@ -64,6 +76,17 @@ export const Profile = () => {
       window.location.reload();
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  const updateInvite = async(elem,value) => {
+    try {
+      let data = {invitation_id: elem.invitation_id, invitation_status: value, user_id: elem.receiver_id, project_id: elem.project_id, offer_id: elem.offer_id}
+      const result = await fetchDataValidation('http://localhost:4000/api/user/invitationResponse', 'patch', data);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+      
     }
   }
   return (
@@ -127,6 +150,38 @@ export const Profile = () => {
         </div>
       </div>
      </section>
+
+      {invites.length && 
+     <section>
+      <div className="containerPpal ProfileProjects">
+        <h3>Invitations</h3>
+        <div className="projectsGallery">
+          {invites?.map((elem) => {
+            return (
+              <>
+                <img
+                  src={`http://localhost:4000/images/useravatar/${elem.user_image}`}
+                  alt=""
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                  }}
+                  />
+
+                <span>{elem.sender_name} invited you to Join</span>
+                <span>{elem.project_title} in the offer</span>
+                <span>{elem.offer_title}</span>
+                <button onClick={() => updateInvite(elem,1)}>✅</button>
+                <button onClick={() => updateInvite(elem,2)}>❌</button>
+              </>
+            );
+          })}
+        </div>
+      </div>
+     </section>
+    }
     
 
 

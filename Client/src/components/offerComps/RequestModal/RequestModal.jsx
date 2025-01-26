@@ -1,68 +1,87 @@
-import  { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './RequestModal.css'
 import { useNavigate } from 'react-router-dom'
 import { AgoraContext } from '../../../context/ContextProvider';
 import { fetchDataValidation } from '../../../helpers/axiosHelper';
 
-
-
-export const RequestModal = ({showRequestModal}) => {
-
+export const RequestModal = ({ showRequestModal, selectedUserId }) => {
   const [projects, setProjects] = useState([]);
-  const navigate = useNavigate();
-  const {user} = useContext(AgoraContext)
   const [selectedProject, setSelectedProject] = useState(null);
   const [offers, setOffers] = useState([]);
+  const [selectedOffer, setSelectedOffer] = useState(null);
+  const navigate = useNavigate();
+  const { user } = useContext(AgoraContext);
 
   const handleProjectChange = async (event) => {
     const projectId = event.target.value;
     setSelectedProject(projectId);
-
-    // console.log('project on reques HANDLECHANGE', projectId);
-    
+    setSelectedOffer(null); // Reiniciar oferta seleccionada al cambiar de proyecto
 
     try {
       const response = await fetchDataValidation(`http://localhost:4000/api/offer/offersbyproject/${projectId}`, 'get');
-
-      // console.log('response on fetchDataValidation', response);
       setOffers(response);
-      
     } catch (error) {
-      // console.error('Error fetching offers:', error);
+      console.log('Error fetching offers:', error);
     }
   };
-  
-  // const closeModal = () => {
-    // showRequestModal()
-    // navigate('/allusers');
-  // }
 
-  const fetchProjects = async() => {
+  const handleOfferChange = (event) => {
+    setSelectedOffer(event.target.value);
+  };
+
+  const fetchProjects = async () => {
     try {
-      let data = {user_id: user?.user_id}
-      const result = await fetchDataValidation(`http://localhost:4000/api/project/oneuserprojects`,'post', data);
-      setProjects(result)
+      let data = {
+        user_id: user?.user_id,
+        inviter_id: selectedUserId
+      };
+      const result = await fetchDataValidation(`http://localhost:4000/api/project/oneuserprojects`, 'post', data);
+      setProjects(result);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
     if (user?.user_id) {
       fetchProjects();
     }
-  },[user])
+  }, [user]);
 
-  // console.log('projects on REQUESTMODAL', projects);
-  // console.log('offers on REQUESTMODAL', offers);
-  
-  
+  const sendinvite = async () => {
+    if (!selectedProject || !selectedOffer) {
+      alert('Please select both a project and an offer.');
+      return;
+    }
+
+    const project = projects.find((p) => p.project_id == selectedProject);
+    const offer = offers.find((o) => o.offer_id == selectedOffer);
+
+    let data = {
+      sender_id: user?.user_id,
+      receiver_id: selectedUserId,
+      project_id: selectedProject,
+      offer_id: selectedOffer,
+      project_title: project?.project_title || '',
+      offer_title: offer?.offer_title || ''
+    };
+    console.log(data);
+    
+
+    try {
+      await fetchDataValidation(`http://localhost:4000/api/user/invite`, 'put', data);
+      window.location.reload();
+    } catch (error) {
+      console.log('Error sending invite:', error);
+    }
+  };
+
   return (
-    <div className='modalContainer'>
-    <form className='formApp requestModal'>
-    <fieldset>
-        <label htmlFor="project">Project</label>
-        <select className='selectModal' onChange={handleProjectChange}>
+    <div className="modalContainer">
+      <form className="formApp requestModal">
+        <fieldset>
+          <label htmlFor="project">Project</label>
+          <select className="selectModal" onChange={handleProjectChange} value={selectedProject || ''}>
             <option value="">Select a project</option>
             {projects?.map((project) => (
               <option key={project?.project_id} value={project?.project_id}>
@@ -70,10 +89,10 @@ export const RequestModal = ({showRequestModal}) => {
               </option>
             ))}
           </select>
-      </fieldset>
-    <fieldset>
-        <label htmlFor="project">Offer</label>
-        <select className='selectModal'>
+        </fieldset>
+        <fieldset>
+          <label htmlFor="offer">Offer</label>
+          <select className="selectModal" onChange={handleOfferChange} value={selectedOffer || ''}>
             <option value="">Select an offer</option>
             {offers?.map((offer) => (
               <option key={offer?.offer_id} value={offer?.offer_id}>
@@ -81,13 +100,17 @@ export const RequestModal = ({showRequestModal}) => {
               </option>
             ))}
           </select>
-      </fieldset>
+        </fieldset>
 
-     <div className='buttons'>
-      <button className='accept'>Send</button>
-      <button className='cancel' onClick={()=>showRequestModal()}>Cancel</button>
-      </div>
-    </form>
+        <div className="buttons">
+          <button type="button" className="accept" onClick={sendinvite}>
+            Send
+          </button>
+          <button type="button" className="cancel" onClick={() => showRequestModal()}>
+            Cancel
+          </button>
+        </div>
+      </form>
     </div>
-  )
-}
+  );
+};

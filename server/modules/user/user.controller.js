@@ -248,9 +248,9 @@ class UserController {
       }
 
       findUsersBySkills = async (req, res) => {
-        const {skills} = req.body;
+        const {skills,name} = req.body;
         try {
-          const result = await userDal.findUsersBySkills(skills);
+          const result = await userDal.findUsersBySkills(skills,name);
           res.status(200).json(result);
           
         } catch (error) {
@@ -281,9 +281,10 @@ class UserController {
       }
 
       invitationResponse = async(req,res) => {
-          const values = req.body;
+          const {invitation_id, user_id, project_id, offer_id ,invitation_status} = req.body;
+          const values = {invitation_id, user_id, project_id, offer_id };
         try {
-           await userDal.invitationResponse(values)
+           await userDal.invitationResponse(values,invitation_status)
            res.status(200).json('ok')
         } catch (error) {
                  
@@ -306,6 +307,16 @@ class UserController {
           const {user_id} = req.body;
           const result = await userDal.managerequests(user_id);
           console.log('REQUESTS BACKKSIDE', result)
+          res.status(200).json(result)
+        } catch (error) {
+          res.status(500).json(error);
+        }
+      }
+
+      allinvites = async(req,res) => {
+        try {
+          const {user_id} = req.body;
+          const result = await userDal.allinvites(user_id);
           res.status(200).json(result)
         } catch (error) {
           res.status(500).json(error);

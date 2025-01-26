@@ -31,10 +31,9 @@ class ProjectController {
     }
 
     oneuserprojects = async (req, res) => {
-      const {user_id} = req.body;
-      // console.log('user_id -----> ',user_id);
+      const {user_id, inviter_id} = req.body;
       try {
-        const result = await projectDal.oneUserProjects(user_id);
+        const result = await projectDal.oneUserProjects(user_id,inviter_id);
         res.status(200).json(result)
 
       } catch (error) {
