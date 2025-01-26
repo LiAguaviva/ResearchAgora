@@ -12,6 +12,7 @@ import { UserCard } from "../../../components/usersComp/UserCard";
 import axios from "axios";
 import './Profile.css'
 import { RequestCard } from '../../../components/usersComp/RequestCard/RequestCard'
+import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvitationCard'
 
 
 export const Profile = () => {
@@ -122,7 +123,8 @@ export const Profile = () => {
         </button>
     </section>
 
-    <section className="containerPpal requestSection">
+    {requests.length > 0 &&
+      <section className="containerPpal requestSection">
         <h3>You have requests to join on your projects!</h3>
         <div className="requestGallery">
           {requests?.map((elem) => {
@@ -131,37 +133,18 @@ export const Profile = () => {
             );
           })}
         </div>
-     </section>
+     </section>}
 
     {invites.length > 0 && 
-     <section>
-      <div className="containerPpal ProfileProjects">
+     <section  className="containerPpal invitatiosSection">
         <h3>Invitations</h3>
-        <div className="projectsGallery">
+        <div className="invitationsGallery">
           {invites?.map((elem) => {
             return (
-              <>
-                <img
-                  src={`http://localhost:4000/images/useravatar/${elem.user_image}`}
-                  alt=""
-                  style={{
-                    width: "100px",
-                    height: "100px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                  }}
-                  />
-
-                <span>{elem.sender_name} invited you to Join</span>
-                <span>{elem.project_title} in the offer</span>
-                <span>{elem.offer_title}</span>
-                <button onClick={() => updateInvite(elem,1)}>✅</button>
-                <button onClick={() => updateInvite(elem,2)}>❌</button>
-              </>
+                <ProjectInvitationCard elem={elem} />
             );
           })}
         </div>
-      </div>
      </section>
     }
     

@@ -52,13 +52,16 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
       <div className="buttons">
         {/* <button onClick={onMessageClick} className="messageButton"
         >Message </button> */}
-        <img 
-          src={message} alt="" 
-          onClick={onMessageClick}
-          className="messageIcon"
-        />
         { user?.user_id !== elem.user_id &&
-          <button onClick={()=>showRequestModal()}>Invite</button>}
+          <>
+            <img 
+              src={message} alt="" 
+              onClick={onMessageClick}
+              className="messageIcon"
+            />
+          <button onClick={()=>showRequestModal()}>Invite</button>
+          </>
+        }
       </div>
     </div>
   );

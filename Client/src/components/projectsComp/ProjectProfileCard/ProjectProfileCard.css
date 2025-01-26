@@ -9,21 +9,9 @@
 
     display: flex;
     /* align-items: center; */
-    gap: var(--size1);
+    /* gap: var(--size1); */
 
-    .profileProjectImg{
-      --imgSize: 6rem;
-  
-      object-fit: cover;
-      border-radius: 100%;
-      width: var(--imgSize);
-      height: var(--imgSize);
-      cursor: pointer;
-  
-      &:hover {
-        filter: brightness(1.03);
-      }
-    }
+   
 
     .infoProfile {
       gap: var(--size02);
@@ -65,4 +53,18 @@
       }
     }
 
+}
+
+.profileProjectImg{
+  --imgSize: 6rem;
+
+  object-fit: cover;
+  border-radius: 100%;
+  width: var(--imgSize);
+  height: var(--imgSize);
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(1.03);
+  }
 }

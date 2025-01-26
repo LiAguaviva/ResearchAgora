@@ -15,20 +15,18 @@ export const ProjectProfileCard = ({ elem }) => {
 
   return (
     <div className="projectProfileCard">
-      <div className="profileProjectImg">
       <img
         onClick={() => navigate(`/oneproject/${elem.project_id}`)}
         className="profileProjectImg"
         src={
-          user?.project
-            ? `${url}/images/users/${user.avatar}`
+          project?.image
+            ? `${url}/images/users/${project.image}`
             : projectDefaultIMG
         }
-        alt="your avatar"
+        alt="project image"
       />
-      </div>
 
-      <div className="info infoAllProjects">
+      <div className="info">
         <h4 
           className="projectTitle"
           onClick={() => navigate(`/oneproject/${elem.project_id}`)}

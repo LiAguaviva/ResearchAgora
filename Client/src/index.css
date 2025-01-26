@@ -34,20 +34,23 @@ body, button, textarea {
 /* TITLE WEBSITE */
 h1 { 
   font-size: var(--textL1);
+  margin-inline: auto;
 }
 /* TITLE PAGE */
 h2 {
   font-size: var(--textL2);
-  color: var(--purple);
 }
 /* TITLE SECTION */
 h3 {
   font-size: var(--textM1);
-  color: var(--purple);
 }
 /* TITLE COMPONENT */
 h4 {
   font-size: var(--textM2);
+}
+
+h1, h2, h3, h4 {
+  width: max-content;
   color: var(--purple);
 }
 
