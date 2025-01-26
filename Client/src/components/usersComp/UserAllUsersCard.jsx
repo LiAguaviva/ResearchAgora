@@ -34,11 +34,11 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
             {" "}
             {elem?.user_name} {elem?.user_lastname}
           </p>
-          <p>
+          {/* <p>
             {elem?.user_city}
-          </p>
+          </p> */}
           <p>
-            {user?.user_proficiency}
+           {user?.user_proficiency}
           </p>
             <div className="tagsContainer">
               {skills?.map((skill, index) => (

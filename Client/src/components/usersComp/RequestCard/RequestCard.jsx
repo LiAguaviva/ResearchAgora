@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import check from '../../../assets/icons/check-circle.svg'
 import reject from '../../../assets/icons/reject-circle.svg'
 
-export const RequestCard = ({elem}) => {
+export const RequestCard = ({elem, updateRequest}) => {
 
   console.log('elem requestCard', elem);
   const navigate = useNavigate()

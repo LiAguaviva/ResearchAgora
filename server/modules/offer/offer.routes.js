@@ -8,9 +8,9 @@ router.put('/deleteoffer/:offer_id', offerController.deleteOffer)
 router.post('/findofferbyskill', offerController.findOfferBySkill)
 router.get('/offersbyproject/:project_id', offerController.offersByProject)
 router.post('/joinrequest', offerController.joinRequest)
-router.post('/editoffer', offerController.editoffer)
+//router.post('/editoffer', offerController.editoffer)
+router.get('/oneoffer/:offer_id', offerController.oneOffer)
+router.put('/updateoffer/:offer_id', offerController.updateOffer)
 
-
-
-// router.put('/editoffer', offerContro ller.editoffer)  ///for future use
+// router.put('/editoffer', offerController.editoffer)  ///for future use
 export default router

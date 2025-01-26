@@ -129,7 +129,10 @@ export const Profile = () => {
         <div className="requestGallery">
           {requests?.map((elem) => {
             return (
-              <RequestCard elem={elem} />
+              <RequestCard 
+                elem={elem} 
+                updateRequest={updateRequest}
+              />
             );
           })}
         </div>
@@ -141,7 +144,10 @@ export const Profile = () => {
         <div className="invitationsGallery">
           {invites?.map((elem) => {
             return (
-                <ProjectInvitationCard elem={elem} />
+                <ProjectInvitationCard 
+                  elem={elem} 
+                  updateInvite={updateInvite}
+                />
             );
           })}
         </div>
@@ -151,15 +157,19 @@ export const Profile = () => {
 
 
     
-    {show && 
+    
      <div>
       <section>
           <div className="containerPpal">
             <button onClick={() => setShow(!show)}>{!show?"Write a review":null}</button>
-            <StatsRadarChart />
+            {show && <ReviewModal
+               show = {show}
+               setShow = {setShow}
+               user_id = {user_id} />
+            }
           </div>
       </section>
-    </div>}
+    </div>
 
 
      

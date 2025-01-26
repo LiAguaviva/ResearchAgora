@@ -82,21 +82,63 @@ deleteOffer =  async (req,res)=>{
     }
   }
 
-  editoffer = async(req, res) => {
+  /* editoffer = async(req, res) => {
     console.log('editoffer req.body', req.body);
 
     try {
-      // const {id, }
+      
+
+    } catch (error) {
+      res.status(500).json(error)  
+    }
+  } */
+
+
+
+  oneOffer = async(req,res) => {
+      const {offer_id} = req.params;
+
+    try {
+     const result = await offerDal.oneOffer(offer_id); 
+     console.log("result",result);
+     res.status(200).json(result)
+     
 
     } catch (error) {
       res.status(500).json(error)
-      console.log('editoffer ERROR', error);
-      
+      console.log('ONEOFFER', error);  
     }
-    
   }
 
+  updateOffer = async(req,res) => {
+    try{
+      const {offer_id, offer_title, number_of_position, offer_description, is_deleted,  project_id, skill} = req.body;
+      const values = {offer_id, offer_title, number_of_position, offer_description,  is_deleted, project_id, skill}; 
+         console.log("req body*********************", req.body );
+   
 
+     const result = await offerDal.updateOffer(values) 
+     const result2 = await this.editSkill(skill, offer_id)
+     res.status(200).json(result);
+   
+     }catch(error){
+      console.log('updateOffer', error)
+       res.status(500).json(error)
+     }
+   }
+
+    editSkill = async (data, id) => {
+          try {
+            const dataArray = data.split(','); 
+            let finalArrayData = dataArray.map(e => e.trim())
+            let result = await offerDal.editSkill(id, finalArrayData)
+            console.log("^^^^^^", id);
+            console.log("&&&&&&", data);            
+            return result;
+          } catch (error) {
+             throw error;
+          }
+        }
 
 
 }

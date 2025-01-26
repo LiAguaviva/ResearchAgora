@@ -76,8 +76,6 @@ export const OneProject = () => {
       } if(result[0].request_status === 3){
         setApplyButton('notSelected')
       } */
-      // console.log('apply button', applyButton);
-      // console.log('result.request_status', result[0].request_status);
       setrequests(result);
       
     } catch (error) {
@@ -86,9 +84,9 @@ export const OneProject = () => {
   }
 
 
-  // console.log('PROJECT on oneproject', user);
-  // console.log('Memebrs on one project', members);
-  // console.log('ONE PROJECT MEMBERS', isMember);
+
+  console.log('ONE PROJECT MEMBERS', members);
+  console.log("OFFERSSS", offers);
   
 
   return (

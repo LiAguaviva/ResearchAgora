@@ -160,8 +160,8 @@ class UserController {
           img= req.file.filename
       }
       try {
-        const {user_name, user_lastname, user_country, user_city, user_description, skills, fields, user_id} = data; //req.body.data
-        const result = await  userDal.editUser([user_name, user_lastname, user_country, user_city, user_description, user_id], req.file);
+        const {user_name, user_lastname, user_country, user_city, user_description, user_proficiency, user_current_lab, user_current_boss, skills, fields, user_id} = data; //req.body.data
+        const result = await  userDal.editUser([user_name, user_lastname, user_country, user_city, user_description, user_proficiency, user_current_lab, user_current_boss, user_id], req.file);
         if(skills != "" || !skills){
           const results = await this.saveTags(skills, user_id, 'skill');
         }

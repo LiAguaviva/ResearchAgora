@@ -4,7 +4,7 @@ import check from '../../assets/icons/check-circle.svg'
 import reject from '../../assets/icons/reject-circle.svg'
 
 
-export const ProjectInvitationCard = ({elem}) => {
+export const ProjectInvitationCard = ({elem, updateInvite}) => {
   return (
     <div className='invitationCard'>
     <img

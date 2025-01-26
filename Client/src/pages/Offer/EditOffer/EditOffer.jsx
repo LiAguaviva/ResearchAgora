@@ -1,7 +1,11 @@
 import React from 'react'
+import { EditOfferCard } from '../../../components/offerComps/EditOfferCard/EditOfferCard'
 
 export const EditOffer = () => {
+  
   return (
-    <div>EditOffer</div>
+    <div className='containerPpal'>
+      <EditOfferCard />
+     </div>
   )
 }

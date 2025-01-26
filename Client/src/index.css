@@ -119,10 +119,14 @@ button {
   }
 }
 
-.applied, .edit {
+.applied {
+  background-color: var(--mandarina);
+}
+
+.edit {
   background-color: var(--mandarina);
   &:hover {
-    background-color: var(--mandarina);
+    background-color: var(--aqua);
   }
 }
 

@@ -16,15 +16,35 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
   const deleteOffer = async () => {
     try {
       await fetchData2(`offer/deleteoffer/${elem.offer_id}`, "put");
-      window.location.reload();
+      let result = await fetchData2(
+        `offer/deleteoffer/${elem.offer_id}`,
+        "put"
+      );
+      window.location.reload()();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const editOffer = (e) => {
+  const editOffer = async (e) => {
     e.preventDefault();
-  };
+    navigate(`/edit/${elem.offer_id}`)
+    
+  }
+
+  /* const onSubmit = async (e) => {
+    try {
+      let data = {
+        offer_id: elem.offer_id,
+        user_id: user?.user_id,
+        project_id: project[0].project_id,
+      };
+      let joinrequest = await fetchData2(`offer/joinrequest`, "post", data);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  }; */
 
   const onSubmit = async () => {
     try {
@@ -44,6 +64,8 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
   const userRequest = requests.find(
     (req) => req.user_id === user?.user_id && req.offer_id === elem.offer_id
   );
+  console.log("ELEM", elem);
+  
 
   return (
     <div className="offerCard">
@@ -67,79 +89,37 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
         <p>No skills required</p>
       )}
 
-     {/* <div className='buttons'>
-     {user?.user_id !== project[0]?.creator_user_id && 
-       applyButton === 'apply' &&
-          <button 
-            onClick={onSubmit}
-            className='accept'
-          >Apply</button>}
 
-     {user?.user_id !== project[0]?.creator_user_id && 
-       applyButton === 'applied' &&
-          <button 
-            // onClick={onSubmit}
-            className='applied'
-          >Applied</button>}
+      <div className="buttons">
+        {user?.user_id !== project[0]?.creator_user_id && !isMember && (
+          <>
+            {userRequest?.request_status === 0 ? (
+              <button className="applied" disabled>
+                Applied
+              </button>
+            ) : userRequest?.request_status === 2 ? (
+              <button className="disabled" disabled>
+                Rejected
+              </button>
+            ) : elem.number_of_position > 0 ? (
+              <button onClick={onSubmit} className="accept">
+                Apply
+              </button>
+            ) : null}
+          </>
+        )}
+      </div>
 
-     {user?.user_id !== project[0]?.creator_user_id && 
-       applyButton === 'teamMember' &&
-          <button 
-            // onClick={onSubmit}
-            className='disabled'
-          >Team Member</button>}
-
-     {user?.user_id !== project[0]?.creator_user_id && 
-       applyButton === 'notSelected' &&
-          <button 
-            // onClick={onSubmit}
-            className='disabled'
-          >Not selected</button>}
-
-      {user?.user_id === project[0]?.creator_user_id &&
-        <button 
-          className='accept'
-          // onClick={editOffer}
-      >edit</button>}
-
-      {user?.user_id === project[0]?.creator_user_id &&
-        <button 
-          className='cancel'
-          // onClick={deleteOffer}
-      >Delete</button>}
-      </div> */}
-
-
-<div className="buttons">
-  {user?.user_id !== project[0]?.creator_user_id && !isMember && (
-    <>
-      {userRequest?.request_status === 0 ? (
-        <button className="applied" disabled>
-          Applied
-        </button>
-      ) : userRequest?.request_status === 2 ? (
-        <button className="disabled" disabled>
-          Rejected
-        </button>
-      ) : elem.number_of_position > 0 ? (
-        <button onClick={onSubmit} className="accept">
-          Apply
-        </button>
-      ) : null}
-    </>
-  )}
-
-  {user?.user_id === project[0]?.creator_user_id && (
-    <>
-      <button className="edit" onClick={editOffer}>
-        Edit
-      </button>
-      <button className="cancel" onClick={deleteOffer}>
-        Delete
-      </button>
-    </>
-  )}
-</div>
+        {user?.user_id === project[0]?.creator_user_id && (
+          <div className="buttons">
+            <button className="edit" 
+            onClick={editOffer}
+            >Edit</button>
+            
+            <button className="cancel" onClick={deleteOffer}
+            >Delete</button>
+          </div>
+        )}
 
     </div>
   );

@@ -44,13 +44,15 @@ class UserDal {
   };
 
   editUser = async (values, file) => {
+    console.log("==============", values);
+    
     let sql =
-      "UPDATE user SET user_name = ?, user_lastname = ?, user_country = ?, user_city = ?, user_description = ? WHERE user_id = ?";
+      "UPDATE user SET user_name = ?, user_lastname = ?, user_country = ?, user_city = ?, user_description = ?, user_proficiency = ?, user_current_lab = ?, user_current_boss = ? WHERE user_id = ?";
 
     if (file) {
       sql =
-        "UPDATE user SET user_name = ?, user_lastname = ?, user_country = ?, user_city = ?, user_description = ?, user_avatar = ? WHERE user_id = ?";
-      values.splice(5, 0, file.filename);
+        "UPDATE user SET user_name = ?, user_lastname = ?, user_country = ?, user_city = ?, user_description = ?, user_proficiency = ?, user_current_lab = ?, user_current_boss = ?, user_avatar = ? WHERE user_id = ?";
+      values.splice(8, 0, file.filename);
     }
     try {
       const result = await executeQuery(sql, values);
