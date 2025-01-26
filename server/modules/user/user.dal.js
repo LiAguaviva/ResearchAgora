@@ -58,7 +58,9 @@ class UserDal {
       const result = await executeQuery(sql, values);
       return result;
     } catch (error) {
+      console.log(error);
       throw error;
+      
     }
   };
 

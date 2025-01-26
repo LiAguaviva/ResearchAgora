@@ -156,10 +156,6 @@ export const Profile = () => {
      </section>
     }
     
-
-
-    
-    
      <div>
       <section>
           <div className="containerPpal">
@@ -167,23 +163,11 @@ export const Profile = () => {
             {show && <ReviewModal
                show = {show}
                setShow = {setShow}
-               user_id = {user_id} />
+               user_id = {researcher.user_id} />
             }
           </div>
       </section>
     </div>
-
-
-     
-
-
-      {/* <section>
-      <div className='containerPpal'>
-        <div className='reviewGallery'>
-          <ReviewModal show = {show} setShow = {setShow} />
-        </div>
-      </div>
-    </section> */}
 
     </>
   );

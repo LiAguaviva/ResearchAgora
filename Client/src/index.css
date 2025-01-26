@@ -221,3 +221,8 @@ ul {
     filter: brightness(1.2);
   }
 }
+
+.bold {
+  font-weight: bold;
+  color: var(--aqua);
+}

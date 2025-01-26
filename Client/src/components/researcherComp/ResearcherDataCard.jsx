@@ -37,9 +37,10 @@ export const ResearcherDataCard = ({researcher}) => {
             className="messageIcon"
           />
           </div>
-          <p>Current Laboratory: {researcher?.user_current_lab}</p>
-          <p>Current Laboratory Head: {researcher?.user_current_boss}</p>
-          <p>Proficiency: {researcher?.user_proficiency}</p> 
+          <h4>Career</h4>
+          <p><span className='bold'>Current Laboratory: </span> {researcher?.user_current_lab}</p>
+          <p><span className='bold'>Current Laboratory Head: </span> {researcher?.user_current_boss}</p>
+          <p><span className='bold'>Proficiency: </span> {researcher?.user_proficiency}</p> 
           <ResearcherTagsCard researcher={researcher} />
         </div>
       </div>  
