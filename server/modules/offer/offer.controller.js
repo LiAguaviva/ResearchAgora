@@ -112,19 +112,33 @@ deleteOffer =  async (req,res)=>{
 
   updateOffer = async(req,res) => {
     try{
-       const {offer_id, offer_title, offer_description, number_of_position, is_deleted,  project_id, skill} = req.body;
-      const values = [offer_id, offer_title, offer_description, number_of_position, is_deleted, project_id, skill]; 
-   console.log("req body*********************", req.body );
+      const {offer_id, offer_title, number_of_position, offer_description, is_deleted,  project_id, skill} = req.body;
+      const values = {offer_id, offer_title, number_of_position, offer_description,  is_deleted, project_id, skill}; 
+         console.log("req body*********************", req.body );
    
 
-     const result = await offerDal.createOffer(values) 
-     res.status(200).json("dal ok");
+     const result = await offerDal.updateOffer(values) 
+     const result2 = await this.editSkill(skill, offer_id)
+     res.status(200).json(result);
    
      }catch(error){
       console.log('updateOffer', error)
        res.status(500).json(error)
      }
    }
+
+    editSkill = async (data, id) => {
+          try {
+            const dataArray = data.split(','); 
+            let finalArrayData = dataArray.map(e => e.trim())
+            let result = await offerDal.editSkill(id, finalArrayData)
+            console.log("^^^^^^", id);
+            console.log("&&&&&&", data);            
+            return result;
+          } catch (error) {
+             throw error;
+          }
+        }
 
 
 }

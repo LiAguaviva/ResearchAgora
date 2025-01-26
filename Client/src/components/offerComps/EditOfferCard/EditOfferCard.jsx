@@ -127,7 +127,8 @@ export const EditOfferCard = () => {
         data
         );
         console.log('response', result);
-        navigate(`/oneoffer/${id}`)
+        navigate(`/oneproject/${offer.project_id}`)
+
       } catch (error) {
          if (error instanceof ZodError) {
           const fieldErrors = {};
