@@ -2,11 +2,11 @@ import React, { useContext, useState } from "react";
 import projectDefaultIMG from "../../../assets/imgs/lab1.jpg";
 import './ProjectProfileCard.css'
 import { useNavigate } from "react-router-dom";
-import { AgoraContext } from "../../../context/ContextProvider";
+// import { AgoraContext } from "../../../context/ContextProvider";
 
-export const ProjectProfileCard = ({ elem }) => {
+export const ProjectResearcherCard = ({ elem, researcher }) => {
   const navigate = useNavigate();
-  const { user, project } = useContext(AgoraContext);
+  // const { user, project } = useContext(AgoraContext);
   const [skills, setSkills] = useState(elem.skills?.split(","));
   const [stateClassname, setStateClassname] = useState("");
 

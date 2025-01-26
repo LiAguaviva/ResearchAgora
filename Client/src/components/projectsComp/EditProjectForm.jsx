@@ -101,7 +101,7 @@ export const EditProjectForm = () => {
       e.preventDefault();
       const skillsString = skills.join(",");
       let data = { ...project, skill: skillsString, id: id };
-      console.log("----> data al back", data);
+      // console.log("----> data al back", data);
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/editproject`,
         "put",

@@ -6,7 +6,6 @@ import reject from '../../../assets/icons/reject-circle.svg'
 
 export const RequestCard = ({elem, updateRequest}) => {
 
-  console.log('elem requestCard', elem);
   const navigate = useNavigate()
   
 

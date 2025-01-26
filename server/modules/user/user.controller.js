@@ -107,7 +107,7 @@ class UserController {
       const id = getIdFromToken(req.token)
       console.log("Id", id);
       const user = await userDal.getUserById(id)
-      console.log("usssssssssser", user);
+      // console.log("usssssssssser", user);
       
     /*   let userData ={}
       let travel = {}
@@ -267,6 +267,16 @@ class UserController {
          } catch (error) {    
           res.status(500).json(error) 
          }
+      }
+
+      GetResearcherById = async (req, res) => {
+        const {user_id} = req.body
+        try {
+          const result = await userDal.GetResearcherById(user_id);
+          res.status(200).json(result)
+        } catch (error) {
+          res.status(500).json(error)
+        }
       }
 
       invite = async (req, res) => {

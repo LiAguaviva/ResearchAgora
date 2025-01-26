@@ -15,6 +15,7 @@ router.post('/resetPassword/:token', forgottenPasswordEmail, userController.rese
 router.get('/findUserById', tokenVerify, userController.findUserById)
 router.put('/editUser', tokenVerify , uploadImage('useravatar'), userController.editUser)
 router.get('/allusers', userController.allUsers)
+router.post('/getresearcherbyid', userController.GetResearcherById)
 router.put('/deleteUser/:user_id', userController.deleteUser )
 router.post('/getskills&fields', userController.getskillsfields)
 router.patch('/requestresponse', userController.requestResponse)  //request to join project response

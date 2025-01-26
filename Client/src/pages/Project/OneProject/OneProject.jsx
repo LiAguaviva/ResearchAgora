@@ -60,7 +60,7 @@ export const OneProject = () => {
     fetchJoinRequest();
   }, [user, applyButton]);
 
-  console.log('---->',requests)
+  // console.log('---->',requests)
   const fetchJoinRequest = async () => {
     try {
       let data = {user_id: user?.user_id,

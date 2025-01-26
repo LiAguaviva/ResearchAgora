@@ -117,6 +117,17 @@ class UserDal {
     }
   }
 
+  GetResearcherById = async (user_id) => {
+    try {
+      let sql = 'SELECT * FROM user WHERE user_id = ?'
+      const result = await executeQuery(sql, [user_id]);
+      console.log(result);
+      return result;
+      
+    } catch (error) {
+      throw error;
+    }
+  }
 
 
 

@@ -69,7 +69,7 @@ export const Profile = () => {
       fetchInvitations();
     }
   }, [user]);
-  console.log('---->',projects)
+  // console.log('---->',projects)
 
   const updateRequest = async(elem, value, choose) => {
     try {
@@ -132,6 +132,7 @@ export const Profile = () => {
               <RequestCard 
                 elem={elem} 
                 updateRequest={updateRequest}
+                key={elem.project_id}
               />
             );
           })}
@@ -147,6 +148,7 @@ export const Profile = () => {
                 <ProjectInvitationCard 
                   elem={elem} 
                   updateInvite={updateInvite}
+                  key={elem.project_id}
                 />
             );
           })}

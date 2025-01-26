@@ -1,0 +1,19 @@
+/* 
+.ProfileProjects {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size2);
+  align-items: center;
+} */
+
+.projectsSection, .requestSection, .invitatiosSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size4);
+}
+
+.projectsGallery, .requestGallery, .invitationsGallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size2);
+}

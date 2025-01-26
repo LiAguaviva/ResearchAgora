@@ -120,7 +120,7 @@ export const EditOfferCard = () => {
         try {
          const skillsString = skills.join(",");
          const data = { ...offer, skill: skillsString, offer_id: id };
-         console.log("----> submitting data to back", data);
+        //  console.log("----> submitting data to back", data);
         const result = await fetchData2(
         `offer/updateoffer/${id}`,
          "put",
