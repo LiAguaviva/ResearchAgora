@@ -98,7 +98,6 @@ class ProjectController {
 
     findProjectBySkills = async(req, res) => {
         const {skills} = req.body;
-        console.log('hola', req.body)
         
         try {
           const result = await projectDal.findprojects(skills)
