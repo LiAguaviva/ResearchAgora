@@ -5,6 +5,8 @@ import { fetchData2 } from "../../../helpers/axiosHelper";
 import { createOfferScheme } from "../../../schemas/createOfferScheme";
 
 
+const editOfferScheme = createOfferScheme.partial();
+
 const initialValue = {
   offer_title: "",
   offer_description: "",
@@ -121,6 +123,8 @@ export const EditOfferCard = () => {
          const skillsString = skills.join(",");
          const data = { ...offer, skill: skillsString, offer_id: id };
          console.log("----> submitting data to back", data);
+         editOfferScheme.parse(data);
+         
         const result = await fetchData2(
         `offer/updateoffer/${id}`,
          "put",

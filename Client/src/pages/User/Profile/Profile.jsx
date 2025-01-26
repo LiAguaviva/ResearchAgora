@@ -126,11 +126,7 @@ export const Profile = () => {
           })}
         </div>
       </div>
-     </section>
-    
-
-
-    
+     </section>    
     
      <div>
       <section>
@@ -139,7 +135,7 @@ export const Profile = () => {
             {show && <ReviewModal
                show = {show}
                setShow = {setShow}
-               user_id = {user_id} />
+               user_id = {user.user_id} />
             }
           </div>
       </section>
