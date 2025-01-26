@@ -1,74 +1,76 @@
+.allProjectsPage {
 
-.projectCard{
-  
-  h4 {
-    cursor: pointer;
-    /* margin-bottom: var(--size05); */
-    &:hover {
-      color: var(--magenta);
-    }
-  }
-
-    display: flex;
-    /* align-items: center; */
-    gap: var(--size1);
-
-    .profileProjectImg{
-      --imgSize: 10rem;
-  
-      object-fit: cover;
-      border-radius: 100%;
-      width: var(--imgSize);
-      height: var(--imgSize);
+  .projectCard{
+    
+    h4 {
       cursor: pointer;
-  
+      /* margin-bottom: var(--size05); */
       &:hover {
-        filter: brightness(1.03);
+        color: var(--magenta);
       }
     }
-
-    .infoProfile {
-      gap: var(--size02);
-    }
-
-    .infoAllProjects {
-      gap: var(--size05);
-    }
   
-    .info {
       display: flex;
-      flex-direction: column;
+      /* align-items: center; */
+      gap: var(--size1);
   
-      .Creator, .creatorResearcher{
-        color: var(--aqua);
-        font-weight: bold;
+      .profileProjectImg{
+        --imgSize: 10rem;
+    
+        object-fit: cover;
+        border-radius: 100%;
+        width: var(--imgSize);
+        height: var(--imgSize);
+        cursor: pointer;
+    
+        &:hover {
+          filter: brightness(1.03);
+        }
+      }
+  
+      .infoProfile {
+        gap: var(--size02);
+      }
+  
+      .infoAllProjects {
+        gap: var(--size05);
       }
     
-      .status {
-        width: max-content;
-        padding-inline: var(--size05);
-        padding-block: var(--size02);
-        border-radius: 20rem;
-        color: var(--white);
-      }
-
-      .paused {
-        background-color: var(--mandarina);
-      }
-      .active {
-        background-color: var(--aqua);
-      }
-      .closed {
-        background-color: var(--magenta);
-      }
+      .info {
+        display: flex;
+        flex-direction: column;
     
-      .description {
-        width: 100%;
+        .Creator, .creatorResearcher{
+          color: var(--aqua);
+          font-weight: bold;
+        }
+      
+        .status {
+          width: max-content;
+          padding-inline: var(--size05);
+          padding-block: var(--size02);
+          border-radius: 20rem;
+          color: var(--white);
+        }
+  
+        .paused {
+          background-color: var(--mandarina);
+        }
+        .active {
+          background-color: var(--aqua);
+        }
+        .closed {
+          background-color: var(--magenta);
+        }
+      
+        .description {
+          width: 100%;
+        }
       }
-    }
-
-  /* .creatorResearcher {
-    color: var(--purple);
-    font-weight: bold;
-  } */
+  
+    /* .creatorResearcher {
+      color: var(--purple);
+      font-weight: bold;
+    } */
+  }
 }

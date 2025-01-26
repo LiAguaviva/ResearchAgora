@@ -43,6 +43,7 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
       console.log(error);
     }
   };
+  
   return (
     <div className="offerCard">
       <div className="headOffer">
@@ -53,15 +54,17 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
       </div>
       <p>{elem.offer_description}</p>
 
-      <div className="tagsContainer">
-        {skill?.map((el, index) => {
-          return (
+      {skill[0] !== "" ? (
+        <div className="tagsContainer">
+          {skill.map((el, index) => (
             <div className="tag" key={index}>
               {el}
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p>No skills required</p>
+      )}
 
      {/* <div className='buttons'>
      {user?.user_id !== project[0]?.creator_user_id && 

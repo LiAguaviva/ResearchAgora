@@ -30,6 +30,7 @@ export const AllOffersCard = ({offer}) => {
       </p>
       <Link to={`/oneproject/${offer.project_id}`}>About the project</Link>
 
+    {skills.length && 
       <div className='tagsContainer'>
       {skills?.map((el, index)=> {
           return (
@@ -39,7 +40,7 @@ export const AllOffersCard = ({offer}) => {
           )
         }
       )}
-     </div>
+     </div>}
 
      <div className='buttons'>
       <button className='accept'>Apply</button>

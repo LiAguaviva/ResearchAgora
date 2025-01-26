@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import projectDefaultIMG from "../../../assets/imgs/lab1.jpg";
-// import './AllProjectsCard.css'
+import './ProjectProfileCard.css'
 import { useNavigate } from "react-router-dom";
 import { AgoraContext } from "../../../context/ContextProvider";
 
@@ -14,7 +14,8 @@ export const ProjectProfileCard = ({ elem }) => {
   console.log("creator id en prof proj card", elem);
 
   return (
-    <div className="projectCard">
+    <div className="projectProfileCard">
+      <div className="profileProjectImg">
       <img
         onClick={() => navigate(`/oneproject/${elem.project_id}`)}
         className="profileProjectImg"
@@ -25,8 +26,9 @@ export const ProjectProfileCard = ({ elem }) => {
         }
         alt="your avatar"
       />
+      </div>
 
-      <div className="info infoProfile">
+      <div className="info infoAllProjects">
         <h4 className="projectTitle">{elem.project_title}</h4>
         {user?.user_id === elem?.creator_user_id ? (
           <p className="creatorResearcher">Creator</p>
@@ -48,9 +50,9 @@ export const ProjectProfileCard = ({ elem }) => {
           {elem.project_status === 3 && <p className="status paused">paused</p>}
         </p>
 
-        <div className="description">
+        {/* <div className="description">
           <p>{elem.project_description}</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );

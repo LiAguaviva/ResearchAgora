@@ -31,6 +31,7 @@ export const TagsCard = () => {
 
   return (
     <section className='tagsCard'>
+      {fields.length > 0 && 
       <div className="tagsCardSect">
         <h4>Fields</h4>
           <div className="tagsContainer">
@@ -40,9 +41,10 @@ export const TagsCard = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div>}
             
-      <div className="tagsCardSect">
+      {skills.length > 0 &&
+        <div className="tagsCardSect">
               <h4>Skills</h4>
               <div className="tagsContainer">
                 {skills.map((skill, index) => (
@@ -56,9 +58,7 @@ export const TagsCard = () => {
                   </div>
                 ))}
               </div>
-            </div>
-            
-            
+            </div>}
     </section>
   )
 }

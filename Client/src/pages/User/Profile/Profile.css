@@ -1,13 +1,19 @@
-
+/* 
 .ProfileProjects {
   display: flex;
   flex-direction: column;
   gap: var(--size2);
   align-items: center;
+} */
+
+.projectsSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size4);
 }
 
 .projectsGallery {
   display: flex;
-  flex-wrap: wrap;
-  gap: 3rem;
+  flex-direction: column;
+  gap: var(--size2);
 }

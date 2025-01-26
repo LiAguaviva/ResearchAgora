@@ -1,38 +1,68 @@
-/* 
 .projectProfileCard{
-  display: flex;
-  flex-direction: column;
-  width: max-content;
-  align-items: center;
-  gap: var(--size05);
-
-  .profileProjectImg{
-    --imgSize: 10rem;
-
-    object-fit: cover;
-    border-radius: 100%;
-    width: var(--imgSize);
-    height: var(--imgSize);
-
+    
+  h4 {
+    cursor: pointer;
     &:hover {
-      filter: brightness(1.03);
+      color: var(--magenta);
     }
   }
 
-  .text {
-    text-align: center;
+    display: flex;
+    /* align-items: center; */
+    gap: var(--size1);
 
-    h4 {
+    .profileProjectImg{
+      --imgSize: 7rem;
+  
+      object-fit: cover;
+      border-radius: 100%;
+      width: var(--imgSize);
+      height: var(--imgSize);
+      cursor: pointer;
+  
       &:hover {
-        color: var(--magenta);
+        filter: brightness(1.03);
       }
     }
-  }
 
-  .projectName {
-    color: var(--purple);
-    font-weight: bold;
-  }
+    .infoProfile {
+      gap: var(--size02);
+    }
 
+    /* .infoAllProjects {
+      gap: var(--size02);
+    } */
+  
+    .info {
+      display: flex;
+      flex-direction: column;
+  
+      .Creator, .creatorResearcher{
+        color: var(--aqua);
+        font-weight: bold;
+      }
+    
+      .status {
+        width: max-content;
+        padding-inline: var(--size05);
+        padding-block: var(--size02);
+        border-radius: 20rem;
+        color: var(--white);
+      }
 
-} */
+      .paused {
+        background-color: var(--mandarina);
+      }
+      .active {
+        background-color: var(--aqua);
+      }
+      .closed {
+        background-color: var(--magenta);
+      }
+    
+      .description {
+        width: 100%;
+      }
+    }
+
+}

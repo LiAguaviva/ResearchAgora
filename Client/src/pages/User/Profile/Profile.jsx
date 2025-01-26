@@ -89,6 +89,7 @@ export const Profile = () => {
       
     }
   }
+  
   return (
     <>
     <section>
@@ -101,19 +102,18 @@ export const Profile = () => {
     </div>
     </section>
 
-    <section>
-      <div className='containerPpal ProfileProjects'>
+    <section className='containerPpal projectsSection'>
+      <div className='projectsGallery'>
         <h3>Projects</h3>
-          <div className='projectsGallery'>
             {projects?.map((elem, index) => {
               return(
-                <div key={elem.project_id}>
+                <div key={elem.project_id} className='projectsGallery'
+                >
                   <ProjectProfileCard  elem={elem}/>
                   <div className='separatorProjects' />
                 </div>
               )
             })}
-          </div>
         </div>
 
         <button onClick={() => navigate("/createproject")}>
