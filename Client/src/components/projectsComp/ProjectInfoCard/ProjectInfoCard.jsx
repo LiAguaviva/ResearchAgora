@@ -6,6 +6,7 @@ import projectDefaultIMG from '../../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
 import { ProjectMainCard } from '../ProjectMainCard';
+import { fetchDataValidation } from '../../../helpers/axiosHelper';
 
 
 // add skills on prop and change everithing related to skills
@@ -25,7 +26,17 @@ export const ProjectInfoCard = ({project,skills, members}) => {
   //   setSkills(project?.project_skills?.split(",") || []);
   // },[project])
 
-  // console.log('SKILSSLSLSLSLSL',skills)
+  console.log('PROJECT!',project)
+
+  const deleteProject = async () => {
+    try {
+      const result = await fetchDataValidation(`http://localhost:4000/api/project/deleteproject/${project.project_id}`, 'put')
+      navigate('/profile')
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <section className='projectInfoCard'>
       <h2>{project?.project_title}</h2>
@@ -81,10 +92,17 @@ export const ProjectInfoCard = ({project,skills, members}) => {
         </div>
       </div>
           {user?.user_id === project?.creator_user_id && 
+          <>
           <button 
             onClick={() => navigate(`/editproject/${project?.project_id}`)}
             className='editButton'
-          >EDIT</button>}
+            >EDIT</button>
+          <button 
+          onClick={() => deleteProject()}
+          className='editButton'
+          >Delete</button>
+          </>
+          }
     </section>
   )
 }
