@@ -60,7 +60,11 @@ export const OneProject = () => {
     fetchJoinRequest();
   }, [user, applyButton]);
 
-  console.log('---->',requests)
+  console.log('---->',project)
+  console.log('---->',user)
+  console.log('---->',project[0]?.creator_user_id === user?.user_id)
+
+
   const fetchJoinRequest = async () => {
     try {
       let data = {user_id: user?.user_id,
@@ -110,7 +114,7 @@ export const OneProject = () => {
 
         {members?.map((elem) => {
           return (
-                <ProjectMemberCard key={elem.user_id} elem={elem}/>
+                <ProjectMemberCard key={elem.user_id} elem={elem} project={project}/>
           );
         })}
         </div>
