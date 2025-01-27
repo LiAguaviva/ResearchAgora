@@ -25,7 +25,11 @@
       display: flex;
       flex-direction: column;
   
-      .Creator, .creatorResearcher{
+      .creator{
+        color: var(--magenta);
+        font-weight: bold;
+      }
+      .researcher{
         color: var(--aqua);
         font-weight: bold;
       }

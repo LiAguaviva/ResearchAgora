@@ -9,7 +9,7 @@ const handleRatingSubmit = (rating) => {
   // Send the rating to your backend or perform other actions
 };
 
-export const ReviewModal = ({show,setShow}) => {
+export const ReviewModal = ({show,setShow, researcher}) => {
   const navigate = useNavigate();
   const [review, setReview ]= useState({})
   const [rating, setRating] = useState(0)
@@ -38,7 +38,8 @@ export const ReviewModal = ({show,setShow}) => {
     console.log("------", result);
    }
   
-
+   console.log('researcher on reviewModal', researcher);
+   
 
   return (
     

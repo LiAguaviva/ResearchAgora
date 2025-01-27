@@ -53,8 +53,6 @@ export const Researcher = () => {
     }
   };
 
-  
-
   const fetchFn = async () => {
     await fetchProjects();
     await fetchResearcher();
@@ -67,7 +65,7 @@ export const Researcher = () => {
   // console.log('---->',projects)
 
 
-  console.log(researcher);
+  console.log('researcher on researcher', researcher);
   
 
   return (
@@ -102,26 +100,15 @@ export const Researcher = () => {
     
       <section>
           <div className="containerPpal">
-            <button onClick={() => setShow(!show)}>{!show?"Write a review":null}</button>
+            <button onClick={() => setShow(!show)}>Write a review</button>
             {show && <ReviewModal
                show = {show}
                setShow = {setShow}
-               user_id = {user_id} />
+               researcher = {researcher} 
+            />
             }
           </div>
       </section>
-
-    {/* <section>
-      <div className='containerPpal'>
-        <div className='reviewGallery'>
-          <ReviewModal 
-            show = {show} 
-            setShow = {setShow} 
-          />
-        </div>
-      </div>
-    </section> */}
-
     </>
   );
 };

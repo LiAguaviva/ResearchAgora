@@ -155,20 +155,6 @@ export const Profile = () => {
         </div>
      </section>
     }
-    
-     <div>
-      <section>
-          <div className="containerPpal">
-            <button onClick={() => setShow(!show)}>{!show?"Write a review":null}</button>
-            {show && <ReviewModal
-               show = {show}
-               setShow = {setShow}
-               user_id = {researcher.user_id} />
-            }
-          </div>
-      </section>
-    </div>
-
     </>
   );
 };

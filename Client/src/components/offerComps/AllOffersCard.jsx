@@ -28,7 +28,6 @@ export const AllOffersCard = ({offer}) => {
       <p>
       {offer.offer_description}
       </p>
-      <Link to={`/oneproject/${offer.project_id}`}>About the project</Link>
 
     {skills.length && 
       <div className='tagsContainer'>
@@ -41,6 +40,7 @@ export const AllOffersCard = ({offer}) => {
         }
       )}
      </div>}
+     <Link to={`/oneproject/${offer.project_id}`}>About the project</Link>
 
      <div className='buttons'>
       <button className='accept'>Apply</button>

@@ -29,11 +29,13 @@ export const ProjectProfileCard = ({ elem }) => {
           className="projectTitle"
           onClick={() => navigate(`/oneproject/${elem.project_id}`)}
         >{elem.project_title}</h4>
+
         {user?.user_id === elem?.creator_user_id ? (
-          <p className="creatorResearcher">Creator</p>
+          <p className="creator">Creator</p>
         ) : (
-          <p className="creatorResearcher">Researcher</p>
+          <p className="researcher">Researcher</p>
         )}
+
         <div className="tagsContainer">
           {skills?.map((skill, index) => (
             <div key={index} className="tag">
@@ -41,13 +43,11 @@ export const ProjectProfileCard = ({ elem }) => {
             </div>
           ))}
         </div>
-        <p className="Status {stateClassname}">
+        <div className="Status {stateClassname}">
           {elem.project_status === 1 && <p className="status active">active</p>}
-          {elem.project_status === 2 && (
-            <p className="status closed">completed</p>
-          )}
+          {elem.project_status === 2 && <p className="status closed">completed</p>}
           {elem.project_status === 3 && <p className="status paused">paused</p>}
-        </p>
+        </div>
 
         {/* <div className="description">
           <p>{elem.project_description}</p>
