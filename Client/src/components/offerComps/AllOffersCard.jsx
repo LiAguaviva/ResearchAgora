@@ -14,10 +14,6 @@ export const AllOffersCard = ({offer}) => {
   }, [offer])
 
   console.log("offer", offer);
-
-  const deleteOffer = () => {
-   
-  }
   
   return (
     <div className='offerCard'>

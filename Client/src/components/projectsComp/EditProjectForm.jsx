@@ -4,6 +4,8 @@ import { fetchDataValidation } from "../../helpers/axiosHelper";
 import { createProjectSchema } from "../../schemas/createProjectSchema";
 import { ZodError } from "zod";
 
+const editProjectScheme = createProjectSchema.partial();
+
 const initialValue = {
   title: "",
   city: "",
@@ -102,6 +104,10 @@ export const EditProjectForm = () => {
       const skillsString = skills.join(",");
       let data = { ...project, skill: skillsString, id: id };
       // console.log("----> data al back", data);
+      console.log("----> data al back", data);
+
+      editProjectScheme.parse(data);
+
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/editproject`,
         "put",

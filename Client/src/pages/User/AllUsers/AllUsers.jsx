@@ -100,12 +100,12 @@ export const AllUsers = () => {
           ))}
         </div>
 
-        <input
+        <input 
           type="text"
           value={inputValueSkills}
           onChange={(e) => setInputValueSkills(e.target.value)}
           onKeyDown={handleKeyDownSkill}
-          placeholder="Add skills for searching"
+          placeholder="Add skills/key words/name for searching"
         />
 
         <input
@@ -124,15 +124,13 @@ export const AllUsers = () => {
 
       {users?.map((elem) => (
         <div className="allusersGallery" key={elem.user_id}>
-          <UserAllUsersCard
-            showRequestModal={() => showRequestModal(elem.user_id)}
-            elem={elem}
-          />
+          <UserAllUsersCard showRequestModal={() => showRequestModal(elem.user_id)} elem={elem}/>
           <div className="separatorAllProjects" />
         </div>
       ))}
 
       {modalShowed && <RequestModal showRequestModal={showRequestModal} selectedUserId={selectedUserId} />}
-    </section>
-  );
-};
+              
+      </section>
+  )
+}

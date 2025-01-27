@@ -94,66 +94,67 @@ export const Profile = () => {
 
   return (
     <>
-    <section>
-    <div className='containerPpal'>
-      <ProfileUserCard />
-    </div>
+      <section>
+      <div className='containerPpal'>
+        <ProfileUserCard />
+      </div>
 
-    <div className='containerPpal'>
-      <StatsRadarChart />
-    </div>
-    </section>
+      <div className='containerPpal'>
+        <StatsRadarChart />
+      </div>
+      </section>
 
-    <section className='containerPpal projectsSection'>
-      <div className='projectsGallery'>
-        <h3>Projects</h3>
-            {projects?.map((elem, index) => {
-              return(
-                <div key={elem.project_id} className='projectsGallery'
-                >
-                  <ProjectProfileCard  elem={elem}/>
-                  <div className='separatorProjects' />
-                </div>
-              )
-            })}
-        </div>
+      <section className='containerPpal projectsSection'>
+        <div className='projectsGallery'>
+          <h3>Projects</h3>
+              {projects?.map((elem, index) => {
+                return(
+                  <div key={elem.project_id} className='projectsGallery'
+                  >
+                    <ProjectProfileCard  elem={elem}/>
+                    <div className='separatorProjects' />
+                  </div>
+                )
+              })}
+          </div>
 
-        <button onClick={() => navigate("/createproject")}>
-            Create New Project
-        </button>
-    </section>
+          <button onClick={() => navigate("/createproject")}>
+              Create New Project
+          </button>
+      </section>
 
-    {requests.length > 0 &&
-      <section className="containerPpal requestSection">
-        <h3>You have requests to join on your projects!</h3>
-        <div className="requestGallery">
-          {requests?.map((elem) => {
-            return (
-              <RequestCard 
-                elem={elem} 
-                updateRequest={updateRequest}
-                key={elem.project_id}
-              />
-            );
-          })}
-        </div>
-     </section>}
-
-    {invites.length > 0 && 
-     <section  className="containerPpal invitatiosSection">
-        <h3>Invitations</h3>
-        <div className="invitationsGallery">
-          {invites?.map((elem) => {
-            return (
-                <ProjectInvitationCard 
+      {requests.length > 0 &&
+        <section className="containerPpal requestSection">
+          <h3>You have requests to join on your projects!</h3>
+          <div className="requestGallery">
+            {requests?.map((elem) => {
+              return (
+                <RequestCard 
                   elem={elem} 
-                  updateInvite={updateInvite}
+                  updateRequest={updateRequest}
                   key={elem.project_id}
                 />
-            );
-          })}
+              );
+            })}
+          </div>
+       </section>}
+
+      {invites.length > 0 && 
+       <section  className="containerPpal invitatiosSection">
+          <h3>Invitations</h3>
+          <div className="invitationsGallery">
+            {invites?.map((elem) => {
+              return (
+                  <ProjectInvitationCard 
+                    elem={elem} 
+                    updateInvite={updateInvite}
+                    key={elem.project_id}
+                  />
+              );
+            })}
         </div>
-     </section>
+       </section>    
+      
     }
     </>
   );
