@@ -34,8 +34,13 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
           />
 
         <div className="userCardData">
-          <p className="UserCardName">
-            {" "}
+          <p className="UserCardName"
+          onClick={() =>
+            elem.user_id !== user.user_id
+              ? navigate(`/researcher/${elem.user_id}`)
+              : navigate("/profile")
+          }
+          >
             {elem?.user_name} {elem?.user_lastname}
           </p>
           {/* <p>

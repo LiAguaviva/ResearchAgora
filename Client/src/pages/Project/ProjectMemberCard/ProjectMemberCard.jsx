@@ -7,11 +7,12 @@ import { useNavigate } from "react-router-dom";
 export const ProjectMemberCard = ({ elem, project }) => {
   const { user } = useContext(AgoraContext);
   const navigate = useNavigate();
+
+  console.log('user in project member card', user)
   
   const deletemember = async() => {
     try {
       let data = {user_id : elem.user_id, project_id: project[0].project_id};
-      console.log('HELLOWWWWW',data)
       await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data);
       window.location.reload();
     } catch (error) {
@@ -22,6 +23,11 @@ export const ProjectMemberCard = ({ elem, project }) => {
     <div>
       <div className="userCard">
         <img
+        onClick={() =>
+          elem.user_id !== user.user_id
+            ? navigate(`/researcher/${elem.user_id}`)
+            : navigate("/profile")
+        }
           className="userCardAvatar"
           src={
             elem?.user_avatar
@@ -30,13 +36,16 @@ export const ProjectMemberCard = ({ elem, project }) => {
           }
           // src={avatarDefault}
           alt="your avatar"
-          onClick={()=>navigate(`/researcher/${elem.user_id}`)}
         />
 
         <div className="userCardData">
           <p 
             className="UserCardName"
-            onClick={()=>navigate(`/researcher/${elem.user_id}`)}
+            onClick={() =>
+              elem.user_id !== user.user_id
+                ? navigate(`/researcher/${elem.user_id}`)
+                : navigate("/profile")
+            }
           > {elem?.user_name}</p>
           <p>{elem?.fields}</p>
         </div>

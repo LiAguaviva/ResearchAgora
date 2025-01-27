@@ -6,9 +6,10 @@ import { useNavigate } from 'react-router-dom'
 
 export const ProjectReviewCard = ({elem}) => {
 
-  // console.log("elemmmmmmmmm",elem);
+  console.log("elemmmmmmmmm",elem);
 
   const navigate = useNavigate();
+  const {user} = useContext(AgoraContext)
 
   const renderStars = (rate) => {
     const emptyStars = 5 - rate;  
@@ -34,12 +35,21 @@ export const ProjectReviewCard = ({elem}) => {
                   // src={user?.avatar? `${url}/images/users/${user.avatar}` :avatarDefault} 
                   src={avatarDefault}
                   alt="your avatar" 
-                  onClick={()=>navigate(`/researcher/${elem.reviewer_user_id}`)}
+                  onClick={() =>
+                    elem.reviewer_user_id !== user.user_id
+                      ? navigate(`/researcher/${elem.reviewer_user_id}`)
+                      : navigate("/profile")
+                  }
                 />
               </div>
       
               <div className='userCardData'>
               <p className='UserCardName'
+              onClick={() =>
+                elem.reviewer_user_id !== user.user_id
+                  ? navigate(`/researcher/${elem.reviewer_user_id}`)
+                  : navigate("/profile")
+              }
               > {elem?.reviewer_user_name} {elem?.reviewer_user_lastname}</p>
               <p>{renderStars(elem?.review_rate)}</p>
               </div>
