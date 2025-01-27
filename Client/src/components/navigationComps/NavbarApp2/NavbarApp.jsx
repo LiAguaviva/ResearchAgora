@@ -14,7 +14,7 @@ export const NavbarApp = () => {
   
   const navigate = useNavigate()
   const { user, setToken, notifications, markNotificationAsRead } = useContext(AgoraContext);
-  console.log("notifications in navbar",notifications);
+  // console.log("notifications in navbar",notifications);
   
 
   const hamburger = document.getElementById('hamburger');

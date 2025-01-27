@@ -2,9 +2,11 @@ import reviewDal from "./review.dal.js";
 
 class ReviewController {
   addReview = async(req,res) => {
+    console.log("data in review controller",req.body);
+    
     try {
-      const {user_id,reviewed_user_id,review_content} = req.body;
-      const values = [user_id,reviewed_user_id,review_content]
+      const {user,researcher,description,rating} = req.body;
+      const values = [user,researcher,description,rating]
       const result = await reviewDal.addReview(values);
       res.status(200).json(result)
     } catch (error) {

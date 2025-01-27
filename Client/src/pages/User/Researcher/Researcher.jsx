@@ -15,10 +15,11 @@ import { RequestCard } from '../../../components/usersComp/RequestCard/RequestCa
 import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvitationCard'
 import { ResearcherDataCard } from '../../../components/researcherComp/ResearcherDataCard'
 import { ProjectResearcherCard } from '../../../components/researcherComp/ProjectResearcherCard'
+import { ProjectReviewCard } from '../../../components/projectsComp/ProjectReviewCard'
 
 
 export const Researcher = () => {
-  // const { user } = useContext(AgoraContext);
+  const { user } = useContext(AgoraContext);
   const {id} = useParams();
   const [researcher, setResearcher] = useState()
   // const [user, setUser] = useState()
@@ -27,13 +28,17 @@ export const Researcher = () => {
   const [requests, setrequests] = useState([]);
   const [invites, setInvites] = useState([]);
   const [show,setShow]= useState(false);
+  const [review, setReview] = useState([]);
+  // const [result, setResult] = useState({});
 
   const fetchResearcher = async () => {
     try {
       let data ={ user_id: id}
       console.log('id', id);
       const result = await fetchData(`/getresearcherbyid`, 'post', data);
+      // console.log('**********************resuuuuuuuuuult', result);
       setResearcher(result[0]);
+      setReview(result.review)
     } catch (error) {
       console.log(error);
       
@@ -42,7 +47,7 @@ export const Researcher = () => {
 
   const fetchProjects = async () => {
     try {
-      let data = { user_id: researcher.user_id };
+      let data = { user_id: id };
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/oneuserprojects`,
         "post",
@@ -55,16 +60,19 @@ export const Researcher = () => {
   };
 
   const fetchFn = async () => {
-    await fetchProjects();
     await fetchResearcher();
+    await fetchProjects();
   }
 
   useEffect(() => {
       fetchFn();
   }, []);
 
-  console.log('projects on researcher---->',projects)
+/*   console.log('projects on researcher---->',projects)
   console.log('researcher on researcher', researcher);
+  console.log('user on researcher', user);
+  console.log('review on researcher', review);
+   */
   
 
   return (
@@ -121,10 +129,25 @@ export const Researcher = () => {
             {show && <ReviewModal
                show = {show}
                setShow = {setShow}
-               researcher = {researcher} 
+               researcher = {researcher.user_id} 
+               user = {user.user_id} 
             />}
           <div className="reviewGallery">
           </div>
+      </section>
+       <section className="containerPpal offersSection">
+          <div className="offerGallery">
+          {review?.map((elem,index) => {
+            return (
+                <ProjectReviewCard
+                key={index} 
+                elem={elem}
+                /> 
+            )
+          })}
+          </div>
+            
+
       </section>
     </>
   );

@@ -275,6 +275,7 @@ class UserController {
           const result = await userDal.GetResearcherById(user_id);
           res.status(200).json(result)
         } catch (error) {
+          console.log("error in review dal",error);
           res.status(500).json(error)
         }
       }
