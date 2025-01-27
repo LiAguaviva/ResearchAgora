@@ -1,15 +1,33 @@
+import { executeQuery } from "../../config/db.js";
+import notificationDal from "../notification/notification.dal.js";
 import messageDal from "./message.dal.js";
 
 class MessageController {
   sendMessage = async(req,res) => {
     try {
       const {message_content,receiver_id,sender_id} = req.body;
-      console.log("bodyyyyyyyyyyyyy1",message_content);
+      /* console.log("bodyyyyyyyyyyyyy1",message_content);
       console.log("bodyyyyyyyyyyyyy2",receiver_id);
-      console.log("bodyyyyyyyyyyyyy3",sender_id);
+      console.log("bodyyyyyyyyyyyyy3",sender_id);  */
       
       const values = [message_content,receiver_id,sender_id]
       const result = await messageDal.sendMessage(values);
+
+      const sender = await messageDal.getSenderDetails(sender_id);
+      
+      const { user_name, user_lastname } = sender;
+      
+      const notificationValues = [
+        receiver_id,
+        "message", 
+        sender_id, 
+        `You have a new message from ${user_name} ${user_lastname}`, 0 
+      ];
+      // console.log("notificationValues**************************************",notificationValues);
+      await notificationDal.addNotification(notificationValues);
+    
+
+
       res.status(200).json(result)
     } catch (error) {
         console.log("eerrrrrrr", error);

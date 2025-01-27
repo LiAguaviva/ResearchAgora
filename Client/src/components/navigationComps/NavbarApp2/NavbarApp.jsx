@@ -13,7 +13,9 @@ export const NavbarApp = () => {
   const scrollGoUp = useRef();
   
   const navigate = useNavigate()
-  const {user, setToken} = useContext(AgoraContext)
+  const { user, setToken, notifications, markNotificationAsRead } = useContext(AgoraContext);
+  console.log("notifications in navbar",notifications);
+  
 
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.querySelector('.nav-links');
@@ -95,6 +97,40 @@ export const NavbarApp = () => {
                 onMouseOver={()=>setDropdownMenu('userMenu')}
                 src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} alt="your avatar" 
               />
+
+              <button
+                onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
+              >
+                Notifications {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
+              </button>
+
+       
+              {dropdownMenu === 'notifications' && (
+                <div
+                  className="menuDropdown menuNotifications"
+                  onMouseLeave={() => setDropdownMenu('')}
+                >
+                  {notifications.length > 0 ? (
+                    notifications.map((notif) => (
+                      <NavLink
+                        key={notif.id}
+                        to={`/chat/${notif.reference_id}`} 
+                        className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+                        onClick={() => {
+                          markNotificationAsRead(notif.id); 
+                          setDropdownMenu(''); 
+                        }}
+                      >
+                        {notif.content}
+                      </NavLink>
+                    ))
+                  ) : (
+                    <div className="notificationItem">No notifications</div>
+                  )}
+                </div>
+              )}
+          <div>
+          </div>
 
         {dropdownMenu === 'userMenu' && 
          <div 
