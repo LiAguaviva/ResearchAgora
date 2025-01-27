@@ -9,7 +9,7 @@ export const ProjectResearcherCard = ({ elem, researcher }) => {
   const [skills, setSkills] = useState(elem.skills?.split(","));
   const [stateClassname, setStateClassname] = useState("");
 
-  console.log('elem on researcher project card', elem);
+  // console.log('elem on researcher project card', elem);
   
   return (
     <div className="projectProfileCard">

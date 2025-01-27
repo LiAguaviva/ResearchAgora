@@ -20,14 +20,17 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
     <div className="userCardWithButton">
       <div className="userCard">
           <img
+            onClick={() =>
+              elem.user_id !== user.user_id
+                ? navigate(`/researcher/${elem.user_id}`)
+                : navigate("/profile")
+            }
             className="userCardAvatar"
             src={
               elem?.user_avatar
                 ? `http://localhost:4000/images/useravatar/${elem?.user_avatar}`
                 : avatarDefault
             }
-            onClick={()=>navigate(`/researcher/${elem?.user_id}`)}
-            alt="your avatar"
           />
 
         <div className="userCardData">

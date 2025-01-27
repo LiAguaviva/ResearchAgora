@@ -131,6 +131,19 @@ export const AllUsers = () => {
 
       {modalShowed && <RequestModal showRequestModal={showRequestModal} selectedUserId={selectedUserId} />}
               
+    {/* //////////////////////////////////////////////// */}
+    
+      {/* {users?.map((elem)=> {
+        return(
+          <div className='allusersGallery' key={elem.user_id} >
+            <UserAllUsersCard showRequestModal={showRequestModal} elem={elem}/>
+            <div className='separatorAllProjects' />
+          </div>
+        );
+      })}
+
+      {modalShowed && <RequestModal showRequestModal={showRequestModal} />} */}
+
       </section>
   )
 }

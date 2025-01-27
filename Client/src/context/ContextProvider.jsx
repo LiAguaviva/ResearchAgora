@@ -17,7 +17,7 @@ export const ContextProvider = ({ children }) => {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.data.length > 0) {
-          console.log("Fetched User:", res.data[0]);
+          // console.log("Fetched User:", res.data[0]);
           setUser(res.data[0]);
         }
       } catch (error) {
