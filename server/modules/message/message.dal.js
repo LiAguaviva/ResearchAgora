@@ -51,7 +51,17 @@ class MessageDal {
     } catch (error) {
         throw error;
     }
-}
+  }
+
+  getSenderDetails = async (senderId) => {
+    try {
+      const sql = "SELECT user_name, user_lastname FROM user WHERE user_id = ?";
+      const result = await executeQuery(sql, [senderId]);
+      return result.length > 0 ? result[0] : null;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 export default new MessageDal();

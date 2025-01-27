@@ -11,7 +11,7 @@ export const Chat = () => {
   const { receiver_id } = useParams();
   const initialReceiverId = Number(receiver_id);
   /* const final_receiver_id = Number(receiver_id); */
-  const { user } = useContext(AgoraContext);
+  const { user , setNotifications} = useContext(AgoraContext);
   const [currentReceiverId, setCurrentReceiverId] = useState(initialReceiverId);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
@@ -43,37 +43,63 @@ export const Chat = () => {
     }
   }; */
 
+  useEffect(() => {
+    const markAllMessageNotificationsAsRead = async () => {
+      if (user?.user_id) {
+        try {
+          await fetchDataValidation(
+            `http://localhost:4000/api/notification/markMessageNotificationsAsRead`,
+            'PUT',
+            { user_id: user.user_id }
+          );
+          setNotifications((prev) => prev.filter((notif) => notif.type !== 'message'));
+        } catch (error) {
+          console.error("Failed to mark message notifications as read:", error);
+        }
+      }
+    };
+
+    markAllMessageNotificationsAsRead();
+  }, [user?.user_id, setNotifications]);
+
   const sendMessage = async () => {
-    if (!inputText.trim()) return;
-    try {
-      const payload = {
+    if (inputText.trim()){
+      const newMessage = {
         sender_id: user.user_id,
         receiver_id: currentReceiverId,
         message_content: inputText
-    };
-      const response = await fetchDataValidation('http://localhost:4000/api/message/sendmessage', 'POST', payload);
-      setMessages([...messages, response]); 
+      };
+      setMessages(currentMessages => [...currentMessages, newMessage]);
       setInputText("");
-      setTimeout(() => {
-        window.location.reload();
-    }, 1);
-    } catch (error) {
-      console.error("Failed to send message:", error);
-    }
-  };
-
+      try {
+        const payload = {
+          sender_id: user.user_id,
+          receiver_id: currentReceiverId,
+          message_content: inputText
+      };
+        const response = await fetchDataValidation('http://localhost:4000/api/message/sendmessage', 'POST', payload);
+        /* setMessages([...messages, response]); 
+        setInputText(""); */
+        /* setTimeout(() => {
+          window.location.reload()
+      }, 1); */
+      } catch (error) {
+        console.error("Failed to send message:", error);
+      }
+    };
+  }
   const handleUserClick = (userId) => {
     setCurrentReceiverId(userId);
-};
+  };
 
-const deleteMessage = async (messageId) => {
-  try {
-      await fetchDataValidation(`http://localhost:4000/api/message/deletemessage`, 'DELETE', { message_id: messageId });
-      setMessages(messages => messages.filter(msg => msg.message_id !== messageId));
-  } catch (error) {
-      console.error("Failed to delete message:", error);
-  }
-};
+  const deleteMessage = async (messageId) => {
+    try {
+        await fetchDataValidation(`http://localhost:4000/api/message/deletemessage`, 'DELETE', { message_id: messageId });
+        setMessages(messages => messages.filter(msg => msg.message_id !== messageId));
+    } catch (error) {
+        console.error("Failed to delete message:", error);
+    }
+  };
 
 return (
   <div className="chat-container">

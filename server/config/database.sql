@@ -184,6 +184,17 @@ CREATE TABLE notification (
 );
 */
 
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT UNSIGNED NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    reference_id INT NOT NULL,
+    content VARCHAR(255) NOT NULL,
+    is_read BOOLEAN DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+);
+
 -- Insert Fields
 INSERT INTO field (field_id, field_name) VALUES
 (1, 'Biotechnology'),
