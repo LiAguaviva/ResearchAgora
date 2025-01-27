@@ -14,6 +14,7 @@ import './Researcher.css'
 import { RequestCard } from '../../../components/usersComp/RequestCard/RequestCard'
 import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvitationCard'
 import { ResearcherDataCard } from '../../../components/researcherComp/ResearcherDataCard'
+import { ProjectResearcherCard } from '../../../components/researcherComp/ProjectResearcherCard'
 
 
 export const Researcher = () => {
@@ -62,9 +63,7 @@ export const Researcher = () => {
       fetchFn();
   }, []);
 
-  // console.log('---->',projects)
-
-
+  console.log('projects on researcher---->',projects)
   console.log('researcher on researcher', researcher);
   
 
@@ -80,6 +79,7 @@ export const Researcher = () => {
     </div>
     </section>
 
+    {/* {projects.length > 0 && 
     <section className='containerPpal projectsSection'>
       <div className='projectsGallery'>
         <h3>Projects</h3>
@@ -96,17 +96,34 @@ export const Researcher = () => {
               )
             })}
         </div>
-    </section>
+    </section>} */}
+    {projects.length > 0 && 
+    <section className='containerPpal projectsSection'>
+      <div className='projectsGallery'>
+        <h3>Projects</h3>
+            {projects?.map((elem, index) => {
+              return(
+                <div key={elem.project_id} className='projectsGallery'
+                >
+                  <ProjectResearcherCard  
+                    elem={elem}
+                    researcher={researcher}
+                  />
+                  <div className='separatorProjects' />
+                </div>
+              )
+            })}
+        </div>
+    </section>}
     
-      <section>
-          <div className="containerPpal">
-            <button onClick={() => setShow(!show)}>Write a review</button>
+      <section className='reviewSect containerPpal'>
+          <button onClick={() => setShow(!show)}>Write a review</button>
             {show && <ReviewModal
                show = {show}
                setShow = {setShow}
                researcher = {researcher} 
-            />
-            }
+            />}
+          <div className="reviewGallery">
           </div>
       </section>
     </>

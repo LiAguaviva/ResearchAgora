@@ -44,8 +44,7 @@ export const ReviewModal = ({show,setShow, researcher}) => {
   return (
     
     <div className='modalContainer'>
-      <div className='verificationModal'>
-        <form>
+        <form className='verificationModal formApp'>
         <h4>Write a Review</h4>
         <fieldset className="textareaBig">
          {/*  <label htmlFor="description">Description</label> */}
@@ -59,10 +58,11 @@ export const ReviewModal = ({show,setShow, researcher}) => {
           />
         </fieldset>
         <StarRating maxStars={5} onRatingSelect={handleRatingSubmit} rating = {rating} setRating={setRating}/>
-        </form>
+        <div className='buttons'>
           <button onClick={onSubmit}>Submit</button>
           <button onClick={closeModal}>Cancel</button>
-      </div>
+        </div>
+        </form>
     </div>
 
   )

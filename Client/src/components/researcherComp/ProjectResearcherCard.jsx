@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
-import projectDefaultIMG from "../../../assets/imgs/lab1.jpg";
-import './ProjectProfileCard.css'
+import projectDefaultIMG from "../../assets/imgs/lab1.jpg";
 import { useNavigate } from "react-router-dom";
 // import { AgoraContext } from "../../../context/ContextProvider";
 
@@ -10,7 +9,8 @@ export const ProjectResearcherCard = ({ elem, researcher }) => {
   const [skills, setSkills] = useState(elem.skills?.split(","));
   const [stateClassname, setStateClassname] = useState("");
 
-
+  console.log('elem on researcher project card', elem);
+  
   return (
     <div className="projectProfileCard">
       <img
