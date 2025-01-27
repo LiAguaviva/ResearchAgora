@@ -111,11 +111,13 @@
 
 .bellIcon {
   height: var(--size2);
+  width: max-content;
+  margin: 0;
 }
 
 .menuDropdown {
   display: flex;
-  align-items: right;
+  justify-content: right;
   text-align: right;
   position: absolute;
   background-color: var(--purple);
@@ -178,5 +180,12 @@
   @media (max-width: 500px) {
     right: 0;
   }
+}
+
+.notifications {
+  justify-content: right;
+  display: flex;
+  align-items: center;
+  gap: var(--size05);
 }
 

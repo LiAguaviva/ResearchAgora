@@ -71,6 +71,7 @@ footer {
 
     .icon {
       cursor: pointer;
+      height: max-content;
     }
 
     @media (max-width: 500px) {

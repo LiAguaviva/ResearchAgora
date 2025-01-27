@@ -105,41 +105,10 @@ export const NavbarApp = () => {
                 Notifications {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
               </button> */}
 
-              <div className='notifications'>
-              {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
-              <img 
-                onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
-                className='bellIcon' 
-                src={bell} 
-                alt="" 
-              />
-              </div>
+             
 
        
-              {dropdownMenu === 'notifications' && (
-                <div
-                  className="menuDropdown menuNotifications"
-                  onMouseLeave={() => setDropdownMenu('')}
-                >
-                  {notifications.length > 0 ? (
-                    notifications.map((notif) => (
-                      <NavLink
-                        key={notif.id}
-                        to={`/chat/${notif.reference_id}`} 
-                        className={({ isActive }) => (isActive ? 'active' : 'inactive')}
-                        onClick={() => {
-                          markNotificationAsRead(notif.id); 
-                          setDropdownMenu(''); 
-                        }}
-                      >
-                        {notif.content}
-                      </NavLink>
-                    ))
-                  ) : (
-                    <div className="notificationItem">No notifications</div>
-                  )}
-                </div>
-              )}
+              
           <div>
           </div>
 
@@ -170,7 +139,48 @@ export const NavbarApp = () => {
                 className={({ isActive })=>(isActive? 'active':'inactive')}
                 onClick={logOut}
               >Log Out</NavLink>
+            <div className='separator' />
+               <div className='notifications'
+                onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
+               >
+                {/* {notifications.length > 0 && <span className="badge">{notifications.length}</span>} */}
+                <p className="badge">444</p>
+                <img 
+                className='bellIcon' 
+                src={bell} 
+                alt="" 
+                 />
+              </div>
+            <div className='separator' />
           </div>}
+
+          {dropdownMenu === 'notifications' && (
+                <div
+                  className="menuDropdown menuNotifications"
+                  onMouseLeave={() => setDropdownMenu('')}
+                >
+                 <div className='separator' />
+
+                  {notifications.length > 0 ? (
+                    notifications.map((notif) => (
+                      <NavLink
+                        key={notif.id}
+                        to={`/chat/${notif.reference_id}`} 
+                        className={({ isActive }) => (isActive ? 'active' : 'inactive')}
+                        onClick={() => {
+                          markNotificationAsRead(notif.id); 
+                          setDropdownMenu(''); 
+                        }}
+                      >
+                        {notif.content}
+                      </NavLink>
+                    ))
+                  ) : (
+                    <div className="notificationItem">No notifications</div>
+                  )}
+                  <div className='separator' />
+                </div>
+              )}
               
         {dropdownMenu === 'about' && 
          <div 

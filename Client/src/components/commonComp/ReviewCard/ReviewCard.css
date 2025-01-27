@@ -11,14 +11,10 @@
     align-items: center;
     gap: var(--size1);
   
-    
-  }
-}
-.UserCardName {
-  font-weight: bold;
-  cursor: pointer;
-  &:hover {
-    color: var(--magenta);
+    .UserCardName {
+      font-weight: bold;
+    }
+  
   }
 }
 .userCardAvatar {

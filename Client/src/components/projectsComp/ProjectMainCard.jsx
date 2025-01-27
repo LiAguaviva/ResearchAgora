@@ -25,7 +25,6 @@ export const ProjectMainCard = ({project, members}) => {
  
          <div className="userCardData">
            <p className="UserCardName"
-             onClick={()=>navigate(`/researcher/${project?.creator_user_id}`)}
            > {project?.creator_name}</p>
            <p className='creator'>Creator</p>
          </div>
