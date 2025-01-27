@@ -13,7 +13,10 @@ const initialValue = {
   user_city:"",
   user_description:"",
   skills: "",
-  fields: ""
+  fields: "",
+  user_proficiency: "",
+  user_current_lab: "",
+  user_current_boss: "",
 }
 
 export const EditProfileForm = () => {
@@ -226,6 +229,39 @@ export const EditProfileForm = () => {
           name="user_description" 
         />
         </fieldset>
+        <fieldset>
+        <label htmlFor="proficiency">Proficiency</label>
+        <input 
+          id='proficiency'
+          type="text" 
+          placeholder='your current position(student/researcher/doctorant)'
+          value={editUser?.user_proficiency ? editUser?.user_proficiency : ''}
+          onChange={handleChange}
+          name='user_proficiency'
+        />
+      </fieldset>
+      <fieldset>
+        <label htmlFor="user_current_lab">Current laboratory</label>
+        <input 
+          id='current lab'
+          type="text" 
+          placeholder='your current laboratory'
+          value={editUser?.user_current_lab ? editUser?.user_current_lab : ''}
+          onChange={handleChange}
+          name='user_current_lab'
+        />
+      </fieldset>
+      <fieldset>
+        <label htmlFor="current_boss">Current head</label>
+        <input 
+          id='current_boss'
+          type="text" 
+          placeholder='your laboratory head'
+          value={editUser?.user_current_boss ? editUser?.user_current_boss : ''}
+          onChange={handleChange}
+          name='user_current_boss'
+        />
+      </fieldset>
 
         <fieldset className="textareaLit">
         <label htmlFor="skills">Skills</label>

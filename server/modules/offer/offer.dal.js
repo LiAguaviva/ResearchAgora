@@ -269,31 +269,67 @@ GROUP BY o.offer_id;
        }
     }
 
-    updateOffer = async (offer_id) => {
+    updateOffer = async (values) => {
+      
+      const{offer_title, number_of_position, offer_description, skill, is_deleted, project_id,  offer_id} = values; 
+      let sql =
+      "UPDATE offer SET offer_title = ?, number_of_position = ?, offer_description = ?  WHERE offer_id = ?";
+
     try {
-    let sql = `
-    UPDATE 
-    offer o
-    SET 
-      o.offer_title = ?, 
-      o.offer_description = ?, 
-      o.number_of_position = ?, 
-      s.skill_id = ?
-      s.skill_name = ?
-      LEFT JOIN offer_skill os
-      ON o.offer_id = os.offer_id
-      LEFT JOIN skill s
-      ON os.skill_id = s.skill_id
-    WHERE offer_id = ? 
-  `;
-  const result = await executeQuery(sql, [offer_id]);
-        return result;
-        
-       } catch (error) {
-         console.log("Edit oneOffer error", error);
-         throw error;
-       }
+      const result = await executeQuery(sql, [offer_title, number_of_position, offer_description, offer_id]);
+      return result;
+    } catch (error) {
+      throw error;
     }
+
+    }
+
+    editSkill = async (offer_id, finalArrayData) => {
+      const connection = await dbPool.getConnection();
+      try {
+        await connection.beginTransaction();
+        let sql = "INSERT INTO skill (skill_name, skill_id) VALUES (?, ?)";
+        let finalId = 1;
+        for (const elem of finalArrayData) {
+          if (elem != "") {
+            let sqlId = "SELECT max(skill_id) AS id FROM skill";
+            try {
+              let [result] = await connection.execute(sqlId);
+              console.log(result);
+              if (result[0].id != null) {
+                finalId = result[0].id + 1;
+              }
+              await connection.execute(sql, [elem, finalId]);
+            } catch (error) {
+              if (error.errno != 1062) {
+                throw error;
+              }
+            }
+          }
+        }
+        let dataString = finalArrayData.join();
+        let sql2 = "SELECT skill_id FROM skill WHERE find_in_set(skill_name, ?)";
+        let [result] = await connection.execute(sql2, [dataString]);
+        console.log(result);
+        let sql3 = "DELETE FROM offer_skill WHERE offer_id = ?";
+        await connection.execute(sql3, [offer_id]);
+        let sql4 =
+          "INSERT INTO offer_skill (offer_id, skill_id) VALUES (?, ?)";
+        for (const elem of result) {
+          await connection.execute(sql4, [offer_id, elem.skill_id]);
+        }
+        await connection.commit();
+        return "ok";
+      } catch (error) {
+        await connection.rollback();
+        throw error;
+      } finally {
+        connection.release();
+      }
+    };
+
+
+
   }
 
 

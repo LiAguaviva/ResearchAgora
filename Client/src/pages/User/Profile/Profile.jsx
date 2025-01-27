@@ -126,20 +126,20 @@ export const Profile = () => {
           })}
         </div>
       </div>
-     </section>
+     </section>    
     
-
-
-    
-    {show && 
      <div>
       <section>
           <div className="containerPpal">
             <button onClick={() => setShow(!show)}>{!show?"Write a review":null}</button>
-            <StatsRadarChart />
+            {show && <ReviewModal
+               show = {show}
+               setShow = {setShow}
+               user_id = {user.user_id} />
+            }
           </div>
       </section>
-    </div>}
+    </div>
 
 
      

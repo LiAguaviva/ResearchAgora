@@ -3,10 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import StarRating from './StarRating';
 
-const initialValue = {
-  test: "",
-  rate: 1
-}
+
 const handleRatingSubmit = (rating) => {
   console.log("User selected rating:", rating);
   // Send the rating to your backend or perform other actions
@@ -14,8 +11,9 @@ const handleRatingSubmit = (rating) => {
 
 export const ReviewModal = ({show,setShow}) => {
   const navigate = useNavigate();
-  const [review,setReview ]= useState(initialValue)
-   const [rating, setRating] = useState(0)
+  const [review, setReview ]= useState({})
+  const [rating, setRating] = useState(0)
+  // const [result, setResult] = useState({});
 
 
   // hacer funcion que recargue la página y 
@@ -23,11 +21,24 @@ export const ReviewModal = ({show,setShow}) => {
     setShow(!show)
   }
 
-  const handleChange = () => {
-
+  const handleChange = (e) => {
+   const {name, value} = e.target;
+   setReview({...review, [name]: value })
   }
   console.log("ratinggggggggggggggg",rating);
+  console.log("revieeeeew", review);
   
+   const onSubmit = async(e) => {
+    e.preventDefault();
+    // setResult({...result, review, rating})
+    // setResult((prevResult) => ({...prevResult, review, rating}));
+    let result = {...review, rating}
+    //fetchData
+    closeModal();
+    console.log("------", result);
+   }
+  
+
 
   return (
     
@@ -48,7 +59,7 @@ export const ReviewModal = ({show,setShow}) => {
         </fieldset>
         <StarRating maxStars={5} onRatingSelect={handleRatingSubmit} rating = {rating} setRating={setRating}/>
         </form>
-          <button onClick={closeModal}>Submit</button>
+          <button onClick={onSubmit}>Submit</button>
           <button onClick={closeModal}>Cancel</button>
       </div>
     </div>

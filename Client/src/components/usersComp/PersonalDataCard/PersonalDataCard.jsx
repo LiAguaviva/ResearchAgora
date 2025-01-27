@@ -14,8 +14,9 @@ export const PersonalDataCard = () => {
           <p><span className='fieldName'>name:</span> {user?.user_name}</p>
           <p><span className='fieldName'>lastname:</span> {user?.user_lastname}</p>
           <p><span className='fieldName'>Email:</span> {user?.user_email}</p>
-          <p><span className='fieldName'>Country:</span> {user?.user_country}</p>
-          <p><span className='fieldName'>City:</span> {user?.user_city}</p>
+          <p><span className='fieldName'>Proficiency:</span> {user?. user_proficiency}</p>
+          <p><span className='fieldName'>Current Laboratory:</span> {user?. user_current_lab}</p>
+          <p><span className='fieldName'>Current Head:</span> {user?.user_current_boss}</p>
         </div>     
       </div>
   )

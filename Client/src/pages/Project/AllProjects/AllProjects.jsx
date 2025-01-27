@@ -87,7 +87,7 @@ export const AllProjects = () => {
             value={inputValueSkills}
             onChange={(e) => setInputValueSkills(e.target.value)}
             onKeyDown={handleKeyDownSkill}
-            placeholder="Add skills for searching"
+            placeholder="Add skills/key words for searching"
           />
        <button onClick={onSubmit}>Search</button>
 
