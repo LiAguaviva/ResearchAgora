@@ -2,9 +2,13 @@ import React from 'react'
 import projectDefaultIMG from "../../assets/imgs/lab1.jpg";
 import check from '../../assets/icons/check-circle.svg'
 import reject from '../../assets/icons/reject-circle.svg'
+import { useNavigate } from 'react-router-dom';
 
 
 export const ProjectInvitationCard = ({elem, updateInvite}) => {
+
+  const navigate = useNavigate();
+
   return (
     <div className='invitationCard'>
     <img

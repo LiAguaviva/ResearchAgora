@@ -11,6 +11,7 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
   const [selectedOffer, setSelectedOffer] = useState(null);
   const navigate = useNavigate();
   const { user } = useContext(AgoraContext);
+  const [msg, setmessage] = useState('');
 
   const handleProjectChange = async (event) => {
     const projectId = event.target.value;
@@ -49,9 +50,14 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
   }, [user]);
 
   const sendinvite = async () => {
-    if (!selectedProject || !selectedOffer) {
-      alert('Please select both a project and an offer.');
+    if (!selectedProject) {
+      setmessage('Select Project')
       return;
+    }
+
+    if (!selectedOffer) {
+      setmessage('Select Offer')
+      return ;
     }
 
     const project = projects.find((p) => p.project_id == selectedProject);
@@ -101,7 +107,7 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
             ))}
           </select>
         </fieldset>
-
+        {msg && <p className='errorMsg'>{msg}</p>}
         <div className="buttons">
           <button type="button" className="accept" onClick={sendinvite}>
             Send

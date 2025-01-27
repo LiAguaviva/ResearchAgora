@@ -9,9 +9,9 @@ export const ProjectMainCard = ({project, members}) => {
 
   const {user} = useContext(AgoraContext)
   const navigate = useNavigate()
-  // console.log('user on projectMainCard', project);
-
+  
   const creator = members?.find(member => member.user_id === project?.creator_user_id);
+  console.log('cretorrrrr on projectMainCard', creator);
   
   return (
     <div>
@@ -20,11 +20,20 @@ export const ProjectMainCard = ({project, members}) => {
              className='userCardAvatar'
              src={creator?.user_avatar? `${url}/useravatar/${creator.user_avatar}` : avatarDefault} 
              alt="your avatar" 
-             onClick={()=>navigate(`/researcher/${project?.creator_user_id}`)}
+             onClick={() =>
+              creator.user_id !== user.user_id
+                ? navigate(`/researcher/${creator.user_id}`)
+                : navigate("/profile")
+            }
            />
  
          <div className="userCardData">
            <p className="UserCardName"
+             onClick={() =>
+              creator.user_id !== user.user_id
+                ? navigate(`/researcher/${creator.user_id}`)
+                : navigate("/profile")
+            }
            > {project?.creator_name}</p>
            <p className='creator'>Creator</p>
          </div>
