@@ -8,6 +8,7 @@
 
 main {
   min-height: var(--mainSize);
+  margin-top: var(--headerSize);
   @media(max-width: 500px){
     padding-top: 5rem;
   }
@@ -218,7 +219,7 @@ ul {
   height: var(--size2);
 
   &:hover {
-    filter: brightness(1.2);
+    filter: brightness(0);
   }
 }
 

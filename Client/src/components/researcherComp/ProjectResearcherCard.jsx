@@ -30,9 +30,9 @@ export const ProjectResearcherCard = ({ elem, researcher }) => {
           onClick={() => navigate(`/oneproject/${elem.project_id}`)}
         >{elem.project_title}</h4>
         {researcher?.user_id === elem?.creator_user_id ? (
-          <p className="creatorResearcher">Creator</p>
+          <p className="creator">Creator</p>
         ) : (
-          <p className="creatorResearcher">Researcher</p>
+          <p className="researcher">Researcher</p>
         )}
         <div className="tagsContainer">
           {skills?.map((skill, index) => (

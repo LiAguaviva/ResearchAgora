@@ -143,8 +143,7 @@ export const NavbarApp = () => {
                <div className='notifications'
                 onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
                >
-                {/* {notifications.length > 0 && <span className="badge">{notifications.length}</span>} */}
-                <p className="badge">444</p>
+                {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
                 <img 
                 className='bellIcon' 
                 src={bell} 

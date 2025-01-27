@@ -8,56 +8,64 @@ img{
 
 .chat-container {
   display: flex;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  flex-direction: column;
-  box-sizing: border-box;
+  justify-content: space-between;
+  /* height: 100%; */
+  /* width: 100%; */
+  /* overflow: hidden; */
+  /* flex-direction: column; */
+  /* box-sizing: border-box; */
+  /* border: 5px solid salmon; */
 }
 
-.chat-user {
+/* .chat-user {
   width:45%; 
   height: 100%;
   overflow-y: auto; 
-  border-right: 2px solid #ccc; 
-}
+} */
 
 .chat-box-container {
   display: flex;
-  width: 45%; 
-  height: 100%;
+  width: 35rem; 
+  min-height: 100%;
   padding: 10px;
+  /* background-color: white; */
 }
 
-.messages {
+/* .messages {
   flex-grow: 1; 
   overflow-y: auto;
   margin-bottom: 10px; 
-}
+} */
 
 .message-content {
   background-color: rgb(0, 190, 212);
-    color: white;
-    padding: 5px 10px;
-    margin-bottom: 5px;
-    border-radius: 10px;
-    max-width: fit-content; 
-    width: auto; 
-    margin-right: auto; 
-    position: relative; 
+  color: white;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  max-width: 70%; 
+  /* width: auto;  */
+  /* margin-right: auto;  */
+  /* position: relative;  */
+
+  @media(max-width: 5000px){
+    max-width: 90%; 
+  }
 }
 
 
 .message-owner {
-  background-color: rgb(255, 162, 0);
+  background-color: var(--mandarina);
   margin-left: auto; 
-  margin-right: 0; 
+  /* margin-right: 0;  */
+  text-align: right;
+  justify-items: right;
 }
 
 
 .message-other {
-  background-color: rgb(0, 190, 212);
-  align-self: flex-start; 
+  background-color: var(--aqua);
+  /* align-self: flex-start;  */
 }
 
 
@@ -93,16 +101,23 @@ img{
 }
 
 .user-item {
-  padding: 10px;
+  padding: var(--size02);
+  border-radius: 10px;
+  img {
+    --avatarSize: 3rem;
+    width: var(--avatarSize);
+    height: var(--avatarSize);
+    object-fit: cover;
+    border-radius: 100%;
+  }
+  &:hover {
+    background-color: white;
+  }
   cursor: pointer;
-  border-bottom: 1px solid #ccc;
   display: flex;
   align-items: center;
 }
 
-.user-item:hover {
-  background-color: #f0f0f0;
-}
 
 .active-user {
   background-color: #989191;

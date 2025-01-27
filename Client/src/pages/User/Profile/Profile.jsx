@@ -5,7 +5,6 @@ import { ProjectProfileCard } from '../../../components/projectsComp/ProjectProf
 import StatsRadarChart from '../../../components/usersComp/RadarGraph'
 import { ReviewCard } from '../../../components/commonComp/ReviewCard/ReviewCard'
 import { WriteReviewCard } from '../../../components/usersComp/WriteReviewCard'
-import { ReviewModal } from '../../../components/usersComp/ReviewModal'
 import { useContext, useEffect, useState } from "react";
 import { ProfileUserCard } from "../../../components/usersComp/ProfileUserCard";
 import { UserCard } from "../../../components/usersComp/UserCard";

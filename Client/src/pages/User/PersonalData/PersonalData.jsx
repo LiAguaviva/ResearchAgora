@@ -12,13 +12,11 @@ export const PersonalData = () => {
   const { user } = useContext(AgoraContext)
   return (
     <section className='containerPpal personalDataPage'>
-      <div className='profileAvatar'>
                 <img 
                 className='profileAvatar'
                   src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
                   alt="your avatar" 
                 />
-              </div>
               <PersonalDataCard />
       <button onClick={() => navigate('/editProfile')}>Edit</button>
     </section>

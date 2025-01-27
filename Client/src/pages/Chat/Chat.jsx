@@ -102,6 +102,7 @@ export const Chat = () => {
   };
 
 return (
+  <section className='chatSection containerPpal'>
   <div className="chat-container">
     <div className="chat-user">
       <ChatUsers currentUserId={user?.user_id} onUserClick={handleUserClick} />
@@ -117,5 +118,6 @@ return (
       />
     </div>
   </div>
+  </section>
   );
 };

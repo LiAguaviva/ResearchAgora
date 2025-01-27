@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import StarRating from './StarRating';
+import StarRating from '../usersComp/StarRating';
 
 
 const handleRatingSubmit = (rating) => {
@@ -44,11 +44,12 @@ export const ReviewModal = ({show,setShow, researcher}) => {
   return (
     
     <div className='modalContainer'>
-        <form className='verificationModal formApp'>
+        <form className='verificationModal'>
         <h4>Write a Review</h4>
         <fieldset className="textareaBig">
          {/*  <label htmlFor="description">Description</label> */}
           <textarea
+            className='reviewTextarea'
             id="description"
             type="text"
             placeholder="Write Your Review"
@@ -60,7 +61,7 @@ export const ReviewModal = ({show,setShow, researcher}) => {
         <StarRating maxStars={5} onRatingSelect={handleRatingSubmit} rating = {rating} setRating={setRating}/>
         <div className='buttons'>
           <button onClick={onSubmit}>Submit</button>
-          <button onClick={closeModal}>Cancel</button>
+          <button className='cancel' onClick={closeModal}>Cancel</button>
         </div>
         </form>
     </div>
