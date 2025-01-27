@@ -42,7 +42,8 @@ export const Researcher = () => {
 
   const fetchProjects = async () => {
     try {
-      let data = { user_id: researcher.user_id };
+      let data = { user_id: id };
+
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/oneuserprojects`,
         "post",
@@ -55,8 +56,8 @@ export const Researcher = () => {
   };
 
   const fetchFn = async () => {
-    await fetchProjects();
     await fetchResearcher();
+    await fetchProjects();
   }
 
   useEffect(() => {

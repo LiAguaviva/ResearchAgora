@@ -17,7 +17,7 @@ export const ProjectResearcherCard = ({ elem, researcher }) => {
         onClick={() => navigate(`/oneproject/${elem.project_id}`)}
         className="profileProjectImg"
         src={
-          project?.image
+          elem?.image
             ? `${url}/images/users/${project.image}`
             : projectDefaultIMG
         }
@@ -29,7 +29,7 @@ export const ProjectResearcherCard = ({ elem, researcher }) => {
           className="projectTitle"
           onClick={() => navigate(`/oneproject/${elem.project_id}`)}
         >{elem.project_title}</h4>
-        {user?.user_id === elem?.creator_user_id ? (
+        {researcher?.user_id === elem?.creator_user_id ? (
           <p className="creatorResearcher">Creator</p>
         ) : (
           <p className="creatorResearcher">Researcher</p>
