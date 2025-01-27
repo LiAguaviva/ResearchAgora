@@ -4,8 +4,9 @@
   position: fixed;
   z-index: 10;
   top: 91vh;
-  height: 3.5rem;
+  height: 3rem;
   cursor: pointer;
+  left: 5vw;
 
   &:hover {
     filter: brightness(0);

@@ -160,8 +160,8 @@ export const EditProfileForm = () => {
     }
   };
 
-  // console.log('edituser', editUser);
-  // console.log('user', user);
+  console.log('edituser', editUser);
+  console.log('user', user);
   
   
   

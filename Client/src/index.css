@@ -9,6 +9,7 @@
 main {
   min-height: var(--mainSize);
   margin-top: var(--headerSize);
+  /* margin-bottom: var(--footerSize); */
   @media(max-width: 500px){
     padding-top: 5rem;
   }

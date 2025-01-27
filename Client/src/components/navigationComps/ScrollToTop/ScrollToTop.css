@@ -4,7 +4,7 @@
   z-index: 10;
   top: 90vh;
   right: 1vw;
-  height: 3.5rem;
+  height: 3rem;
 
   &:hover {
     filter: brightness(0);

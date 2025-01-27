@@ -47,7 +47,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
             {elem?.user_city}
           </p> */}
           <p>
-           {user?.user_proficiency}
+           {elem?.user_proficiency}
           </p>
             <div className="tagsContainer">
               {skills?.map((skill, index) => (

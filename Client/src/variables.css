@@ -14,7 +14,8 @@
 
   /* VIEW */
   --headerSize: 2.5rem;
-  --mainSize: calc(100vh - 3.5rem - 11rem);
+  /* --mainSize: calc(100vh - 2.5rem - 11rem); */
+  --mainSize: calc(100vh);
   --footerSize:11rem;
   --widthPage: 1200px;
 

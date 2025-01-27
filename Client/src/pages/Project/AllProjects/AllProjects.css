@@ -23,6 +23,7 @@
     border-radius: 20px;
     border: 2px solid var(--purple);
     text-align: center;
+    width: 20rem;
 
     &::placeholder {
       color: var(--purple50);

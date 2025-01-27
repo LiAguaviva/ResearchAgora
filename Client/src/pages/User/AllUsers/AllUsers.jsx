@@ -83,7 +83,8 @@ export const AllUsers = () => {
       console.log(error);
     }
   };
-  console.log('TODOS LOS USUARIOS',users)
+  // console.log('TODOS LOS USUARIOS',users)
+
   return (
     <section className="containerPpal allProjectsPage">
       <div className="searchingTagContainer">
@@ -105,7 +106,7 @@ export const AllUsers = () => {
           value={inputValueSkills}
           onChange={(e) => setInputValueSkills(e.target.value)}
           onKeyDown={handleKeyDownSkill}
-          placeholder="Add skills/key words/name for searching"
+          placeholder="Add skills / key words for searching"
         />
 
         <input
