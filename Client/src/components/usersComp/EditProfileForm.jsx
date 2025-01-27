@@ -123,6 +123,9 @@ export const EditProfileForm = () => {
 
   const handleFile = (e) => setFile(e.target.files[0]);
 
+  
+
+    
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -346,7 +349,9 @@ export const EditProfileForm = () => {
           onClick={()=>navigate('/profile')}
         >CANCEL</button>
       </div>
+       
     </form>
+
     </div>
   )
 }

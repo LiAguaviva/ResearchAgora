@@ -203,6 +203,8 @@ class UserController {
           await userDal.deleteUser(user_id)
           res.status(200).json("user disabled")
         }catch (error){
+          console.log("eeerrrrorr", error);
+          
           res.status(500).json(error)
         }
       }

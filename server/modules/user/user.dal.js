@@ -144,27 +144,27 @@ class UserDal {
 
 
 
-  deleteUser = async(user_id) => {
-    const connection = await dbPool.getConnection();
-    try{
-      await connection.beginTransaction();
-      let sqlUser = 'UPDATE user SET user_is_disabled = 1 WHERE user_id = ?'
-      await connection.execute(sqlUser, [user_id]);
+  // deleteUser = async(user_id) => {
+  //   const connection = await dbPool.getConnection();
+  //   try{
+  //     await connection.beginTransaction();
+  //     let sqlUser = 'UPDATE user SET user_is_disabled = 1 WHERE user_id = ?'
+  //     await connection.execute(sqlUser, [user_id]);
 
-      let sqlSkill = 'UPDATE user_skill SET user_skill_is_disabled = 1 WHERE user_id = ?'
-      await connection.execute(sqlSkill, [user_id]);
+  //     let sqlSkill = 'UPDATE user_skill SET user_skill_is_disabled = 1 WHERE user_id = ?'
+  //     await connection.execute(sqlSkill, [user_id]);
 
-      let sqlField = 'UPDATE user_field SET user_field_is_disabled = 1 WHERE user_id = ?'
-      await connection.execute(sqlField, [user_id]);
+  //     let sqlField = 'UPDATE user_field SET user_field_is_disabled = 1 WHERE user_id = ?'
+  //     await connection.execute(sqlField, [user_id]);
 
-      await connection.commit();   
-    }catch (error){
-      await connection.rollback();
-      throw error;
-    } finally {
-      connection.release();
-    }
-  };
+  //     await connection.commit();   
+  //   }catch (error){
+  //     await connection.rollback();
+  //     throw error;
+  //   } finally {
+  //     connection.release();
+  //   }
+  // };
 
   deleteUser = async (user_id) => {
     const connection = await dbPool.getConnection();
