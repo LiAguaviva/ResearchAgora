@@ -5,7 +5,7 @@ import { AgoraContext } from '../../context/ContextProvider'
 
 export const ProjectReviewCard = ({elem}) => {
 
-  // console.log("elemmmmmmmmm****************",elem);
+   console.log("elemmmmmmmmm****************",elem);
 
   const renderStars = (rate) => {
     const emptyStars = 5 - rate;  
@@ -36,7 +36,7 @@ export const ProjectReviewCard = ({elem}) => {
       
               <div className='userCardData'>
               <p className='UserCardName'
-              > {elem?.reviewer_name} {elem?.reviewer_lastname}</p>
+              > {elem?.reviewer_user_name} {elem?.reviewer_user_lastname}</p>
               <p>{renderStars(elem?.review_rate)}</p>
               </div>
               </div>
