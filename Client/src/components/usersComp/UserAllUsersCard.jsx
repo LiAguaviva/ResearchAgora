@@ -26,6 +26,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
                 ? `http://localhost:4000/images/useravatar/${elem?.user_avatar}`
                 : avatarDefault
             }
+            onClick={()=>navigate(`/researcher/${elem?.user_id}`)}
             alt="your avatar"
           />
 

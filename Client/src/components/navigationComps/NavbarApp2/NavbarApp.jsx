@@ -3,6 +3,7 @@ import logo from '../../../../src/assets/logo/Logo_short_WhiteBlue.png'
 import './NavbarApp.css'
 import { NavLink, useNavigate } from 'react-router-dom'
 import avatarDefault from '../../../assets/imgs/defaultIMG.png'
+import bell from '../../../assets/icons/bell.svg'
 import { AgoraContext } from '../../../context/ContextProvider'
 import { ScrollToTop } from '../ScrollToTop/ScrollToTop'
 const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
@@ -14,7 +15,7 @@ export const NavbarApp = () => {
   
   const navigate = useNavigate()
   const { user, setToken, notifications, markNotificationAsRead } = useContext(AgoraContext);
-  console.log("notifications in navbar",notifications);
+  // console.log("notifications in navbar",notifications);
   
 
   const hamburger = document.getElementById('hamburger');
@@ -98,11 +99,21 @@ export const NavbarApp = () => {
                 src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} alt="your avatar" 
               />
 
-              <button
+              {/* <button
                 onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
-              >
+                >
                 Notifications {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
-              </button>
+              </button> */}
+
+              <div className='notifications'>
+              {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
+              <img 
+                onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
+                className='bellIcon' 
+                src={bell} 
+                alt="" 
+              />
+              </div>
 
        
               {dropdownMenu === 'notifications' && (

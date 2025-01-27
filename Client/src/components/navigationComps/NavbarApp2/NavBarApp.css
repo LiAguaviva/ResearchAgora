@@ -109,6 +109,10 @@
   }
 }
 
+.bellIcon {
+  height: var(--size2);
+}
+
 .menuDropdown {
   display: flex;
   align-items: right;

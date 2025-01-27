@@ -55,9 +55,6 @@ export const ProjectInfoCard = ({project,skills, members}) => {
             <p className='paused'>{project?.project_status === 3 && 'Paused'}</p>
           </div>
         </div>
-
-          
-
         <div className="separatorThick" />
       </div>
       
@@ -92,16 +89,16 @@ export const ProjectInfoCard = ({project,skills, members}) => {
         </div>
       </div>
           {user?.user_id === project?.creator_user_id && 
-          <>
+          <div className='buttons'>
           <button 
             onClick={() => navigate(`/editproject/${project?.project_id}`)}
             className='editButton'
-            >EDIT</button>
+          >EDIT</button>
           <button 
           onClick={() => deleteProject()}
-          className='editButton'
+          className='cancel'
           >Delete</button>
-          </>
+          </div>
           }
     </section>
   )

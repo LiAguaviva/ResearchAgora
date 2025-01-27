@@ -1,11 +1,14 @@
 import React, { useContext } from 'react'
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../context/ContextProvider'
+import { useNavigate } from 'react-router-dom'
 
 
 export const ProjectReviewCard = ({elem}) => {
 
   // console.log("elemmmmmmmmm",elem);
+
+  const navigate = useNavigate();
 
   const renderStars = (rate) => {
     const emptyStars = 5 - rate;  
@@ -31,6 +34,7 @@ export const ProjectReviewCard = ({elem}) => {
                   // src={user?.avatar? `${url}/images/users/${user.avatar}` :avatarDefault} 
                   src={avatarDefault}
                   alt="your avatar" 
+                  onClick={()=>navigate(`/researcher/${elem.reviewer_user_id}`)}
                 />
               </div>
       

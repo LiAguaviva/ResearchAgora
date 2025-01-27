@@ -48,15 +48,17 @@ export const Researcher = () => {
         "post",
         data
       );
+      console.log('result of fetchProjects', result);
       setProjects(result);
+      
     } catch (error) {
       console.log(error);
     }
   };
 
   const fetchFn = async () => {
-    await fetchProjects();
     await fetchResearcher();
+    await fetchProjects();
   }
 
   useEffect(() => {
@@ -97,6 +99,7 @@ export const Researcher = () => {
             })}
         </div>
     </section>} */}
+    
     {projects.length > 0 && 
     <section className='containerPpal projectsSection'>
       <div className='projectsGallery'>

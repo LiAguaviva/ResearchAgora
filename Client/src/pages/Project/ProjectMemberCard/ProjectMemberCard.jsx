@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import avatarDefault from "../../../assets/imgs/defaultIMG.png";
 import { AgoraContext } from "../../../context/ContextProvider";
 import { fetchDataValidation } from "../../../helpers/axiosHelper";
+import { useNavigate } from "react-router-dom";
 
 export const ProjectMemberCard = ({ elem, project }) => {
   const { user } = useContext(AgoraContext);
+  const navigate = useNavigate();
   
   const deletemember = async() => {
     try {
@@ -28,10 +30,14 @@ export const ProjectMemberCard = ({ elem, project }) => {
           }
           // src={avatarDefault}
           alt="your avatar"
+          onClick={()=>navigate(`/researcher/${elem.user_id}`)}
         />
 
         <div className="userCardData">
-          <p className="UserCardName"> {elem?.user_name}</p>
+          <p 
+            className="UserCardName"
+            onClick={()=>navigate(`/researcher/${elem.user_id}`)}
+          > {elem?.user_name}</p>
           <p>{elem?.fields}</p>
         </div>
         {user?.user_id === project[0]?.creator_user_id &&
