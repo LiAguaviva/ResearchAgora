@@ -83,7 +83,7 @@ export const AllUsers = () => {
       console.log(error);
     }
   };
-
+  console.log('TODOS LOS USUARIOS',users)
   return (
     <section className="containerPpal allProjectsPage">
       <div className="searchingTagContainer">

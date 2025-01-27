@@ -64,7 +64,6 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
   const userRequest = requests.find(
     (req) => req.user_id === user?.user_id && req.offer_id === elem.offer_id
   );
-  console.log("ELEM", elem);
   
 
   return (

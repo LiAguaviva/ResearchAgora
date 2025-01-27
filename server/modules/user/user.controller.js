@@ -166,7 +166,7 @@ class UserController {
           const results = await this.saveTags(skills, user_id, 'skill');
         }
         if(fields != "" || !fields){
-          const res = await this.saveTags(fields, user_id, 'field');
+          const result1 = await this.saveTags(fields, user_id, 'field');
         }
         res.status(200).json({img})
       } catch (error) {
