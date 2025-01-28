@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './GoBack.css'
-import goBack from '../../../assets/icons/arrowBack.svg'
+import goBack from '../../../assets/icons/arrowBack-circle.svg'
 
 export const GoBack = () => {
   const navigate = useNavigate()

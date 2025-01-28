@@ -82,7 +82,7 @@ p {
 
 .errorMsg {
   color: var(--magenta);
-  font-weight: 600;
+  /* font-weight: bold; */
 }
 
 button {

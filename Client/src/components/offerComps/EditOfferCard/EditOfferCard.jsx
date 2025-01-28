@@ -242,7 +242,7 @@ export const EditOfferCard = () => {
             className="cancel"
             type="button"
             //onClick={() => navigate(`/oneoffer/${data?.offer_id}`)} //last version with Alba
-            onClick={() => navigate(`/oneoffer/${id}`)}
+            onClick={() => navigate(`/oneproject/${id}`)}
           >
             CANCEL
           </button>

@@ -56,7 +56,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
                 ))}
               </>
             ) : (
-              <span className="errorMsg">No skills</span>
+              <span className="errorMsg"></span>
             )}
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import arrowup from '../../../assets/icons/arrowUp.svg'
+import arrowup from '../../../assets/icons/arrowUp-circle.svg'
 import './ScrollToTop.css'
 
 export const ScrollToTop = ({scrollGoUp}) => {

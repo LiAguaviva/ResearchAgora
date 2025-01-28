@@ -119,6 +119,7 @@ class UserDal {
     u.user_city, 
     u.user_description, 
     u.user_proficiency, 
+    u.user_avatar,
     IFNULL(GROUP_CONCAT(DISTINCT s.skill_name), '') AS skills, 
     IFNULL(GROUP_CONCAT(DISTINCT f.field_name), '') AS fields
 FROM user u

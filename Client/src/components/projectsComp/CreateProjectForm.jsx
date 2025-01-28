@@ -12,7 +12,7 @@ const initialValue = {
   description:"",
   status:1,
   type:0,
-  max_member:"",
+  max_member:0,
 }
 
 export const CreateProjectForm = () => {
@@ -68,12 +68,16 @@ export const CreateProjectForm = () => {
   const onSubmit = async(e)=> {
     try {
       e.preventDefault();
+      createProjectSchema.parse(project);
+
       const skillsString = skills.join(",");
       let data = { ...project, skill_name: skillsString};
       console.log(data);
       const result = await fetchDataValidation(`http://localhost:4000/api/project/addproject/${user.user_id}`,'post', data);
       navigate(`/oneproject/${result}`)
     } catch (error) {
+
+      const fieldErrors = {};
 
       if (error instanceof ZodError){
               error.errors.forEach((err)=>{
@@ -172,9 +176,9 @@ export const CreateProjectForm = () => {
       </fieldset>
 
         <fieldset>
-        <label htmlFor="max_num">Max number of collaborators</label>
+        <label htmlFor="max_member">Max number of collaborators</label>
         <input 
-          id='max_num'
+          id='max_member'
           type="number" 
           placeholder='Max number of collaborators'
           value={project.max_member}

@@ -330,6 +330,9 @@ export const EditProfileForm = () => {
       {valErrors.user_country && <p>{valErrors.user_country}</p>}
       {valErrors.user_city && <p>{valErrors.user_city}</p>}
       {valErrors.user_description && <p>{valErrors.user_description}</p>}
+      {valErrors.user_proficiency && <p>{valErrors.user_proficiency}</p>}
+      {valErrors.user_current_lab && <p>{valErrors.user_current_lab}</p>}
+      {valErrors.user_current_boss && <p>{valErrors.user_current_boss}</p>}
  
       { <p>{msg}</p>}
       </div>
