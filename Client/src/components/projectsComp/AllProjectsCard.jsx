@@ -43,9 +43,9 @@ export const AllProjectsCard = ({elem}) => {
             {elem.project_status === 3 && <p className='status paused'>paused</p> }
           </p>
 
-          <div className='description'>
+          {/* <div className='description'>
             <p>{elem.project_description}</p>
-          </div>
+          </div> */}
         </div>
     </div>
   )

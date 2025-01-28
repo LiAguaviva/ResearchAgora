@@ -3,10 +3,10 @@
 .goBack {
   position: fixed;
   z-index: 10;
-  top: 91vh;
+  top: 90vh;
   height: 3rem;
   cursor: pointer;
-  left: 5vw;
+  left: 1vw;
 
   &:hover {
     filter: brightness(0);

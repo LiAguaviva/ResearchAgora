@@ -23,6 +23,7 @@ export const ProjectReviewCard = ({elem}) => {
       </>
     );
   };
+console.log('elem review', elem);
 
   return (
     <div>
@@ -35,7 +36,7 @@ export const ProjectReviewCard = ({elem}) => {
                   src={avatarDefault}
                   alt="your avatar" 
                   onClick={() =>
-                    elem.reviewer_user_id !== user.user_id
+                    elem?.reviewer_user_id !== user.user_id
                       ? navigate(`/researcher/${elem.reviewer_user_id}`)
                       : navigate("/profile")
                   }
@@ -44,9 +45,9 @@ export const ProjectReviewCard = ({elem}) => {
       
               <div className='userCardData'>
               <p className='UserCardName'
-              onClick={() =>
-                elem.reviewer_user_id !== user.user_id
-                  ? navigate(`/researcher/${elem.reviewer_user_id}`)
+                onClick={() =>
+                elem?.reviewer_user_id !== user.user_id
+                  ? navigate(`/researcher/${elem?.reviewer_user_id}`)
                   : navigate("/profile")
               }
               > {elem?.reviewer_user_name} {elem?.reviewer_user_lastname}</p>

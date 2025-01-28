@@ -52,8 +52,12 @@ h4 {
 }
 
 h1, h2, h3, h4 {
-  width: max-content;
   color: var(--purple);
+}
+
+h1, h2, h3, h4 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 p {
