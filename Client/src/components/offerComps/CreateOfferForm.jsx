@@ -68,7 +68,7 @@ export const CreateOfferForm = () => {
       let data = { ...offer, skill_name: skillsString};
       console.log("data1", data);
       
-      await fetchData2(`offer/createoffer/${id}`, 'post', data, { headers: { Authorization: `Bearer ${token}` } })
+      await fetchData2(`offer/createoffer/${id}`, 'post', data, { Authorization: `Bearer ${token}`  })
        console.log("envio de la data al back", data);
        navigate(`/oneproject/${id}`)
        

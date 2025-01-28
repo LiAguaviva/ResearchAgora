@@ -16,7 +16,7 @@ export const ProfileUserCard = () => {
           try {
             const tokenLocal = localStorage.getItem('agoraToken');
 
-            await fetchData2(`user/deleteUser/${user.user_id}`, "put", null, { headers: { Authorization: `Bearer ${token}` } })
+            await fetchData2(`user/deleteUser/${user.user_id}`, "put", null,  { Authorization: `Bearer ${token}` })
             localStorage.removeItem('agoraToken');
             navigate("/") 
            

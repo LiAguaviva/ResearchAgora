@@ -46,7 +46,7 @@ export const OneProject = () => {
         `http://localhost:4000/api/user/pendingrequeststatus`,
         "post",
         data,
-        { headers: { Authorization: `Bearer ${token}` }
+       { Authorization: `Bearer ${token}` 
     });
       setrequestsview(result);
     } catch (error) {
@@ -91,7 +91,7 @@ export const OneProject = () => {
         `http://localhost:4000/api/project/allrequests`,
         "post",
         data,
-        { headers: { Authorization: `Bearer ${token}` } }
+        { Authorization: `Bearer ${token}`  }
       );
 
       /*   if(result[0].request_status === 1){
@@ -123,7 +123,7 @@ export const OneProject = () => {
         "http://localhost:4000/api/user/updaterequeststatus",
         "patch",
         data, 
-        {headers: { Authorization: `Bearer ${token}` }}
+         { Authorization: `Bearer ${token}` }
         
       );
       window.location.reload();

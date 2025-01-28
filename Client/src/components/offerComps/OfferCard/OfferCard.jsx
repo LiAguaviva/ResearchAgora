@@ -15,12 +15,13 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
 
   const deleteOffer = async () => {
     try {
-      await fetchData2(`offer/deleteoffer/${elem.offer_id}`, "put");
-      let result = await fetchData2(
+      await fetchData2(
         `offer/deleteoffer/${elem.offer_id}`,
-        "put"
+        "put", null,
+        { Authorization: `Bearer ${token}` }
       );
-      window.location.reload()();
+
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +54,7 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
         user_id: user?.user_id,
         project_id: project[0].project_id,
       };
-      await fetchData2(`offer/joinrequest`, "post", data, { headers: { Authorization: `Bearer ${token}` } });
+      await fetchData2(`offer/joinrequest`, "post", data, { Authorization: `Bearer ${token}` } );
       window.location.reload();
     } catch (error) {
       console.log(error);

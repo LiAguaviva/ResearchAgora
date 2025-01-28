@@ -46,7 +46,7 @@ export const LoginForm = () => {
     try {
       const tokenLocal = await fetchData('/login', 'post', login);
       
-      const resultUser = await fetchData('/findUserById', 'get', null, { headers: { Authorization: `Bearer ${token}` } });
+      const resultUser = await fetchData('/findUserById', 'get', null,  { Authorization: `Bearer ${tokenLocal}` });
       console.log('result user', resultUser);
       localStorage.setItem('agoraToken', tokenLocal)
       // setUser(resultUser);

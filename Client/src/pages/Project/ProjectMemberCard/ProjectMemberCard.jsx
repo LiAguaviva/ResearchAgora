@@ -13,7 +13,7 @@ export const ProjectMemberCard = ({ elem, project }) => {
   const deletemember = async() => {
     try {
       let data = {user_id : elem.user_id, project_id: project[0].project_id};
-      await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data, { headers: { Authorization: `Bearer ${token}` } } );
+      await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data,  { Authorization: `Bearer ${token}` });
       window.location.reload();
     } catch (error) {
       console.log(error)

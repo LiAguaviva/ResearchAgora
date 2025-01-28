@@ -40,7 +40,7 @@ export const Profile = () => {
   const fetchInvitations = async () => {
     try {
       let data = {user_id: user?.user_id}
-      const result = await fetchDataValidation('http://localhost:4000/api/user/allinvites', 'post', data, { headers: { Authorization: `Bearer ${token}` }});
+      const result = await fetchDataValidation('http://localhost:4000/api/user/allinvites', 'post', data, { Authorization: `Bearer ${token}` });
       setInvites(result)
     } catch (error) {
       console.log(error);
@@ -77,7 +77,7 @@ export const Profile = () => {
   const updateInvite = async(elem,value) => {
     try {
       let data = {invitation_id: elem.invitation_id, invitation_status: value, user_id: elem.receiver_id, project_id: elem.project_id, offer_id: elem.offer_id}
-      const result = await fetchDataValidation('http://localhost:4000/api/user/invitationResponse', 'patch', data, {headers: { Authorization: `Bearer ${token}` }});
+      const result = await fetchDataValidation('http://localhost:4000/api/user/invitationResponse', 'patch', data, { Authorization: `Bearer ${token}` });
       window.location.reload();
     } catch (error) {
       console.log(error);

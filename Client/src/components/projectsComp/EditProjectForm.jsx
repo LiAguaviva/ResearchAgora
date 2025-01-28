@@ -116,7 +116,7 @@ export const EditProjectForm = () => {
         `http://localhost:4000/api/project/editproject`,
         "put",
         data,
-        { headers: { Authorization: `Bearer ${token}` } }
+         { Authorization: `Bearer ${token}`  }
       );
       navigate(`/oneproject/${id}`)
 

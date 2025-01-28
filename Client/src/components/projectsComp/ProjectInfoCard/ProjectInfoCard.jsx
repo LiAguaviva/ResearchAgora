@@ -30,7 +30,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
 
   const deleteProject = async () => {
     try {
-      const result = await fetchDataValidation(`http://localhost:4000/api/project/deleteproject/${project.project_id}`, 'put', null, { headers: { Authorization: `Bearer ${token}` } })
+      const result = await fetchDataValidation(`http://localhost:4000/api/project/deleteproject/${project.project_id}`, 'put', null,  { Authorization: `Bearer ${token}`  })
       navigate('/profile')
     } catch (error) {
       console.log(error);

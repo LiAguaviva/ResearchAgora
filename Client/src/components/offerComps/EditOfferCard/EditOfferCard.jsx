@@ -131,7 +131,7 @@ export const EditOfferCard = () => {
         `offer/updateoffer/${id}`,
          "put",
         data,
-        { headers: { Authorization: `Bearer ${token}` } }
+         { Authorization: `Bearer ${token}` }
         );
         console.log('response', result);
         navigate(`/oneproject/${offer.project_id}`)
