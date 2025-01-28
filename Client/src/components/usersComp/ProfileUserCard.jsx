@@ -53,12 +53,12 @@ export const ProfileUserCard = () => {
           {/* <button onClick={() => navigate('/editProfile')}>EDIT</button> */}
         </div>
       </div>  
-      <div className='separatorThick' />
+      {/* <div className='separatorThick' />
          <button
            className='cancel'
            onClick={handleDelete}>
            Delete Account
-         </button>
+         </button> */}
 
       <div className='separatorThick' />
       {user?.user_description && <>

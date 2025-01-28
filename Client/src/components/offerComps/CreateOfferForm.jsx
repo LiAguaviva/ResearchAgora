@@ -1,9 +1,9 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
-import { createOfferScheme } from '../../schemas/createOfferScheme';
 import { fetchData2 } from '../../helpers/axiosHelper';
 import { ZodError } from 'zod';
+import { createOfferScheme} from '../../schemes/createOfferScheme'
 
 const initialValue = {
   offer_title:'',
@@ -35,6 +35,7 @@ export const CreateOfferForm = () => {
    const handleChange = (e)=> {
      const {name, value} = e.target;
      setOffer({...offer, [name]:value});
+
      validateField(name, value);
   } 
 
@@ -121,7 +122,7 @@ export const CreateOfferForm = () => {
           />
         </fieldset>
 
-        <fieldset className='textareaField'>
+        <fieldset className='textareaField textareaBig'>
         <label htmlFor="description">Description</label>
         <textarea 
           id="offer_description" 

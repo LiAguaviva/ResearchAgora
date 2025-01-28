@@ -46,7 +46,8 @@ export const NavbarApp = () => {
           onClick={()=>navigate('/')}
           onMouseEnter={closeDropdown}
           src={logo} 
-          className="logoNavbar" alt="" 
+          className="logoNavbar" 
+          alt="" 
         />
 
         <ul className='navLinks'>
@@ -74,7 +75,7 @@ export const NavbarApp = () => {
         { user &&
           <li>
             <NavLink
-              to={'/allUsers'}
+              to={'/researchers'}
               className={({ isActive })=>(isActive? 'active':'inactive')}
               onMouseEnter={()=>setDropdownMenu('research')}
             >Research</NavLink>
@@ -213,7 +214,7 @@ export const NavbarApp = () => {
          >
             <div className='separator' />
             <NavLink
-              to={'/allusers'}
+              to={'/researchers'}
               className={({ isActive })=>(isActive? 'active':'inactive')}
             >Researchers</NavLink>
             <div className='separator' />

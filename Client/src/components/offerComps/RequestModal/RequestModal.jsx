@@ -36,7 +36,7 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
         user_id: user?.user_id,
         inviter_id: selectedUserId
       };
-      const result = await fetchDataValidation(`http://localhost:4000/api/project/oneuserprojects`, 'post', data);
+      const result = await fetchDataValidation(`http://localhost:4000/api/project/oneUserAvailableProjects`, 'post', data);
       setProjects(result);
     } catch (error) {
       console.log(error);

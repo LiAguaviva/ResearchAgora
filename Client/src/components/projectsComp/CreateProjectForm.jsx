@@ -2,8 +2,8 @@ import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { fetchDataValidation } from '../../helpers/axiosHelper'
 import { AgoraContext } from '../../context/ContextProvider'
-import { createProjectSchema } from '../../schemas/createProjectSchema'
 import { ZodError } from 'zod';
+import { createProjectScheme } from '../../schemes/createProjectScheme';
 
 const initialValue = {
   title:"",
@@ -28,7 +28,7 @@ export const CreateProjectForm = () => {
 
   const validateField = (name, value) => {
     try {
-      createProjectSchema.pick({[name]: true}).parse({[name]:value});
+      createProjectScheme.pick({[name]: true}).parse({[name]:value});
       setValErrors({...valErrors, [name]:''})
     } catch (error) {
       setValErrors({...valErrors, [name]:error.errors[0].message})
@@ -68,7 +68,7 @@ export const CreateProjectForm = () => {
   const onSubmit = async(e)=> {
     try {
       e.preventDefault();
-      createProjectSchema.parse(project);
+      createProjectScheme.parse(project);
 
       const skillsString = skills.join(",");
       let data = { ...project, skill_name: skillsString};

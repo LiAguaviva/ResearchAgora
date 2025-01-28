@@ -1,18 +1,18 @@
 import { comparePassword, hashPassword } from "../../utils/hashUtils.js";
 import userDal from "./user.dal.js";
-import { registerSchema } from "../../schemas/registerSchema.js";
 import { emailValidationToken, generateToken, getIdFromToken, generateTokenPassword } from "../../utils/tokenUtils.js";
-import { loginSchema } from "../../schemas/loginSchema.js";
 import { sendMailValidation, sendPasswordResetEmail  } from "../../services/emailService.js";
 import { dbPool } from "../../config/db.js";
 import {z} from "zod";
-import { resetPasswordScheme } from "../../schemas/resetPasswordScheme.js";
+import {registerScheme} from '../../schemes/registerScheme.js'
+import {loginScheme} from '../../schemes/loginScheme.js'
+import {resetPasswordScheme} from '../../schemes/resetPasswordScheme.js'
 
 
 class UserController {
   register = async (req, res) => {
     try {
-      const { email, password, repPassword } = registerSchema.parse(req.body);
+      const { email, password, repPassword } = registerScheme.parse(req.body);
       if (password !== repPassword) {
         throw new Error("B. Passwords mismatch");
       } else {
@@ -35,7 +35,7 @@ class UserController {
   
   login = async (req, res) => {  
     try {
-      const { email, password } = loginSchema.parse(req.body);
+      const { email, password } = loginScheme.parse(req.body);
       const result = await userDal.findUserbyEmail(email);
       // console.log("++++++++++++++++++++++", result);
       if (result.length === 0) {

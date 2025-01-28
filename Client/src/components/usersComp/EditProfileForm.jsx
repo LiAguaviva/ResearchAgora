@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AgoraContext } from '../../context/ContextProvider'
-import { editProfileSchema } from '../../schemas/editProfileSchema'
 import { ZodError } from 'zod';
 import axios from 'axios'
 import { fetchData } from '../../helpers/axiosHelper';
+import { editProfileScheme } from '../../schemes/editProfileScheme';
  
 const initialValue = {
   user_name:"",
@@ -103,7 +103,7 @@ export const EditProfileForm = () => {
  
   const validateField = (name, value) => {
     try {
-      editProfileSchema.pick({[name]: true}).parse({[name]:value});
+      editProfileScheme.pick({[name]: true}).parse({[name]:value});
       setValErrors({...valErrors, [name]:''})
     } catch (error) {
       setValErrors({...valErrors, [name]:error.errors[0].message})
@@ -127,11 +127,12 @@ export const EditProfileForm = () => {
     try {
       e.preventDefault();
       console.log(editUser);
-      editProfileSchema.parse(editUser);
+      editProfileScheme.parse(editUser);
       
       const skillsString = skills?.join(",");
       const fieldstring = fields?.join(",");
       let data = { ...editUser, skills: skillsString, fields: fieldstring,user_id : editUser?.user_id};
+      console.log('data on editprofile',);
       
       const newFormData = new FormData();
       newFormData.append("edit", JSON.stringify(data));

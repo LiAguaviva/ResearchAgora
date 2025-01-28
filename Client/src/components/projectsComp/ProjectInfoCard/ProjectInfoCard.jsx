@@ -88,7 +88,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
             ))}
           </div> */}
       </div>
-          {/* {user?.user_id === project?.creator_user_id && 
+          {user?.user_id === project?.creator_user_id && 
             <div className='buttons'>
             <button 
               onClick={() => navigate(`/editproject/${project?.project_id}`)}
@@ -99,7 +99,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
             className='cancel'
             >Delete</button>
             </div>
-          } */}
+          }
     </section>
   )
 }

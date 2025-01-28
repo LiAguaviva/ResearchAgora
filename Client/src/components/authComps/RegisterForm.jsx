@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { fetchData } from '../../helpers/axiosHelper'
 import { ZodError } from 'zod'
-import { registerSchema } from '../../schemas/registerSchema'
+import { registerScheme } from '../../schemes/registerScheme'
 
 const initialValue = {
   email:"",
@@ -20,7 +20,7 @@ export const RegisterForm = ({showModal}) => {
 
   const validateField = (name, value) => {
       try {
-        registerSchema.pick({[name]: true}).parse({[name]:value});
+        registerScheme.pick({[name]: true}).parse({[name]:value});
         setValErrors({...valErrors, [name]:''})
       } catch (error) {
         setValErrors({...valErrors, [name]:error.errors[0].message})

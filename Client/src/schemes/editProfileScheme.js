@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const editProfileSchema = z.object({
+export const editProfileScheme = z.object({
   user_name: z.string().min(1, '* Please enter your name').nullable()
     .refine((val) => val !== null, { message: '* Please enter your name' }), 
 

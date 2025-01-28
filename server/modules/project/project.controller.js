@@ -43,6 +43,19 @@ class ProjectController {
       }
    } 
 
+   oneUserAvailableProjects = async (req, res) => {
+      const {user_id, inviter_id} = req.body;
+      try {
+        const result = await projectDal.oneUserAvailableProjects(user_id,inviter_id);
+        res.status(200).json(result)
+
+      } catch (error) {
+        console.log("controller error", error);
+        
+       res.status(500).json(error) 
+      }
+   } 
+
     oneproject = async (req, res) => {
       try {
         const {project_id} = req.params;

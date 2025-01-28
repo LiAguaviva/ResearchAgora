@@ -1,10 +1,10 @@
 import { AgoraContext } from '../../context/ContextProvider';
 import { useContext, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { loginSchema } from '../../schemas/loginSchema';
 import { ZodError } from 'zod';
 import axios from 'axios';
 import { fetchData, fetchDataValidation } from '../../helpers/axiosHelper';
+import { loginScheme } from '../../schemes/loginScheme';
 
 const initialValue = {
   newPassword:'',
@@ -24,7 +24,7 @@ export const ResetPasswordForm = () => {
 
   const validateField = (name, value) => {
     try {
-      loginSchema.pick({[name]: true}).parse({[name]:value});
+      loginScheme.pick({[name]: true}).parse({[name]:value});
       setValErrors({...valErrors, [name]:''})
     } catch (error) {
       setValErrors({...valErrors, [name]:error.errors[0].message})

@@ -64,7 +64,7 @@ export const AppRoutes = () => {
             <Route path='/profile' element={<Profile />}/>
             <Route path='/editprofile' element={<EditProfile />}/> 
             <Route path='/PersonalData' element={<PersonalData />}/> 
-            <Route path='/allUsers' element={<AllUsers />}/> 
+            <Route path='/researchers' element={<AllUsers />}/> 
             <Route path='/researcher/:id' element={<Researcher />}/> 
 
             {/* Offer */}

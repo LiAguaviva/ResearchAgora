@@ -60,6 +60,9 @@ export const OneProject = () => {
         `http://localhost:4000/api/project/oneproject/${id}`,
         "get"
       );
+        if (result.project.length === 0) {
+          throw new Error('Project Not Found!')
+        }
       // console.log("RESULT FORM BACK ------>", result);
       setProject(result.project);
       setMembers(result.members);
@@ -69,6 +72,7 @@ export const OneProject = () => {
       //setReview(result.review);
     } catch (error) {
       console.log(error);
+      navigate('/errorpage')
     }
   };
 

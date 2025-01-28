@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { AgoraContext } from '../../../context/ContextProvider'
-import { fetchDataValidation } from '../../../helpers/axiosHelper'
+import { fetchData2, fetchDataValidation } from '../../../helpers/axiosHelper'
 import { ProjectProfileCard } from '../../../components/projectsComp/ProjectProfileCard/ProjectProfileCard'
 import StatsRadarChart from '../../../components/usersComp/RadarGraph'
 import { ReviewCard } from '../../../components/commonComp/ReviewCard/ReviewCard'
@@ -12,6 +12,9 @@ import axios from "axios";
 import './Profile.css'
 import { RequestCard } from '../../../components/usersComp/RequestCard/RequestCard'
 import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvitationCard'
+import React from 'react'
+import trash from '../../../assets/icons/trash.svg'
+// imoprt 
 
 
 export const Profile = () => {
@@ -44,6 +47,20 @@ export const Profile = () => {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  const handleDelete = async () => {
+    
+    try {
+      await fetchData2(`user/deleteUser/${user.user_id}`, "put")
+      navigate("/") 
+      setUser(null);
+      
+    } catch (error) {
+      console.log("error during deletion", error);
+  
+    }
+        
   }
 
   // const fetchJoinRequest = async () => {
@@ -93,6 +110,7 @@ export const Profile = () => {
   }
 
   console.log('User tras log in -->', user)
+
   return (
     <>
       <section>
@@ -155,8 +173,16 @@ export const Profile = () => {
             })}
         </div>
        </section>    
-      
-    }
+      }
+
+      <section className="delteAccountSection containerPpal">
+          <img 
+            src={trash} alt="" 
+            onClick={() => handleDelete()}
+            className="deleteAccountIcon"
+          />
+          <p>Delete Account</p>
+        </section>
     </>
   );
 };

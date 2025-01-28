@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { ZodError } from "zod";
 import { fetchData2 } from "../../../helpers/axiosHelper";
-import { createOfferScheme } from "../../../schemas/createOfferScheme";
+import { createOfferScheme } from '../../../schemes/createOfferScheme';
 
 
 const editOfferScheme = createOfferScheme.partial();
@@ -242,7 +242,7 @@ export const EditOfferCard = () => {
             className="cancel"
             type="button"
             //onClick={() => navigate(`/oneoffer/${data?.offer_id}`)} //last version with Alba
-            onClick={() => navigate(`/oneproject/${id}`)}
+            onClick={() => navigate(`/oneproject/${offer.project_id}`)}
           >
             CANCEL
           </button>

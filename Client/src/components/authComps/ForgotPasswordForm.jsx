@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { loginSchema } from '../../schemas/loginSchema';
 import { ZodError } from 'zod';
 import axios from 'axios';
 import { fetchData } from '../../helpers/axiosHelper';
+import { loginScheme } from '../../schemes/loginScheme';
 
 
 
@@ -16,7 +16,7 @@ export const ForgotPasswordForm = ({showModal}) => {
 
   const validateField = (name, value) => {
     try {
-      loginSchema.pick({[name]: true}).parse({[name]:value});
+      loginScheme.pick({[name]: true}).parse({[name]:value});
       setValErrors({...valErrors, [name]:''})
     } catch (error) {
       setValErrors({...valErrors, [name]:error.errors[0].message})

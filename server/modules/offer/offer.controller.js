@@ -1,7 +1,7 @@
 import offerDal from "./offer.dal.js"
 
 class OfferController {
-createOffer = async (req, res) =>{
+  createOffer = async (req, res) =>{
   try{
    const {offer_title, offer_description, number_of_position, skill_name} = req.body;
    const {project_id} = req.params;

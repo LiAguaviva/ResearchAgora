@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchDataValidation } from "../../helpers/axiosHelper";
-import { createProjectSchema } from "../../schemas/createProjectSchema";
 import { ZodError } from "zod";
+import { createProjectScheme } from "../../schemes/createProjectScheme";
 
-const editProjectScheme = createProjectSchema.partial();
+const editProjectScheme = createProjectScheme.partial();
 
 const initialValue = {
   title: "",
@@ -61,7 +61,7 @@ export const EditProjectForm = () => {
 
   const validateField = (name, value) => {
     try {
-      createProjectSchema.pick({ [name]: true }).parse({ [name]: value });
+      createProjectScheme.pick({ [name]: true }).parse({ [name]: value });
       setValErrors({ ...valErrors, [name]: "" });
     } catch (error) {
       setValErrors({ ...valErrors, [name]: error.errors[0].message });
@@ -101,7 +101,7 @@ export const EditProjectForm = () => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
-      createProjectSchema.parse(project);
+      createProjectScheme.parse(project);
 
       const skillsString = skills.join(",");
       let data = { ...project, skill: skillsString, id: id };
