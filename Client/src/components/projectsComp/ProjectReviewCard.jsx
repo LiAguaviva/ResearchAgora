@@ -23,7 +23,7 @@ export const ProjectReviewCard = ({elem}) => {
       </>
     );
   };
-console.log('elem review', elem);
+// console.log('elem review', elem);
 
   return (
     <div>

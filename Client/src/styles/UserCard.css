@@ -35,3 +35,13 @@
 .creator {
   color: var(--aqua);
 }
+
+.trashIcon {
+  height: var(--size2);
+  width: max-content;
+  margin-left: var(--size1);
+
+  &:hover {
+    filter: brightness(0);
+  }
+}

@@ -3,13 +3,14 @@ import { ProjectInfoCard } from "../../../components/projectsComp/ProjectInfoCar
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchDataValidation } from "../../../helpers/axiosHelper";
 import { UserCard } from "../../../components/usersComp/UserCard";
-import { ProjectMemberCard } from "../ProjectMemberCard/ProjectMemberCard";
 import "./OneProject.css";
 import { OfferCard } from "../../../components/offerComps/OfferCard/OfferCard";
 import { GoBack } from "../../../components/navigationComps/GoBack/GoBack";
 import { AgoraContext } from "../../../context/ContextProvider";
 import { ProjectReviewCard } from "../../../components/projectsComp/ProjectReviewCard";
 import { RequestCard } from "../../../components/usersComp/RequestCard/RequestCard";
+import { ProjectMemberCard } from "../../../components/projectsComp/ProjectMemberCard";
+import leave from '../../../assets/icons/leave.svg'
 
 export const OneProject = () => {
   const navigate = useNavigate();
@@ -105,8 +106,8 @@ export const OneProject = () => {
     }
   };
 
-  console.log("ONE PROJECT MEMBERS", members);
-  console.log("OFFERSSS", offers);
+  // console.log("ONE PROJECT MEMBERS", members);
+  // console.log("OFFERSSS", offers);
 
   const updateRequest = async (elem, value, choose) => {
     try {
@@ -132,13 +133,13 @@ export const OneProject = () => {
     try {
       let data = {user_id: user?.user_id, project_id: project[0].project_id}
       await fetchDataValidation('http://localhost:4000/api/project/leaveProject', 'put', data);
-      window.location.reload();
+      navigate('/allprojects')
     } catch (error) {
       console.log(error);
     }
   }
 
-  console.log('isMember? -->', isMember);
+  // console.log('isMember? -->', isMember);
   return (
     <div className="oneProjectPage">
       <section className="containerPpal">
@@ -149,20 +150,25 @@ export const OneProject = () => {
         />
       </section>
 
+      
+      <section className="skillsSection containerPpal">
+        <h3>Skills</h3>
+        <div className="tagsContainer">
+            {skills.map((skill, index) => (
+              <div key={index} className="tag">
+                {skill}
+              </div>
+            ))}
+          </div>
+      </section>
+
       <div className="containerPpal">
         <div className="separatorThick" />
       </div>
 
       <section className="containerPpal membersSection">
         <h3>Members of the project</h3>
-        {isMember && project[0].creator_user_id !== user?.user_id && 
-          <div className='buttons'>
-          <button 
-          onClick={() => leaveProject()}
-          className='cancel'
-          >Leave</button>
-          </div>
-          }
+        
         <div className="membersGallery">
           {members?.map((elem) => {
             return (
@@ -175,6 +181,7 @@ export const OneProject = () => {
           })}
         </div>
       </section>
+
 
       <div className="containerPpal">
         <div className="separatorThick" />
@@ -229,9 +236,20 @@ export const OneProject = () => {
             return <ProjectReviewCard key={index} elem={elem} />;
           })}
         </div>
+          </section>
 
+        {/* {isMember && project[0].creator_user_id !== user?.user_id && 
+          <section className="leaveProject containerPpal">
+
+          <img 
+            src={leave} alt="" 
+            onClick={() => leaveProject()}
+            className="leaveIcon"
+          />
+          <p>Leave Project</p>
+          </section>
+        } */}
         <GoBack />
-      </section>
     </div>
   );
 };

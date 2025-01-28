@@ -45,6 +45,13 @@
     }
   }
 
+  .presentation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
   .separatorThick {
     width: 20rem;
     margin-inline: auto;
@@ -54,6 +61,7 @@
     display: flex;
     gap: var(--size2);
     margin-top: var(--size3);
+    flex-direction: column;
     
     @media (max-width: 800px) {
       flex-wrap: wrap;

@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
-import avatarDefault from "../../../assets/imgs/defaultIMG.png";
-import { AgoraContext } from "../../../context/ContextProvider";
-import { fetchDataValidation } from "../../../helpers/axiosHelper";
+import avatarDefault from "../../assets/imgs/defaultIMG.png";
+import { AgoraContext } from "../../context/ContextProvider";
+import { fetchDataValidation } from "../../helpers/axiosHelper";
 import { useNavigate } from "react-router-dom";
+import trash from '../../assets/icons/trash.svg'
 
 export const ProjectMemberCard = ({ elem, project }) => {
   const { user } = useContext(AgoraContext);
   const navigate = useNavigate();
 
-  console.log('user in project member card', user)
+  // console.log('user in project member card', user)
   
   const deletemember = async() => {
     try {
@@ -51,9 +52,14 @@ export const ProjectMemberCard = ({ elem, project }) => {
         </div>
         {user?.user_id === project[0]?.creator_user_id &&
           elem?.user_id !== project[0]?.creator_user_id && (
-            <button onClick={() => deletemember()} className="editButton">
-              Delete
-            </button>
+            // <button onClick={() => deletemember()} className="editButton">
+            //   Delete
+            // </button>
+            <img 
+              src={trash} alt="" 
+              onClick={() => deletemember()}
+              className="trashIcon"
+            />
           )}
       </div>
     </div>

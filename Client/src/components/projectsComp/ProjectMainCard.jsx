@@ -11,7 +11,7 @@ export const ProjectMainCard = ({project, members}) => {
   const navigate = useNavigate()
   
   const creator = members?.find(member => member.user_id === project?.creator_user_id);
-  console.log('cretorrrrr on projectMainCard', creator);
+  // console.log('cretorrrrr on projectMainCard', creator);
   
   return (
     <div>

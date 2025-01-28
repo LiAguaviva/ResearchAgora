@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
 
-  .membersSection {
+  .membersSection, .skillsSection {
     display: flex;
     flex-direction: column;
     gap: var(--size3);
@@ -15,6 +15,10 @@
       column-gap: var(--size3);
       row-gap: var(--size2);
     }
+  }
+
+  .tagsContainer {
+    row-gap: var(--size1);
   }
 
   .offersSection {
@@ -30,4 +34,27 @@
   flex-wrap: wrap;
   gap: var(--size1);
   justify-content: center;
+}
+
+.leaveProject {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--size1);
+
+  p {
+    text-align: center;
+    color: var(--magenta);
+    font-weight: bold;
+  }
+
+  .leaveIcon {
+    height: var(--size4);
+    width: max-content;
+    margin-inline: auto;
+
+    &:hover {
+      filter: brightness(0);
+    }
+  }
 }

@@ -7,7 +7,7 @@ import { ZodError } from 'zod';
 
 const initialValue = {
   offer_title:'',
-  number_of_position:'',
+  number_of_position:0,
   offer_description:''
 
 }
@@ -23,13 +23,13 @@ export const CreateOfferForm = () => {
   const [skills, setSkills] = useState([])
 
    const validateField = (name, value) => {
-       try {
-         createOfferScheme.pick({[name]: true}).parse({[name]:value});
-         setValErrors({...valErrors, [name]:''})
-       } catch (error) {
-         setValErrors({...valErrors, [name]:error.errors[0].message})
-       }
+     try {
+       createOfferScheme.pick({[name]: true}).parse({[name]:value});
+       setValErrors({...valErrors, [name]:''})
+     } catch (error) {
+       setValErrors({...valErrors, [name]:error.errors[0].message})
      }
+   }
 
 
    const handleChange = (e)=> {
@@ -62,6 +62,8 @@ export const CreateOfferForm = () => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
+      createOfferScheme.parse(offer)
+      
       const skillsString = skills.join(",");
       let data = { ...offer, skill_name: skillsString};
       console.log("data1", data);
@@ -71,6 +73,9 @@ export const CreateOfferForm = () => {
        navigate(`/oneproject/${id}`)
        
     } catch (error) {  
+
+      const fieldErrors = {};
+
       if (error instanceof ZodError){
         error.errors.forEach((err)=>{
           fieldErrors[err.path[0]]=err.message
@@ -157,7 +162,9 @@ export const CreateOfferForm = () => {
         <div className='separatorThick' />
 
         <div className="errorMsg">
-        {/* {valErrors.password && <p>{valErrors.password}</p>} */}
+        {valErrors.offer_title && <p>{valErrors.offer_title}</p>}
+        {valErrors.offer_description && <p>{valErrors.offer_description}</p>}
+        {valErrors.number_of_position && <p>{valErrors.number_of_position}</p>}
         <p>{msg}</p>
         </div>
 

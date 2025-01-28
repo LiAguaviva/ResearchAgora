@@ -26,7 +26,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
   //   setSkills(project?.project_skills?.split(",") || []);
   // },[project])
 
-  console.log('PROJECT!',project)
+  // console.log('PROJECT!',project)
 
   const deleteProject = async () => {
     try {
@@ -59,47 +59,47 @@ export const ProjectInfoCard = ({project,skills, members}) => {
       </div>
       
       <div className="projectData" >
-        <img 
-          className='projectImg'
-          src={project?.project_image? `
-            ${url}/projectImage/${project.project_image}` 
-            : projectDefaultIMG} 
-          alt="your avatar" 
-        />
-
-        <div className="data">
-          <div className="userCard">
+        <div className='presentation'>
+          <img 
+            className='projectImg'
+            src={project?.project_image? `
+              ${url}/projectImage/${project.project_image}` 
+              : projectDefaultIMG} 
+            alt="your avatar" 
+          />
             <ProjectMainCard  
               project={project} 
               members={members}
             />
-          </div> 
-          
-          <div className='description'>
+        </div>
+
+        <div className="data">
+        </div>
+
+        <div className='description'>
             <p>{project?.project_description}</p>
-            
-          </div>
-          <div className="tagsContainer">
+        </div>
+        
+          {/* <div className="tagsContainer">
             {skills.map((skill, index) => (
               <div key={index} className="tag">
                 {skill}
               </div>
             ))}
-          </div>
-        </div>
+          </div> */}
       </div>
-          {user?.user_id === project?.creator_user_id && 
-          <div className='buttons'>
-          <button 
-            onClick={() => navigate(`/editproject/${project?.project_id}`)}
-            className='editButton'
-          >EDIT</button>
-          <button 
-          onClick={() => deleteProject()}
-          className='cancel'
-          >Delete</button>
-          </div>
-          }
+          {/* {user?.user_id === project?.creator_user_id && 
+            <div className='buttons'>
+            <button 
+              onClick={() => navigate(`/editproject/${project?.project_id}`)}
+              className='editButton'
+            >EDIT</button>
+            <button 
+            onClick={() => deleteProject()}
+            className='cancel'
+            >Delete</button>
+            </div>
+          } */}
     </section>
   )
 }

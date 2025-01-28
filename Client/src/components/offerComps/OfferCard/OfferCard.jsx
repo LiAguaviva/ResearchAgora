@@ -47,6 +47,7 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
   }; */
 
   const onSubmit = async () => {
+    
     try {
       let data = {
         offer_id: elem.offer_id,
@@ -54,6 +55,7 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
         project_id: project[0].project_id,
       };
       await fetchData2(`offer/joinrequest`, "post", data);
+      console.log(data);
       window.location.reload();
     } catch (error) {
       console.log(error);
