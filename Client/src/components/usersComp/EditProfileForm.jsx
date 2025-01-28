@@ -127,9 +127,9 @@ export const EditProfileForm = () => {
     try {
       e.preventDefault();
       editProfileSchema.parse(editUser);
-     
-      const skillsString = skills.join(",");
-      const fieldstring = fields.join(",");
+      
+      const skillsString = skills?.join(",");
+      const fieldstring = fields?.join(",");
       let data = { ...editUser, skills: skillsString, fields: fieldstring,user_id : editUser?.user_id};
  
       const newFormData = new FormData();
@@ -162,7 +162,6 @@ export const EditProfileForm = () => {
  
   // console.log('edituser', editUser);
   // console.log('user', user);
- 
  
  
   return (

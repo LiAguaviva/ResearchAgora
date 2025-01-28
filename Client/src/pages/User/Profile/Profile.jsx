@@ -24,7 +24,7 @@ export const Profile = () => {
 
   const fetchProjects = async () => {
     try {
-      let data = { user_id: user.user_id };
+      let data = { user_id: user?.user_id };
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/oneuserprojects`,
         "post",
@@ -46,39 +46,40 @@ export const Profile = () => {
     }
   }
 
-  const fetchJoinRequest = async () => {
-    try {
-      let data = { user_id: user?.user_id };
+  // const fetchJoinRequest = async () => {
+  //   try {
+  //     let data = { user_id: user?.user_id };
 
-      const result = await fetchDataValidation(
-        `http://localhost:4000/api/user/managerequests`,
-        "post",
-        data
-      );
-      setrequests(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     const result = await fetchDataValidation(
+  //       `http://localhost:4000/api/user/managerequests`,
+  //       "post",
+  //       data
+  //     );
+  //     setrequests(result);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     if (user?.user_id) {
       fetchProjects();
-      fetchJoinRequest();
+      // fetchJoinRequest();
       fetchInvitations();
     }
   }, [user]);
+  
   // console.log('---->',projects)
 
-  const updateRequest = async(elem, value, choose) => {
-    try {
-      let data = {user_id: elem?.user_id, project_id: elem.project_id, offer_id: elem.offer_id, request_status: value, choose: choose}
-      const result = await fetchDataValidation('http://localhost:4000/api/user/updaterequeststatus', 'patch', data);
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // const updateRequest = async(elem, value, choose) => {
+  //   try {
+  //     let data = {user_id: elem?.user_id, project_id: elem.project_id, offer_id: elem.offer_id, request_status: value, choose: choose}
+  //     const result = await fetchDataValidation('http://localhost:4000/api/user/updaterequeststatus', 'patch', data);
+  //     window.location.reload();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   const updateInvite = async(elem,value) => {
     try {
@@ -91,6 +92,7 @@ export const Profile = () => {
     }
   }
 
+  console.log('User tras log in -->', user)
   return (
     <>
       <section>
@@ -122,7 +124,7 @@ export const Profile = () => {
           </button>
       </section>
 
-      {requests.length > 0 &&
+      {/* {requests.length > 0 &&
         <section className="containerPpal requestSection">
           <h3>You have requests to join on your projects!</h3>
           <div className="requestGallery">
@@ -136,7 +138,7 @@ export const Profile = () => {
               );
             })}
           </div>
-       </section>}
+       </section>} */}
 
       {invites.length > 0 && 
        <section  className="containerPpal invitatiosSection">
