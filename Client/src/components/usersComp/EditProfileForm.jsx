@@ -5,7 +5,7 @@ import { editProfileSchema } from '../../schemas/editProfileSchema'
 import { ZodError } from 'zod';
 import axios from 'axios'
 import { fetchData } from '../../helpers/axiosHelper';
-
+ 
 const initialValue = {
   user_name:"",
   user_lastname:"",
@@ -18,11 +18,11 @@ const initialValue = {
   user_current_lab: "",
   user_current_boss: "",
 }
-
+ 
 export const EditProfileForm = () => {
-
+ 
   const navigate = useNavigate();
-
+ 
   const [editUser, setEditUser] = useState(initialValue);  
   const {user, setUser, token} = useContext(AgoraContext);
   const [msg, setMsg] = useState('');
@@ -32,9 +32,9 @@ export const EditProfileForm = () => {
   const [skills, setSkills] = useState([]);
   const [inputValueSkills, setInputValueSkills] = useState("");
   const [inputValueFields, setInputValueFields] = useState("");
-
  
-
+ 
+ 
   useEffect(() => {
     const fetchSkillsAndFields = async () => {
       try {
@@ -57,7 +57,7 @@ export const EditProfileForm = () => {
       fetchSkillsAndFields();
     }
   }, [user]);
-
+ 
   // skills
   const handleKeyDownSkill = (e) => {
     if (e.key === "Enter") {
@@ -72,7 +72,7 @@ export const EditProfileForm = () => {
       }
     }
   };
-
+ 
   // field
   const handleKeyDownField = (e) => {
     if (e.key === "Enter") {
@@ -87,20 +87,20 @@ export const EditProfileForm = () => {
       }
     }
   };
-
+ 
   // tag
   const removeSkill = (index) => {
     const newSkills = [...skills];
     newSkills.splice(index, 1);
     setSkills(newSkills);
   };
-
+ 
   const removeField = (index) => {
     const newFields = [...fields];
     newFields.splice(index, 1);
     setFields(newFields);
   };
-
+ 
   const validateField = (name, value) => {
     try {
       editProfileSchema.pick({[name]: true}).parse({[name]:value});
@@ -109,29 +109,29 @@ export const EditProfileForm = () => {
       setValErrors({...valErrors, [name]:error.errors[0].message})
     }
   }
-
+ 
   const handleChange = (e)=> {
     const {name, value} = e.target;
-    
+   
     if(name === 'accept'){
       setEditUser({...editUser, accept:e.target.checked })
     } else {
       setEditUser({...editUser, [name]:value})
     }
     validateField(name, value)
-  } 
-
+  }
+ 
   const handleFile = (e) => setFile(e.target.files[0]);
-
+ 
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
       editProfileSchema.parse(editUser);
-      
+     
       const skillsString = skills.join(",");
       const fieldstring = fields.join(",");
       let data = { ...editUser, skills: skillsString, fields: fieldstring,user_id : editUser?.user_id};
-
+ 
       const newFormData = new FormData();
       newFormData.append("edit", JSON.stringify(data));
       newFormData.append("file", file);
@@ -142,11 +142,11 @@ export const EditProfileForm = () => {
       });
       setUser({...editUser, skills: skillsString, fields: fieldstring,user_avatar: result.img ? result?.img : user.user_avatar});
       navigate("/profile");
-
+ 
     } catch (error) {
-
+ 
       const fieldErrors = {};
-
+ 
       if (error instanceof ZodError){
         error.errors.forEach((err)=>{
           fieldErrors[err.path[0]]=err.message
@@ -159,12 +159,12 @@ export const EditProfileForm = () => {
       }
     }
   };
-
-  console.log('edituser', editUser);
-  console.log('user', user);
-  
-  
-  
+ 
+  // console.log('edituser', editUser);
+  // console.log('user', user);
+ 
+ 
+ 
   return (
     <div className='formAppContainer'>
     <form className='formApp'>
@@ -172,68 +172,68 @@ export const EditProfileForm = () => {
       <div className='separatorThick' />
       <fieldset>
         <label htmlFor="name">name</label>
-        <input 
+        <input
           id='name'
-          type="name" 
+          type="name"
           placeholder='Name'
           value={editUser?.user_name?editUser?.user_name : ''}
           onChange={handleChange}
           name='user_name'
         />
       </fieldset>
-
+ 
       <fieldset>
         <label htmlFor="lastname">Last name</label>
-        <input 
+        <input
           id='lastname'
-          type="lastname" 
+          type="lastname"
           placeholder='Lastname'
           value={editUser?.user_lastname? editUser?.user_lastname : ''}
           onChange={handleChange}
           name='user_lastname'
         />
       </fieldset>
-
+ 
       <fieldset>
         <label htmlFor="country">country</label>
-        <input 
+        <input
           id='country'
-          type="country" 
+          type="country"
           placeholder='country'
           value={editUser?.user_country ? editUser?.user_country : ''}
           onChange={handleChange}
           name='user_country'
         />
       </fieldset>
-
+ 
       <fieldset>
         <label htmlFor="city">city</label>
-        <input 
+        <input
           id='city'
-          type="city" 
+          type="city"
           placeholder='city'
           value={editUser?.user_city? editUser?.user_city : ''}
           onChange={handleChange}
           name='user_city'
         />
       </fieldset>
-
+ 
       <fieldset className='textareaBig'>
         <label htmlFor="description">Description</label>
         <textarea className='textarea'
-          id="description" 
+          id="description"
           type="text"
           placeholder='description'
           value={editUser?.user_description ? editUser?.user_description : ''}
           onChange={handleChange}
-          name="user_description" 
+          name="user_description"
         />
         </fieldset>
         <fieldset>
         <label htmlFor="proficiency">Proficiency</label>
-        <input 
+        <input
           id='proficiency'
-          type="text" 
+          type="text"
           placeholder='your current position(student/researcher/doctorant)'
           value={editUser?.user_proficiency ? editUser?.user_proficiency : ''}
           onChange={handleChange}
@@ -242,9 +242,9 @@ export const EditProfileForm = () => {
       </fieldset>
       <fieldset>
         <label htmlFor="user_current_lab">Current laboratory</label>
-        <input 
+        <input
           id='current lab'
-          type="text" 
+          type="text"
           placeholder='your current laboratory'
           value={editUser?.user_current_lab ? editUser?.user_current_lab : ''}
           onChange={handleChange}
@@ -253,24 +253,24 @@ export const EditProfileForm = () => {
       </fieldset>
       <fieldset>
         <label htmlFor="current_boss">Current head</label>
-        <input 
+        <input
           id='current_boss'
-          type="text" 
+          type="text"
           placeholder='your laboratory head'
           value={editUser?.user_current_boss ? editUser?.user_current_boss : ''}
           onChange={handleChange}
           name='user_current_boss'
         />
       </fieldset>
-
+ 
         <fieldset className="textareaLit">
         <label htmlFor="skills">Skills</label>
         <div className="tagsContainer">
           {skills.map((skill, index) => (
             <div key={index} className="tagDeleteable">
               {skill}
-              <span 
-                onClick={() => removeSkill(index)} 
+              <span
+                onClick={() => removeSkill(index)}
                 className="deleteBtn"
                 // value={editUser?.skills ? editUser.skills : ''}
               >
@@ -279,8 +279,8 @@ export const EditProfileForm = () => {
             </div>
           ))}
         </div>
-
-          <input 
+ 
+          <input
             type="text"
             value={inputValueSkills}
             onChange={(e) => setInputValueSkills(e.target.value)}
@@ -288,15 +288,15 @@ export const EditProfileForm = () => {
             placeholder="Add a skill"
           />
       </fieldset>
-      
+     
         <fieldset className="textareaLit">
         <label htmlFor="fields">Fields</label>
         <div className="tagsContainer">
           {fields.map((field, index) => (
             <div key={index} className="tagDeleteable">
               {field}
-              <span 
-                onClick={() => removeField(index)} 
+              <span
+                onClick={() => removeField(index)}
                 className="deleteBtn"
               >
                 ×
@@ -304,8 +304,8 @@ export const EditProfileForm = () => {
             </div>
           ))}
         </div>
-
-          <input 
+ 
+          <input
             type="text"
             value={inputValueFields}
             onChange={(e) => setInputValueFields(e.target.value)}
@@ -313,34 +313,34 @@ export const EditProfileForm = () => {
             placeholder="Add a field"
           />
       </fieldset>
-
+ 
         <fieldset className='avatarInput'>
           <label htmlFor="file">avatar</label>
-          <input 
-            type="file" 
+          <input
+            type="file"
             onChange={handleFile}
           />
         </fieldset>
-
-
+ 
+ 
       <div className='separatorThick' />
-
+ 
       <div className="errorMsg">
       {valErrors.user_name && <p>{valErrors.user_name}</p>}
       {valErrors.user_lastname && <p>{valErrors.user_lastname}</p>}
       {valErrors.user_country && <p>{valErrors.user_country}</p>}
       {valErrors.user_city && <p>{valErrors.user_city}</p>}
       {valErrors.user_description && <p>{valErrors.user_description}</p>}
-
+ 
       { <p>{msg}</p>}
       </div>
-
+ 
       <div className='buttons'>
-        <button 
+        <button
           className="accept"
           onClick={onSubmit}
         >SAVE CHANGES</button>
-        <button 
+        <button
           className="cancel"
           type='button'
           onClick={()=>navigate('/profile')}
@@ -350,3 +350,4 @@ export const EditProfileForm = () => {
     </div>
   )
 }
+ 
