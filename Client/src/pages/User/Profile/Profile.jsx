@@ -15,7 +15,7 @@ import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvi
 
 
 export const Profile = () => {
-  const { user } = useContext(AgoraContext);
+  const { user, token } = useContext(AgoraContext);
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [requests, setrequests] = useState([]);
@@ -28,7 +28,8 @@ export const Profile = () => {
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/oneuserprojects`,
         "post",
-        data
+        data,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setProjects(result);
     } catch (error) {
@@ -39,7 +40,7 @@ export const Profile = () => {
   const fetchInvitations = async () => {
     try {
       let data = {user_id: user?.user_id}
-      const result = await fetchDataValidation('http://localhost:4000/api/user/allinvites', 'post', data);
+      const result = await fetchDataValidation('http://localhost:4000/api/user/allinvites', 'post', data, { headers: { Authorization: `Bearer ${token}` }});
       setInvites(result)
     } catch (error) {
       console.log(error);
@@ -51,7 +52,7 @@ export const Profile = () => {
   //     let data = { user_id: user?.user_id };
 
   //     const result = await fetchDataValidation(
-  //       `http://localhost:4000/api/user/managerequests`,
+  //       `http://localhost:4000/api/user/pendingrequeststatus`,
   //       "post",
   //       data
   //     );
@@ -71,20 +72,12 @@ export const Profile = () => {
   
   // console.log('---->',projects)
 
-  // const updateRequest = async(elem, value, choose) => {
-  //   try {
-  //     let data = {user_id: elem?.user_id, project_id: elem.project_id, offer_id: elem.offer_id, request_status: value, choose: choose}
-  //     const result = await fetchDataValidation('http://localhost:4000/api/user/updaterequeststatus', 'patch', data);
-  //     window.location.reload();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  
 
   const updateInvite = async(elem,value) => {
     try {
       let data = {invitation_id: elem.invitation_id, invitation_status: value, user_id: elem.receiver_id, project_id: elem.project_id, offer_id: elem.offer_id}
-      const result = await fetchDataValidation('http://localhost:4000/api/user/invitationResponse', 'patch', data);
+      const result = await fetchDataValidation('http://localhost:4000/api/user/invitationResponse', 'patch', data, {headers: { Authorization: `Bearer ${token}` }});
       window.location.reload();
     } catch (error) {
       console.log(error);

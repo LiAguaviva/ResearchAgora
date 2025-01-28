@@ -19,7 +19,7 @@ import { ProjectReviewCard } from '../../../components/projectsComp/ProjectRevie
 
 
 export const Researcher = () => {
-  const { user } = useContext(AgoraContext);
+  const { user, token } = useContext(AgoraContext);
   const {id} = useParams();
   const [researcher, setResearcher] = useState()
   // const [user, setUser] = useState()
@@ -52,7 +52,8 @@ export const Researcher = () => {
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/oneuserprojects`,
         "post",
-        data
+        data,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       console.log('result of fetchProjects', result);
       setProjects(result);

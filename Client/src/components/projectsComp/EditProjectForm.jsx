@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchDataValidation } from "../../helpers/axiosHelper";
 import { createProjectSchema } from "../../schemas/createProjectSchema";
 import { ZodError } from "zod";
+import { AgoraContext } from "../../context/ContextProvider";
 
 const editProjectScheme = createProjectSchema.partial();
 
@@ -19,6 +20,7 @@ const initialValue = {
 };
 
 export const EditProjectForm = () => {
+  const { token} = useContext(AgoraContext);
 
   const navigate = useNavigate();
   const [project, setProject] = useState(initialValue);
@@ -113,7 +115,8 @@ export const EditProjectForm = () => {
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/editproject`,
         "put",
-        data
+        data,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       navigate(`/oneproject/${id}`)
 

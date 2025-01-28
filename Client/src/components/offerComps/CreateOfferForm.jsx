@@ -1,9 +1,10 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { createOfferScheme } from '../../schemas/createOfferScheme';
 import { fetchData2 } from '../../helpers/axiosHelper';
 import { ZodError } from 'zod';
+import { AgoraContext } from '../../context/ContextProvider';
 
 const initialValue = {
   offer_title:'',
@@ -14,6 +15,7 @@ const initialValue = {
 
 export const CreateOfferForm = () => {
 
+  const { token } = useContext(AgoraContext);
   const [msg, setMsg] = useState('')
   const navigate = useNavigate();
   const [offer, setOffer] = useState(initialValue)
@@ -66,7 +68,7 @@ export const CreateOfferForm = () => {
       let data = { ...offer, skill_name: skillsString};
       console.log("data1", data);
       
-      await fetchData2(`offer/createoffer/${id}`, 'post', data)
+      await fetchData2(`offer/createoffer/${id}`, 'post', data, { headers: { Authorization: `Bearer ${token}` } })
        console.log("envio de la data al back", data);
        navigate(`/oneproject/${id}`)
        

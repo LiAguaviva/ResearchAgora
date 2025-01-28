@@ -315,10 +315,10 @@ class UserController {
         }
       }
 
-      managerequests = async(req,res) => {
+      pendingrequeststatus = async(req,res) => {
         try {
           const {user_id,project_id} = req.body;
-          const result = await userDal.managerequests(user_id,project_id);
+          const result = await userDal.pendingrequeststatus(user_id,project_id);
           console.log('REQUESTS BACKKSIDE', result)
           res.status(200).json(result)
         } catch (error) {

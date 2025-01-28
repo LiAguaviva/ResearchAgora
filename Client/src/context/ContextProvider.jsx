@@ -12,7 +12,7 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
+      try {  //should we add data or null before headers ??
         const res = await axios.get('http://localhost:4000/api/user/findUserById', {
           headers: { Authorization: `Bearer ${token}` }
         });

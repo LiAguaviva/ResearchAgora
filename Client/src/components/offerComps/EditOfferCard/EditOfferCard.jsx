@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext} from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { ZodError } from "zod";
 import { fetchData2 } from "../../../helpers/axiosHelper";
 import { createOfferScheme } from "../../../schemas/createOfferScheme";
-
+import { AgoraContext } from '../../context/ContextProvider';
 
 const editOfferScheme = createOfferScheme.partial();
 
@@ -15,6 +15,7 @@ const initialValue = {
 
 
 export const EditOfferCard = () => {
+  const { token } = useContext(AgoraContext);
   const [offer, setOffer] = useState(initialValue);
   const {id} = useParams();
   const [skills, setSkills] = useState([]);
@@ -129,7 +130,8 @@ export const EditOfferCard = () => {
         const result = await fetchData2(
         `offer/updateoffer/${id}`,
          "put",
-        data
+        data,
+        { headers: { Authorization: `Bearer ${token}` } }
         );
         console.log('response', result);
         navigate(`/oneproject/${offer.project_id}`)

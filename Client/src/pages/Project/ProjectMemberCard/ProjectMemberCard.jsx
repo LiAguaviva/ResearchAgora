@@ -5,7 +5,7 @@ import { fetchDataValidation } from "../../../helpers/axiosHelper";
 import { useNavigate } from "react-router-dom";
 
 export const ProjectMemberCard = ({ elem, project }) => {
-  const { user } = useContext(AgoraContext);
+  const { user, token } = useContext(AgoraContext);
   const navigate = useNavigate();
 
   console.log('user in project member card', user)
@@ -13,7 +13,7 @@ export const ProjectMemberCard = ({ elem, project }) => {
   const deletemember = async() => {
     try {
       let data = {user_id : elem.user_id, project_id: project[0].project_id};
-      await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data);
+      await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data, { headers: { Authorization: `Bearer ${token}` } } );
       window.location.reload();
     } catch (error) {
       console.log(error)

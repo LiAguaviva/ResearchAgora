@@ -6,7 +6,7 @@ import { fetchData2 } from "../../../helpers/axiosHelper";
 
 export const OfferCard = ({ elem, project, requests, isMember }) => {
   const [skill, setSkill] = useState([]);
-  const { user } = useContext(AgoraContext);
+  const { user, token } = useContext(AgoraContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
         user_id: user?.user_id,
         project_id: project[0].project_id,
       };
-      await fetchData2(`offer/joinrequest`, "post", data);
+      await fetchData2(`offer/joinrequest`, "post", data, { headers: { Authorization: `Bearer ${token}` } });
       window.location.reload();
     } catch (error) {
       console.log(error);

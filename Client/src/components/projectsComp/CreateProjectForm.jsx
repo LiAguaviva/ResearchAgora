@@ -18,7 +18,7 @@ const initialValue = {
 export const CreateProjectForm = () => {
 
   const navigate = useNavigate();
-  const {user} = useContext(AgoraContext);
+  const {user, token} = useContext(AgoraContext);
   const [project, setProject] = useState(initialValue);
   const [msg, setMsg] = useState('')
   const [skills, setSkills] = useState([])
@@ -73,7 +73,13 @@ export const CreateProjectForm = () => {
       const skillsString = skills.join(",");
       let data = { ...project, skill_name: skillsString};
       console.log(data);
-      const result = await fetchDataValidation(`http://localhost:4000/api/project/addproject/${user.user_id}`,'post', data);
+      //should we add localstorage??
+      const result = await fetchDataValidation(`http://localhost:4000/api/project/addproject/${user.user_id}`,
+      'post', 
+      data, 
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
       navigate(`/oneproject/${result}`)
     } catch (error) {
 

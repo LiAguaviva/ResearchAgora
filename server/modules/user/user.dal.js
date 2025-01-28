@@ -536,7 +536,7 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
       throw error;
     }
   }
-  managerequests = async(user_id,project_id) => {
+  pendingrequeststatus = async(user_id,project_id) => {
     try {
       let sql = `SELECT 
   u.user_name AS user_name,
