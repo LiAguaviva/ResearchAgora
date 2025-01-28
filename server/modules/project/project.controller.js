@@ -128,6 +128,16 @@ class ProjectController {
       }
     }
 
+    leaveProject = async (req,res) => {
+      try {
+        const {user_id, project_id} = req.body;
+        await projectDal.leaveProject(user_id, project_id);
+        res.status(200).json('ok')
+      } catch (error) {
+        res.status(500).json(error)
+      }
+    }
+
 
     
    

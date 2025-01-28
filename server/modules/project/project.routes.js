@@ -14,6 +14,7 @@ router.put('/deleteproject/:project_id', projectController.deleteproject)
 router.post('/findprojectbyskills', projectController.findProjectBySkills)
 router.post('/allrequests', projectController.allrequests)
 router.post('/deleteMember', projectController.deleteMember)
+router.put('/leaveProject', projectController.leaveProject)
 
 
 
