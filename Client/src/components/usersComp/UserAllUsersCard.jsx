@@ -29,6 +29,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
               ? `http://localhost:4000/images/useravatar/${elem?.user_avatar}`
               : avatarDefault
           }
+          alt="user profile picture"
         />
 
         <div className="userCardData">
@@ -68,7 +69,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
           <>
             <img
               src={message}
-              alt=""
+              alt="message icon"
               onClick={onMessageClick}
               className="messageIcon"
             />

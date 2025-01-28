@@ -35,7 +35,7 @@ export const ProjectMemberCard = ({ elem, project }) => {
               : avatarDefault
           }
           // src={avatarDefault}
-          alt="your avatar"
+          alt="profile picture"
         />
 
         <div className="userCardData">

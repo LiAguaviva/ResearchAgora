@@ -29,6 +29,8 @@ export const Researcher = () => {
   const [invites, setInvites] = useState([]);
   const [show,setShow]= useState(false);
   const [review, setReview] = useState([]);
+  console.log("revieeeeeew", review);
+  
   // const [result, setResult] = useState({});
 
   const fetchResearcher = async () => {
@@ -36,9 +38,11 @@ export const Researcher = () => {
       let data ={ user_id: id}
       console.log('id', id);
       const result = await fetchData(`/getresearcherbyid`, 'post', data);
-      // console.log('**********************resuuuuuuuuuult', result);
+      console.log('**********************resuuuuuuuuuult', result);
       setResearcher(result[0]);
       setReview(result.review)
+      
+      
     } catch (error) {
       console.log(error);
       
@@ -116,7 +120,7 @@ export const Researcher = () => {
         <h3>Projects</h3>
             {projects?.map((elem, index) => {
               return(
-                <div key={elem.project_id} className='projectsGallery'
+            <div key={elem.project_id} className='projectsGallery'
                 >
                   <ProjectResearcherCard  
                     elem={elem}

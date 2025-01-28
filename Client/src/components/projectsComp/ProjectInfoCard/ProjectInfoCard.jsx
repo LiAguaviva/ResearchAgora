@@ -64,7 +64,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
           src={project?.project_image? `
             ${url}/projectImage/${project.project_image}` 
             : projectDefaultIMG} 
-          alt="your avatar" 
+          alt="project image" 
         />
 
         <div className="data">

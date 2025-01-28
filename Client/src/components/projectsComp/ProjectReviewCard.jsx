@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 
 export const ProjectReviewCard = ({elem}) => {
+  console.log("@@@@@@@@@@@@@@", elem);
 
 
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export const ProjectReviewCard = ({elem}) => {
                   className='userCardAvatar'
                   // src={user?.avatar? `${url}/images/users/${user.avatar}` :avatarDefault} 
                   src={avatarDefault}
-                  alt="your avatar" 
+                  alt="reviewer picture" 
                   onClick={() =>
                     elem.reviewer_user_id !== user.user_id
                       ? navigate(`/researcher/${elem.reviewer_user_id}`)
@@ -49,7 +50,7 @@ export const ProjectReviewCard = ({elem}) => {
                   ? navigate(`/researcher/${elem.reviewer_user_id}`)
                   : navigate("/profile")
               }
-              > {elem?.reviewer_user_name} {elem?.reviewer_user_lastname}</p>
+              > {elem?.reviewer_name} {elem?.reviewer_lastname}</p>
               <p>{renderStars(elem?.review_rate)}</p>
               </div>
               </div>

@@ -46,7 +46,7 @@ export const NavbarApp = () => {
           onClick={()=>navigate('/')}
           onMouseEnter={closeDropdown}
           src={logo} 
-          className="logoNavbar" alt="" 
+          className="logoNavbar" alt="Agora logo" 
         />
 
         <ul className='navLinks'>
@@ -96,7 +96,7 @@ export const NavbarApp = () => {
                 className='avatarNav'
                 onClick={()=>navigate('/profile')}
                 onMouseOver={()=>setDropdownMenu('userMenu')}
-                src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} alt="your avatar" 
+                src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} alt="your profile picture" 
               />
 
               {/* <button
@@ -143,7 +143,7 @@ export const NavbarApp = () => {
                 <img 
                 className='bellIcon' 
                 src={bell} 
-                alt="" 
+                alt="notifications icon" 
                  />
               </div>
             <div className='separator' />
