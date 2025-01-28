@@ -113,11 +113,11 @@ export const NavbarApp = () => {
                   {notifications.length > 0 ? (
                     notifications.map((notif) => (
                       <NavLink
-                        key={notif.id}
+                        key={notif.notification_id}
                         to={`/chat/${notif.reference_id}`} 
                         className={({ isActive }) => (isActive ? 'active' : 'inactive')}
                         onClick={() => {
-                          markNotificationAsRead(notif.id); 
+                          markNotificationAsRead(notif.notification_id); 
                           setDropdownMenu(''); 
                         }}
                       >
