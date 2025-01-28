@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ZodError } from "zod";
 import { fetchData2 } from "../../../helpers/axiosHelper";
 import { createOfferScheme } from "../../../schemas/createOfferScheme";
-import { AgoraContext } from '../../context/ContextProvider';
+import { AgoraContext } from "../../../context/ContextProvider.jsx";
 
 const editOfferScheme = createOfferScheme.partial();
 
