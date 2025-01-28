@@ -203,6 +203,8 @@ class UserController {
           await userDal.deleteUser(user_id)
           res.status(200).json("user disabled")
         }catch (error){
+          console.log("eeerrrrorr", error);
+          
           res.status(500).json(error)
         }
       }
@@ -275,6 +277,7 @@ class UserController {
           const result = await userDal.GetResearcherById(user_id);
           res.status(200).json(result)
         } catch (error) {
+          console.log("error in review dal",error);
           res.status(500).json(error)
         }
       }

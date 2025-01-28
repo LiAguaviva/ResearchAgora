@@ -4,7 +4,7 @@ class ReviewDal {
   addReview = async(values) => {
     console.log(values);
     try {
-      let sql = 'INSERT INTO review (user_id,reviewed_user_id,review_content) VALUES (?,?,?)'
+      let sql = 'INSERT INTO review (user_id,reviewed_user_id,review_content,review_rate) VALUES (?,?,?,?)'
       const result = await executeQuery(sql,values);
       return result; 
     } catch (error) {

@@ -4,7 +4,7 @@ class NotificationDal {
   addNotification = async (values) => {
     try {
       const sql =
-        "INSERT INTO notifications (user_id, type, reference_id, content, is_read, created_at) VALUES (?, ?, ?, ?, ?, NOW())";
+        "INSERT INTO notification (user_id, type, reference_id, content, is_read, created_at) VALUES (?, ?, ?, ?, ?, NOW())";
       const result = await executeQuery(sql, values);
       return result;
     } catch (error) {
@@ -16,7 +16,7 @@ class NotificationDal {
     try {
       const sql = `
         SELECT n.*, CONCAT(u.user_name, ' ', u.user_lastname) AS sender_name
-        FROM notifications n
+        FROM notification n
         LEFT JOIN user u ON n.reference_id = u.user_id
         WHERE n.user_id = ? AND n.is_read = 0
         ORDER BY n.created_at DESC
@@ -32,7 +32,7 @@ class NotificationDal {
 
   markAsRead = async (notificationId) => {
     try {
-      const sql = "UPDATE notifications SET is_read = 1 WHERE id = ?";
+      const sql = "UPDATE notification SET is_read = 1 WHERE notification_id = ?";
       const result = await executeQuery(sql, [notificationId]);
       return result;
     } catch (error) {
@@ -43,9 +43,9 @@ class NotificationDal {
   markMessageNotificationsAsRead = async (userId) => {
     try {
       const sql = `
-        UPDATE notifications 
+        UPDATE notification
         SET is_read = 1 
-        WHERE user_id = ? AND type = 'message'
+        WHERE user_id = ? AND type = 1
       `;
       return await executeQuery(sql, [userId]);
     } catch (error) {

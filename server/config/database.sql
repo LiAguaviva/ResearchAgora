@@ -374,3 +374,4 @@ INSERT INTO invitation (invitation_status, sender_id, receiver_id, project_id, o
 			WHERE o.is_deleted = 0;
 
 -- 123456sS$
+

@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import StarRating from '../usersComp/StarRating';
+import { fetchData2 } from '../../helpers/axiosHelper';
 
 
 const handleRatingSubmit = (rating) => {
@@ -9,7 +10,7 @@ const handleRatingSubmit = (rating) => {
   // Send the rating to your backend or perform other actions
 };
 
-export const ReviewModal = ({show,setShow, researcher}) => {
+export const ReviewModal = ({show,setShow, researcher,user}) => {
   const navigate = useNavigate();
   const [review, setReview ]= useState({})
   const [rating, setRating] = useState(0)
@@ -32,13 +33,14 @@ export const ReviewModal = ({show,setShow, researcher}) => {
     e.preventDefault();
     // setResult({...result, review, rating})
     // setResult((prevResult) => ({...prevResult, review, rating}));
-    let result = {...review, rating}
-    //fetchData
+    let result = {...review, rating,user,researcher}
+    const resultFinal = fetchData2('review/createreview','post',result)
     closeModal();
     console.log("------", result);
    }
   
    console.log('researcher on reviewModal', researcher);
+   console.log('user on reviewModal', user);
    
 
   return (

@@ -52,7 +52,7 @@ export const Chat = () => {
             'PUT',
             { user_id: user.user_id }
           );
-          setNotifications((prev) => prev.filter((notif) => notif.type !== 'message'));
+          setNotifications((prev) => prev.filter((notif) => notif.type !== 1));
         } catch (error) {
           console.error("Failed to mark message notifications as read:", error);
         }

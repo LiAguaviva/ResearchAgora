@@ -4,11 +4,26 @@ const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import { useNavigate } from 'react-router-dom';
 import { AgoraContext } from '../../context/ContextProvider';
 import { TagsCard } from '../commonComp/TagsCard/TagsCard';
+import { fetchData2 } from '../../helpers/axiosHelper';
 
 export const ProfileUserCard = () => {
-
-  const {user} = useContext(AgoraContext)
+  
+  const {user, setUser} = useContext(AgoraContext)
   const navigate = useNavigate();
+
+  const handleDelete = async () => {
+    
+          try {
+            await fetchData2(`user/deleteUser/${user.user_id}`, "put")
+            navigate("/") 
+            setUser(null);
+            
+          } catch (error) {
+            console.log("error during deletion", error);
+        
+          }
+        
+    }
 
   return (
     <div className='profileUserCard'>
@@ -38,6 +53,12 @@ export const ProfileUserCard = () => {
           {/* <button onClick={() => navigate('/editProfile')}>EDIT</button> */}
         </div>
       </div>  
+      <div className='separatorThick' />
+         <button
+           className='cancel'
+           onClick={handleDelete}>
+           Delete Account
+         </button>
 
       <div className='separatorThick' />
       {user?.user_description && <>

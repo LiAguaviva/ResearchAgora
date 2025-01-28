@@ -143,10 +143,19 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
     try {
       let sql = 'SELECT * FROM user WHERE user_id = ?'
       const result = await executeQuery(sql, [user_id]);
-      console.log(result);
-      return result;
+      console.log("*******************result in review",result);
+      let sqlReview = 'SELECT r.*, u.user_name AS reviewer_name, u.user_lastname AS reviewer_lastname FROM review r LEFT JOIN user u ON r.user_id = u.user_id WHERE r.reviewed_user_id = ?;'
+      const review = await executeQuery(sqlReview,[user_id])
+      console.log("-----------------review in review",review);
+      let finalResult = {...result,review}
+      console.log("+++++++++++++++++++",finalResult);
+      
+      
+      return finalResult;
       
     } catch (error) {
+      console.log("error in review dal",error);
+      
       throw error;
     }
   }
@@ -155,27 +164,27 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
 
 
 
-  deleteUser = async(user_id) => {
-    const connection = await dbPool.getConnection();
-    try{
-      await connection.beginTransaction();
-      let sqlUser = 'UPDATE user SET user_is_disabled = 1 WHERE user_id = ?'
-      await connection.execute(sqlUser, [user_id]);
+  // deleteUser = async(user_id) => {
+  //   const connection = await dbPool.getConnection();
+  //   try{
+  //     await connection.beginTransaction();
+  //     let sqlUser = 'UPDATE user SET user_is_disabled = 1 WHERE user_id = ?'
+  //     await connection.execute(sqlUser, [user_id]);
 
-      let sqlSkill = 'UPDATE user_skill SET user_skill_is_disabled = 1 WHERE user_id = ?'
-      await connection.execute(sqlSkill, [user_id]);
+  //     let sqlSkill = 'UPDATE user_skill SET user_skill_is_disabled = 1 WHERE user_id = ?'
+  //     await connection.execute(sqlSkill, [user_id]);
 
-      let sqlField = 'UPDATE user_field SET user_field_is_disabled = 1 WHERE user_id = ?'
-      await connection.execute(sqlField, [user_id]);
+  //     let sqlField = 'UPDATE user_field SET user_field_is_disabled = 1 WHERE user_id = ?'
+  //     await connection.execute(sqlField, [user_id]);
 
-      await connection.commit();   
-    }catch (error){
-      await connection.rollback();
-      throw error;
-    } finally {
-      connection.release();
-    }
-  };
+  //     await connection.commit();   
+  //   }catch (error){
+  //     await connection.rollback();
+  //     throw error;
+  //   } finally {
+  //     connection.release();
+  //   }
+  // };
 
   deleteUser = async (user_id) => {
     const connection = await dbPool.getConnection();

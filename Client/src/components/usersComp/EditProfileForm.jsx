@@ -126,12 +126,13 @@ export const EditProfileForm = () => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
+      console.log(editUser);
       editProfileSchema.parse(editUser);
       
       const skillsString = skills?.join(",");
       const fieldstring = fields?.join(",");
       let data = { ...editUser, skills: skillsString, fields: fieldstring,user_id : editUser?.user_id};
- 
+      
       const newFormData = new FormData();
       newFormData.append("edit", JSON.stringify(data));
       newFormData.append("file", file);
@@ -348,7 +349,9 @@ export const EditProfileForm = () => {
           onClick={()=>navigate('/profile')}
         >CANCEL</button>
       </div>
+       
     </form>
+
     </div>
   )
 }

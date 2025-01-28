@@ -19,7 +19,7 @@ class MessageController {
       
       const notificationValues = [
         receiver_id,
-        "message", 
+        1, 
         sender_id, 
         `You have a new message from ${user_name} ${user_lastname}`, 0 
       ];

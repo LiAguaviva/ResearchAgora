@@ -105,10 +105,6 @@ export const NavbarApp = () => {
                 Notifications {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
               </button> */}
 
-             
-
-       
-              
           <div>
           </div>
 

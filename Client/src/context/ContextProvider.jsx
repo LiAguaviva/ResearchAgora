@@ -46,7 +46,7 @@ export const ContextProvider = ({ children }) => {
           // console.log("user.id  *******",user.user_id);
           
           const res = await axios.get(`http://localhost:4000/api/notification/userNotifications/${user.user_id}`);
-          console.log("Fetched Notifications:", res.data);
+          // console.log("Fetched Notifications:", res.data);
           setNotifications(res.data);
         }
       } catch (error) {
