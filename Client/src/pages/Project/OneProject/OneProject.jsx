@@ -128,17 +128,16 @@ export const OneProject = () => {
     }
   };
 
-  const leaveProject = async() => {
-    try {
-      let data = {user_id: user?.user_id, project_id: project[0].project_id}
-      await fetchDataValidation('http://localhost:4000/api/project/leaveProject', 'put', data);
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
+    const deletemember = async() => {
+      try {
+        let data = {user_id : user.user_id, project_id: project[0].project_id};
+        await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data);
+        window.location.reload();
+      } catch (error) {
+        console.log(error)
+      }
     }
-  }
 
-  console.log('isMember? -->', isMember);
   return (
     <div className="oneProjectPage">
       <section className="containerPpal">
@@ -158,7 +157,7 @@ export const OneProject = () => {
         {isMember && project[0].creator_user_id !== user?.user_id && 
           <div className='buttons'>
           <button 
-          onClick={() => leaveProject()}
+          onClick={() => deletemember()}
           className='cancel'
           >Leave</button>
           </div>
