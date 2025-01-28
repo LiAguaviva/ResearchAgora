@@ -1,4 +1,4 @@
--- drop database research_agora;
+ drop database research_agora;
 CREATE DATABASE research_agora;
 USE research_agora;
 
@@ -53,6 +53,8 @@ CREATE TABLE project (
     CONSTRAINT fk_user_1 FOREIGN KEY (creator_user_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 CREATE TABLE user_project (
 	user_id INT UNSIGNED NOT NULL,
     project_id INT UNSIGNED NOT NULL,
@@ -62,10 +64,14 @@ CREATE TABLE user_project (
 	CONSTRAINT fk_project_1 FOREIGN KEY (project_id)
 		REFERENCES project(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 CREATE TABLE skill (
 	skill_id BIGINT UNSIGNED PRIMARY KEY,
     skill_name VARCHAR(50) NOT NULL UNIQUE
 );
+
+
 CREATE TABLE offer (
 	offer_id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
     project_id INT UNSIGNED NOT NULL,
@@ -76,6 +82,8 @@ CREATE TABLE offer (
     CONSTRAINT fk_project_2 FOREIGN KEY (project_id)
 		REFERENCES project(project_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 CREATE TABLE offer_skill (
 	offer_id INT UNSIGNED NOT NULL,
 	skill_id BIGINT UNSIGNED NOT NULL,
@@ -85,6 +93,8 @@ CREATE TABLE offer_skill (
 	CONSTRAINT fk_skill_1 FOREIGN KEY (skill_id)
 		REFERENCES skill(skill_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 CREATE TABLE project_skill (
 	project_id INT UNSIGNED NOT NULL,
 	skill_id BIGINT UNSIGNED NOT NULL,
@@ -94,6 +104,8 @@ CREATE TABLE project_skill (
 	CONSTRAINT fk_skill_2 FOREIGN KEY (skill_id)
 		REFERENCES skill(skill_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 CREATE TABLE user_skill (
 	user_id INT UNSIGNED NOT NULL,
 	skill_id BIGINT UNSIGNED NOT NULL,
@@ -103,11 +115,13 @@ CREATE TABLE user_skill (
 	CONSTRAINT fk_skill_3 FOREIGN KEY (skill_id)
 		REFERENCES skill(skill_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-CREATE TABLE  review (
+
+
+CREATE TABLE review (
 	user_id INT UNSIGNED NOT NULL,
     reviewed_user_id  INT UNSIGNED NOT NULL,
     review_content TEXT,
-    review_created_on DATETIME DEFAULT CURRENT_TIMESTAMP, -- timestamp?
+    review_created_on DATETIME DEFAULT CURRENT_TIMESTAMP, 
     review_is_deleted BOOLEAN NOT NULL DEFAULT 0,
     review_rate tinyint(5) NOT NULL, 
     CONSTRAINT chk_review_rate CHECK (review_rate BETWEEN 1 AND 5),
@@ -116,9 +130,8 @@ CREATE TABLE  review (
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_user_5 FOREIGN KEY (reviewed_user_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
-    -- user_id(target_user)
-    -- user_id(author)
 );
+
 
  CREATE TABLE request (
  request_status TINYINT(2) UNSIGNED NOT NULL DEFAULT 0,  -- 0 pending / 1 accepted / 2 declined,
@@ -138,7 +151,7 @@ CREATE TABLE  review (
 CREATE TABLE message (
 	message_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
     message_content VARCHAR (255) NOT NULL,
-    message_date_time DATETIME DEFAULT CURRENT_TIMESTAMP, -- YYYY-MM-DD --HH-MM-SS
+    message_date_time DATETIME DEFAULT CURRENT_TIMESTAMP, 
     message_is_read BOOLEAN NOT NULL DEFAULT 0,
     sender_id INT UNSIGNED NOT NULL,
     receiver_id INT UNSIGNED NOT NULL,
@@ -146,9 +159,6 @@ CREATE TABLE message (
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT fk_user_9 FOREIGN KEY (receiver_id)
 		REFERENCES user(user_id) ON DELETE CASCADE ON UPDATE CASCADE
-	-- project_id
-    -- recieve_id (user_id)
-    -- sender_id (user_id1)
 );
 
 
@@ -172,22 +182,11 @@ CREATE TABLE message (
  );
 
 
-/*
 CREATE TABLE notification (
-	notification_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    notification_content VARCHAR (100) NOT NULL,
-    notification_created_on DATETIME DEFAULT CURRENT_TIMESTAMP,
-    notification_type SMALLINT NOT NULL  -- project invitation / request / normal notification / new message
-    -- receiver_id (user_id)
-    -- sender_id (user_id)
-);
-*/
-
-CREATE TABLE notifications (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    notification_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNSIGNED NOT NULL,
-    type VARCHAR(50) NOT NULL,
-    reference_id INT NOT NULL,
+    type INT NOT NULL,
+	reference_id INT NOT NULL,
     content VARCHAR(255) NOT NULL,
     is_read BOOLEAN DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -335,11 +334,11 @@ INSERT INTO invitation (invitation_status, sender_id, receiver_id, project_id, o
 (1, 8, 9, 8, 8),
 (0, 9, 10, 9, 9),
 (1, 10, 1, 10, 10);
-select * from user;
-select * from user_skill;
-select * from user_field;
-SELECT * FROM project_skill;
- -- UPDATE user SET user_is_disabled = 0 WHERE user_id = 3;
+
+ select * from user;
+ select * from user_skill;
+ select * from user_field;
+ SELECT * FROM project_skill;
  SELECT * FROM project;
  SELECT * FROM skill;
  SELECT * FROM offer;
@@ -350,12 +349,12 @@ SELECT * FROM project_skill;
  SELECT * FROM message;
  SELECT * FROM invitation;
  SELECT * FROM review;
-
+ SELECT * FROM notification;
  
  UPDATE invitation SET invitation_status = 2 WHERE invitation_id = 1;
  UPDATE invitation SET invitation_status = 0 WHERE invitation_id = 1;
  UPDATE project SET project_type = 0 WHERE project_id = 4;
- INSERT INTO offer_skill (offer_id, skill_id) VALUES (1, 5);
+-- INSERT INTO offer_skill (offer_id, skill_id) VALUES (1, 5);
  
  
   SELECT    
@@ -375,3 +374,4 @@ SELECT * FROM project_skill;
 			WHERE o.is_deleted = 0;
 
 -- 123456sS$
+
