@@ -10,7 +10,7 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
   const navigate = useNavigate();
-  const { user } = useContext(AgoraContext);
+  const { user,setUser } = useContext(AgoraContext);
   const [msg, setmessage] = useState('');
 
   const handleProjectChange = async (event) => {
@@ -76,7 +76,7 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
 
     try {
       await fetchDataValidation(`http://localhost:4000/api/user/invite`, 'put', data);
-      window.location.reload();
+      showRequestModal();
     } catch (error) {
       console.log('Error sending invite:', error);
     }

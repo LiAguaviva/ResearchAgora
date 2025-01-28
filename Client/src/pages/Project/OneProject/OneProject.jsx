@@ -129,17 +129,17 @@ export const OneProject = () => {
     }
   };
 
-  const leaveProject = async() => {
-    try {
-      let data = {user_id: user?.user_id, project_id: project[0].project_id}
-      await fetchDataValidation('http://localhost:4000/api/project/leaveProject', 'put', data);
-      navigate('/allprojects')
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
-  // console.log('isMember? -->', isMember);
+    const deletemember = async() => {
+      try {
+        let data = {user_id : user.user_id, project_id: project[0].project_id};
+        await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data);
+        window.location.reload();
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
   return (
     <div className="oneProjectPage">
       <section className="containerPpal">
@@ -169,6 +169,8 @@ export const OneProject = () => {
       <section className="containerPpal membersSection">
         <h3>Members of the project</h3>
         
+       
+          
         <div className="membersGallery">
           {members?.map((elem) => {
             return (
@@ -238,17 +240,17 @@ export const OneProject = () => {
         </div>
           </section>
 
-        {/* {isMember && project[0].creator_user_id !== user?.user_id && 
+        {isMember && project[0].creator_user_id !== user?.user_id && 
           <section className="leaveProject containerPpal">
 
           <img 
             src={leave} alt="" 
-            onClick={() => leaveProject()}
+            onClick={() => deletemember()}
             className="leaveIcon"
           />
           <p>Leave Project</p>
           </section>
-        } */}
+        }
         <GoBack />
     </div>
   );
