@@ -314,8 +314,8 @@ class UserController {
 
       managerequests = async(req,res) => {
         try {
-          const {user_id} = req.body;
-          const result = await userDal.managerequests(user_id);
+          const {user_id,project_id} = req.body;
+          const result = await userDal.managerequests(user_id,project_id);
           console.log('REQUESTS BACKKSIDE', result)
           res.status(200).json(result)
         } catch (error) {

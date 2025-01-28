@@ -110,9 +110,28 @@ class UserDal {
 
   allUsers = async () => {
     try {
-      let sql = 'SELECT u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, u.user_city, u.user_description, u.user_proficiency, GROUP_CONCAT(DISTINCT s.skill_name) AS skills, GROUP_CONCAT(DISTINCT f.field_name) AS fields FROM user u LEFT JOIN user_skill us ON u.user_id = us.user_id LEFT JOIN skill s ON us.skill_id = s.skill_id LEFT JOIN user_field uf ON u.user_id = uf.user_id LEFT JOIN field f ON uf.field_id = f.field_id WHERE u.user_type = 2 AND u.user_is_disabled = 0 GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, u.user_city, u.user_description, u.user_proficiency;'
+      let sql = `SELECT 
+    u.user_id, 
+    u.user_name, 
+    u.user_lastname, 
+    u.user_email, 
+    u.user_country, 
+    u.user_city, 
+    u.user_description, 
+    u.user_proficiency, 
+    IFNULL(GROUP_CONCAT(DISTINCT s.skill_name), '') AS skills, 
+    IFNULL(GROUP_CONCAT(DISTINCT f.field_name), '') AS fields
+FROM user u
+LEFT JOIN user_skill us ON u.user_id = us.user_id 
+LEFT JOIN skill s ON us.skill_id = s.skill_id 
+LEFT JOIN user_field uf ON u.user_id = uf.user_id 
+LEFT JOIN field f ON uf.field_id = f.field_id 
+WHERE u.user_type = 2 AND u.user_is_disabled = 0 
+GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, u.user_city, u.user_description, u.user_proficiency;
+`;
 
       const result = await executeQuery(sql)
+      console.log('Result: ', result)
       return result;
     } catch (error) {
       throw error;
@@ -497,38 +516,6 @@ class UserDal {
     }
 };
 
-  
-
-  allUsers = async (values) => {
-    try {
-      let sql = `SELECT 
-    u.user_id, 
-    u.user_name, 
-    u.user_lastname, 
-    u.user_email, 
-    u.user_country, 
-    u.user_city, 
-    u.user_description, 
-    u.user_avatar, 
-    u.user_type, 
-    u.user_proficiency, 
-    u.user_is_verified,
-    GROUP_CONCAT(DISTINCT sk.skill_name ORDER BY sk.skill_name SEPARATOR ', ') AS skills
-    FROM user AS u
-    LEFT JOIN user_skill AS us ON u.user_id = us.user_id
-    LEFT JOIN skill AS sk ON us.skill_id = sk.skill_id
-    WHERE u.user_is_disabled = 0 AND us.user_skill_is_disabled = 0
-    GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
-             u.user_city, u.user_description, u.user_avatar, u.user_type, u.user_proficiency, 
-             u.user_is_verified;
-`;
-
-      const result = await executeQuery(sql, values);
-      return result;
-    } catch (error) {
-      throw error;
-    }
-  };
 
   allrequests = async(user_id) => {
     try {
@@ -539,7 +526,7 @@ class UserDal {
       throw error;
     }
   }
-  managerequests = async(user_id) => {
+  managerequests = async(user_id,project_id) => {
     try {
       let sql = `SELECT 
   u.user_name AS user_name,
@@ -554,12 +541,13 @@ FROM request r
 JOIN user u ON r.user_id = u.user_id
 JOIN project p ON r.project_id = p.project_id
 JOIN offer o ON r.offer_id = o.offer_id
-WHERE p.creator_user_id = ? AND r.request_status = 0;
-
+WHERE p.creator_user_id = ? 
+  AND r.request_status = 0
+  AND p.project_id = ?;
 
 
 `;
-const result = await executeQuery(sql, [user_id]);
+const result = await executeQuery(sql, [user_id,project_id]);
 return result;
     } catch (error) {
       throw error;

@@ -398,15 +398,17 @@ GROUP BY offer.offer_id, offer.offer_title, offer.offer_description, offer.numbe
 
   deleteMember = async (user_id, project_id) => {
     try {
-      console.log('PPPPPPPPP ->', user_id, project_id)
-      let sql = `UPDATE user_project
-                SET status = 3
-                WHERE user_id = ? AND project_id = ?;`;
-      await executeQuery(sql, [user_id, project_id]);
+        let deleteRequestsSQL = `DELETE FROM request WHERE user_id = ? AND project_id = ?;`;
+        await executeQuery(deleteRequestsSQL, [user_id, project_id]);
+
+        let updateUserProjectSQL = `UPDATE user_project SET status = 3 WHERE user_id = ? AND project_id = ?;`;
+        await executeQuery(updateUserProjectSQL, [user_id, project_id]);
+
     } catch (error) {
-      throw error;
+        throw error;
     }
-  };
+};
+
 }
 
 export default new ProjectDal();
