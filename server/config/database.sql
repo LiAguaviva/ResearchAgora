@@ -186,14 +186,12 @@ CREATE TABLE notification (
     notification_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNSIGNED NOT NULL,
     type INT NOT NULL, 
-    sender_user_id INT UNSIGNED,
+    -- sender_user_id INT UNSIGNED,
     content VARCHAR(255) NOT NULL,
     is_read TINYINT(1) DEFAULT 0, 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
-    project_id INT UNSIGNED NULL, 
-    CONSTRAINT fk_notification_user FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
-    CONSTRAINT fk_notification_sender FOREIGN KEY (sender_user_id) REFERENCES user(user_id) ON DELETE CASCADE,
-    CONSTRAINT fk_notification_project FOREIGN KEY (project_id) REFERENCES project(project_id) ON DELETE CASCADE
+    -- project_id INT UNSIGNED NULL, 
+    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
 );
 
  select * from user;
@@ -236,4 +234,24 @@ CREATE TABLE notification (
 
 -- 123456sS$
 
+
+SELECT p.project_id, 
+       p.project_title, 
+       p.project_description, 
+       p.project_status,
+       p.creator_user_id, 
+       CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name
+FROM project AS p
+JOIN user AS u ON p.creator_user_id = u.user_id
+JOIN user_project AS up_inviter 
+       ON p.project_id = up_inviter.project_id  
+       AND up_inviter.user_id = 1
+LEFT JOIN user_project AS up_invited 
+       ON p.project_id = up_invited.project_id 
+       AND up_invited.user_id = 2 
+       AND up_invited.status = 2  -- Solo toma filas con status = 2
+WHERE p.project_is_disabled = 0 
+  AND up_inviter.status = 2 
+  AND up_invited.user_id IS NULL  -- Si hay una fila con status = 2, se excluye el proyecto
+GROUP BY p.project_id, p.project_title, p.project_description, p.project_status, u.user_name, u.user_lastname;
 

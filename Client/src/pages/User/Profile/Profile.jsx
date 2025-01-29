@@ -70,7 +70,7 @@ export const Profile = () => {
   const handleDelete = async () => {
     
     try {
-      await fetchData2(`user/deleteUser/${user.user_id}`, "put")
+      await fetchData2(`user/deleteUser/${user.user_id}`, "put", null, { Authorization: `Bearer ${token}` })
       navigate("/") 
       setUser(null);
       

@@ -71,16 +71,10 @@ export const ProjectInfoCard = ({project,skills, members}) => {
       </div>
 
         <div className="data">
-          <div className="userCard">
             <ProjectMainCard  
               project={project} 
               members={members}
             />
-        </div>
-
-        <div className="data">
-        </div>
-
         <div className='description'>
             <p>{project?.project_description}</p>
         </div>
