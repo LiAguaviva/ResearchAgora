@@ -106,7 +106,7 @@ export const OneProject = () => {
         { Authorization: `Bearer ${token}`  }
       );
 
-      console.log('result fetchJoinRequest', result);
+      // console.log('result fetchJoinRequest', result);
       
 
       /*   if(result[0].request_status === 1){

@@ -9,6 +9,8 @@ export const AllProjects = () => {
   const [skills, setSkills] = useState([]);
   const [inputValueSkills, setInputValueSkills] = useState("");
   const [projects, setProjects] = useState([])
+  const [seeButton, setSeeButton] = useState(false)
+ 
   
   const fetchProjects = async() => {
     try {
@@ -19,12 +21,18 @@ export const AllProjects = () => {
     }
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     fetchProjects();
     console.log('projects', projects);
-    
-  }, [])
-  console.log(projects)
+  }, []) */
+
+ useEffect(() => {
+    if (skills.length === 0){
+      fetchProjects()
+    }
+  }, [skills])
+
+  // console.log(projects)
 
  const handleKeyDownSkill = (e) => {
     if (e.key === "Enter") {
@@ -46,15 +54,21 @@ export const AllProjects = () => {
     setSkills(newSkills);
   };
 
+  const clear = () => {
+    setSkills([]);
+    setSeeButton(false)
+  }
+
   const onSubmit = async(e) => {
     e.preventDefault();
+    setSeeButton(true)
     try {
       let data = {skills: skills.join(',')};
       if (!skills.length) {
         fetchProjects()
       } else {
         const result = await fetchDataValidation('http://localhost:4000/api/project/findprojectbyskills', 'post',data);
-        console.log(result)
+        // console.log(result)
         setProjects(result)
       }
     } catch (error) {
@@ -89,7 +103,11 @@ export const AllProjects = () => {
             onKeyDown={handleKeyDownSkill}
             placeholder="Search by skills / key words"
           />
-       <button onClick={onSubmit}>Search</button>
+       
+       <div className="buttons">
+        {seeButton && <button onClick={clear}>Clear</button>}
+        <button onClick={onSubmit}>Search</button>
+        </div>
 
       <p className='searchResults'>Search Results: {projects?.length}</p>
       </div>

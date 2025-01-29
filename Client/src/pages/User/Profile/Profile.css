@@ -34,6 +34,7 @@
     height: var(--size2);
     width: max-content;
     margin-inline: auto;
+    cursor: pointer;
 
     &:hover {
       filter: brightness(0);

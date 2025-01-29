@@ -83,11 +83,11 @@
   
 
   a {
-    color: var(--color1);
+    color: var(--aqua);
     font-weight: 900;
 
     &:hover {
-      color: var(--color3);
+      color: var(--aqua);
     }
   }
 

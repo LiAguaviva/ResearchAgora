@@ -178,19 +178,22 @@ class OfferDal {
     try {
       // Correct SQL query
       const sql = `
-SELECT o.*, 
+SELECT o.*,
        (SELECT GROUP_CONCAT(s2.skill_name ORDER BY s2.skill_name SEPARATOR ', ')
         FROM offer_skill os2
         JOIN skill s2 ON os2.skill_id = s2.skill_id
         WHERE os2.offer_id = o.offer_id
           AND os2.offer_skill_is_disabled = 0
        ) AS skills
-  FROM offer o
-  JOIN offer_skill os ON o.offer_id = os.offer_id
-  JOIN skill s ON os.skill_id = s.skill_id
-  WHERE s.skill_name IN (${placeholders})
+FROM offer o
+JOIN offer_skill os ON o.offer_id = os.offer_id
+JOIN skill s ON os.skill_id = s.skill_id
+JOIN project p ON o.project_id = p.project_id  -- Relación con la tabla de proyectos
+WHERE s.skill_name IN (${placeholders})
   AND os.offer_skill_is_disabled = 0
   AND o.is_deleted = 0
+  AND p.project_type = 0  -- Solo proyectos públicos
+  AND p.project_status != 2  -- Excluir proyectos completados
   AND o.offer_id IN (
     SELECT os2.offer_id
     FROM offer_skill os2

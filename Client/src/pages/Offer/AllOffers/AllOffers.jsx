@@ -8,6 +8,8 @@ export const AllOffers = () => {
   const [skills, setSkills] = useState([]);
   const [inputValueSkills, setInputValueSkills] = useState("");
   const [offers, setOffers] = useState([])
+  const [seeButton, setSeeButton] = useState(false)
+  
 
   const fetchOffers = async() => {
       try {
@@ -18,11 +20,16 @@ export const AllOffers = () => {
       }
     }
   
-    useEffect(() => {
+   /*  useEffect(() => {
       fetchOffers();
       // console.log('offers on useEffect AllOffers', offers);
-      
-    }, [])
+    }, []) */
+
+    useEffect(() => {
+        if (skills.length === 0){
+          fetchOffers()
+        }
+      }, [skills])
 
   const handleKeyDownSkill = (e) => {
     if (e.key === "Enter") {
@@ -44,21 +51,29 @@ export const AllOffers = () => {
     setSkills(newSkills);
   };
 
+  const clear = () => {
+    setSkills([]);
+    setSeeButton(false)
+  }
+
   const onSubmit = async(e) => {
       e.preventDefault();
+      setSeeButton(true)
       try {
         let data = {skills: skills.join(',')};
         if (!skills.length) {
           fetchOffers()
         } else {
           const result = await fetchDataValidation('http://localhost:4000/api/offer/findofferbyskill', 'post', data);
-          console.log(result)
+          // console.log(result)
           setOffers(result)
         }
       } catch (error) {
         console.log(error);
       }
     }
+
+    
 
     console.log('offers on ALLOFFERS', offers);
     
@@ -90,7 +105,11 @@ export const AllOffers = () => {
             onKeyDown={handleKeyDownSkill}
             placeholder= "Search by skills / key words"
             />
-          <button onClick={onSubmit}>Search</button>
+
+        <div className="buttons">
+        {seeButton && <button onClick={clear}>Clear</button>}
+        <button onClick={onSubmit}>Search</button>
+        </div>
 
           <p className='searchResults'>Search Results: {offers?.length}</p>
           </div>

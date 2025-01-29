@@ -10,7 +10,7 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setSkill(elem.offer_skills?.split(","));
+    setSkill(elem.offer_skills? elem.offer_skills.split(","): []);
   }, [user, project]);
 
   const deleteOffer = async () => {
@@ -67,6 +67,9 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
     (req) => req.user_id === user?.user_id && req.offer_id === elem.offer_id
   );
   
+  // console.log('elem on offerCard', elem);
+  
+
   // console.log('HELOWOWOWO -->',requests)
   return (
     <div className="offerCard">

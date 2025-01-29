@@ -43,7 +43,7 @@ footer {
     }
 
     a {
-      font-size: var(--textSize4);
+      font-size: var(--textBody);
       text-decoration: none;
       font-weight: bold;
       text-shadow: 1px 1px 3px var(--white);
