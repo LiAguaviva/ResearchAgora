@@ -326,6 +326,8 @@ class UserController {
       
           const project = await projectDal.oneProject(project_id);
           const responder = await userDal.getUserById(user_id);
+          console.log("responder+++++++++++++++++++++++++",responder);
+          
       
           if (!project || !responder) {
             return res.status(400).json({ error: "Project or user not found" });
@@ -333,7 +335,8 @@ class UserController {
       
           const creatorId = project.project[0].creator_user_id;
           const projectName = project.project[0].project_title;
-          const responderName = `${responder.user_name} ${responder.user_lastname}`;
+          const responderName = `${responder[0].user_name} ${responder[0].user_lastname}`;
+      
       
           let notificationContent = "";
           let notificationType = 0;

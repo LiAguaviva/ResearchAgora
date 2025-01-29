@@ -26,6 +26,8 @@ export const NavbarApp = () => {
   const closeDropdown = () => {setDropdownMenu('')}
 
   const handleNotificationClick = (notif) => {
+    console.log("notif",notif);
+    
     switch (notif.type) {
       case 1: 
         navigate(`/chat/${notif.sender_id}`); 
