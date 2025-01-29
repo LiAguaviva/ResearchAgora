@@ -15,7 +15,7 @@ export const PersonalData = () => {
                 <img 
                 className='profileAvatar'
                   src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
-                  alt="your avatar" 
+                  alt="profile picture" 
                 />
               <PersonalDataCard />
       <button onClick={() => navigate('/editProfile')}>Edit</button>

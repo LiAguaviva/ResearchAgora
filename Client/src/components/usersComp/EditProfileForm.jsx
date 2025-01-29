@@ -138,9 +138,7 @@ export const EditProfileForm = () => {
       newFormData.append("file", file);
       // setEditUser({...editUser, [skills]:skillsString, [fields]:fieldstring})
       //mandar data(variable temporal) al back con axios
-      const result = await fetchData("/editUser", "put", newFormData, {
-        Authorization: `Bearer ${token}`,
-      });
+      const result = await fetchData("/editUser", "put", newFormData, { Authorization: `Bearer ${token}` } );
       setUser({...editUser, skills: skillsString, fields: fieldstring,user_avatar: result.img ? result?.img : user.user_avatar});
       navigate("/profile");
  

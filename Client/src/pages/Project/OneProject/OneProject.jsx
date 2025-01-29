@@ -13,7 +13,7 @@ import { RequestCard } from "../../../components/usersComp/RequestCard/RequestCa
 
 export const OneProject = () => {
   const navigate = useNavigate();
-  const { user } = useContext(AgoraContext);
+  const { user, token } = useContext(AgoraContext);
   const { id } = useParams();
   const [project, setProject] = useState([]);
   const [members, setMembers] = useState([]);
@@ -43,10 +43,11 @@ export const OneProject = () => {
       let data = { user_id: user?.user_id, project_id: id };
 
       const result = await fetchDataValidation(
-        `http://localhost:4000/api/user/managerequests`,
+        `http://localhost:4000/api/user/pendingrequeststatus`,
         "post",
-        data
-      );
+        data,
+       { Authorization: `Bearer ${token}` 
+    });
       setrequestsview(result);
     } catch (error) {
       console.log(error);
@@ -89,7 +90,8 @@ export const OneProject = () => {
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/allrequests`,
         "post",
-        data
+        data,
+        { Authorization: `Bearer ${token}`  }
       );
 
       /*   if(result[0].request_status === 1){
@@ -120,7 +122,9 @@ export const OneProject = () => {
       const result = await fetchDataValidation(
         "http://localhost:4000/api/user/updaterequeststatus",
         "patch",
-        data
+        data, 
+         { Authorization: `Bearer ${token}` }
+        
       );
       window.location.reload();
     } catch (error) {

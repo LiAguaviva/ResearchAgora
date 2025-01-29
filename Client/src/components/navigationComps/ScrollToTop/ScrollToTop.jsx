@@ -13,7 +13,7 @@ export const ScrollToTop = ({scrollGoUp}) => {
     <img 
       className='scrollToTop'
       onClick={()=> scrollToTop()}
-      src={arrowup} alt="" 
+      src={arrowup} alt="scroll up icon" 
     />
   )
 }

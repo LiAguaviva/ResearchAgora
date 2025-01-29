@@ -28,7 +28,7 @@ export const ChatUsers = ({ currentUserId, onUserClick  }) => {
                    <img 
                       className='profileAvatar'
                       src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
-                      alt="your avatar" 
+                      alt="profile picture" 
                     />
                     <p>{user.user_name} {user.user_lastname}</p>
                 </div>

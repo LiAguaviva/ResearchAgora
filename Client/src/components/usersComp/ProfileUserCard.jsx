@@ -8,14 +8,19 @@ import { fetchData2 } from '../../helpers/axiosHelper';
 
 export const ProfileUserCard = () => {
   
-  const {user, setUser} = useContext(AgoraContext)
+  const {user, setUser, token, setToken} = useContext(AgoraContext)
   const navigate = useNavigate();
 
   const handleDelete = async () => {
     
           try {
-            await fetchData2(`user/deleteUser/${user.user_id}`, "put")
+            const tokenLocal = localStorage.getItem('agoraToken');
+
+            await fetchData2(`user/deleteUser/${user.user_id}`, "put", null,  { Authorization: `Bearer ${token}` })
+            localStorage.removeItem('agoraToken');
             navigate("/") 
+           
+            setToken(null);
             setUser(null);
             
           } catch (error) {

@@ -15,11 +15,11 @@ import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvi
 import { ResearcherDataCard } from '../../../components/researcherComp/ResearcherDataCard'
 import { ProjectResearcherCard } from '../../../components/researcherComp/ProjectResearcherCard'
 import { ReviewModal } from '../../../components/researcherComp/ReviewModal'
-import { ProjectReviewCard } from '../../../components/projectsComp/ProjectReviewCard'
+import { ResearcherReviewCard } from '../../../components/usersComp/ResearcherReviewCard'
 
 
 export const Researcher = () => {
-  const { user } = useContext(AgoraContext);
+  const { user, token } = useContext(AgoraContext);
   const {id} = useParams();
   const [researcher, setResearcher] = useState()
   // const [user, setUser] = useState()
@@ -29,6 +29,8 @@ export const Researcher = () => {
   const [invites, setInvites] = useState([]);
   const [show,setShow]= useState(false);
   const [review, setReview] = useState([]);
+  console.log("revieeeeeew", review);
+  
   // const [result, setResult] = useState({});
 
   const fetchResearcher = async () => {
@@ -36,9 +38,11 @@ export const Researcher = () => {
       let data ={ user_id: id}
       console.log('id', id);
       const result = await fetchData(`/getresearcherbyid`, 'post', data);
-      // console.log('**********************resuuuuuuuuuult', result);
+      console.log('**********************resuuuuuuuuuult', result);
       setResearcher(result[0]);
       setReview(result.review)
+      
+      
     } catch (error) {
       console.log(error);
       
@@ -52,7 +56,8 @@ export const Researcher = () => {
       const result = await fetchDataValidation(
         `http://localhost:4000/api/project/oneuserprojects`,
         "post",
-        data
+        data,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       console.log('result of fetchProjects', result);
       setProjects(result);
@@ -115,7 +120,7 @@ export const Researcher = () => {
         <h3>Projects</h3>
             {projects?.map((elem, index) => {
               return(
-                <div key={elem.project_id} className='projectsGallery'
+            <div key={elem.project_id} className='projectsGallery'
                 >
                   <ProjectResearcherCard  
                     elem={elem}
@@ -143,7 +148,7 @@ export const Researcher = () => {
           <div className="offerGallery">
           {review?.map((elem,index) => {
             return (
-                <ProjectReviewCard
+                <ResearcherReviewCard
                 key={index} 
                 elem={elem}
                 /> 

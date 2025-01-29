@@ -16,7 +16,7 @@ export const WriteReviewCard = () => {
                   className='userCardAvatar'
                   // src={user?.avatar? `${url}/images/users/${user.avatar}` :avatarDefault} 
                   src={avatarDefault}
-                  alt="your avatar" 
+                  alt="reviewer profile picture" 
                 />
               </div>
       

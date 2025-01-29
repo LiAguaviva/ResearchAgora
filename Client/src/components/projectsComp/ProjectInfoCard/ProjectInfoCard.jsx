@@ -15,7 +15,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
 
   // console.log('PROJECT ON projectInfo', project)
 
-  const {user} = useContext(AgoraContext)
+  const {user, token } = useContext(AgoraContext)
   const navigate = useNavigate()
   // const [skills, setSkills] = useState([]);
 
@@ -30,7 +30,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
 
   const deleteProject = async () => {
     try {
-      const result = await fetchDataValidation(`http://localhost:4000/api/project/deleteproject/${project.project_id}`, 'put')
+      const result = await fetchDataValidation(`http://localhost:4000/api/project/deleteproject/${project.project_id}`, 'put', null,  { Authorization: `Bearer ${token}`  })
       navigate('/profile')
     } catch (error) {
       console.log(error);
@@ -64,7 +64,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
           src={project?.project_image? `
             ${url}/projectImage/${project.project_image}` 
             : projectDefaultIMG} 
-          alt="your avatar" 
+          alt="project image" 
         />
 
         <div className="data">

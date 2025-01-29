@@ -41,10 +41,10 @@ export const FooterApp = () => {
                 </nav>
 
                 <div className='socialMediaIcons'>
-                    <img className='icon' src={fb} alt="" />
-                    <img className='icon' src={ig} alt="" />
-                    <img className='icon' src={linkedin} alt="" />
-                    <img className='icon' src={x} alt="" />
+                    <img className='icon' src={fb} alt="facebook icon" />
+                    <img className='icon' src={ig} alt="instagram icon" />
+                    <img className='icon' src={linkedin} alt="linkedin icon" />
+                    <img className='icon' src={x} alt="twitter icon" />
                   </div>
               <p>Copyright ResearchAgora Inc. 2024</p>
               </div>
