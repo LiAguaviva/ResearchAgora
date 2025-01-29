@@ -199,17 +199,28 @@ class UserController {
       }    
     }
 
-      deleteUser = async(req, res) => {
-        const {user_id} = req.params;
-        try{
-          await userDal.deleteUser(user_id)
-          res.status(200).json("user disabled")
-        }catch (error){
-          console.log("eeerrrrorr", error);
-          
-          res.status(500).json(error)
-        }
+    deleteUser = async (req, res) => {
+      const { user_id } = req.params;
+      try {
+        await userDal.deleteUser(user_id);
+    
+        const notificationContent = `User ${user_id} has been deleted.`;
+    
+        const notificationValues = [
+          user_id, 
+          5, 
+          notificationContent,
+          0
+        ];
+        
+        await notificationDal.addNotification(notificationValues);
+    
+        res.status(200).json("User disabled and notified");
+      } catch (error) {
+        console.log("Error in deleteUser:", error);
+        res.status(500).json(error);
       }
+    };
 
       getskillsfields = async (req,res) => {
         const {id} = req.body;
@@ -285,61 +296,72 @@ class UserController {
       }
 
       invite = async (req, res) => {
-        const values = req.body;
-        const { sender_id, receiver_id, project_id, offer_id, project_title } = values
+        const { sender_id, receiver_id, project_id, project_title } = req.body;
         try {
-          await userDal.invite(values);
-          console.log("project_title**************",project_title);
-          
-    
+          await userDal.invite(req.body);
+      
+          const notificationContent = `You have been invited by ${sender_id} to join the project: ${project_title}`;
+      
           const notificationValues = [
             receiver_id, 
-            2,
-            sender_id,
-            `You have been invited to join the project: ${project_title}`,
-            0,
-            project_id,
+            2, 
+            notificationContent,
+            0  
           ];
+          
           await notificationDal.addNotification(notificationValues);
-    
+      
           res.status(200).json('Invitation sent');
         } catch (error) {
-          console.log("error in invite dal",error);
-          
+          console.log("Error in invite controller:", error);
           res.status(500).json(error);
         }
       };
 
       invitationResponse = async (req, res) => {
-        const { invitation_id, user_id, project_id, offer_id, invitation_status } = req.body;
-        const values = { invitation_id, user_id, project_id, offer_id };
-    
+        const { invitation_id, user_id, project_id, invitation_status } = req.body;
+      
         try {
-          await userDal.invitationResponse(values, invitation_status);
-    
-          if (invitation_status === 1) {
-            const project = await projectDal.oneProject(project_id);
-            const [responder] = await userDal.getUserById(user_id);
-            console.log("responder:+++-+-+-+-+-+-+-",responder);
-            
-            const notificationValues = [
-              project.project[0].creator_user_id, 
-              2, 
-              user_id, 
-              `${responder.user_name} ${responder.user_lastname} has accepted the invitation to join your project "${project.project[0].project_title}".`,
-              0, 
-              project_id,
-            ];
-            await notificationDal.addNotification(notificationValues);
+          await userDal.invitationResponse({ invitation_id, user_id, project_id }, invitation_status);
+      
+          const project = await projectDal.oneProject(project_id);
+          const responder = await userDal.getUserById(user_id);
+      
+          if (!project || !responder) {
+            return res.status(400).json({ error: "Project or user not found" });
           }
-    
-          res.status(200).json('ok');
-        } catch (error) {
-          console.log("error in response controller",error);
+      
+          const creatorId = project.project[0].creator_user_id;
+          const projectName = project.project[0].project_title;
+          const responderName = `${responder.user_name} ${responder.user_lastname}`;
+      
+          let notificationContent = "";
+          let notificationType = 0;
+      
+          if (invitation_status === 1) { 
+            notificationContent = `${responderName} has accepted the invitation to join your project "${projectName}".`;
+            notificationType = 3;
+          } else {
+            notificationContent = `${responderName} has rejected the invitation to join your project "${projectName}".`;
+            notificationType = 4;
+          }
+      
+          const notificationValues = [
+            creatorId, 
+            notificationType, 
+            notificationContent,
+            0 
+          ];
           
+          await notificationDal.addNotification(notificationValues);
+      
+          res.status(200).json('Invitation response processed');
+        } catch (error) {
+          console.log("Error in invitationResponse controller:", error);
           res.status(500).json(error);
         }
       };
+      
     
       
       allrequests = async() => {

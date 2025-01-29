@@ -1,5 +1,6 @@
 
 import notificationDal from "../notification/notification.dal.js";
+import userDal from "../user/user.dal.js";
 import projectDal from "./project.dal.js";
 
 
@@ -147,12 +148,24 @@ class ProjectController {
     deleteMember = async(req,res) => {
       try {
         const {user_id,userID, project_id} = req.body;
-        console.log('PPPPPPPPP ->', user_id, project_id)
+        // console.log('PPPPPPPPP ->', user_id, project_id)
         await projectDal.deleteMember(user_id, project_id);
+        const remover = await userDal.getUserById(userID);
+        const project = await projectDal.oneProject(project_id);
+        const removerName = remover ? `${remover.user_name} ${remover.user_lastname}` : "Someone";
+        const projectName = project ? project.project_title : "a project";
+
+        const notificationContent = `You have been removed from ${projectName} by ${removerName}`;
+    
         const notificationValues = [
-          user_id, 2 ,userID, `You have been removed from the project`, 0, project_id
+          user_id,  
+          5,     
+          notificationContent,
+          0      
         ];
+
         await notificationDal.addNotification(notificationValues);
+
         res.status(200).json('User removed and notified');
       } catch (error) {
         console.log("error in del member comtroller",error);
@@ -161,15 +174,37 @@ class ProjectController {
       }
     }
 
-    leaveProject = async (req,res) => {
+
+    leaveProject = async (req, res) => {
       try {
-        const {user_id, project_id} = req.body;
+        const { user_id, project_id } = req.body;
+
         await projectDal.leaveProject(user_id, project_id);
-        res.status(200).json('ok')
+
+        const user = await userDal.getUserById(user_id);
+        const project = await projectDal.oneProject(project_id);
+
+        const userName = user ? `${user.user_name} ${user.user_lastname}` : "Someone";
+        const projectName = project ? project.project_title : "a project";
+        const creatorId = project.creator_user_id; 
+
+        // Send Notification to Project Creator
+        const notificationContent = `${userName} left the project ${projectName}`;
+
+        const notificationValues = [
+          creatorId,  
+          6,          
+          notificationContent,
+          0         
+        ];
+        await notificationDal.addNotification(notificationValues);
+
+        res.status(200).json('User left and creator notified');
       } catch (error) {
-        res.status(500).json(error)
+        console.log("Error in leaveProject controller", error);
+        res.status(500).json(error);
       }
-    }
+};
 
 
     

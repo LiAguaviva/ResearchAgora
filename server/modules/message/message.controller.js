@@ -18,10 +18,10 @@ class MessageController {
       const { user_name, user_lastname } = sender;
       
       const notificationValues = [
-        receiver_id,
-        1, 
-        sender_id, 
-        `You have a new message from ${user_name} ${user_lastname}`, 0 ,null
+        receiver_id, 
+      1, 
+      `You have a new message from ${user_name} ${user_lastname}`, 
+      0 
       ];
       console.log("notificationValues**************************************",notificationValues);
       await notificationDal.addNotification(notificationValues);

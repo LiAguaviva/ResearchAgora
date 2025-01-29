@@ -42,32 +42,30 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchNotifications = async () => {
+      if (!user || !token) return;
+
       try {
-        if (user) {
-          console.log("user.id  *******",user.user_id);
-          
-          const res = await fetchData2(`notification/userNotifications/${user.user_id}`, 
-            'get', null, { Authorization: `Bearer ${token}` });
-          console.log("Fetched Notifications:", res);
-          setNotifications(res);
-        }
+        const res = await fetchData2(`notification/userNotifications/${user.user_id}`, 'get', {}, { Authorization: `Bearer ${token}` });
+        setNotifications(res);
       } catch (error) {
-        console.log('fetchNotifications Context', error);
+        console.log('fetchNotifications Context Error:', error);
       }
     };
-  
+
     fetchNotifications();
-  }, [user]);
+  }, [user, token]);
 
   const markNotificationAsRead = async (id) => {
     try {
-      await fetchData2(`notification/markAsRead/${id}`, 'put', null, { Authorization: `Bearer ${token}` });
-      const res = await fetchData2(`notification/userNotifications/${user.user_id}`, 'get', null, { Authorization: `Bearer ${token}` });
-      setNotifications(res);
+      await fetchData2(`notification/markAsRead/${id}`, 'put', {}, { Authorization: `Bearer ${token}` });
+      
+      setNotifications((prev) => prev.filter((notif) => notif.notification_id !== id));
+      
     } catch (error) {
-      console.log('markNotificationAsRead Context', error);
+      console.log('markNotificationAsRead Context Error:', error);
     }
   };
+
 
   return (
     <AgoraContext.Provider

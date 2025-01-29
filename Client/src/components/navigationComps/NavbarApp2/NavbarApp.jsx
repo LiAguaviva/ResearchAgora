@@ -26,12 +26,33 @@ export const NavbarApp = () => {
   const closeDropdown = () => {setDropdownMenu('')}
 
   const handleNotificationClick = (notif) => {
-    if (notif.type === 2 && notif.project_id) {
-      navigate(`/oneproject/${notif.project_id}`);
-    } else if (notif.type === 1) {
-      navigate(`/chat/${notif.sender_user_id}`);
+    switch (notif.type) {
+      case 1: 
+        navigate(`/chat/${notif.sender_id}`); 
+        break;
+      case 2:
+        if (notif.content.includes("invited you to join") && notif.content.includes("project")) {
+          navigate(`/oneproject/${notif.project_id}`);
+        }
+        break;
+      case 3: 
+        if (notif.content.includes("has accepted the invitation")) {
+          navigate(`/oneproject/${notif.project_id}`);
+        }
+        break;
+      case 4:
+        navigate(`/profile`);
+        break;
+      case 5: 
+        navigate(`/allprojects`); 
+        break;
+      case 6:
+        navigate(`/oneproject/${notif.project_id}`);
+        break;
+      default:
+        console.log("Unknown notification type:", notif.type);
     }
-
+  
     markNotificationAsRead(notif.notification_id);
     closeDropdown();
   };

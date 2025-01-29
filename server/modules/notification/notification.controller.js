@@ -3,9 +3,47 @@ import notificationDal from "./notification.dal.js";
 class NotificationController {
   addNotification = async (req, res) => {
     try {
-      const { user_id, type, sender_user_id, content, project_id } = req.body;
-      const values = [user_id, type, sender_user_id, content, 0, project_id];
+      const { user_id, type, sender_user_id, project_id } = req.body;
+
+      let senderName = "";
+      let projectName = "";
+
+      if (sender_user_id) {
+        const sender = await userDal.getUserById(sender_user_id);
+        senderName = sender ? `${sender.user_name} ${sender.user_lastname}` : "Someone";
+      }
+      if (project_id) {
+        const project = await projectDal.oneProject(project_id);
+        projectName = project ? project.project_title : "a project";
+      }
+
+      let content = "";
+      switch (type) {
+        case 1:
+          content = `You have a new message from ${senderName}`;
+          break;
+        case 2:
+          content = `${senderName} invited you to join ${projectName}`;
+          break;
+        case 3:
+          content = `${senderName} accepted your invitation to ${projectName}`;
+          break;
+        case 4:
+          content = `${senderName} rejected your invitation to ${projectName}`;
+          break;
+        case 5:
+          content = `You have been removed from ${projectName} by ${senderName}`;
+          break;
+        case 6:
+          content = `${senderName} left the project ${projectName}`;
+          break;
+        default:
+          content = `New notification from ${senderName}`;
+      }
+
+      const values = [user_id, type, content, 0]; 
       const result = await notificationDal.addNotification(values);
+
       res.status(200).json(result);
     } catch (error) {
       res.status(500).json(error);
