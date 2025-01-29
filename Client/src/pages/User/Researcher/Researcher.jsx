@@ -15,7 +15,7 @@ import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvi
 import { ResearcherDataCard } from '../../../components/researcherComp/ResearcherDataCard'
 import { ProjectResearcherCard } from '../../../components/researcherComp/ProjectResearcherCard'
 import { ReviewModal } from '../../../components/researcherComp/ReviewModal'
-import { ProjectReviewCard } from '../../../components/projectsComp/ProjectReviewCard'
+import { ResearcherReviewCard } from '../../../components/usersComp/ResearcherReviewCard'
 
 
 export const Researcher = () => {
@@ -148,7 +148,7 @@ export const Researcher = () => {
           <div className="offerGallery">
           {review?.map((elem,index) => {
             return (
-                <ProjectReviewCard
+                <ResearcherReviewCard
                 key={index} 
                 elem={elem}
                 /> 

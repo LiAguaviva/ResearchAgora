@@ -4,7 +4,7 @@ import { AgoraContext } from '../../context/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 
 
-export const ProjectReviewCard = ({elem}) => {
+export const ResearcherReviewCard = ({elem}) => {
   console.log("@@@@@@@@@@@@@@", elem);
 
 
@@ -50,7 +50,7 @@ export const ProjectReviewCard = ({elem}) => {
                   ? navigate(`/researcher/${elem.reviewer_user_id}`)
                   : navigate("/profile")
               }
-              > {elem?.reviewer_user_name} {elem?.reviewer_user_lastname}</p>
+              > {elem?.reviewer_name} {elem?.reviewer_lastname}</p>
               <p>{renderStars(elem?.review_rate)}</p>
               </div>
               </div>
