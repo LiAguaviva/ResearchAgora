@@ -21,9 +21,9 @@ class MessageController {
         receiver_id,
         1, 
         sender_id, 
-        `You have a new message from ${user_name} ${user_lastname}`, 0 
+        `You have a new message from ${user_name} ${user_lastname}`, 0 ,null
       ];
-      // console.log("notificationValues**************************************",notificationValues);
+      console.log("notificationValues**************************************",notificationValues);
       await notificationDal.addNotification(notificationValues);
     
 

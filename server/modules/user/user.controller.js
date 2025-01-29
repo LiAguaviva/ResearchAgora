@@ -7,6 +7,8 @@ import {z} from "zod";
 import {registerScheme} from '../../schemes/registerScheme.js'
 import {loginScheme} from '../../schemes/loginScheme.js'
 import {resetPasswordScheme} from '../../schemes/resetPasswordScheme.js'
+import notificationDal from "../notification/notification.dal.js";
+import projectDal from "../project/project.dal.js";
 
 
 class UserController {
@@ -284,26 +286,61 @@ class UserController {
 
       invite = async (req, res) => {
         const values = req.body;
-                
+        const { sender_id, receiver_id, project_id, offer_id, project_title } = values
         try {
           await userDal.invite(values);
-          res.status(200).json('ok')
-        } catch (error) {      
-              res.status(500).json(error) 
-        }
-      }
-
-      invitationResponse = async(req,res) => {
-          const {invitation_id, user_id, project_id, offer_id ,invitation_status} = req.body;
-          const values = {invitation_id, user_id, project_id, offer_id };
-        try {
-           await userDal.invitationResponse(values,invitation_status)
-           res.status(200).json('ok')
+          console.log("project_title**************",project_title);
+          
+    
+          const notificationValues = [
+            receiver_id, 
+            2,
+            sender_id,
+            `You have been invited to join the project: ${project_title}`,
+            0,
+            project_id,
+          ];
+          await notificationDal.addNotification(notificationValues);
+    
+          res.status(200).json('Invitation sent');
         } catch (error) {
-                 
-           res.status(500).json(error) 
+          console.log("error in invite dal",error);
+          
+          res.status(500).json(error);
         }
-      }
+      };
+
+      invitationResponse = async (req, res) => {
+        const { invitation_id, user_id, project_id, offer_id, invitation_status } = req.body;
+        const values = { invitation_id, user_id, project_id, offer_id };
+    
+        try {
+          await userDal.invitationResponse(values, invitation_status);
+    
+          if (invitation_status === 1) {
+            const project = await projectDal.oneProject(project_id);
+            const [responder] = await userDal.getUserById(user_id);
+            console.log("responder:+++-+-+-+-+-+-+-",responder);
+            
+            const notificationValues = [
+              project.project[0].creator_user_id, 
+              2, 
+              user_id, 
+              `${responder.user_name} ${responder.user_lastname} has accepted the invitation to join your project "${project.project[0].project_title}".`,
+              0, 
+              project_id,
+            ];
+            await notificationDal.addNotification(notificationValues);
+          }
+    
+          res.status(200).json('ok');
+        } catch (error) {
+          console.log("error in response controller",error);
+          
+          res.status(500).json(error);
+        }
+      };
+    
       
       allrequests = async() => {
         try {
@@ -315,10 +352,10 @@ class UserController {
         }
       }
 
-      managerequests = async(req,res) => {
+      pendingrequeststatus = async(req,res) => {
         try {
           const {user_id,project_id} = req.body;
-          const result = await userDal.managerequests(user_id,project_id);
+          const result = await userDal.pendingrequeststatus(user_id,project_id);
           console.log('REQUESTS BACKKSIDE', result)
           res.status(200).json(result)
         } catch (error) {

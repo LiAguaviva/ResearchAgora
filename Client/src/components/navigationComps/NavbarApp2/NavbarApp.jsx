@@ -25,6 +25,17 @@ export const NavbarApp = () => {
 
   const closeDropdown = () => {setDropdownMenu('')}
 
+  const handleNotificationClick = (notif) => {
+    if (notif.type === 2 && notif.project_id) {
+      navigate(`/oneproject/${notif.project_id}`);
+    } else if (notif.type === 1) {
+      navigate(`/chat/${notif.sender_user_id}`);
+    }
+
+    markNotificationAsRead(notif.notification_id);
+    closeDropdown();
+  };
+
   const logOut = () => {
     localStorage.removeItem('agoraToken')
     setUser();
@@ -47,7 +58,7 @@ export const NavbarApp = () => {
           onMouseEnter={closeDropdown}
           src={logo} 
           className="logoNavbar" 
-          alt="" 
+          alt="Agora logo" 
         />
 
         <ul className='navLinks'>
@@ -97,7 +108,7 @@ export const NavbarApp = () => {
                 className='avatarNav'
                 onClick={()=>navigate('/profile')}
                 onMouseOver={()=>setDropdownMenu('userMenu')}
-                src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} alt="your avatar" 
+                src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} alt="your profile picture" 
               />
 
               {/* <button
@@ -140,43 +151,40 @@ export const NavbarApp = () => {
                <div className='notifications'
                 onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
                >
-                {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
+                {notifications?.length > 0 && <span className="badge">{notifications?.length}</span>}
                 <img 
                 className='bellIcon' 
                 src={bell} 
-                alt="" 
+                alt="notifications icon" 
                  />
               </div>
             <div className='separator' />
           </div>}
 
-          {dropdownMenu === 'notifications' && (
-                <div
-                  className="menuDropdown menuNotifications"
-                  onMouseLeave={() => setDropdownMenu('')}
-                >
-                 <div className='separator' />
+        {dropdownMenu === 'notifications' && (
+                  <div
+                    className='menuDropdown menuNotifications'
+                    onMouseLeave={closeDropdown}
+                  >
+                    <div className='separator' />
 
-                  {notifications.length > 0 ? (
-                    notifications.map((notif) => (
-                      <NavLink
-                        key={notif.id}
-                        to={`/chat/${notif.reference_id}`} 
-                        className={({ isActive }) => (isActive ? 'active' : 'inactive')}
-                        onClick={() => {
-                          markNotificationAsRead(notif.id); 
-                          setDropdownMenu(''); 
-                        }}
-                      >
-                        {notif.content}
-                      </NavLink>
-                    ))
-                  ) : (
-                    <div className="notificationItem">No notifications</div>
-                  )}
-                  <div className='separator' />
-                </div>
-              )}
+                    {notifications.length > 0 ? (
+                      notifications.map((notif) => (
+                        <div
+                          key={notif.notification_id}
+                          className={`notificationItem ${notif.is_read ? 'read' : 'unread'}`}
+                          onClick={() => handleNotificationClick(notif)}
+                        >
+                          <p>{notif.content}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <div className='notificationItem'>No notifications</div>
+                    )}
+
+                    <div className='separator' />
+                  </div>
+                )}
               
         {dropdownMenu === 'about' && 
          <div 

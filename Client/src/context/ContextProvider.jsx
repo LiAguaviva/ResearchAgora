@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { createContext, useState } from "react";
-import axios from 'axios';
+import { fetchData2 } from "../helpers/axiosHelper";
+
 
 export const AgoraContext = createContext();
 
@@ -12,13 +13,13 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const res = await axios.get('http://localhost:4000/api/user/findUserById', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        if (res.data.length > 0) {
+      try {  //should we add data or null before headers ??
+        const res = await fetchData2('user/findUserById', 'get', null,  { Authorization: `Bearer ${token}` });
+        console.log('res', res);
+        
+        if (res.length > 0) {
           // console.log("Fetched User:", res.data[0]);
-          setUser(res.data[0]);
+          setUser(res[0]);
         }
       } catch (error) {
         console.log('fetchUser Context', error);
@@ -43,11 +44,12 @@ export const ContextProvider = ({ children }) => {
     const fetchNotifications = async () => {
       try {
         if (user) {
-          // console.log("user.id  *******",user.user_id);
+          console.log("user.id  *******",user.user_id);
           
-          const res = await axios.get(`http://localhost:4000/api/notification/userNotifications/${user.user_id}`);
-          // console.log("Fetched Notifications:", res.data);
-          setNotifications(res.data);
+          const res = await fetchData2(`notification/userNotifications/${user.user_id}`, 
+            'get', null, { Authorization: `Bearer ${token}` });
+          console.log("Fetched Notifications:", res);
+          setNotifications(res);
         }
       } catch (error) {
         console.log('fetchNotifications Context', error);
@@ -59,8 +61,9 @@ export const ContextProvider = ({ children }) => {
 
   const markNotificationAsRead = async (id) => {
     try {
-      await axios.put(`http://localhost:4000/api/notification/markAsRead/${id}`);
-      setNotifications((prev) => prev.filter((notif) => notif.id !== id));
+      await fetchData2(`notification/markAsRead/${id}`, 'put', null, { Authorization: `Bearer ${token}` });
+      const res = await fetchData2(`notification/userNotifications/${user.user_id}`, 'get', null, { Authorization: `Bearer ${token}` });
+      setNotifications(res.data);
     } catch (error) {
       console.log('markNotificationAsRead Context', error);
     }

@@ -34,11 +34,11 @@ export const ProjectInvitationCard = ({elem, updateInvite}) => {
 
       <div className='buttons'>
         <img 
-          src={check} alt="" 
+          src={check} alt="accept invitation button" 
           onClick={() => updateInvite(elem,1)}
         />
         <img 
-          src={reject} alt="" 
+          src={reject} alt="decline invitation button" 
           onClick={() => updateInvite(elem,2)}
         />
       </div>

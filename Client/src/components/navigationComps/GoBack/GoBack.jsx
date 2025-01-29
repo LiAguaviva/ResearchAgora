@@ -13,9 +13,10 @@ export const GoBack = () => {
         >Go Back</button> */}
     {/* <div className='icon'> */}
       <img className='goBack' 
-        onClick={()=>navigate(-1)}
+
+       onClick={()=>navigate(-1)}
         src={goBack} 
-        alt="" 
+        alt="go back icon" 
       />
       {/* </div> */}
     </>

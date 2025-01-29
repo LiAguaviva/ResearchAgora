@@ -23,7 +23,7 @@ export const ResearcherDataCard = ({researcher}) => {
           <img 
           className='profileAvatar'
             src={researcher?.user_avatar? `${url}/useravatar/${researcher.user_avatar}` : avatarDefault} 
-            alt="your avatar" 
+            alt="user profile picture" 
           />
         </div>
 
@@ -34,7 +34,7 @@ export const ResearcherDataCard = ({researcher}) => {
           <img 
             src={message} alt="" 
             onClick={onMessageClick}
-            className="messageIcon"
+            className="message icon"
           />
           </div>
           <h4>Career</h4>

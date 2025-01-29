@@ -68,20 +68,20 @@ class ProjectDal {
   allProjects = async (values) => {
     try {
       let sql = `SELECT 
-    p.project_id, 
-    p.project_title, 
-    p.project_description,
-    p.project_status,
-    GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name SEPARATOR ', ') AS skills, 
-    CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name 
-  FROM project AS p 
-  JOIN user AS u ON p.creator_user_id = u.user_id 
-  LEFT JOIN project_skill AS ps ON p.project_id = ps.project_id AND ps.project_skill_is_disabled = 0
-LEFT JOIN skill AS s ON ps.skill_id = s.skill_id 
-WHERE p.project_type = 0 
-AND p.project_is_disabled = 0 
-GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
-`;
+                  p.project_id, 
+                  p.project_title, 
+                  p.project_description,
+                  p.project_status,
+                  GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name SEPARATOR ', ') AS skills, 
+                  CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name 
+                    FROM project AS p 
+                    JOIN user AS u ON p.creator_user_id = u.user_id 
+                    LEFT JOIN project_skill AS ps ON p.project_id = ps.project_id AND ps.project_skill_is_disabled = 0
+                    LEFT JOIN skill AS s ON ps.skill_id = s.skill_id 
+                    WHERE p.project_type = 0 
+                    AND p.project_is_disabled = 0 
+                    GROUP BY p.project_id, p.project_title, p.project_description, creator_name;
+    `;
 
       const result = await executeQuery(sql, values);
       return result;
@@ -178,7 +178,6 @@ AND p.project_status != 2
   AND up_inviter.status = 2
   AND up_invited.user_id IS NULL  -- Si hay una fila con status = 2, se excluye el proyecto
 GROUP BY p.project_id, p.project_title, p.project_description, p.project_status, u.user_name, u.user_lastname;
-
 `;
 
       const result = await executeQuery(sql, [user_id, inviter_id]);
@@ -194,84 +193,84 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
     try {
       // show one project info
       let sqlProject = `SELECT  
-    project_id, 
-    project_title, 
-    project_description, 
-    project_city,
-    project_country,
-    project_outcome,
-    project_max_member,
-    project_link, 
-    project_type, 
-    project_status, 
-    creator_user_id,
-    CONCAT(user_name, ' ', user_lastname) AS creator_name
-    FROM project
-    LEFT JOIN user creator_name ON creator_user_id = user_id
-    WHERE project_id = ?;`;
+                          project_id, 
+                          project_title, 
+                          project_description, 
+                          project_city,
+                          project_country,
+                          project_outcome,
+                          project_max_member,
+                          project_link, 
+                          project_type, 
+                          project_status, 
+                          creator_user_id,
+                          CONCAT(user_name, ' ', user_lastname) AS creator_name
+                          FROM project
+                          LEFT JOIN user creator_name ON creator_user_id = user_id
+                          WHERE project_id = ?;`;
 
       const project = await executeQuery(sqlProject, [project_id]);
 
       //show all members
       let sqlMembers = `SELECT     
-user.user_id,
-user.user_avatar,     
-CONCAT(user.user_name, ' ', user.user_lastname) AS user_name,    
- GROUP_CONCAT(DISTINCT field.field_name ORDER BY field.field_name SEPARATOR ', ') 
-AS fields FROM user_project
-JOIN user ON user_project.user_id = user.user_id 
-LEFT JOIN user_field ON user.user_id = user_field.user_id
-LEFT JOIN field ON user_field.field_id = field.field_id 
-WHERE user_project.project_id = ? 
-AND user_project.status = 2 
-GROUP BY user.user_id;`;
+                          user.user_id,
+                          user.user_avatar,     
+                          CONCAT(user.user_name, ' ', user.user_lastname) AS user_name,    
+                          GROUP_CONCAT(DISTINCT field.field_name ORDER BY field.field_name SEPARATOR ', ') 
+                          AS fields FROM user_project
+                          JOIN user ON user_project.user_id = user.user_id 
+                          LEFT JOIN user_field ON user.user_id = user_field.user_id
+                          LEFT JOIN field ON user_field.field_id = field.field_id 
+                          WHERE user_project.project_id = ? 
+                          AND user_project.status = 2 
+                          GROUP BY user.user_id;`;
 
       const members = await executeQuery(sqlMembers, [project_id]);
       //show skill in one project
 
       let sqlSkills = `SELECT     
-project.project_id,    
-project.project_title,    
-skill.skill_id,    
-skill.skill_name
-FROM project
-JOIN project_skill ON project.project_id = project_skill.project_id
-JOIN skill ON project_skill.skill_id = skill.skill_id 
-WHERE project.project_id = ?;`;
+                        project.project_id,    
+                        project.project_title,    
+                        skill.skill_id,    
+                        skill.skill_name
+                        FROM project
+                        JOIN project_skill ON project.project_id = project_skill.project_id
+                        JOIN skill ON project_skill.skill_id = skill.skill_id 
+                        WHERE project.project_id = ?;`;
 
       const skills = await executeQuery(sqlSkills, [project_id]);
       //review in one project
       let sqlReview = `SELECT 
-    review.review_content,
-    review.review_created_on,
-    reviewed_user.user_id AS reviewed_user_id,
-    reviewed_user.user_name AS reviewed_user_name,
-    reviewed_user.user_lastname AS reviewed_user_lastname,
-    reviewer.user_id AS reviewer_user_id,
-    reviewer.user_name AS reviewer_user_name,
-    reviewer.user_lastname AS reviewer_user_lastname,
-    review.review_rate,
-    project.project_title
-FROM review
-JOIN user AS reviewed_user ON review.reviewed_user_id = reviewed_user.user_id
-JOIN user AS reviewer ON review.user_id = reviewer.user_id
-JOIN project ON project.creator_user_id = reviewed_user.user_id
-WHERE project.project_id = ?;`;
+                        review.review_content,
+                        review.review_created_on,
+                        reviewed_user.user_id AS reviewed_user_id,
+                        reviewed_user.user_name AS reviewed_user_name,
+                        reviewed_user.user_lastname AS reviewed_user_lastname,
+                        reviewer.user_id AS reviewer_user_id,
+                        reviewer.user_name AS reviewer_user_name,
+                        reviewer.user_lastname AS reviewer_user_lastname,
+                        review.review_rate,
+                        project.project_title
+                          FROM review
+                          JOIN user AS reviewed_user ON review.reviewed_user_id = reviewed_user.user_id
+                          JOIN user AS reviewer ON review.user_id = reviewer.user_id
+                          JOIN project ON project.creator_user_id = reviewed_user.user_id
+                          WHERE project.project_id = ?;`;
 
       const review = await executeQuery(sqlReview, [project_id]);
       //show all offers under one project
       //reduce number_of_positions based on accepted requests
       let sqlOffers = `SELECT  
-    offer.offer_id, 
-    offer.offer_title, 
-    offer.offer_description, 
-    offer.number_of_position,
-    GROUP_CONCAT(DISTINCT skill.skill_name ORDER BY skill.skill_name SEPARATOR ', ') AS offer_skills
-FROM offer 
-LEFT JOIN offer_skill ON offer.offer_id = offer_skill.offer_id
-LEFT JOIN skill ON offer_skill.skill_id = skill.skill_id
-WHERE offer.project_id = ? AND offer.is_deleted = 0
-GROUP BY offer.offer_id, offer.offer_title, offer.offer_description, offer.number_of_position;`;
+                        offer.offer_id, 
+                        offer.offer_title, 
+                        offer.offer_description, 
+                        offer.number_of_position,
+                        GROUP_CONCAT(DISTINCT skill.skill_name ORDER BY skill.skill_name SEPARATOR ', ') AS offer_skills
+                          FROM offer 
+                          LEFT JOIN offer_skill ON offer.offer_id = offer_skill.offer_id
+                          LEFT JOIN skill ON offer_skill.skill_id = skill.skill_id
+                          WHERE offer.project_id = ? AND offer.is_deleted = 0
+                          GROUP BY offer.offer_id, offer.offer_title, offer.offer_description, offer.number_of_position;`;
 
       const offers = await executeQuery(sqlOffers, [project_id]);
 
@@ -401,16 +400,16 @@ GROUP BY offer.offer_id, offer.offer_title, offer.offer_description, offer.numbe
     const connection = await dbPool.getConnection();
     try {
       const projectSql = `SELECT DISTINCT p.*, 
-               CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name
-        FROM project p
-        JOIN project_skill ps ON p.project_id = ps.project_id
-        JOIN skill s ON ps.skill_id = s.skill_id
-        JOIN user u ON p.creator_user_id = u.user_id  -- Agregamos el JOIN con la tabla user
-        WHERE s.skill_name IN (${placeholders})
-          AND ps.project_skill_is_disabled = 0
-          AND p.project_is_disabled = 0
-        GROUP BY p.project_id
-        HAVING COUNT(DISTINCT s.skill_id) = ?;
+                            CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name
+                              FROM project p
+                              JOIN project_skill ps ON p.project_id = ps.project_id
+                              JOIN skill s ON ps.skill_id = s.skill_id
+                              JOIN user u ON p.creator_user_id = u.user_id  -- Agregamos el JOIN con la tabla user
+                              WHERE s.skill_name IN (${placeholders})
+                                AND ps.project_skill_is_disabled = 0
+                                AND p.project_is_disabled = 0
+                              GROUP BY p.project_id
+                              HAVING COUNT(DISTINCT s.skill_id) = ?;
       `;
 
       const [projects] = await connection.execute(projectSql, [
@@ -475,6 +474,8 @@ GROUP BY offer.offer_id, offer.offer_title, offer.offer_description, offer.numbe
         await executeQuery(updateUserProjectSQL, [user_id, project_id]);
 
     } catch (error) {
+      console.log("error in delete member",error);
+      
         throw error;
     }
 };

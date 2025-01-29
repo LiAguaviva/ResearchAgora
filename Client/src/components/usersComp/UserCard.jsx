@@ -13,7 +13,7 @@ export const UserCard = () => {
             className='userCardAvatar'
             // src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault}  
             src={avatarDefault}
-            alt="your avatar" 
+            alt="profile picture" 
           />
 
         <div className='userCardData'>

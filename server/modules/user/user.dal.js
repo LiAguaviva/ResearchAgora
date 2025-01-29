@@ -193,13 +193,17 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
       let sqlUser = "UPDATE user SET user_is_disabled = 1 WHERE user_id = ?";
       await connection.execute(sqlUser, [user_id]);
 
-      let sqlSkill =
-        "UPDATE user_skill SET user_skill_is_disabled = 1 WHERE user_id = ?";
+      let sqlSkill = "UPDATE user_skill SET user_skill_is_disabled = 1 WHERE user_id = ?";
       await connection.execute(sqlSkill, [user_id]);
 
-      let sqlField =
-        "UPDATE user_field SET user_field_is_disabled = 1 WHERE user_id = ?";
+      let sqlField = "UPDATE user_field SET user_field_is_disabled = 1 WHERE user_id = ?";
       await connection.execute(sqlField, [user_id]);
+
+      let sqlProject = "UPDATE project SET project_is_disabled = 1 WHERE creator_user_id = ?";
+        await connection.execute(sqlProject, [user_id]);
+
+      let sqlOffer = "UPDATE offer SET is_deleted = 1 WHERE project_id IN (SELECT project_id FROM project WHERE creator_user_id = ?)";
+        await connection.execute(sqlOffer, [user_id]);
 
       await connection.commit();
     } catch (error) {
@@ -519,6 +523,8 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
 
         await connection.commit();
     } catch (error) {
+      console.log("error in response of the invitation",error);
+      
         await connection.rollback();
         throw error;
     } finally {
@@ -536,7 +542,7 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
       throw error;
     }
   }
-  managerequests = async(user_id,project_id) => {
+  pendingrequeststatus = async(user_id,project_id) => {
     try {
       let sql = `SELECT 
   u.user_name AS user_name,

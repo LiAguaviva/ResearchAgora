@@ -185,12 +185,15 @@ CREATE TABLE message (
 CREATE TABLE notification (
     notification_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT UNSIGNED NOT NULL,
-    type INT NOT NULL,
-	reference_id INT NOT NULL,
+    type INT NOT NULL, 
+    sender_user_id INT UNSIGNED,
     content VARCHAR(255) NOT NULL,
-    is_read BOOLEAN DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+    is_read TINYINT(1) DEFAULT 0, 
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP, 
+    project_id INT UNSIGNED NULL, 
+    CONSTRAINT fk_notification_user FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_notification_sender FOREIGN KEY (sender_user_id) REFERENCES user(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_notification_project FOREIGN KEY (project_id) REFERENCES project(project_id) ON DELETE CASCADE
 );
 
  select * from user;

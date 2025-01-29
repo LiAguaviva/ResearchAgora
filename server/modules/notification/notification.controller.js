@@ -3,8 +3,8 @@ import notificationDal from "./notification.dal.js";
 class NotificationController {
   addNotification = async (req, res) => {
     try {
-      const { user_id, type, reference_id, content } = req.body;
-      const values = [user_id, type, reference_id, content, 0];
+      const { user_id, type, sender_user_id, content, project_id } = req.body;
+      const values = [user_id, type, sender_user_id, content, 0, project_id];
       const result = await notificationDal.addNotification(values);
       res.status(200).json(result);
     } catch (error) {

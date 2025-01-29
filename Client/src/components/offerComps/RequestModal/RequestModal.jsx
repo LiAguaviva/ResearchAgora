@@ -10,7 +10,7 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
   const navigate = useNavigate();
-  const { user,setUser } = useContext(AgoraContext);
+  const { user, token } = useContext(AgoraContext);
   const [msg, setmessage] = useState('');
 
   const handleProjectChange = async (event) => {
@@ -36,7 +36,7 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
         user_id: user?.user_id,
         inviter_id: selectedUserId
       };
-      const result = await fetchDataValidation(`http://localhost:4000/api/project/oneUserAvailableProjects`, 'post', data);
+      const result = await fetchDataValidation(`http://localhost:4000/api/project/oneuserprojects`, 'post', data,  { Authorization: `Bearer ${token}` });
       setProjects(result);
     } catch (error) {
       console.log(error);
@@ -73,9 +73,12 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
     };
     console.log(data);
     
-
     try {
-      await fetchDataValidation(`http://localhost:4000/api/user/invite`, 'put', data);
+      await fetchDataValidation(`http://localhost:4000/api/user/invite`, 
+        'put',
+         data,
+         { Authorization: `Bearer ${token}` 
+       });
       showRequestModal();
     } catch (error) {
       console.log('Error sending invite:', error);

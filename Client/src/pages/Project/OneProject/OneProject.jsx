@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { ProjectInfoCard } from "../../../components/projectsComp/ProjectInfoCard/ProjectInfoCard";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchDataValidation } from "../../../helpers/axiosHelper";
+import { fetchData2, fetchDataValidation } from "../../../helpers/axiosHelper";
 import { UserCard } from "../../../components/usersComp/UserCard";
 import "./OneProject.css";
 import { OfferCard } from "../../../components/offerComps/OfferCard/OfferCard";
@@ -14,7 +14,7 @@ import leave from '../../../assets/icons/leave.svg'
 
 export const OneProject = () => {
   const navigate = useNavigate();
-  const { user } = useContext(AgoraContext);
+  const { user, token } = useContext(AgoraContext);
   const { id } = useParams();
   const [project, setProject] = useState([]);
   const [members, setMembers] = useState([]);
@@ -43,11 +43,12 @@ export const OneProject = () => {
     try {
       let data = { user_id: user?.user_id, project_id: id };
 
-      const result = await fetchDataValidation(
-        `http://localhost:4000/api/user/managerequests`,
+      const result = await fetchData2(
+        `user/pendingrequeststatus`,
         "post",
-        data
-      );
+        data,
+       { Authorization: `Bearer ${token}` 
+    });
       setrequestsview(result);
     } catch (error) {
       console.log(error);
@@ -91,10 +92,11 @@ export const OneProject = () => {
     try {
       let data = { user_id: user?.user_id, project_id: id };
 
-      const result = await fetchDataValidation(
-        `http://localhost:4000/api/project/allrequests`,
+      const result = await fetchData2(
+        `project/allrequests`,
         "post",
-        data
+        data,
+        { Authorization: `Bearer ${token}`  }
       );
 
       /*   if(result[0].request_status === 1){
@@ -125,7 +127,9 @@ export const OneProject = () => {
       const result = await fetchDataValidation(
         "http://localhost:4000/api/user/updaterequeststatus",
         "patch",
-        data
+        data, 
+         { Authorization: `Bearer ${token}` }
+        
       );
       window.location.reload();
     } catch (error) {

@@ -14,7 +14,7 @@ export const RequestCard = ({elem, updateRequest}) => {
       <img
         className='userCardAvatar'
         src={`http://localhost:4000/images/useravatar/${elem.user_image}`}
-        alt=""
+        alt="user profile picture"
       />
       <div className='data'>
         <div>
@@ -29,11 +29,11 @@ export const RequestCard = ({elem, updateRequest}) => {
 
         <div className='buttons'>
           <img 
-            src={check} alt="" 
+            src={check} alt="accept request button" 
             onClick={() => updateRequest(elem,1,2)}
           />
           <img 
-            src={reject} alt="" 
+            src={reject} alt="reject request button" 
             onClick={() => updateRequest(elem,2,1)}
           />
         </div>

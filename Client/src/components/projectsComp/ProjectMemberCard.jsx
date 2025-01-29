@@ -6,15 +6,15 @@ import { useNavigate } from "react-router-dom";
 import trash from '../../assets/icons/trash.svg'
 
 export const ProjectMemberCard = ({ elem, project }) => {
-  const { user } = useContext(AgoraContext);
+  const { user, token } = useContext(AgoraContext);
   const navigate = useNavigate();
 
   // console.log('user in project member card', user)
   
   const deletemember = async() => {
     try {
-      let data = {user_id : elem.user_id, project_id: project[0].project_id};
-      await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data);
+      let data = {user_id : elem.user_id, userID : user.user_id,project_id: project[0].project_id};
+      await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data,  { Authorization: `Bearer ${token}` });
       window.location.reload();
     } catch (error) {
       console.log(error)
@@ -36,7 +36,7 @@ export const ProjectMemberCard = ({ elem, project }) => {
               : avatarDefault
           }
           // src={avatarDefault}
-          alt="your avatar"
+          alt="profile picture"
         />
 
         <div className="userCardData">
