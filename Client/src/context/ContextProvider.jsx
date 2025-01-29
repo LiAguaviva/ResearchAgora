@@ -63,7 +63,7 @@ export const ContextProvider = ({ children }) => {
     try {
       await fetchData2(`notification/markAsRead/${id}`, 'put', null, { Authorization: `Bearer ${token}` });
       const res = await fetchData2(`notification/userNotifications/${user.user_id}`, 'get', null, { Authorization: `Bearer ${token}` });
-      setNotifications(res.data);
+      setNotifications(res);
     } catch (error) {
       console.log('markNotificationAsRead Context', error);
     }

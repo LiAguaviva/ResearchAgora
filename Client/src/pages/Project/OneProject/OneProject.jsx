@@ -49,7 +49,9 @@ export const OneProject = () => {
         data,
        { Authorization: `Bearer ${token}` 
     });
+    console.log('result', result);
       setrequestsview(result);
+      
     } catch (error) {
       console.log(error);
     }
@@ -57,9 +59,11 @@ export const OneProject = () => {
 
   const fetchOneProject = async () => {
     try {
-      const result = await fetchDataValidation(
-        `http://localhost:4000/api/project/oneproject/${id}`,
-        "get"
+      const result = await fetchData2(
+        `project/oneproject/${id}`,
+        "get",
+        null,
+        { Authorization: `Bearer ${token}`  }
       );
         if (result.project.length === 0) {
           throw new Error('Project Not Found!')
@@ -124,11 +128,11 @@ export const OneProject = () => {
         request_status: value,
         choose: choose,
       };
-      const result = await fetchDataValidation(
-        "http://localhost:4000/api/user/updaterequeststatus",
+      const result = await fetchData2(
+        "user/updaterequeststatus",
         "patch",
         data, 
-         { Authorization: `Bearer ${token}` }
+        { Authorization: `Bearer ${token}` }
         
       );
       window.location.reload();
@@ -141,7 +145,11 @@ export const OneProject = () => {
     const deletemember = async() => {
       try {
         let data = {user_id : user.user_id, project_id: project[0].project_id};
-        await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data);
+        await fetchData2('project/deleteMember', 
+          'post', 
+          data,
+          { Authorization: `Bearer ${token}` }
+        );
         window.location.reload();
       } catch (error) {
         console.log(error)
