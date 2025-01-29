@@ -67,7 +67,7 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
     (req) => req.user_id === user?.user_id && req.offer_id === elem.offer_id
   );
   
-  console.log('HELOWOWOWO -->',requests)
+  // console.log('HELOWOWOWO -->',requests)
   return (
     <div className="offerCard">
       <div className="headOffer">

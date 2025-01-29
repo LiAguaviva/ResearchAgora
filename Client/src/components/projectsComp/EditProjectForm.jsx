@@ -108,7 +108,7 @@ export const EditProjectForm = () => {
       const skillsString = skills.join(",");
       let data = { ...project, skill: skillsString, id: id };
       // console.log("----> data al back", data);
-      console.log("----> data al back", data);
+      // console.log("----> data al back", data);
 
 
 
