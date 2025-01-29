@@ -50,6 +50,7 @@ export const OneProject = () => {
        { Authorization: `Bearer ${token}` 
     });
     console.log('result', result);
+    // console.log('token fetchRequest', token);
       setrequestsview(result);
       
     } catch (error) {
@@ -82,10 +83,12 @@ export const OneProject = () => {
   };
 
   useEffect(() => {
-    fetchOneProject();
-    fetchJoinRequest();
-    fetchRequest();
-  }, [user, applyButton]);
+    if (token) {
+      fetchOneProject();
+      fetchJoinRequest();
+      fetchRequest();
+    }
+  }, [user, applyButton,token]);
 
   // console.log('---->',requests)
   // console.log('---->',project)
@@ -102,6 +105,9 @@ export const OneProject = () => {
         data,
         { Authorization: `Bearer ${token}`  }
       );
+
+      console.log('result fetchJoinRequest', result);
+      
 
       /*   if(result[0].request_status === 1){
         setApplyButton('applied')
@@ -242,12 +248,13 @@ export const OneProject = () => {
             );
           })}
         </div>
-        {user?.user_id === project[0]?.creator_user_id && (
+        {user?.user_id === project?.[0]?.creator_user_id && (
           <button onClick={() => navigate(`/createOffer/${id}`)}>
             Create Offer
           </button>
         )}
       </section>
+      
       <section className="containerPpal offersSection">
         <div className="offerGallery">
           {review?.map((elem, index) => {

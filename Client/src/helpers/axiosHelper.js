@@ -44,7 +44,9 @@ export const fetchData2 = async (url, method, data = null, headers={}) => {
             headers,
             data
         }
-        const response = await axios(config);        
+        const response = await axios(config); 
+        // console.log('fetchdata2 response', response);
+               
         return response.data
     } catch (error) {
         throw error
