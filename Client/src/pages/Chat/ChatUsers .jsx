@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { fetchDataValidation } from '../../helpers/axiosHelper';
+import { fetchData2, fetchDataValidation } from '../../helpers/axiosHelper';
 const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 
-export const ChatUsers = ({ currentUserId, onUserClick  }) => {
+export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const fetchChatUsers = async () => {
             try {
-                const response = await fetchDataValidation(`http://localhost:4000/api/message/chatUsers/${currentUserId}`, 'GET');
+                const response = await fetchData2(`message/chatUsers/${currentUserId}`, 'GET',null,  { Authorization: `Bearer ${token}` });
                 setUsers(response);
             } catch (error) {
                 console.error("Failed to fetch chat users:", error);
