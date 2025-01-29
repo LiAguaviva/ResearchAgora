@@ -123,6 +123,9 @@ class OfferDal {
       LEFT JOIN offer_skill os ON o.offer_id = os.offer_id 
       LEFT JOIN skill sk ON os.skill_id = sk.skill_id 
       WHERE o.is_deleted = 0
+      AND p.project_type = 0
+      AND p.project_is_disabled = 0
+      AND p.project_status != 2
       GROUP BY o.offer_id, o.offer_title, o.number_of_position, o.offer_description, o.project_id
 ;`
          
@@ -182,10 +185,10 @@ SELECT o.*,
         WHERE os2.offer_id = o.offer_id
           AND os2.offer_skill_is_disabled = 0
        ) AS skills
-FROM offer o
-JOIN offer_skill os ON o.offer_id = os.offer_id
-JOIN skill s ON os.skill_id = s.skill_id
-WHERE s.skill_name IN (${placeholders})
+  FROM offer o
+  JOIN offer_skill os ON o.offer_id = os.offer_id
+  JOIN skill s ON os.skill_id = s.skill_id
+  WHERE s.skill_name IN (${placeholders})
   AND os.offer_skill_is_disabled = 0
   AND o.is_deleted = 0
   AND o.offer_id IN (

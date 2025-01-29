@@ -24,7 +24,7 @@ export const ProjectReviewCard = ({elem}) => {
       </>
     );
   };
-// console.log('elem review', elem);
+console.log('elem review', elem);
 
   return (
     <div>
@@ -33,8 +33,7 @@ export const ProjectReviewCard = ({elem}) => {
               <div className='userCardAvatar'>
                 <img 
                   className='userCardAvatar'
-                  // src={user?.avatar? `${url}/images/users/${user.avatar}` :avatarDefault} 
-                  src={avatarDefault}
+                  src={elem?.reviewer_user_avatar ? `http://localhost:4000/images/useravatar/${elem.reviewer_user_avatar}` : avatarDefault}
                   alt="reviewer picture" 
                   onClick={() =>
                     elem?.reviewer_user_id !== user.user_id

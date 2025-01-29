@@ -249,6 +249,7 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
                         reviewer.user_id AS reviewer_user_id,
                         reviewer.user_name AS reviewer_user_name,
                         reviewer.user_lastname AS reviewer_user_lastname,
+                        reviewer.user_avatar AS reviewer_user_avatar,
                         review.review_rate,
                         project.project_title
                           FROM review

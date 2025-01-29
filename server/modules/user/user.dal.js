@@ -144,7 +144,7 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
       let sql = 'SELECT * FROM user WHERE user_id = ?'
       const result = await executeQuery(sql, [user_id]);
       console.log("*******************result in review",result);
-      let sqlReview = 'SELECT r.*, u.user_name AS reviewer_name, u.user_lastname AS reviewer_lastname FROM review r LEFT JOIN user u ON r.user_id = u.user_id WHERE r.reviewed_user_id = ?;'
+      let sqlReview = 'SELECT r.*, u.user_name AS reviewer_name, u.user_lastname AS reviewer_lastname, u.user_avatar as img FROM review r LEFT JOIN user u ON r.user_id = u.user_id WHERE r.reviewed_user_id = ?;'
       const review = await executeQuery(sqlReview,[user_id])
       console.log("-----------------review in review",review);
       let finalResult = {...result,review}

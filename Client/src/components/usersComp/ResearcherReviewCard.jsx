@@ -32,8 +32,7 @@ export const ResearcherReviewCard = ({elem}) => {
               <div className='userCardAvatar'>
                 <img 
                   className='userCardAvatar'
-                  // src={user?.avatar? `${url}/images/users/${user.avatar}` :avatarDefault} 
-                  src={avatarDefault}
+                  src={elem?.img ? `http://localhost:4000/images/useravatar/${elem.img}` : avatarDefault}
                   alt="reviewer picture" 
                   onClick={() =>
                     elem.reviewer_user_id !== user.user_id
