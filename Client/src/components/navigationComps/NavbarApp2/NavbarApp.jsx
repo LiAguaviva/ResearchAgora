@@ -25,6 +25,17 @@ export const NavbarApp = () => {
 
   const closeDropdown = () => {setDropdownMenu('')}
 
+  const handleNotificationClick = (notif) => {
+    if (notif.type === 2 && notif.project_id) {
+      navigate(`/oneproject/${notif.project_id}`);
+    } else if (notif.type === 1) {
+      navigate(`/chat/${notif.sender_user_id}`);
+    }
+
+    markNotificationAsRead(notif.notification_id);
+    closeDropdown();
+  };
+
   const logOut = () => {
     localStorage.removeItem('agoraToken')
     setUser();
@@ -136,46 +147,41 @@ export const NavbarApp = () => {
                 onClick={logOut}
               >Log Out</NavLink>
             <div className='separator' />
-               <div className='notifications'
-                onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
-               >
-                {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
-                <img 
-                className='bellIcon' 
-                src={bell} 
-                alt="" 
-                 />
-              </div>
+            <div className='notifications'
+                    onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
+                  >
+                    {notifications.length > 0 && (
+                      <span className='badge'>{notifications.length}</span>
+                    )}
+                    <img className='bellIcon' src={bell} alt='Notifications' />
+                  </div>
             <div className='separator' />
           </div>}
 
-          {dropdownMenu === 'notifications' && (
-                <div
-                  className="menuDropdown menuNotifications"
-                  onMouseLeave={() => setDropdownMenu('')}
-                >
-                 <div className='separator' />
+        {dropdownMenu === 'notifications' && (
+                  <div
+                    className='menuDropdown menuNotifications'
+                    onMouseLeave={closeDropdown}
+                  >
+                    <div className='separator' />
 
-                  {notifications.length > 0 ? (
-                    notifications.map((notif) => (
-                      <NavLink
-                        key={notif.id}
-                        to={`/chat/${notif.reference_id}`} 
-                        className={({ isActive }) => (isActive ? 'active' : 'inactive')}
-                        onClick={() => {
-                          markNotificationAsRead(notif.id); 
-                          setDropdownMenu(''); 
-                        }}
-                      >
-                        {notif.content}
-                      </NavLink>
-                    ))
-                  ) : (
-                    <div className="notificationItem">No notifications</div>
-                  )}
-                  <div className='separator' />
-                </div>
-              )}
+                    {notifications.length > 0 ? (
+                      notifications.map((notif) => (
+                        <div
+                          key={notif.notification_id}
+                          className={`notificationItem ${notif.is_read ? 'read' : 'unread'}`}
+                          onClick={() => handleNotificationClick(notif)}
+                        >
+                          <p>{notif.content}</p>
+                        </div>
+                      ))
+                    ) : (
+                      <div className='notificationItem'>No notifications</div>
+                    )}
+
+                    <div className='separator' />
+                  </div>
+                )}
               
         {dropdownMenu === 'about' && 
          <div 

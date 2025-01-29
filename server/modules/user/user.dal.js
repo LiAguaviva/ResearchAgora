@@ -519,6 +519,8 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
 
         await connection.commit();
     } catch (error) {
+      console.log("error in response of the invitation",error);
+      
         await connection.rollback();
         throw error;
     } finally {

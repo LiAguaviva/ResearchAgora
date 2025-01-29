@@ -1,4 +1,5 @@
 
+import notificationDal from "../notification/notification.dal.js";
 import projectDal from "./project.dal.js";
 
 
@@ -119,11 +120,17 @@ class ProjectController {
 
     deleteMember = async(req,res) => {
       try {
-        const {user_id, project_id} = req.body;
+        const {user_id,userID, project_id} = req.body;
         console.log('PPPPPPPPP ->', user_id, project_id)
         await projectDal.deleteMember(user_id, project_id);
-        res.status(200).json('ok');
+        const notificationValues = [
+          user_id, 2 ,userID, `You have been removed from the project`, 0, project_id
+        ];
+        await notificationDal.addNotification(notificationValues);
+        res.status(200).json('User removed and notified');
       } catch (error) {
+        console.log("error in del member comtroller",error);
+        
         res.status(500).json(error);
       }
     }
