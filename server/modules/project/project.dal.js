@@ -123,6 +123,39 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
     }
   };
 
+  oneResearcherProjects = async(user_id, inviter_id) => {
+    try {
+      let sql = `SELECT p.project_id, 
+       p.project_title, 
+       p.project_description, 
+       p.project_status,
+       p.creator_user_id, 
+       CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name
+FROM project AS p
+JOIN user AS u ON p.creator_user_id = u.user_id
+JOIN user_project AS up_inviter 
+       ON p.project_id = up_inviter.project_id  
+       AND up_inviter.user_id = ?
+LEFT JOIN user_project AS up_invited 
+       ON p.project_id = up_invited.project_id 
+       AND up_invited.user_id = ? 
+       AND up_invited.status = 2  -- Solo toma filas con status = 2
+WHERE p.project_is_disabled = 0 AND p.project_type = 0
+  AND up_inviter.status = 2 
+  AND up_invited.user_id IS NULL  -- Si hay una fila con status = 2, se excluye el proyecto
+GROUP BY p.project_id, p.project_title, p.project_description, p.project_status, u.user_name, u.user_lastname;
+
+`;
+
+      const result = await executeQuery(sql, [user_id, inviter_id]);
+      return result;
+    } catch (error) {
+      console.log("dal error", error);
+
+      throw error;
+    }
+  };
+
   oneUserAvailableProjects = async (user_id, inviter_id) => {
     try {
       let sql = `SELECT p.project_id,

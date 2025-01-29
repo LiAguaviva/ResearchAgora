@@ -109,7 +109,7 @@ export const Profile = () => {
     }
   }
 
-  console.log('User tras log in -->', user)
+  console.log('Usser projects -->', projects)
 
   return (
     <>
