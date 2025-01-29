@@ -10,7 +10,7 @@ export const AllOffersCard = ({offer}) => {
   const {user} = useContext(AgoraContext)
    
   useEffect(() => {
-    setSkills(offer.skills?.split(", "))    
+    setSkills(offer.skills? offer.skills.split(", "): [])    
   }, [offer])
 
   console.log("offer", offer);
@@ -25,7 +25,7 @@ export const AllOffersCard = ({offer}) => {
       {offer.offer_description}
       </p>
 
-    {skills.length && 
+    {/* {skills.length && 
       <div className='tagsContainer'>
       {skills?.map((el, index)=> {
           return (
@@ -35,7 +35,20 @@ export const AllOffersCard = ({offer}) => {
           )
         }
       )}
-     </div>}
+     </div>} */}
+
+     {skills !== "" ? (
+        <div className="tagsContainer">
+          {skills.map((el, index) => (
+            <div className="tag" key={index}>
+              {el}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No skills required</p>
+      )}
+     
      <Link to={`/oneproject/${offer.project_id}`}>About the project</Link>
 
      {/* <div className='buttons'>

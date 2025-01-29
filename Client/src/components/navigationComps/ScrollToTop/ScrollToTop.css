@@ -5,6 +5,8 @@
   top: 90vh;
   right: 1vw;
   height: 3rem;
+  width: max-content;
+  cursor: pointer;
 
   &:hover {
     filter: brightness(0);

@@ -91,7 +91,7 @@ p {
 
 button {
   width: max-content;
-  font-size: var(--textSize5);
+  font-size: var(--textBody);
   font-weight: 600;
   border: none;
   border-radius: var(--size05);
@@ -99,6 +99,7 @@ button {
   padding-block: var(--size05);    
   background-color: var(--aqua);
   color: var(--white);
+  cursor: pointer;
   
   &:hover {
     background-color: var(--mandarina);
@@ -180,7 +181,7 @@ button {
   display: flex;
   gap: var(--size05);
   align-items: center;
-
+  
   &:hover{
     background-color: var(--purple);
   }
@@ -188,6 +189,7 @@ button {
   .deleteBtn {
     font-weight: bold;
     font-size: var(--textM2);
+    margin-bottom: 2px;
 
     &:hover {
       color: var(--magenta);
@@ -222,6 +224,7 @@ ul {
 .messageIcon {
   width: var(--size2);
   height: var(--size2);
+  cursor: pointer;
 
   &:hover {
     filter: brightness(0);
@@ -231,4 +234,20 @@ ul {
 .bold {
   font-weight: bold;
   color: var(--aqua);
+}
+
+::-webkit-scrollbar {
+  width: var(--size05);
+  background-color: white;
+  background: linear-gradient(0deg, var(--white) 10%, var(--purple) 95%, var(--purple) 100%);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--aqua);
+  height: 30rem;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mandarina);
 }

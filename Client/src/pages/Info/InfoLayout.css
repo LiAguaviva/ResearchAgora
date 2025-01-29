@@ -52,7 +52,7 @@
       }
     
       a {
-        font-size: var(--textSize4);
+        font-size: var(--textM2);
         /* text-decoration: none; */
         
         &:hover {

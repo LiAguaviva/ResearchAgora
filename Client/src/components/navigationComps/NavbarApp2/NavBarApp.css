@@ -51,7 +51,7 @@
       }
 
       a {
-        font-size: var(--textSize4);
+        font-size: var(--textbody);
         text-decoration: none;
         
         &:hover {
@@ -140,7 +140,7 @@
   border-bottom-left-radius: var(--borderRadius);
 
   a {
-    font-size: var(--textSize4);
+    font-size: var(--textbody);
     text-decoration: none;
     
     &:hover {

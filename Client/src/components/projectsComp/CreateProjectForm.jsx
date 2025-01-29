@@ -197,14 +197,14 @@ export const CreateProjectForm = () => {
          
       <fieldset>
         <label htmlFor="typeOptions">type</label>
-        <label 
+        {/* <label 
           id='typeOptions'
           type="text" 
           placeholder='type'
           value={project.type}
           onChange={handleChange}
           name='type'
-        />
+        /> */}
 
         <select 
           id='typeOptions'
@@ -241,7 +241,7 @@ export const CreateProjectForm = () => {
         <button 
           className="cancel"
           type='button'
-          onClick={()=>navigate('/')}
+          onClick={()=>navigate('/profile')}
         >CANCEL</button>
       </div>
     </form>

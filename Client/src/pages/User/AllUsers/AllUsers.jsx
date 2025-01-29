@@ -11,6 +11,7 @@ export const AllUsers = () => {
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [modalShowed, setModalShowed] = useState(false);
+  const [seeButton, setSeeButton] = useState(false)
 
   const showRequestModal = (userId = null) => {
     if (userId) {
@@ -20,7 +21,13 @@ export const AllUsers = () => {
       setModalShowed(false);
     }
   };
-  
+
+  const clear = () => {
+    setSkills([]);
+    setInputValueName('')
+    setSeeButton(false)
+  }
+
 
   const navigate = useNavigate();
 
@@ -36,9 +43,15 @@ export const AllUsers = () => {
     }
   };
 
+  // useEffect(() => {
+  //   fetchUsers();
+  // }, []);
+
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    if (skills.length === 0){
+      fetchUsers()
+    }
+  }, [skills])
 
   const handleKeyDownSkill = (e) => {
     if (e.key === "Enter") {
@@ -67,7 +80,7 @@ export const AllUsers = () => {
         skills: skills.length ? skills.join(",") : null,
         name: inputValueName.trim() ? inputValueName.trim() : null,
       };
-
+      setSeeButton(true)
       if (!skills.length && !inputValueName.trim()) {
         fetchUsers();
       } else {
@@ -116,7 +129,10 @@ export const AllUsers = () => {
           placeholder="Search by name"
         />
 
+        <div className="buttons">
+        {seeButton && <button onClick={clear}>Clear</button>}
         <button onClick={onSubmit}>Search</button>
+        </div>
 
         <p className="searchResults">Search Results: {users?.length}</p>
       </div>

@@ -15,7 +15,6 @@ import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvi
 import React from 'react'
 import trash from '../../../assets/icons/trash.svg'
 import { ResearcherReviewCard } from '../../../components/usersComp/ResearcherReviewCard'
-// imoprt 
 
 
 export const Profile = () => {
@@ -81,21 +80,6 @@ export const Profile = () => {
         
   }
 
-  // const fetchJoinRequest = async () => {
-  //   try {
-  //     let data = { user_id: user?.user_id };
-
-  //     const result = await fetchDataValidation(
-  //       `http://localhost:4000/api/user/pendingrequeststatus`,
-  //       "post",
-  //       data
-  //     );
-  //     setrequests(result);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   useEffect(() => {
     if (user?.user_id) {
       fetchProjects();
@@ -152,22 +136,6 @@ export const Profile = () => {
               Create New Project
           </button>
       </section>
-
-      {/* {requests.length > 0 &&
-        <section className="containerPpal requestSection">
-          <h3>You have requests to join on your projects!</h3>
-          <div className="requestGallery">
-            {requests?.map((elem) => {
-              return (
-                <RequestCard 
-                  elem={elem} 
-                  updateRequest={updateRequest}
-                  key={elem.project_id}
-                />
-              );
-            })}
-          </div>
-       </section>} */}
 
       {invites.length > 0 && 
        <section  className="containerPpal invitatiosSection">

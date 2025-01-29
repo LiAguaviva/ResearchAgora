@@ -27,31 +27,31 @@ export const EditOfferCard = () => {
   
 
   useEffect(() => {
-      const fetchOneOffer = async () => {
-      try {
-        const result = await fetchData2(
-          `offer/oneoffer/${id}`, 
-          "get"
-        );
-         console.log("OFFFFEEEEEEEEEEEEER", result);
+    const fetchOneOffer = async () => {
+    try {
+      const result = await fetchData2(
+        `offer/oneoffer/${id}`,
+        "get"
+      );
+       console.log("OFFFFEEEEEEEEEEEEER", result);
 
-         if (result && result[0]) {
-          // Si result[0].skills es un array de objetos, extraemos los skill_name
-          const skills = result.map((skill) => skill.skill_name);
-          setSkills(skills);
-         
-          console.log("skill, offer", result)
-        } else {
-          console.log("No skills found in the result.");
-        } 
-        setOffer(result[0]);
-      } catch (error) {
-        console.log(error);
+       if (result && result[0].skill_name) {
+        // Si result[0].skills es un array de objetos, extraemos los skill_name
+        const skills = result.map((skill) => skill.skill_name);
+        setSkills(skills);
+       
+        console.log("skill, offer", result)
+      } else {
+        console.log("No skills found in the result.");
       }
-    };
+      setOffer(result[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    fetchOneOffer();
-    }, [id]);
+  fetchOneOffer();
+  }, [id]);
     
       
     // useEffect(() => {
@@ -112,7 +112,7 @@ export const EditOfferCard = () => {
         }
       };
 
-      const removeSkill = (index) => {
+    const removeSkill = (index) => {
       const newSkills = [...skills];
       newSkills.splice(index, 1);
       setSkills(newSkills);
