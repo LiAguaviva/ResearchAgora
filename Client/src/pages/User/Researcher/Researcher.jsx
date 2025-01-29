@@ -50,7 +50,7 @@ export const Researcher = () => {
       let data = { user_id: id };
 
       const result = await fetchDataValidation(
-        `http://localhost:4000/api/project/oneuserprojects`,
+        `http://localhost:4000/api/project/oneresearcherprojects`,
         "post",
         data
       );

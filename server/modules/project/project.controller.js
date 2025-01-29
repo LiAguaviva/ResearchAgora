@@ -43,6 +43,19 @@ class ProjectController {
       }
    } 
 
+   oneresearcherprojects = async (req, res) => {
+    const {user_id, inviter_id} = req.body;
+    try {
+      const result = await projectDal.oneResearcherProjects(user_id,inviter_id);
+      res.status(200).json(result)
+
+    } catch (error) {
+      console.log("controller error", error);
+      
+     res.status(500).json(error) 
+    }
+ } 
+
    oneUserAvailableProjects = async (req, res) => {
       const {user_id, inviter_id} = req.body;
       try {
