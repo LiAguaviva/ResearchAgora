@@ -1,5 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 import { createOfferScheme} from '../../schemes/createOfferScheme'
 import { useState, useContext } from 'react';
 import { fetchData2 } from '../../helpers/axiosHelper';
@@ -48,7 +47,7 @@ export const CreateOfferForm = () => {
       if (
         inputValueSkills.trim() !== "" &&
         inputValueSkills.trim().length > 1 &&
-        /^[a-zA-Z0-9]+$/.test(inputValueSkills.trim())
+        /^[a-zA-Z0-9 ]+$/.test(inputValueSkills.trim())    
       ) {
         setSkills([...skills, inputValueSkills.trim()]);
         setInputValueSkills("");
@@ -69,10 +68,8 @@ export const CreateOfferForm = () => {
       
       const skillsString = skills.join(",");
       let data = { ...offer, skill_name: skillsString};
-      console.log("data1", data);
       
       await fetchData2(`offer/createoffer/${id}`, 'post', data, { Authorization: `Bearer ${token}`  })
-       console.log("envio de la data al back", data);
        navigate(`/oneproject/${id}`)
        
     } catch (error) {  
@@ -80,16 +77,14 @@ export const CreateOfferForm = () => {
       const fieldErrors = {};
 
       if (error instanceof ZodError){
+        //const fieldErrors = {}; // should it be inside if?
         error.errors.forEach((err)=>{
           fieldErrors[err.path[0]]=err.message
         })
         setValErrors(fieldErrors)
-        console.log('fieldError', fieldErrors);
       } else {
-        console.log(error);
         setMsg(error.response?.data.message)
         
-        console.log('error message', error.response.data.message);
       }   
     }
   }

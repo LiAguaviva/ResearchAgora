@@ -2,71 +2,7 @@ import { dbPool,executeQuery } from "../../config/db.js";
 
 
 class OfferDal {
-  // createOffer = async(values, skill_name) => {  
-  // const connection = await dbPool.getConnection();   
     
-  // try{
-  //   await connection.beginTransaction();
-  //   let sql = `INSERT INTO offer( project_id, offer_title, offer_description, number_of_position) VALUES (?, ?, ?, ?)`
-  //   // values[3] = Number(values[3]); //delete once front is running
-  //   const [offerResult] = await connection.execute(sql, values);
-  //   const offerId = offerResult.insertId;
-
-  //   let finalId = 1;
-     // console.log("skill_name*********************before", skill_name);
-
-   // if (Array.isArray(skill_name)) {
-     //   skill_name = skill_name
-   //     .map((skill) => skill.replace(/[\[\]]/g, "").trim()) // Remove brackets and trim
-   //     .filter((skill) => skill); // Remove empty strings
-     // } else if (typeof skill_name === "string") {
-     //   skill_name = skill_name
-     //     .replace(/[\[\]]/g, "") // Remove brackets
-     //     .split(",") // Split into array
-     //     .map((skill) => skill.trim()) // Trim whitespace
-     //     .filter((skill) => skill); // Remove empty strings
-    // } else {
-    //   skill_name = []; // Default to an empty array if no valid skills
-     // }
-
-     // console.log("skill_name..........after", skill_name);
-
-  //   const skillIds = [];
-  //   for(const elem of skill_name){
-  //    let sqlId = 'SELECT max(skill_id) AS id FROM skill'
-  //    let [maxId] = await connection.execute(sqlId)
-  
-  //    skill_id = maxId[0].id != null ? maxId[0].id + 1 : 1;
-
-  //       if(maxId[0].id != null) {
-  //         finalId = maxId[0].id+1  
-       // console.log(" finalId //////////////////",finalId);
-       // console.log(" elemmmmmmmmmmmmmmmmm",elem); 
-  //     const sqlSkill = 'INSERT INTO skill (skill_id, skill_name) VALUES (?,?)'
-  //     const skill_id = finalId;
-  //      console.log("skill id", skill_id);
-  //      console.log("eleeeem", elem);
-       
-  //     await connection.execute(sqlSkill, [finalId,elem ])
-  //         let sqlId2 = 'SELECT skill_id AS id2 FROM skill WHERE skill_name = ?'
-  //         let [skill_idResult] = await connection.execute(sqlId2, [elem])
-
-       
-  //         const sqlOfferSkill = 'INSERT INTO offer_skill  (offer_id, skill_id) VALUES (?, ?)'
-  //         await connection.execute(sqlOfferSkill, [offerId,skill_idResult[0].id2 ]);
-  //       }   
-  //     }
-  //    await connection.commit()
-  //    return offerId;
-        
-  // } catch (error) {
-  //   await connection.rollback();
-  //   throw error;
-  // }finally{
-  //   connection.release()
-  // }
-  //};
-   
   createOffer = async (values, skill_name) => {  
     const connection = await dbPool.getConnection();   
     try {
@@ -113,7 +49,6 @@ class OfferDal {
   };
   
   allOffers = async () => {
-    console.log('in offer dal');
     
     try {
       let sql = `SELECT o.offer_id, o.offer_title, o.number_of_position, o.offer_description, o.project_id, p.project_title,
@@ -148,7 +83,6 @@ class OfferDal {
       
       await connection.commit();   
     }catch (error){
-      console.log("EERROR", error);
       await connection.rollback();
       throw error;
     }finally{
@@ -157,11 +91,10 @@ class OfferDal {
   }
 
   findOfferBySkill = async (skills) => {
-    console.log("skills in dal", skills);
   
     const skillArray = skills
-      .replace(/[\[\]]/g, "") // Remove square brackets
-      .split(",") // Split by comma
+      .replace(/[\[\]]/g, "") 
+      .split(",") 
       .map((skill) => skill.trim());
   
     console.log("skills in dal after", skillArray);
@@ -176,7 +109,6 @@ class OfferDal {
    
     const connection = await dbPool.getConnection();
     try {
-      // Correct SQL query
       const sql = `
 SELECT o.*,
        (SELECT GROUP_CONCAT(s2.skill_name ORDER BY s2.skill_name SEPARATOR ', ')
@@ -209,7 +141,6 @@ GROUP BY o.offer_id;
   
       const [offers] = await connection.execute(sql, [...skillArray, ...skillArray, skillArray.length]);
   
-      console.log("offers found:", offers);
       await connection.commit();   
       return offers;
     } catch (error) {
@@ -229,8 +160,6 @@ GROUP BY o.offer_id;
       AND offer.project_id = ? AND offer.number_of_position > 0`
 
       const result = await executeQuery(sql, project_id);
-      console.log('result en DAAAAALLLLL', result);
-      
       return result;
 
     } catch (error) {
@@ -244,7 +173,6 @@ GROUP BY o.offer_id;
       await executeQuery(sql, values);
 
     } catch (error) {
-      console.log("dal error", error);
       throw error;
     }
   }
@@ -270,7 +198,6 @@ GROUP BY o.offer_id;
         return result;
         
        } catch (error) {
-         console.log("oneOffer error", error);
          throw error;
        }
     }

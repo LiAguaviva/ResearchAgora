@@ -148,7 +148,6 @@ class ProjectController {
     deleteMember = async(req,res) => {
       try {
         const {user_id,userID, project_id} = req.body;
-        // console.log('PPPPPPPPP ->', user_id, project_id)
         await projectDal.deleteMember(user_id, project_id);
         const remover = await userDal.getUserById(userID);
         const project = await projectDal.oneProject(project_id);

@@ -20,12 +20,7 @@ export const AllOffers = () => {
       }
     }
   
-   /*  useEffect(() => {
-      fetchOffers();
-      // console.log('offers on useEffect AllOffers', offers);
-    }, []) */
-
-    useEffect(() => {
+  useEffect(() => {
         if (skills.length === 0){
           fetchOffers()
         }
@@ -65,7 +60,6 @@ export const AllOffers = () => {
           fetchOffers()
         } else {
           const result = await fetchDataValidation('http://localhost:4000/api/offer/findofferbyskill', 'post', data);
-          // console.log(result)
           setOffers(result)
         }
       } catch (error) {
@@ -73,9 +67,6 @@ export const AllOffers = () => {
       }
     }
 
-    
-
-    // console.log('offers on ALLOFFERS', offers);
     
 
   return (

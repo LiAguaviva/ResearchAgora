@@ -17,18 +17,6 @@ const transporter = nodemailer.createTransport({
 
 });
 
-// let emailHtml = `<!DOCTYPE html>
-// <html lang="en">
-// <head>
-//   <meta charset="UTF-8">
-//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//   <title>Document</title>
-// </head>
-// <body>
-//   <h1>This is Agora Research. To validate your account, click here</h1>
-//   <a href="${process.env.VITE_SERVER_URL}/verify-account/${token}"></a>
-// </body>
-// </html>`
 
 export const sendMailValidation = (email, token) =>{
     transporter.sendMail({
@@ -55,14 +43,6 @@ export const sendMailValidation = (email, token) =>{
     })
 };
 
-/* export const sendPasswordResetEmail = (email, token) => {     
-const resetLink = `${process.env.VITE_SERVER_URL}reset-password/${token}`;     
-transporter.sendMail({         
-  from: 'socratesters@gmail.com',         
-  to: email,         
-  subject: "Password Reset Request", 
-  html: `<p>You requested a password reset. Click the link below to reset your password:</p> <a href="${resetLink}" target="_blank">Reset Password</a>` }); 
-} */
 
 export const sendPasswordResetEmail = (email, token) => {
   const resetLink = `http://localhost:5173/resetPassword/${token}`;
@@ -82,36 +62,8 @@ export const sendPasswordResetEmail = (email, token) => {
   });
 };
 
-/* export const forgottenPassword = (email, token) =>{
-  const resetLink = `${process.env.VITE_SERVER_URL2}resetPassword/${token}`; 
-  transporter.sendMail({
-      from: 'socratesters@gmail.com',
-      to: email,
-      subject: "Reset your password",
-      html: `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
-</head>
-<body>
-<h1>This is Agora Research. To reset your password, please click here</h1>
- <a href=`${process.env.VITE_SERVER_URL2}resetPassword/${token}`;
- 
- 
- 
- 
-   target="_blank" 
-   style="color: blue; text-decoration: underline;">
-   Click here to reset your password
-</a>
-</body>
-</html>`
-  })
-}
- */
 
+  
 export const forgottenPassword = (email, token) => {
   const resetLink = `${process.env.VITE_SERVER_URL2}resetPassword/${token}`;
  
@@ -142,4 +94,4 @@ export const forgottenPassword = (email, token) => {
   });
 };
 
-//el href tiene que ser un enlace a una página del front (localhost:5173...), se abre pestaña nueva y tiene que tener un useEffect que vaya al verify. Si la respuesta está bien debe aparecer un mensaje de que el registro se ha hecho correctamente, sino, no autorizado
+//the href has to be a link to a front page (localhost:5173...), it opens a new tab and has to have a useEffect that goes to verify. If the response is OK, you should get a message that the registration was successful, otherwise, not authorized.

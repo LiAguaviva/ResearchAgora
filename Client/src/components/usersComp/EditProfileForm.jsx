@@ -58,7 +58,7 @@ export const EditProfileForm = () => {
     }
   }, [user]);
  
-  // skills
+  
   const handleKeyDownSkill = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -73,7 +73,7 @@ export const EditProfileForm = () => {
     }
   };
  
-  // field
+  
   const handleKeyDownField = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -88,7 +88,7 @@ export const EditProfileForm = () => {
     }
   };
  
-  // tag
+  
   const removeSkill = (index) => {
     const newSkills = [...skills];
     newSkills.splice(index, 1);
@@ -138,7 +138,7 @@ export const EditProfileForm = () => {
       newFormData.append("edit", JSON.stringify(data));
       newFormData.append("file", file);
       // setEditUser({...editUser, [skills]:skillsString, [fields]:fieldstring})
-      //mandar data(variable temporal) al back con axios
+      
       const result = await fetchData("/editUser", "put", newFormData, { Authorization: `Bearer ${token}` } );
       setUser({...editUser, skills: skillsString, fields: fieldstring,user_avatar: result.img ? result?.img : user.user_avatar});
       navigate("/profile");
@@ -159,9 +159,6 @@ export const EditProfileForm = () => {
       }
     }
   };
- 
-  // console.log('edituser', editUser);
-  // console.log('user', user);
  
  
   return (

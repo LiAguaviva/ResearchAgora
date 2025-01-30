@@ -7,7 +7,6 @@ import { fetchData2 } from '../../helpers/axiosHelper';
 
 const handleRatingSubmit = (rating) => {
   console.log("User selected rating:", rating);
-  // Send the rating to your backend or perform other actions
 };
 
 export const ReviewModal = ({show,setShow, researcher,user}) => {
@@ -18,7 +17,6 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
   // const [result, setResult] = useState({});
 
 
-  // hacer funcion que recargue la página y 
   const closeModal = () => {
     setShow(!show)
   }

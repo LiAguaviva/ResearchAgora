@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import './RequestModal.css'
 import { useNavigate } from 'react-router-dom'
 import { AgoraContext } from '../../../context/ContextProvider';
-import { fetchDataValidation } from '../../../helpers/axiosHelper';
+import { fetchData2 } from '../../../helpers/axiosHelper';
 
 export const RequestModal = ({ showRequestModal, selectedUserId }) => {
   const [projects, setProjects] = useState([]);
@@ -16,10 +16,10 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
   const handleProjectChange = async (event) => {
     const projectId = event.target.value;
     setSelectedProject(projectId);
-    setSelectedOffer(null); // Reiniciar oferta seleccionada al cambiar de proyecto
+    setSelectedOffer(null); 
 
     try {
-      const response = await fetchDataValidation(`http://localhost:4000/api/offer/offersbyproject/${projectId}`, 'get');
+      const response = await fetchData2(`offer/offersbyproject/${projectId}`, 'get');
       setOffers(response);
     } catch (error) {
       console.log('Error fetching offers:', error);
@@ -36,7 +36,7 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
         user_id: user?.user_id,
         inviter_id: selectedUserId
       };
-      const result = await fetchDataValidation(`http://localhost:4000/api/project/oneuserprojects`, 'post', data,  { Authorization: `Bearer ${token}` });
+      const result = await fetchData2(`project/oneuserprojects`, 'post', data,  { Authorization: `Bearer ${token}` });
       setProjects(result);
     } catch (error) {
       console.log(error);
@@ -71,10 +71,9 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
       project_title: project?.project_title || '',
       offer_title: offer?.offer_title || ''
     };
-    console.log(data);
     
     try {
-      await fetchDataValidation(`http://localhost:4000/api/user/invite`, 
+      await fetchData2(`user/invite`, 
         'put',
          data,
          { Authorization: `Bearer ${token}` 

@@ -50,7 +50,7 @@
   padding-inline: var(--size1);
   width: var(--containersSize);
   height: 66.2vh;
-
+  z-index: 10;
   
   @media (max-width: 700px){
     position: absolute;

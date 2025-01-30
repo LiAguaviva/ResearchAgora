@@ -17,13 +17,13 @@ export const editProfileScheme = z.object({
   // .refine((val) => val !== null, { message: '* Description cannot be null' })
   .optional(),
 
-  user_proficiency: z.string().max(50, '* Profiency cannot exceed 50 characters').nullable(),
+  user_proficiency: z.string().max(50, '* Proficiency cannot exceed 50 characters').nullable(),
     // .refine((val) => val !== null, { message: '* Please enter your proficiency' }),
 
   user_current_lab: z.string().max(100, '* Current lab cannot exceed 100 characters').nullable(),
   // .refine((val) => val !== null, { message: '* Please enter your current lab' }),
 
-  user_current_boss: z.string().max(100, '* Curent head cannot exceed 100 characters').nullable(),
+  user_current_boss: z.string().max(100, '* Current head cannot exceed 100 characters').nullable(),
   // .refine((val) => val !== null, { message: '* Please enter your curent head' }),
 
 });

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom'
 export const ForgotPasswordModal = () => {
   const navigate = useNavigate()
 
-  // hacer funcion que recargue la página y 
   const closeModal = () => {
     navigate('/login')
   }

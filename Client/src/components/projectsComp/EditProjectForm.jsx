@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { fetchDataValidation } from "../../helpers/axiosHelper";
+import { useNavigate, useParams } from "react-router-dom";
+import { fetchData2, fetchDataValidation } from "../../helpers/axiosHelper";
 import { ZodError } from "zod";
 import { createProjectScheme } from "../../schemes/createProjectScheme";
 import { AgoraContext } from "../../context/ContextProvider";
@@ -33,11 +33,10 @@ export const EditProjectForm = () => {
   
     const fetchOneProject = async () => {
       try {
-        const result = await fetchDataValidation(
-          `http://localhost:4000/api/project/oneproject/${id}`,
+        const result = await fetchData2(
+          `project/oneproject/${id}`,
           "get"
         );
-        // console.log("RESULT FORM BACK ------>", result);
         setSkills(result.skills.map(skill => skill.skill_name));
         setData(result.project[0]);
       } catch (error) {
@@ -86,7 +85,7 @@ export const EditProjectForm = () => {
       if (
         inputValueSkills.trim() !== "" &&
         inputValueSkills.trim().length > 1 &&
-        /^[a-zA-Z0-9 ]+$/.test(inputValueSkills.trim())
+        /^[a-zA-Z0-9 ]+$/.test(inputValueSkills.trim())    
       ) {
         setSkills([...skills, inputValueSkills.trim()]);
         setInputValueSkills("");
@@ -107,9 +106,6 @@ export const EditProjectForm = () => {
 
       const skillsString = skills.join(",");
       let data = { ...project, skill: skillsString, id: id };
-      // console.log("----> data al back", data);
-      // console.log("----> data al back", data);
-
 
 
       const result = await fetchDataValidation(
