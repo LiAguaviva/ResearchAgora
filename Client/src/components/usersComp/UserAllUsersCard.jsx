@@ -51,13 +51,13 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
             {skills[0] !== "" ? (
               <>
                 {skills?.map((skill, index) => (
-                  <div key={index} className="tagDeleteable">
+                  <div key={index} className="tag">
                     {skill}
                   </div>
                 ))}
               </>
             ) : (
-              <span className="errorMsg"></span>
+              <span />
             )}
           </div>
         </div>

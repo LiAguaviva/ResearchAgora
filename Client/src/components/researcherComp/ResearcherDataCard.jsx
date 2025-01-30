@@ -34,7 +34,7 @@ export const ResearcherDataCard = ({researcher}) => {
           <img 
             src={message} alt="" 
             onClick={onMessageClick}
-            className="message icon"
+            className="messageIcon"
           />
           </div>
           <h4>Career</h4>

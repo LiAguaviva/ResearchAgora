@@ -2,6 +2,8 @@
 
 .chatSection {
   --containersSize: 20rem;
+  --containerSizeSmall: 100%;
+
   --radioCont: 10px;
 
   display: flex;
@@ -15,11 +17,6 @@
     justify-content: flex-start;
   }
 
-  ::-webkit-scrollbar {
-    /* background-color: white; */
-    /* background: linear-gradient(0deg, var(--purple20) 10%, var(--purple) 95%, var(--purple) 100%); */
-
-  }
 
   ::-webkit-scrollbar-thumb {
     background: var(--purple);
@@ -29,12 +26,12 @@
   ::-webkit-scrollbar-thumb:hover {
     background: var(--mandarina);
   }
-
 }
 
 .seeUsersChatButton {
   width: var(--containersSize);
   background-color: var(--purple);
+
 }
 
 .usersListContainer {
@@ -54,10 +51,11 @@
   width: var(--containersSize);
   height: 66.2vh;
 
+  
   @media (max-width: 700px){
     position: absolute;
   }
-
+  
   .separatorChat {
     border-bottom: 2px solid var(--aqua);
     /* width: 90%; */
@@ -89,7 +87,16 @@
       background-color: var(--aqua);
     }
   }
+  
+  .active-user {
+    background-color: var(--aqua);
+    img {
+      border: 2px solid var(--aqua);
+    }
+  }
 }
+
+
 
 .chat-box-container {
   display: flex;
@@ -110,25 +117,56 @@
     margin-bottom: 10px; 
     border-radius: var(--radioCont);
     padding: var(--size05);
+    position: relative;
   }
 }
 
 .message-content {
-  background-color: rgb(0, 190, 212);
+  position: relative;
   color: white;
   padding: 5px 10px;
   margin-top: var(--size1);
   max-width: 90%; 
   width: fit-content; 
+  /* display: flex; */
+
+  &:hover {
+    .delete-btn {
+      visibility: visible;
+    }
+  
+    .deleteMsgIcon {
+      visibility: visible;
+    }
+  } 
 }
+
+
+.deleteMsgIcon {
+  --iconSize: 1rem;
+
+  height: var(--iconSize);
+  width: var(--iconSize);
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  visibility: hidden; 
+  cursor: pointer;
+
+  &:hover {
+    filter: brightness(0);
+  }
+}
+
 
 .message-owner {
   background-color: var(--mandarina);
   margin-left: auto; 
-  /* margin-right: 0;  */
+  /* margin-right: 6px;  */
   text-align: right;
-  justify-items: right;
   border-radius: 10px 10px 0 10px;
+  /* display: flex; */
+  /* align-items: center; */
 }
 
 .message-other {
@@ -146,49 +184,38 @@
   top: 5px;
 }
 
-.message-content:hover {
-  .delete-btn {
-    visibility: visible;
-  }
-} 
 
-.message-input {
-  flex-grow: 1; 
-  padding: var(--size1);
-  margin-right: var(--size05); 
-  border-radius: 5px;
-  border: none;
+.input-container {
+  display: flex; 
+  width: 100%;
 
-  padding-inline: var(--size05);
-  padding-block: var(--size05);
-  background-color: var(--purple);
-  color: var(--white);
-  /* border: 2px solid var(--purple); */
-
-  &::placeholder {
-    color: var(--white80);
-  }
+  .message-input {
+    /* flex-grow: 1;  */
+    padding: var(--size1);
+    margin-right: var(--size05); 
+    border-radius: 5px;
+    border: none;
   
-  &:hover {
-    
+    padding-inline: var(--size05);
+    padding-block: var(--size05);
+    background-color: var(--purple);
+    color: var(--white);
+  
     &::placeholder {
-      color: var(--white);
+      color: var(--white80);
+    }
+    
+    &:hover {
+      
+      &::placeholder {
+        color: var(--white);
+      }
     }
   }
 }
 
 
-.input-container {
-  display: flex; 
-  width: 100%;
-}
 
 
-.active-user {
-  /* background-color: #989191; */
-  background-color: var(--aqua);
-  img {
-    border: 2px solid var(--aqua);
-  }
-}
+
 

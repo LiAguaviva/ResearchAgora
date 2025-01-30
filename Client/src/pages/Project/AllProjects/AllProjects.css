@@ -1,9 +1,13 @@
 .allProjectsPage {
   display: flex;
   flex-direction: column;
-  gap: var(--size5);
+  gap: var(--size4);
 
+  h2 {
+    text-align: center;
+  }
 }
+
 .searchingTagContainer {
   display: flex;
   flex-direction: column;
@@ -23,7 +27,7 @@
     border-radius: 20px;
     border: 2px solid var(--purple);
     text-align: center;
-    width: 20rem;
+    width: 13rem;
 
     &::placeholder {
       color: var(--purple50);
@@ -40,6 +44,6 @@
 .allProjectsGallery {
   display: flex;
   flex-direction: column;
-  gap: var(--size4);
+  gap: var(--size3);
 }
 
