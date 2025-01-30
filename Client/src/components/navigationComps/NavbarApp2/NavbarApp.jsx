@@ -118,10 +118,11 @@ export const NavbarApp = () => {
         { user &&
               <div className='userNav'>
               <img 
-                className='avatarNav'
-                onClick={()=>navigate('/profile')}
-                onMouseOver={()=>setDropdownMenu('userMenu')}
-                src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} alt="your profile picture" 
+                className={`avatarNav ${notifications.length > 0 ? 'avatarNav--withNotif' : ''}`}
+                onClick={() => navigate('/profile')}
+                onMouseOver={() => setDropdownMenu('userMenu')}
+                src={user?.user_avatar ? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
+                alt="Your profile picture" 
               />
 
               {/* <button
