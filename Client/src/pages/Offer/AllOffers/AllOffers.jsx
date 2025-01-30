@@ -75,7 +75,7 @@ export const AllOffers = () => {
 
     
 
-    console.log('offers on ALLOFFERS', offers);
+    // console.log('offers on ALLOFFERS', offers);
     
 
   return (
@@ -117,9 +117,9 @@ export const AllOffers = () => {
         
         <section className='containerPpal offersSection'>
         <div className='offerGallery'>
-          {offers?.map((offer) => {
+          {offers?.map((offer, key) => {
             return(
-              <AllOffersCard offer={offer} />
+              <AllOffersCard offer={offer} key={key}/>
             )
           })}
         </div>

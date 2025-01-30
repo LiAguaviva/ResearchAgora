@@ -13,7 +13,7 @@ export const AllOffersCard = ({offer}) => {
     setSkills(offer.skills? offer.skills.split(", "): [])    
   }, [offer])
 
-  console.log("offer", offer);
+  // console.log("offer", offer);
   
   return (
     <div className='offerCard'>

@@ -15,6 +15,7 @@ export const Chat = () => {
   const [currentReceiverId, setCurrentReceiverId] = useState(initialReceiverId);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
+  const [seeUsers, setSeeUsers] = useState(false);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -104,10 +105,11 @@ export const Chat = () => {
   const isSendDisabled = user?.user_id === currentReceiverId;
 return (
   <section className='chatSection containerPpal'>
+    <button onClick={()=> setSeeUsers(!seeUsers)}>see users</button>
   <div className="chat-container">
-    <div className="chat-user">
+    {seeUsers && <div className="chat-user">
       <ChatUsers currentUserId={user?.user_id} onUserClick={handleUserClick} token={token}/>
-    </div>
+    </div>}
     <div className="chat-box-container">
       <ChatBox
           messages={messages}
