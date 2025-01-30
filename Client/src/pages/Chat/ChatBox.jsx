@@ -3,7 +3,7 @@ import '../../pages/Chat/chat.css';
 
 export const ChatBox = ({ messages, sendMessage , inputText, setInputText, userId , deleteMessage ,isSendDisabled}) => {
     return (
-        <div className="">
+        <div>
             <div className="messages" >
                 {messages.map((msg, index) => (
                   <div key={index} className={`message-content ${msg.sender_id === userId ? 'message-owner' : 'message-other'}`} >

@@ -11,25 +11,34 @@ export const Chat = () => {
   const { receiver_id } = useParams();
   const initialReceiverId = Number(receiver_id);
   /* const final_receiver_id = Number(receiver_id); */
-  const { user , setNotifications,token} = useContext(AgoraContext);
+  const { user, setNotifications, token} = useContext(AgoraContext);
   const [currentReceiverId, setCurrentReceiverId] = useState(initialReceiverId);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
-  const [seeUsers, setSeeUsers] = useState(false);
+  const [seeUsers, setSeeUsers] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [time, setTime] = useState(1000)
 
   useEffect(() => {
-    const fetchMessages = async () => {
-        if (user?.user_id && currentReceiverId && user.user_id !== currentReceiverId) {
-            try {
-                const response = await fetchData2(`message/getmessages/${user.user_id}/${currentReceiverId}`, 'GET',null,  { Authorization: `Bearer ${token}` });
-                setMessages(response);
-            } catch (error) {
-                console.error("Failed to fetch messages:", error);
-            }
-        }
-    };
-    fetchMessages();
-}, [currentReceiverId, user?.user_id]);
+ 
+    const interval = setInterval(() => {
+      fetchMessages();
+      setLoading(false)
+    }, time);
+   
+    return () => clearInterval(interval);
+  }, [currentReceiverId, user?.user_id,messages]);
+  
+  const fetchMessages = async () => {
+      if (user?.user_id && currentReceiverId && user.user_id !== currentReceiverId) {
+          try {
+              const response = await fetchData2(`message/getmessages/${user.user_id}/${currentReceiverId}`, 'GET',null,  { Authorization: `Bearer ${token}` });
+              setMessages(response);
+          } catch (error) {
+              console.error("Failed to fetch messages:", error);
+          }
+      }
+  };
 
 
 /*   const fetchMessages = async () => {
@@ -64,6 +73,10 @@ export const Chat = () => {
     markAllMessageNotificationsAsRead();
   }, [user?.user_id, setNotifications]);
 
+  useEffect(() => {
+    setTime(1000)
+  }, [loading])
+
   const sendMessage = async () => {
     if (inputText.trim()){
       const newMessage = {
@@ -90,8 +103,11 @@ export const Chat = () => {
       }
     };
   }
+  
   const handleUserClick = (userId) => {
     setCurrentReceiverId(userId);
+    setLoading(true)
+    setTime(400)
   };
 
   const deleteMessage = async (messageId) => {
@@ -102,26 +118,42 @@ export const Chat = () => {
         console.error("Failed to delete message:", error);
     }
   };
+
   const isSendDisabled = user?.user_id === currentReceiverId;
-return (
-  <section className='chatSection containerPpal'>
-    <button onClick={()=> setSeeUsers(!seeUsers)}>see users</button>
-  <div className="chat-container">
-    {seeUsers && <div className="chat-user">
-      <ChatUsers currentUserId={user?.user_id} onUserClick={handleUserClick} token={token}/>
-    </div>}
-    <div className="chat-box-container">
-      <ChatBox
-          messages={messages}
-          sendMessage={sendMessage}
-          inputText={inputText}
-          setInputText={setInputText}
-          userId={user?.user_id}
-          deleteMessage={deleteMessage}
-          isSendDisabled={isSendDisabled}
-      />
-    </div>
-  </div>
-  </section>
-  );
+
+  return (
+
+      <section className='chatSection containerPpal'>
+        <div className='usersListContainer'>
+        <button 
+          onClick={()=> setSeeUsers(!seeUsers)}
+          className='seeUsersChatButton'
+        >your chats</button>
+        {/* <div className="usersList"> */}
+          {seeUsers && 
+            <ChatUsers 
+              currentUserId={user?.user_id} 
+              onUserClick={handleUserClick} 
+              token={token}
+            /> }
+          {/* </div> */}
+        </div>
+
+          
+        <div className="chat-box-container">
+        {loading ? (
+            <p className="loading-text">Loading messages...</p>
+          ) : (
+            <ChatBox
+              messages={messages}
+              sendMessage={sendMessage}
+              inputText={inputText}
+              setInputText={setInputText}
+              userId={user?.user_id}
+              deleteMessage={deleteMessage}
+            />
+          )}
+        </div>
+      </section>
+    );
 };

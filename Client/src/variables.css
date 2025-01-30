@@ -1,5 +1,6 @@
 :root {
   --white: rgb(245, 245, 245);
+  --white80: rgb(245, 245, 245, 0.80);
   --black: rgb(20, 18, 24);
   --black50: rgb(20, 18, 24, 0.50);
   --purple: rgb(56, 0, 120);
@@ -15,7 +16,7 @@
   /* VIEW */
   --headerSize: 2.5rem;
   /* --mainSize: calc(100vh - 2.5rem - 11rem); */
-  --mainSize: calc(100vh);
+  --mainSize: 60vh;
   --footerSize:11rem;
   --widthPage: 1200px;
 
