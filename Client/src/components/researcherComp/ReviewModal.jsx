@@ -24,21 +24,21 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
    const {name, value} = e.target;
    setReview({...review, [name]: value })
   }
-  console.log("ratinggggggggggggggg",rating);
-  console.log("revieeeeew", review);
   
    const onSubmit = async(e) => {
     e.preventDefault();
     // setResult({...result, review, rating})
     // setResult((prevResult) => ({...prevResult, review, rating}));
     let result = {...review, rating,user,researcher}
-    const resultFinal = fetchData2('review/createreview','post',result)
-    closeModal();
-    console.log("------", result);
-   }
+    
+    try {
+      await fetchData2('review/createreview', 'post', result);
+      closeModal();
+    } catch (error) {
+      setMsg(error.response?.data?.message);
+    }
+  };
   
-   console.log('researcher on reviewModal', researcher);
-   console.log('user on reviewModal', user);
    
 
   return (

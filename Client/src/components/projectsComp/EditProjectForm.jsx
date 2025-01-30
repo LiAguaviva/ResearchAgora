@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchData2, fetchDataValidation } from "../../helpers/axiosHelper";
+import { fetchData2 } from "../../helpers/axiosHelper";
 import { ZodError } from "zod";
 import { createProjectScheme } from "../../schemes/createProjectScheme";
 import { AgoraContext } from "../../context/ContextProvider";
@@ -108,8 +108,8 @@ export const EditProjectForm = () => {
       let data = { ...project, skill: skillsString, id: id };
 
 
-      const result = await fetchDataValidation(
-        `http://localhost:4000/api/project/editproject`,
+      const result = await fetchData2(
+        `project/editproject`,
         "put",
         data,
          { Authorization: `Bearer ${token}`  }
@@ -228,15 +228,7 @@ export const EditProjectForm = () => {
 
         <fieldset>
           <label htmlFor="typeOptions">type</label>
-          {/* <label
-            id="typeOptions"
-            type="text"
-            placeholder="type"
-            value={project.type}
-            onChange={handleChange}
-            name="type"
-          /> */}
-
+          
           <select
             id="typeOptions"
             type="text"
