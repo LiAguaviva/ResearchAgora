@@ -239,7 +239,7 @@ ul {
 ::-webkit-scrollbar {
   width: var(--size05);
   background-color: white;
-  background: linear-gradient(0deg, var(--white) 10%, var(--purple) 95%, var(--purple) 100%);
+  background: linear-gradient(0deg, var(--purple20) 10%, var(--purple) 95%, var(--purple) 100%);
 }
 
 ::-webkit-scrollbar-thumb {

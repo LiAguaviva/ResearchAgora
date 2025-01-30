@@ -8,7 +8,8 @@ img{
 
 .chat-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: var(--size1);
   /* height: 100%; */
   /* width: 100%; */
   /* overflow: hidden; */
@@ -17,18 +18,19 @@ img{
   /* border: 5px solid salmon; */
 }
 
-/* .chat-user {
-  width:45%; 
+.chat-user {
+  width:40%; 
   height: 100%;
   overflow-y: auto; 
-} */
+  /* border: 3px solid darksalmon; */
+}
 
 .chat-box-container {
   display: flex;
-  width: 35rem; 
+  width: 50%; 
   min-height: 100%;
   padding: 10px;
-  /* background-color: white; */
+  background-color: white;
 }
 
 /* .messages {
@@ -43,8 +45,8 @@ img{
   padding: 5px 10px;
   margin-bottom: 5px;
   border-radius: 10px;
-  max-width: 70%; 
-  /* width: auto;  */
+  max-width: 5rem; 
+  width: fit-content; 
   /* margin-right: auto;  */
   /* position: relative;  */
 
@@ -81,7 +83,8 @@ img{
 }
 
 
-.message-content:hover .delete-btn {
+.message-content:hover 
+.delete-btn {
   visibility: visible;
 }
 
@@ -100,9 +103,26 @@ img{
   width: 100%;
 }
 
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size05);
+
+  @media (max-width: 500px) {
+    
+  }
+}
+
 .user-item {
   padding: var(--size02);
   border-radius: 10px;
+  background-color: white;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--purple20);
+
   img {
     --avatarSize: 3rem;
     width: var(--avatarSize);
@@ -111,11 +131,8 @@ img{
     border-radius: 100%;
   }
   &:hover {
-    background-color: white;
   }
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+  
 }
 
 
