@@ -1,7 +1,6 @@
-import { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { ZodError } from 'zod';
-import axios from 'axios';
 import { fetchData } from '../../helpers/axiosHelper';
 import { loginScheme } from '../../schemes/loginScheme';
 
@@ -35,7 +34,6 @@ export const ForgotPasswordForm = ({showModal}) => {
     try {
       let data = {email: login.email}
       const res = await fetchData('/forgottenPassword', 'post', data)
-      console.log(res);
       showModal();
       setMsg('');
 
@@ -49,19 +47,13 @@ export const ForgotPasswordForm = ({showModal}) => {
         })
         setValErrors(fieldErrors)
       } else {
-        // console.log(error);
         setMsg(error.response.data.message)
-        // console.log('error message', error.response.data.message);
       }
 
       setMsg(error.response.data.message)
-      // console.log('MSG MSG MSG MSG', error.response);
     }
   }
 
-  // console.log('login', login);
-  // console.log('tokenContext', token);
-  
 
   return (
     <div className='formAppContainer'>

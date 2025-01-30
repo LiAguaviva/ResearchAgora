@@ -9,8 +9,8 @@ export const dbPool = mysql.createPool({
     database: process.env.DB_NAME,
     dateStrings: true
     // waitForConnections:true,
-    // connectionLimit: 10, //Número máximo de conexiones activas
-    // queueLimit: 0 //Número máximo de solicitudes en cola (0 = sin límite)
+    // connectionLimit: 10, //Maximum number of active connections
+    // queueLimit: 0 // Maximum number of requests in queue (0 = without a limit)
 }); 
 
 export const executeQuery = async (sql, values=[]) =>{

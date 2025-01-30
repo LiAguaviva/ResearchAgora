@@ -13,12 +13,10 @@ export const ContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {  //should we add data or null before headers ??
+      try {  
         const res = await fetchData2('user/findUserById', 'get', null,  { Authorization: `Bearer ${token}` });
-        // console.log('res', res);
         
         if (res.length > 0) {
-          // console.log("Fetched User:", res.data[0]);
           setUser(res[0]);
         }
       } catch (error) {

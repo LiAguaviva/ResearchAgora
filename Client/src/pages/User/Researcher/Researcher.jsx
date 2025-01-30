@@ -29,7 +29,6 @@ export const Researcher = () => {
   const [invites, setInvites] = useState([]);
   const [show,setShow]= useState(false);
   const [review, setReview] = useState([]);
-  console.log("revieeeeeew", review);
   
   // const [result, setResult] = useState({});
 
@@ -38,7 +37,6 @@ export const Researcher = () => {
       let data ={ user_id: id}
       console.log('id', id);
       const result = await fetchData(`/getresearcherbyid`, 'post', data);
-      console.log('**********************resuuuuuuuuuult', result);
       setResearcher(result[0]);
       setReview(result.review)
       
@@ -76,11 +74,7 @@ export const Researcher = () => {
       fetchFn();
   }, []);
 
-/*   console.log('projects on researcher---->',projects)
-  console.log('researcher on researcher', researcher);
-  console.log('user on researcher', user);
-  console.log('review on researcher', review);
-   */
+   
   
 
   return (
@@ -95,25 +89,7 @@ export const Researcher = () => {
     </div>
     </section>
 
-    {/* {projects.length > 0 && 
-    <section className='containerPpal projectsSection'>
-      <div className='projectsGallery'>
-        <h3>Projects</h3>
-            {projects?.map((elem, index) => {
-              return(
-                <div key={elem.project_id} className='projectsGallery'
-                >
-                  <ProjectProfileCard  
-                    elem={elem}
-                    researcher={researcher}
-                  />
-                  <div className='separatorProjects' />
-                </div>
-              )
-            })}
-        </div>
-    </section>} */}
-    
+       
     {projects.length > 0 && 
     <section className='containerPpal projectsSection'>
       <div className='projectsGallery'>

@@ -21,18 +21,12 @@ export const AllProjects = () => {
     }
   }
 
-  /* useEffect(() => {
-    fetchProjects();
-    console.log('projects', projects);
-  }, []) */
-
+  
  useEffect(() => {
     if (skills.length === 0){
       fetchProjects()
     }
   }, [skills])
-
-  // console.log(projects)
 
  const handleKeyDownSkill = (e) => {
     if (e.key === "Enter") {
@@ -68,7 +62,6 @@ export const AllProjects = () => {
         fetchProjects()
       } else {
         const result = await fetchDataValidation('http://localhost:4000/api/project/findprojectbyskills', 'post',data);
-        // console.log(result)
         setProjects(result)
       }
     } catch (error) {

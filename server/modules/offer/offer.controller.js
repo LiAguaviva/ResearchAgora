@@ -57,8 +57,6 @@ deleteOffer =  async (req,res)=>{
     try {
       const {project_id} = req.params;
       const result = await offerDal.offersByProject(project_id)
-      // console.log('result on CONTROLLER', result);
-      // console.log('req.params CONTROLLER', req.params);
       
       res.status(200).json(result)
     } catch (error) {
@@ -81,19 +79,6 @@ deleteOffer =  async (req,res)=>{
       res.status(500).json(error)
     }
   }
-
-  /* editoffer = async(req, res) => {
-    console.log('editoffer req.body', req.body);
-
-    try {
-      
-
-    } catch (error) {
-      res.status(500).json(error)  
-    }
-  } */
-
-
 
   oneOffer = async(req,res) => {
       const {offer_id} = req.params;

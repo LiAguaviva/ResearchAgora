@@ -8,7 +8,6 @@ import { WriteReviewCard } from '../../../components/usersComp/WriteReviewCard'
 import { useContext, useEffect, useState } from "react";
 import { ProfileUserCard } from "../../../components/usersComp/ProfileUserCard";
 import { UserCard } from "../../../components/usersComp/UserCard";
-import axios from "axios";
 import './Profile.css'
 import { RequestCard } from '../../../components/usersComp/RequestCard/RequestCard'
 import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvitationCard'
@@ -83,13 +82,11 @@ export const Profile = () => {
   useEffect(() => {
     if (user?.user_id) {
       fetchProjects();
-      // fetchJoinRequest();
       fetchInvitations();
       fetchResearcher();
     }
   }, [user]);
   
-  // console.log('---->',projects)
 
   
 
@@ -103,8 +100,6 @@ export const Profile = () => {
       
     }
   }
-
-  // console.log('Usser projects -->', projects)
 
   return (
     <>

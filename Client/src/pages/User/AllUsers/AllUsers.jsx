@@ -43,10 +43,6 @@ export const AllUsers = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchUsers();
-  // }, []);
-
   useEffect(() => {
     if (skills.length === 0){
       fetchUsers()
@@ -96,7 +92,6 @@ export const AllUsers = () => {
       console.log(error);
     }
   };
-  // console.log('TODOS LOS USUARIOS',users)
 
   return (
     <section className="containerPpal allProjectsPage">

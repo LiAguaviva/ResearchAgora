@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import logo from '../../../../src/assets/logo/Logo_short_WhiteBlue.png'
 import './NavbarApp.css'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -15,7 +15,6 @@ export const NavbarApp = () => {
   
   const navigate = useNavigate()
   const { user, setToken, notifications, markNotificationAsRead } = useContext(AgoraContext);
-  // console.log("notifications in navbar",notifications);
   
 
   const hamburger = document.getElementById('hamburger');
@@ -26,18 +25,13 @@ export const NavbarApp = () => {
   const closeDropdown = () => {setDropdownMenu('')}
 
   const handleNotificationClick = (notif) => {
-    console.log("notif",notif);
     
     switch (notif.type) {
       case 1: 
         navigate(`/chat/${notif.user_id}`); 
         break;
       case 2:
-          navigate(`profile`);
-        break;
       case 3: 
-          navigate(`profile`);
-        break;
       case 4:
         navigate(`/profile`);
         break;

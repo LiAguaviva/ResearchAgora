@@ -33,14 +33,11 @@ export const EditOfferCard = () => {
         `offer/oneoffer/${id}`,
         "get"
       );
-       console.log("OFFFFEEEEEEEEEEEEER", result);
 
        if (result && result[0].skill_name) {
-        // Si result[0].skills es un array de objetos, extraemos los skill_name
         const skills = result.map((skill) => skill.skill_name);
         setSkills(skills);
        
-        console.log("skill, offer", result)
       } else {
         console.log("No skills found in the result.");
       }
@@ -53,32 +50,7 @@ export const EditOfferCard = () => {
   fetchOneOffer();
   }, [id]);
     
-      
-    // useEffect(() => {
-    //   fetchOneOffer();
-    // }, [id]);
-
-   
-    /* useEffect(() => { //last version with Alba
-      const fetchOneOffer = async () => {
-        try {
-          const result = await fetchData2(`offer/oneoffer/${id}`, "get");
-          console.log("OFFFFEEEEEEEEEEEEER", result);
-          if (result.skills) {
-            setSkills(result.skills.map(skill => skill.skill_name));
-          } else {
-            console.log("No skills found in the result.");
-          }
-          setOffer(result[0]);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-    
-      fetchOneOffer();
-    }, [id]); */
-    
-   
+  
     const validateField = (name, value) => {
         try {
           createOfferScheme.pick({ [name]: true }).parse({ [name]: value });
@@ -104,7 +76,7 @@ export const EditOfferCard = () => {
           if (
             inputValueSkills.trim() !== "" &&
             inputValueSkills.trim().length > 1 &&
-            /^[a-zA-Z0-9]+$/.test(inputValueSkills.trim())
+            /^[a-zA-Z0-9 ]+$/.test(inputValueSkills.trim())    
           ) {
             setSkills([...skills, inputValueSkills.trim()]);
             setInputValueSkills("");
@@ -123,8 +95,7 @@ export const EditOfferCard = () => {
         try {
          const skillsString = skills.join(",");
          const data = { ...offer, skill: skillsString, offer_id: id };
-        //  console.log("----> submitting data to back", data);
-        //  console.log("----> submitting data to back", data);
+       
          editOfferScheme.parse(data);
          
         const result = await fetchData2(
@@ -133,7 +104,6 @@ export const EditOfferCard = () => {
         data,
          { Authorization: `Bearer ${token}` }
         );
-        console.log('response', result);
         navigate(`/oneproject/${offer.project_id}`)
 
       } catch (error) {
@@ -143,13 +113,9 @@ export const EditOfferCard = () => {
              fieldErrors[err.path[0]] = err.message;
         });
           setValErrors(fieldErrors);
-             console.log("fieldError", fieldErrors);
           } else {
-            console.log('Error updating offer', error);
             setMsg(error.response?.data?.message);
-            console.log("error message", error.response.data.message);
-        }
-            console.log(error);
+          }
          }
        };
 
@@ -243,7 +209,6 @@ export const EditOfferCard = () => {
           <button
             className="cancel"
             type="button"
-            //onClick={() => navigate(`/oneoffer/${data?.offer_id}`)} //last version with Alba
             onClick={() => navigate(`/oneproject/${offer.project_id}`)}
           >
             CANCEL
