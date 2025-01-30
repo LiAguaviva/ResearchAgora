@@ -109,6 +109,14 @@
   }
 }
 
+.avatarNav--withNotif {
+  border: 2px solid var(--mandarina); 
+  box-shadow: 0 0 8px var(--mandarina); 
+}
+
+
+
+
 .bellIcon {
   height: var(--size2);
   width: max-content;
