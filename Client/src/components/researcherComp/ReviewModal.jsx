@@ -13,6 +13,7 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
   const navigate = useNavigate();
   const [review, setReview ]= useState({})
   const [rating, setRating] = useState(0)
+  const [msg, setMsg] = useState('')
   // const [result, setResult] = useState({});
 
 
@@ -29,16 +30,25 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
     e.preventDefault();
     // setResult({...result, review, rating})
     // setResult((prevResult) => ({...prevResult, review, rating}));
+
     let result = {...review, rating,user,researcher}
     
+    if (rating === 0){
+      setMsg('* Choose your rating')
+    } else if (!review.description) {
+      setMsg('* write your review')
+    } else {
+
     try {
       await fetchData2('review/createreview', 'post', result);
       closeModal();
     } catch (error) {
       setMsg(error.response?.data?.message);
     }
+  }
   };
   
+
    
 
   return (
@@ -58,7 +68,12 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
             name="description" 
           />
         </fieldset>
-        <StarRating maxStars={5} onRatingSelect={handleRatingSubmit} rating = {rating} setRating={setRating}/>
+        <StarRating 
+          maxStars={5} onRatingSelect={handleRatingSubmit} 
+          rating = {rating} 
+          setRating={setRating}
+        />
+        {msg && <p className='errorMsg'>{msg}</p>}
         <div className='buttons'>
           <button onClick={onSubmit}>Submit</button>
           <button className='cancel' onClick={closeModal}>Cancel</button>

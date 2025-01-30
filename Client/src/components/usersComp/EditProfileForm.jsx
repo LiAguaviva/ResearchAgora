@@ -63,9 +63,9 @@ export const EditProfileForm = () => {
     if (e.key === "Enter") {
       e.preventDefault();
       if (
-        inputValueSkills.trim() !== "" &&
-        inputValueSkills.trim().length > 1 &&
-        /^[a-zA-Z0-9 ]+$/.test(inputValueSkills.trim())    
+        inputValueSkills.trim() !== "" 
+        && inputValueSkills.trim().length > 1 
+        && /^[a-zA-Z0-9 ]+$/.test(inputValueSkills.trim())
       ) {
         setSkills([...skills, inputValueSkills.trim()]);
         setInputValueSkills("");
@@ -78,9 +78,9 @@ export const EditProfileForm = () => {
     if (e.key === "Enter") {
       e.preventDefault();
       if (
-        inputValueFields.trim() !== "" &&
-        inputValueFields.trim().length > 1 &&
-        /^[a-zA-Z0-9 ]+$/.test(inputValueFields.trim())
+        inputValueFields.trim() !== ""
+        && inputValueFields.trim().length > 1 
+        && /^[a-zA-Z0-9 ]+$/.test(inputValueFields.trim())
       ) {
         setFields([...fields, inputValueFields.trim()]);
         setInputValueFields("");
@@ -268,7 +268,6 @@ export const EditProfileForm = () => {
               <span
                 onClick={() => removeSkill(index)}
                 className="deleteBtn"
-                // value={editUser?.skills ? editUser.skills : ''}
               >
                 ×
               </span>

@@ -135,9 +135,9 @@ export const AllUsers = () => {
       <div className="separatorThick" />
 
       {users?.map((elem) => (
-        <div className="allusersGallery" key={elem.user_id}>
+        <div className="allProjectsGallery" key={elem.user_id}>
           <UserAllUsersCard showRequestModal={() => showRequestModal(elem.user_id)} elem={elem}/>
-          <div className="separatorAllProjects" />
+          <div className="separatorProjects" />
         </div>
       ))}
 

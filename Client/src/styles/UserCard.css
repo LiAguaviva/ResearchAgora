@@ -5,6 +5,12 @@
   justify-content: space-between;
   align-items: center;
 
+  @media (max-width: 400px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--size1);
+  }
+
   button {
     height: max-content;
   }
@@ -13,7 +19,8 @@
 .userCard {
   display: flex;
   align-items: center;
-
+  gap: var(--size1);
+  flex-wrap: wrap;
 }
 
 .UserCardName {
@@ -30,6 +37,11 @@
   object-fit: cover;
   object-position: center;
   color: var(--aqua);
+
+  img {
+    width: var(--AvatarSize);
+    height: var(--AvatarSize);
+  }
 }
 
 .creator {

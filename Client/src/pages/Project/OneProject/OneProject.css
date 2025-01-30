@@ -21,12 +21,12 @@
     row-gap: var(--size1);
   }
 
-  .offersSection {
+  /* .offersSection {
     display: flex;
     flex-direction: column;
     gap: var(--size2);
     align-items: center;
-  }
+  } */
 
 }
 .offerGallery {

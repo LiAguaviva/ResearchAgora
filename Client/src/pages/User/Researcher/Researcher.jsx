@@ -35,15 +35,19 @@ export const Researcher = () => {
   const fetchResearcher = async () => {
     try {
       let data ={ user_id: id}
-      console.log('id', id);
+      // console.log('id', id);
       const result = await fetchData(`/getresearcherbyid`, 'post', data);
+      // console.log('**********************resuuuuuuuuuult', result);
+      if (!result[0]){
+        throw new error('user not found');
+      }
       setResearcher(result[0]);
       setReview(result.review)
       
       
     } catch (error) {
       console.log(error);
-      
+      navigate('/errorpage')
     }
   }
 

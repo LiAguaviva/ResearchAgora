@@ -201,14 +201,16 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
 
   getskillsfields = async (id) => {
     try {
-      let sql = `SELECT us.user_id,
-                GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name) AS skills,
-                GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name) AS fields
-                FROM user_skill us
-                LEFT JOIN skill s ON us.skill_id = s.skill_id
-                LEFT JOIN user_field uf ON us.user_id = uf.user_id
-                LEFT JOIN field f ON uf.field_id = f.field_id
-                WHERE us.user_id = ? GROUP BY us.user_id;`;
+      let sql = `
+        SELECT uf.user_id,
+        GROUP_CONCAT(DISTINCT s.skill_name ORDER BY s.skill_name) AS skills,
+        GROUP_CONCAT(DISTINCT f.field_name ORDER BY f.field_name) AS fields
+        FROM user_field uf
+        LEFT JOIN user_skill us ON uf.user_id = us.user_id
+        LEFT JOIN skill s ON us.skill_id = s.skill_id
+        LEFT JOIN field f ON uf.field_id = f.field_id
+        WHERE uf.user_id = ?
+        GROUP BY uf.user_id;`;
       const res = await executeQuery(sql, [id]);
       return res;
     } catch (error) {
