@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../pages/Chat/chat.css';
 
-export const ChatBox = ({ messages, sendMessage , inputText, setInputText, userId , deleteMessage }) => {
+export const ChatBox = ({ messages, sendMessage , inputText, setInputText, userId , deleteMessage ,isSendDisabled}) => {
     return (
         <div className="">
             <div className="messages" >
@@ -27,7 +27,7 @@ export const ChatBox = ({ messages, sendMessage , inputText, setInputText, userI
                     onChange={(e) => setInputText(e.target.value)}
                     className="message-input"
                 />
-                <button  className='cancel' onClick={sendMessage}>Send</button>
+                <button  className='cancel' onClick={sendMessage} disabled={isSendDisabled}>Send</button>
             </div>
         </div>
     );

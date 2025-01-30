@@ -30,17 +30,13 @@ export const NavbarApp = () => {
     
     switch (notif.type) {
       case 1: 
-        navigate(`/chat/${notif.sender_id}`); 
+        navigate(`/chat/${notif.user_id}`); 
         break;
       case 2:
-        if (notif.content.includes("invited you to join") && notif.content.includes("project")) {
-          navigate(`/oneproject/${notif.project_id}`);
-        }
+          navigate(`profile`);
         break;
       case 3: 
-        if (notif.content.includes("has accepted the invitation")) {
-          navigate(`/oneproject/${notif.project_id}`);
-        }
+          navigate(`profile`);
         break;
       case 4:
         navigate(`/profile`);
@@ -49,7 +45,7 @@ export const NavbarApp = () => {
         navigate(`/allprojects`); 
         break;
       case 6:
-        navigate(`/oneproject/${notif.project_id}`);
+        navigate('/profile');
         break;
       default:
         console.log("Unknown notification type:", notif.type);
