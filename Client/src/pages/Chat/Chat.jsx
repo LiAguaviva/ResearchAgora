@@ -112,7 +112,9 @@ export const Chat = () => {
 
   const deleteMessage = async (messageId) => {
     try {
-        await fetchDataValidation(`http://localhost:4000/api/message/deletemessage`, 'DELETE', { message_id: messageId });
+        await fetchData2(`message/deletemessage`, 'DELETE', { message_id: messageId },
+         {Authorization: `Bearer ${token}` }
+        );
         setMessages(messages => messages.filter(msg => msg.message_id !== messageId));
     } catch (error) {
         console.error("Failed to delete message:", error);

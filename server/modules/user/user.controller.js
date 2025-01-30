@@ -1,4 +1,5 @@
 import { comparePassword, hashPassword } from "../../utils/hashUtils.js";
+import { deleteFile } from '../../utils/deleteFile.js';
 import userDal from "./user.dal.js";
 import { emailValidationToken, generateToken, getIdFromToken, generateTokenPassword } from "../../utils/tokenUtils.js";
 import { sendMailValidation, sendPasswordResetEmail  } from "../../services/emailService.js";
@@ -159,7 +160,12 @@ class UserController {
       const data  = JSON.parse(req.body.edit)
       let img = null;
       if(req.file){
-          img= req.file.filename
+          img= req.file.filename;
+          const currentUser = await userDal.getUserById(data.user_id);
+          if (currentUser[0].user_avatar && currentUser[0].user_avatar !== img) {
+            deleteFile(currentUser[0].user_avatar, 'useravatar'); 
+        }
+
       }
       try {
         const {user_name, user_lastname, user_country, user_city, user_description, user_proficiency, user_current_lab, user_current_boss, skills, fields, user_id} = data; //req.body.data
