@@ -73,7 +73,7 @@ class NotificationController {
   markMessageNotificationsAsRead = async (req, res) => {
     try {
       const { user_id } = req.body;
-      await notificationDal.markMessageNotificationsAsRead(user_id);
+      await notificationDal.markAllNotificationsAsRead(user_id);
       res.status(200).json({ message: "Message notifications marked as read" });
     } catch (error) {
       console.error("Error in markMessageNotificationsAsRead:", error);
