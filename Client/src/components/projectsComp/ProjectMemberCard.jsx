@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import avatarDefault from "../../assets/imgs/defaultIMG.png";
 import { AgoraContext } from "../../context/ContextProvider";
-import { fetchDataValidation } from "../../helpers/axiosHelper";
+import { fetchData2 } from "../../helpers/axiosHelper";
 import { useNavigate } from "react-router-dom";
 import trash from '../../assets/icons/trash.svg'
 
@@ -13,8 +13,12 @@ export const ProjectMemberCard = ({ elem, project, removeMemberFromState  }) => 
   const deletemember = async() => {
     try {
       let data = {user_id : elem.user_id, userID : user.user_id,project_id: project[0].project_id};
-      await fetchDataValidation('http://localhost:4000/api/project/deleteMember', 'post', data,  { Authorization: `Bearer ${token}` });
+
+await fetchData2(`project/deleteMember`, 'post', data,  { Authorization: `Bearer ${token}` });
       removeMemberFromState(elem.user_id);
+
+
+
     } catch (error) {
       console.log(error)
     }

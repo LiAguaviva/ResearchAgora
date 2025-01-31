@@ -6,7 +6,7 @@ import projectDefaultIMG from '../../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
 import { ProjectMainCard } from '../ProjectMainCard';
-import { fetchDataValidation } from '../../../helpers/axiosHelper';
+import { fetchData2 } from '../../../helpers/axiosHelper';
 
 
 // add skills on prop and change everithing related to skills
@@ -26,7 +26,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
 
   const deleteProject = async () => {
     try {
-      const result = await fetchDataValidation(`http://localhost:4000/api/project/deleteproject/${project.project_id}`, 'put', null,  { Authorization: `Bearer ${token}`  })
+      const result = await fetchData2(`project/deleteproject/${project.project_id}`, 'put', null,  { Authorization: `Bearer ${token}`  })
       navigate('/profile')
     } catch (error) {
       console.log(error);

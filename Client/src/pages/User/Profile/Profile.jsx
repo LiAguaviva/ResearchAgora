@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { AgoraContext } from '../../../context/ContextProvider'
-import { fetchData, fetchData2, fetchDataValidation } from '../../../helpers/axiosHelper'
+import { fetchData, fetchData2 } from '../../../helpers/axiosHelper'
 import { ProjectProfileCard } from '../../../components/projectsComp/ProjectProfileCard/ProjectProfileCard'
 import StatsRadarChart from '../../../components/usersComp/RadarGraph'
 import { ReviewCard } from '../../../components/commonComp/ReviewCard/ReviewCard'
@@ -29,8 +29,8 @@ export const Profile = () => {
   const fetchProjects = async () => {
     try {
       let data = { user_id: user?.user_id };
-      const result = await fetchDataValidation(
-        `http://localhost:4000/api/project/oneuserprojects`,
+      const result = await fetchData2(
+        `project/oneuserprojects`,
         "post",
         data,
         { Authorization: `Bearer ${token}` }
@@ -44,8 +44,7 @@ export const Profile = () => {
   const fetchInvitations = async () => {
     try {
       let data = {user_id: user?.user_id}
-      const result = await fetchDataValidation('http://localhost:4000/api/user/allinvites', 'post', data, { Authorization: `Bearer ${token}` });
-      
+      const result = await fetchData2(`user/allinvites`, 'post', data, { Authorization: `Bearer ${token}` });
       setInvites(result)
     } catch (error) {
       console.log(error);
@@ -56,7 +55,6 @@ export const Profile = () => {
       try {
         let data ={ user_id: user.user_id}
         const result = await fetchData(`/getresearcherbyid`, 'post', data);
-        console.log('**********************resuuuuuuuuuult', result);
         setReview(result.review)
         
         
@@ -94,6 +92,7 @@ export const Profile = () => {
   const updateInvite = async(elem,value,index) => {    
     try {
       let data = {invitation_id: elem.invitation_id, invitation_status: value, user_id: elem.receiver_id, project_id: elem.project_id, offer_id: elem.offer_id}
+
       const result = await fetchData2('user/invitationResponse', 'patch', data, { Authorization: `Bearer ${token}` });
       const projectID = invites[index].project_id;
       
@@ -105,6 +104,7 @@ export const Profile = () => {
 
         /* navigate('/profile') */
       }
+
     } catch (error) {
       console.log(error);
       

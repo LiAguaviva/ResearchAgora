@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchData2, fetchDataValidation } from '../../helpers/axiosHelper';
+import { fetchData2 } from '../../helpers/axiosHelper';
 const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 
@@ -18,7 +18,7 @@ export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
         fetchChatUsers();
     }, [currentUserId]);
 
-    
+
     return (
         <div className="users-list">
             {users.map(user => (

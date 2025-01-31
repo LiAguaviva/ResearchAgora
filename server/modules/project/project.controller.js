@@ -16,7 +16,6 @@ class ProjectController {
  
         res.status(200).json(result)
       } catch (error) {
-        console.log("eerrrrrrr", error);
         res.status(500).json(error)    
         
      }   
@@ -39,8 +38,6 @@ class ProjectController {
         res.status(200).json(result)
 
       } catch (error) {
-        console.log("controller error", error);
-        
        res.status(500).json(error) 
       }
    } 
@@ -52,8 +49,6 @@ class ProjectController {
       res.status(200).json(result)
 
     } catch (error) {
-      console.log("controller error", error);
-      
      res.status(500).json(error) 
     }
  } 
@@ -65,8 +60,6 @@ class ProjectController {
         res.status(200).json(result)
 
       } catch (error) {
-        console.log("controller error", error);
-        
        res.status(500).json(error) 
       }
    } 
@@ -75,18 +68,13 @@ class ProjectController {
       try {
         const {project_id} = req.params;
         const result = await projectDal.oneProject(project_id);   
-        console.log('EL BACK MANDA ESTE RESULTADO --->', result)   
-        console.log('EL BACK MANDA EL PROJECT ID --->', project_id)   
         res.status(200).json(result)
       } catch (error) {
-        console.log("eerror", error);
-        
         res.status(500).json(error) 
       }
     }
 
     editproject = async (req, res) => {
-      console.log("reqqqqqq", req.body);
       try {
          const {id, title, city, country, description, type, status, outcome, link, max_member, skill} = req.body;
 
@@ -95,8 +83,6 @@ class ProjectController {
          res.status(200).json('ok')
       } catch (error) {
         res.status(500).json(error)
-        console.log("EEEE", error);
-        
       }
     }
 
@@ -117,8 +103,6 @@ class ProjectController {
                await projectDal.deleteproject(project_id)
                res.status(200).json("project disabled")
              }catch (error){
-              console.log("eeeeeeeeeee", error);
-              
                 res.status(500).json(error)
             }
      }
@@ -167,8 +151,6 @@ class ProjectController {
 
         res.status(200).json('User removed and notified');
       } catch (error) {
-        console.log("error in del member comtroller",error);
-        
         res.status(500).json(error);
       }
     }
@@ -200,7 +182,6 @@ class ProjectController {
 
         res.status(200).json('User left and creator notified');
       } catch (error) {
-        console.log("Error in leaveProject controller", error);
         res.status(500).json(error);
       }
 };

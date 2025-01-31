@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AgoraContext } from '../../context/ContextProvider';
-import { fetchData2, fetchDataValidation } from '../../helpers/axiosHelper';
+import { fetchData2 } from '../../helpers/axiosHelper';
 import { ChatUsers } from './ChatUsers ';
 import { ChatBox } from './ChatBox';
 import './chat.css';
@@ -39,6 +39,7 @@ export const Chat = () => {
           }
       }
   };
+
 
   useEffect(() => {
     const markAllMessageNotificationsAsRead = async () => {
@@ -80,6 +81,8 @@ export const Chat = () => {
           message_content: inputText
       };
         const response = await fetchData2('message/sendmessage', 'POST', payload, { Authorization: `Bearer ${token}` });
+
+
       } catch (error) {
         console.error("Failed to send message:", error);
       }
