@@ -148,6 +148,16 @@ export const OneProject = () => {
       }
     }
 
+    const removeMemberFromState = (userId) => {
+      setMembers(currentMembers => currentMembers.filter(member => member.user_id !== userId));
+    }
+
+    const removeOfferFromState = (offerId) => {
+      setOffers(currentOffers => currentOffers.filter(offer => offer.offer_id !== offerId));
+    };
+    
+    
+
   return (
     <div className="oneProjectPage">
       <section className="containerPpal">
@@ -186,6 +196,7 @@ export const OneProject = () => {
                 key={elem.user_id}
                 elem={elem}
                 project={project}
+                removeMemberFromState={removeMemberFromState}
               />
             );
           })}
@@ -230,6 +241,7 @@ export const OneProject = () => {
                 requests={requests}
                 applyButton={applyButton}
                 isMember={isMember}
+                removeOfferFromState={removeOfferFromState}
               />
             );
           })}

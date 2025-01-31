@@ -5,7 +5,7 @@ import reject from '../../assets/icons/reject-circle.svg'
 import { useNavigate } from 'react-router-dom';
 
 
-export const ProjectInvitationCard = ({elem, updateInvite}) => {
+export const ProjectInvitationCard = ({elem, updateInvite,index}) => {
 
   const navigate = useNavigate();
 
@@ -35,11 +35,11 @@ export const ProjectInvitationCard = ({elem, updateInvite}) => {
       <div className='buttons'>
         <img 
           src={check} alt="accept invitation button" 
-          onClick={() => updateInvite(elem,1)}
+          onClick={() => updateInvite(elem,1,index)}
         />
         <img 
           src={reject} alt="decline invitation button" 
-          onClick={() => updateInvite(elem,2)}
+          onClick={() => updateInvite(elem,2,index)}
         />
       </div>
     </div>

@@ -40,19 +40,6 @@ export const Chat = () => {
       }
   };
 
-
-/*   const fetchMessages = async () => {
-    try {
-      const response = await fetchDataValidation(`http://localhost:4000/api/message/getmessages/${user.user_id}/${final_receiver_id}`, 'GET');
-      console.log("all messages",response);
-      
-      
-      setMessages(response);
-    } catch (error) {
-      console.error("Failed to fetch messages:", error);
-    }
-  }; */
-
   useEffect(() => {
     const markAllMessageNotificationsAsRead = async () => {
       if (user?.user_id) {
@@ -93,11 +80,6 @@ export const Chat = () => {
           message_content: inputText
       };
         const response = await fetchData2('message/sendmessage', 'POST', payload, { Authorization: `Bearer ${token}` });
-        /* setMessages([...messages, response]); 
-        setInputText(""); */
-        /* setTimeout(() => {
-          window.location.reload()
-      }, 1); */
       } catch (error) {
         console.error("Failed to send message:", error);
       }

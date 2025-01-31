@@ -45,6 +45,7 @@ export const Profile = () => {
     try {
       let data = {user_id: user?.user_id}
       const result = await fetchDataValidation('http://localhost:4000/api/user/allinvites', 'post', data, { Authorization: `Bearer ${token}` });
+      
       setInvites(result)
     } catch (error) {
       console.log(error);
@@ -90,11 +91,20 @@ export const Profile = () => {
 
   
 
-  const updateInvite = async(elem,value) => {
+  const updateInvite = async(elem,value,index) => {    
     try {
       let data = {invitation_id: elem.invitation_id, invitation_status: value, user_id: elem.receiver_id, project_id: elem.project_id, offer_id: elem.offer_id}
-      const result = await fetchDataValidation('http://localhost:4000/api/user/invitationResponse', 'patch', data, { Authorization: `Bearer ${token}` });
-      window.location.reload();
+      const result = await fetchData2('user/invitationResponse', 'patch', data, { Authorization: `Bearer ${token}` });
+      const projectID = invites[index].project_id;
+      
+      const updatedInvites = invites.filter((_, i) => i !== index);
+      setInvites(updatedInvites);;
+      if(value == 1){
+        navigate(`/oneproject/${projectID}`)
+      }else{
+
+        /* navigate('/profile') */
+      }
     } catch (error) {
       console.log(error);
       
@@ -136,10 +146,11 @@ export const Profile = () => {
        <section  className="containerPpal invitatiosSection">
           <h3>Invitations</h3>
           <div className="invitationsGallery">
-            {invites?.map((elem) => {
+            {invites?.map((elem,index) => {
               return (
                   <ProjectInvitationCard 
                     elem={elem} 
+                    index = {index}
                     updateInvite={updateInvite}
                     key={elem.project_id}
                   />

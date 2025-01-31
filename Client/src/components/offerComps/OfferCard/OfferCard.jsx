@@ -4,7 +4,7 @@ import "./OfferCard.css";
 import { AgoraContext } from "../../../context/ContextProvider";
 import { fetchData2 } from "../../../helpers/axiosHelper";
 
-export const OfferCard = ({ elem, project, requests, isMember }) => {
+export const OfferCard = ({ elem, project, requests, isMember,removeOfferFromState }) => {
   const [skill, setSkill] = useState([]);
   const { user, token } = useContext(AgoraContext);
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
         { Authorization: `Bearer ${token}` }
       );
 
-      window.location.reload();
+      removeOfferFromState(elem.offer_id);
     } catch (error) {
       console.log(error);
     }
