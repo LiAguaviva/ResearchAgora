@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-
 import './AllProjects.css'
-import { fetchDataValidation } from '../../../helpers/axiosHelper';
+import { fetchData2 } from '../../../helpers/axiosHelper';
 import { AllProjectsCard } from '../../../components/projectsComp/AllProjectsCard';
 
 export const AllProjects = () => {
@@ -14,7 +13,7 @@ export const AllProjects = () => {
   
   const fetchProjects = async() => {
     try {
-      const result = await fetchDataValidation('http://localhost:4000/api/project/allprojects', 'get');
+      const result = await fetchData2(`http://localhost:4000/api/project/allprojects`, 'get');
       setProjects(result)
     } catch (error) {
       console.log(error)
@@ -61,7 +60,7 @@ export const AllProjects = () => {
       if (!skills.length) {
         fetchProjects()
       } else {
-        const result = await fetchDataValidation('http://localhost:4000/api/project/findprojectbyskills', 'post',data);
+        const result = await fetchData2(`project/findprojectbyskills`, 'post',data);
         setProjects(result)
       }
     } catch (error) {

@@ -126,13 +126,11 @@ export const EditProfileForm = () => {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log(editUser);
       editProfileScheme.parse(editUser);
       
       const skillsString = skills?.join(",");
       const fieldstring = fields?.join(",");
       let data = { ...editUser, skills: skillsString, fields: fieldstring,user_id : editUser?.user_id};
-      console.log('data on editprofile',);
       
       const newFormData = new FormData();
       newFormData.append("edit", JSON.stringify(data));
@@ -153,9 +151,7 @@ export const EditProfileForm = () => {
         })
         setValErrors(fieldErrors)
       } else {
-        console.log(error);
         setMsg(error.response.data.message)
-        console.log('error message', error.response.data.message);
       }
     }
   };

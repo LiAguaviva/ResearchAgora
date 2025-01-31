@@ -6,7 +6,6 @@ import { fetchData2 } from '../../helpers/axiosHelper';
 
 
 const handleRatingSubmit = (rating) => {
-  console.log("User selected rating:", rating);
 };
 
 export const ReviewModal = ({show,setShow, researcher,user}) => {

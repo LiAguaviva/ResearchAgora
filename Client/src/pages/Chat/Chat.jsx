@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AgoraContext } from '../../context/ContextProvider';
-import { fetchData2, fetchDataValidation } from '../../helpers/axiosHelper';
+import { fetchData2 } from '../../helpers/axiosHelper';
 import { ChatUsers } from './ChatUsers ';
 import { ChatBox } from './ChatBox';
 import './chat.css';
@@ -40,18 +40,6 @@ export const Chat = () => {
       }
   };
 
-
-/*   const fetchMessages = async () => {
-    try {
-      const response = await fetchDataValidation(`http://localhost:4000/api/message/getmessages/${user.user_id}/${final_receiver_id}`, 'GET');
-      console.log("all messages",response);
-      
-      
-      setMessages(response);
-    } catch (error) {
-      console.error("Failed to fetch messages:", error);
-    }
-  }; */
 
   useEffect(() => {
     const markAllMessageNotificationsAsRead = async () => {
@@ -93,11 +81,7 @@ export const Chat = () => {
           message_content: inputText
       };
         const response = await fetchData2('message/sendmessage', 'POST', payload, { Authorization: `Bearer ${token}` });
-        /* setMessages([...messages, response]); 
-        setInputText(""); */
-        /* setTimeout(() => {
-          window.location.reload()
-      }, 1); */
+        
       } catch (error) {
         console.error("Failed to send message:", error);
       }

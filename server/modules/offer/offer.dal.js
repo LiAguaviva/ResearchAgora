@@ -64,8 +64,8 @@ class OfferDal {
       GROUP BY o.offer_id, o.offer_title, o.number_of_position, o.offer_description, o.project_id
 ;`
          
-          const result = await executeQuery(sql);
-          return result; 
+    const result = await executeQuery(sql);
+      return result; 
     } catch (error) {
       throw error;
     }
@@ -97,15 +97,11 @@ class OfferDal {
       .split(",") 
       .map((skill) => skill.trim());
   
-    console.log("skills in dal after", skillArray);
-  
     if (skillArray.length === 0) {
       throw new Error("No skills provided.");
     }
   
     const placeholders = skillArray.map(() => "?").join(","); 
-    console.log("placeholders",placeholders);
-    
    
     const connection = await dbPool.getConnection();
     try {
@@ -228,7 +224,6 @@ GROUP BY o.offer_id;
             let sqlId = "SELECT max(skill_id) AS id FROM skill";
             try {
               let [result] = await connection.execute(sqlId);
-              console.log(result);
               if (result[0].id != null) {
                 finalId = result[0].id + 1;
               }
@@ -243,7 +238,6 @@ GROUP BY o.offer_id;
         let dataString = finalArrayData.join();
         let sql2 = "SELECT skill_id FROM skill WHERE find_in_set(skill_name, ?)";
         let [result] = await connection.execute(sql2, [dataString]);
-        console.log(result);
         let sql3 = "DELETE FROM offer_skill WHERE offer_id = ?";
         await connection.execute(sql3, [offer_id]);
         let sql4 =

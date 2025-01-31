@@ -8,7 +8,6 @@ class UserDal {
       const result = await executeQuery(sql, values);
       return result;
     } catch (error) {
-      console.log("-------------------", error);
       throw error;
     }
   };
@@ -43,7 +42,6 @@ class UserDal {
   };
 
   editUser = async (values, file) => {
-    console.log("==============", values);
     
     let sql =
       "UPDATE user SET user_name = ?, user_lastname = ?, user_country = ?, user_city = ?, user_description = ?, user_proficiency = ?, user_current_lab = ?, user_current_boss = ? WHERE user_id = ?";
@@ -142,19 +140,14 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
     try {
       let sql = 'SELECT * FROM user WHERE user_id = ?'
       const result = await executeQuery(sql, [user_id]);
-      console.log("*******************result in review",result);
       let sqlReview = 'SELECT r.*, u.user_name AS reviewer_name, u.user_lastname AS reviewer_lastname, u.user_avatar as img FROM review r LEFT JOIN user u ON r.user_id = u.user_id WHERE r.reviewed_user_id = ?;'
       const review = await executeQuery(sqlReview,[user_id])
-      console.log("-----------------review in review",review);
       let finalResult = {...result,review}
-      console.log("+++++++++++++++++++",finalResult);
       
       
       return finalResult;
       
     } catch (error) {
-      console.log("error in review dal",error);
-      
       throw error;
     }
   }
@@ -381,7 +374,6 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
 
         await connection.commit();
      } catch (error) {
-       console.log("EERROR", error);
        await connection.rollback();
        throw error;
      }finally {
@@ -392,7 +384,6 @@ GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, 
   invitationResponse = async (values, invitation_status) => {
     const connection = await dbPool.getConnection();
     const { invitation_id, user_id, project_id, offer_id } = values;
-    console.log('Hola -->', invitation_id, user_id, project_id, offer_id ,invitation_status)
 
     try {
         await connection.beginTransaction();
