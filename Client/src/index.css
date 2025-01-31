@@ -51,11 +51,10 @@ h4 {
   font-size: var(--textM2);
 }
 
-h1, h2, h3, h4 {
-  color: var(--purple);
-}
 
 h1, h2, h3, h4 {
+  color: var(--purple);
+  text-transform: capitalize;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
@@ -154,15 +153,11 @@ button {
 .tag {
   width: max-content;
   border-radius: var(--size2);
-  padding-inline: var(--size1);
+  padding-inline: var(--size05);
   height: 1.5rem;
   background-color: var(--purple);
   color: var(--white);
   cursor: pointer;
-
-  display: flex;
-  gap: var(--size05);
-  align-items: center;
 
   &:hover {
     background-color: var(--magenta);
@@ -244,7 +239,6 @@ ul {
 
 ::-webkit-scrollbar-thumb {
   background: var(--aqua);
-  height: 30rem;
   border-radius: 10px;
 }
 

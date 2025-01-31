@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ProjectInfoCard } from "../../../components/projectsComp/ProjectInfoCard/ProjectInfoCard";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchData2, fetchDataValidation } from "../../../helpers/axiosHelper";
-import { UserCard } from "../../../components/usersComp/UserCard";
+import { fetchData2 } from "../../../helpers/axiosHelper";
 import "./OneProject.css";
 import { OfferCard } from "../../../components/offerComps/OfferCard/OfferCard";
 import { GoBack } from "../../../components/navigationComps/GoBack/GoBack";
@@ -21,7 +20,6 @@ export const OneProject = () => {
   const [skills, setSkills] = useState([]);
   const [review, setReview] = useState([]);
   const [offers, setOffers] = useState([]);
-  // const [applyButton, setApplyButton] = useState(true);
   const [requests, setrequests] = useState([]);
   const [isMember, setIsMember] = useState(false);
   const [requestsview, setrequestsview] = useState([]);
@@ -49,8 +47,6 @@ export const OneProject = () => {
         data,
        { Authorization: `Bearer ${token}` 
     });
-    console.log('result', result);
-    // console.log('token fetchRequest', token);
       setrequestsview(result);
       
     } catch (error) {
@@ -69,13 +65,11 @@ export const OneProject = () => {
         if (result.project.length === 0) {
           throw new Error('Project Not Found!')
         }
-      // console.log("RESULT FORM BACK ------>", result);
       setProject(result.project);
       setMembers(result.members);
       setSkills(result.skills.map((skill) => skill.skill_name));
       setOffers(result.offers);
       setReview(result.review);
-      //setReview(result.review);
     } catch (error) {
       console.log(error);
       navigate('/errorpage')
@@ -90,10 +84,6 @@ export const OneProject = () => {
     }
   }, [user, applyButton,token]);
 
-  // console.log('---->',requests)
-  // console.log('---->',project)
-  // console.log('---->',user)
-  // console.log('---->',project[0]?.creator_user_id === user?.user_id)
 
   const fetchJoinRequest = async () => {
     try {
@@ -106,7 +96,6 @@ export const OneProject = () => {
         { Authorization: `Bearer ${token}`  }
       );
 
-      // console.log('result fetchJoinRequest', result);
       
 
       /*   if(result[0].request_status === 1){
@@ -121,9 +110,6 @@ export const OneProject = () => {
       console.log(error);
     }
   };
-
-  // console.log("ONE PROJECT MEMBERS", members);
-  // console.log("OFFERSSS", offers);
 
   const updateRequest = async (elem, value, choose) => {
     try {

@@ -1,9 +1,7 @@
 import { AgoraContext } from '../../context/ContextProvider';
 import { useContext, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ZodError } from 'zod';
-import axios from 'axios';
-import { fetchData, fetchDataValidation } from '../../helpers/axiosHelper';
+import { fetchData } from '../../helpers/axiosHelper';
 import { loginScheme } from '../../schemes/loginScheme';
 
 const initialValue = {
@@ -51,27 +49,13 @@ export const ResetPasswordForm = () => {
     }
   }
 
-  console.log('login', login);
-  console.log(passwordToken.token);
-
-  
 
   return (
     <div className='formAppContainer'>
       <form className='formApp'>
         <p className='formTitle'>Reset Password</p>
         <div className='separatorThick' />
-        {/* <fieldset>
-          <label htmlFor="email">Email</label>
-          <input 
-            id='email'
-            type="email" 
-            placeholder='Email'
-            value={login.email}
-            onChange={handleChange}
-            name='email'
-          />
-        </fieldset> */}
+     
 
         <fieldset>
           <label htmlFor="newPassword">Password</label>

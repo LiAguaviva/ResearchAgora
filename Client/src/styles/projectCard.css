@@ -1,10 +1,18 @@
 .allProjectsPage {
 
+  h2 {
+    margin-bottom: var(--size1);
+  }
+
   .projectCard{
   
       display: flex;
       /* align-items: center; */
       gap: var(--size1);
+
+      @media (max-width: 500px) {
+        flex-direction: column;
+      }
   
       .profileProjectImg{
         --imgSize: 10rem;

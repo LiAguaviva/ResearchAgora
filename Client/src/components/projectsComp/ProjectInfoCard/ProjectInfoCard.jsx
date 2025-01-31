@@ -13,20 +13,16 @@ import { fetchDataValidation } from '../../../helpers/axiosHelper';
 
 export const ProjectInfoCard = ({project,skills, members}) => {
 
-  // console.log('PROJECT ON projectInfo', project)
-
   const {user, token } = useContext(AgoraContext)
   const navigate = useNavigate()
   // const [skills, setSkills] = useState([]);
 
 
-  // console.log('skills on info card', skills);
   
   // useEffect(() => {
   //   setSkills(project?.project_skills?.split(",") || []);
   // },[project])
 
-  // console.log('PROJECT!',project)
 
   const deleteProject = async () => {
     try {

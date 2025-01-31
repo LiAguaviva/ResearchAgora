@@ -10,7 +10,6 @@ export const AllProjectsCard = ({elem}) => {
   const [skills, setSkills] = useState(elem.skills?.split(","));
   const [stateClassname, setStateClassname] = useState('');
 
-  console.log('elem on allproject card', elem);
   
   return (
     <div className='projectCard'>

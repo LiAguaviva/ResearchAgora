@@ -9,7 +9,6 @@ export const ProjectMemberCard = ({ elem, project }) => {
   const { user, token } = useContext(AgoraContext);
   const navigate = useNavigate();
 
-  // console.log('user in project member card', user)
   
   const deletemember = async() => {
     try {

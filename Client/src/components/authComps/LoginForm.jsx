@@ -1,8 +1,6 @@
 import { AgoraContext } from '../../context/ContextProvider';
 import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
-import { ZodError } from 'zod';
-import axios from 'axios';
 import { fetchData } from '../../helpers/axiosHelper';
 import { loginScheme } from '../../schemes/loginScheme';
 
@@ -47,7 +45,6 @@ export const LoginForm = () => {
       const tokenLocal = await fetchData('/login', 'post', login);
       
       const resultUser = await fetchData('/findUserById', 'get', null,  { Authorization: `Bearer ${tokenLocal}` });
-      console.log('result user', resultUser);
       localStorage.setItem('agoraToken', tokenLocal)
       // setUser(resultUser);
       setToken(tokenLocal);
@@ -58,16 +55,10 @@ export const LoginForm = () => {
       }
       
     } catch (error) {
-      console.log('login error', error);
       setForgotpassword(true);
     }
   }
 
-  // console.log('login', login);
-  // console.log('userContext', user);
-  // console.log('tokenContext', token);
-
-  
 
   return (
     <div className='formAppContainer'>

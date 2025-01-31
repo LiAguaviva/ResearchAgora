@@ -13,7 +13,6 @@ export const AllOffersCard = ({offer}) => {
     setSkills(offer.skills? offer.skills.split(", "): [])    
   }, [offer])
 
-  // console.log("offer", offer);
   
   return (
     <div className='offerCard'>
@@ -25,17 +24,6 @@ export const AllOffersCard = ({offer}) => {
       {offer.offer_description}
       </p>
 
-    {/* {skills.length && 
-      <div className='tagsContainer'>
-      {skills?.map((el, index)=> {
-          return (
-            <div className='tag' key={index}>
-              {el}
-            </div>
-          )
-        }
-      )}
-     </div>} */}
 
      {skills !== "" ? (
         <div className="tagsContainer">

@@ -33,20 +33,6 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
     
   }
 
-  /* const onSubmit = async (e) => {
-    try {
-      let data = {
-        offer_id: elem.offer_id,
-        user_id: user?.user_id,
-        project_id: project[0].project_id,
-      };
-      let joinrequest = await fetchData2(`offer/joinrequest`, "post", data);
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  }; */
-
   const onSubmit = async () => {
     
     try {
@@ -67,10 +53,6 @@ export const OfferCard = ({ elem, project, requests, isMember }) => {
     (req) => req.user_id === user?.user_id && req.offer_id === elem.offer_id
   );
   
-  // console.log('elem on offerCard', elem);
-  
-
-  // console.log('HELOWOWOWO -->',requests)
   return (
     <div className="offerCard">
       <div className="headOffer">

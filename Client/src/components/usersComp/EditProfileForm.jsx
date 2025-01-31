@@ -58,14 +58,14 @@ export const EditProfileForm = () => {
     }
   }, [user]);
  
-  // skills
+  
   const handleKeyDownSkill = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
       if (
-        inputValueSkills.trim() !== "" &&
-        inputValueSkills.trim().length > 1 &&
-        /^[a-zA-Z0-9]+$/.test(inputValueSkills.trim())
+        inputValueSkills.trim() !== "" 
+        && inputValueSkills.trim().length > 1 
+        && /^[a-zA-Z0-9 ]+$/.test(inputValueSkills.trim())
       ) {
         setSkills([...skills, inputValueSkills.trim()]);
         setInputValueSkills("");
@@ -73,14 +73,14 @@ export const EditProfileForm = () => {
     }
   };
  
-  // field
+  
   const handleKeyDownField = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
       if (
-        inputValueFields.trim() !== "" &&
-        inputValueFields.trim().length > 1 &&
-        /^[a-zA-Z0-9]+$/.test(inputValueFields.trim())
+        inputValueFields.trim() !== ""
+        && inputValueFields.trim().length > 1 
+        && /^[a-zA-Z0-9 ]+$/.test(inputValueFields.trim())
       ) {
         setFields([...fields, inputValueFields.trim()]);
         setInputValueFields("");
@@ -88,7 +88,7 @@ export const EditProfileForm = () => {
     }
   };
  
-  // tag
+  
   const removeSkill = (index) => {
     const newSkills = [...skills];
     newSkills.splice(index, 1);
@@ -138,7 +138,7 @@ export const EditProfileForm = () => {
       newFormData.append("edit", JSON.stringify(data));
       newFormData.append("file", file);
       // setEditUser({...editUser, [skills]:skillsString, [fields]:fieldstring})
-      //mandar data(variable temporal) al back con axios
+      
       const result = await fetchData("/editUser", "put", newFormData, { Authorization: `Bearer ${token}` } );
       setUser({...editUser, skills: skillsString, fields: fieldstring,user_avatar: result.img ? result?.img : user.user_avatar});
       navigate("/profile");
@@ -159,9 +159,6 @@ export const EditProfileForm = () => {
       }
     }
   };
- 
-  // console.log('edituser', editUser);
-  // console.log('user', user);
  
  
   return (
@@ -271,7 +268,6 @@ export const EditProfileForm = () => {
               <span
                 onClick={() => removeSkill(index)}
                 className="deleteBtn"
-                // value={editUser?.skills ? editUser.skills : ''}
               >
                 ×
               </span>

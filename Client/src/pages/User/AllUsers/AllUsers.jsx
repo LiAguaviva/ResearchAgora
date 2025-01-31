@@ -43,10 +43,6 @@ export const AllUsers = () => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchUsers();
-  // }, []);
-
   useEffect(() => {
     if (skills.length === 0){
       fetchUsers()
@@ -96,7 +92,6 @@ export const AllUsers = () => {
       console.log(error);
     }
   };
-  // console.log('TODOS LOS USUARIOS',users)
 
   return (
     <section className="containerPpal allProjectsPage">
@@ -140,9 +135,9 @@ export const AllUsers = () => {
       <div className="separatorThick" />
 
       {users?.map((elem) => (
-        <div className="allusersGallery" key={elem.user_id}>
+        <div className="allProjectsGallery" key={elem.user_id}>
           <UserAllUsersCard showRequestModal={() => showRequestModal(elem.user_id)} elem={elem}/>
-          <div className="separatorAllProjects" />
+          <div className="separatorProjects" />
         </div>
       ))}
 

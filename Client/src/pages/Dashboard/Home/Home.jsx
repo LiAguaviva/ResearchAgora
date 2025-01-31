@@ -1,6 +1,5 @@
 import React from 'react'
 import logo from '../../../assets/logo/Logo_full_PurpleBlue.png'
-import avatarDefault from '../../../assets/imgs/defaultIMG.png'
 import './Home.css'
 
 

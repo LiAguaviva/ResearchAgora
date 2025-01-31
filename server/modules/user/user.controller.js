@@ -22,7 +22,6 @@ class UserController {
         const hash = await hashPassword(password);
         const result = await userDal.register([email, hash]);
         const token = await emailValidationToken(result.insertId);
-        // console.log("0000000000000000000", token);
         sendMailValidation(email, token)
         res.status(200).json({ msg: "ok" });
       }
@@ -40,24 +39,20 @@ class UserController {
     try {
       const { email, password } = loginScheme.parse(req.body);
       const result = await userDal.findUserbyEmail(email);
-      // console.log("++++++++++++++++++++++", result);
       if (result.length === 0) {
         
-        // console.log("not verified");   
        res.status(401).json({ message: "check your email" });
       } else {
         const user = result[0];
         const match = await comparePassword(password, user.user_password);
         if (match) {         
           const token = generateToken(user.user_id);  
-          // console.log(token);        
           res.status(200).json(token);
         } else {
           res.status(401).json({ message: "incorrect credentials" });
         }
       }
     } catch (error) {
-      // console.log("erRROOOOOOOOOOOOOrrrr", error);
       res.status(500).json(error.message);      
     }
   };
@@ -110,11 +105,8 @@ class UserController {
       const id = getIdFromToken(req.token)
       console.log("Id", id);
       const user = await userDal.getUserById(id)
-      // console.log("usssssssssser", user);
       
-    /*   let userData ={}
-      let travel = {}
-      let travels =[]
+    /*  
       
       user.forEach((elem)=>{
           if(elem.user_id){
@@ -155,8 +147,6 @@ class UserController {
     }
 
     editUser = async (req, res) => {
-      // console.log("reqqqqqq", JSON.parse(req.body.edit));
-      // console.log("fileeeee", req.file);
       const data  = JSON.parse(req.body.edit)
       let img = null;
       if(req.file){
@@ -181,9 +171,6 @@ class UserController {
         console.log("'''''''''''''''''", error);
         res.status(500).json(error)
       }
-      //¿qué tenemos que hacer? guardar los campos en la DB.
-      //Guardar los datos normales (tabla user) y por otro las skills (tabla skills).
-      //guardar en la tabla intermedia que usuario es con las skills
     }
 
     saveTags = async (data, user_id, type ) => {
@@ -195,7 +182,8 @@ class UserController {
           id = 'field_id'
          } 
        
-       const dataArray = data.split(','); //si el string empieza en , o termina en , controlarlo
+       const dataArray = data.split(','); 
+
        let finalArrayData = dataArray.map(e => e.trim())
        let result = await userDal.saveTags(type, name, user_id, id, finalArrayData)
        return result;
@@ -411,4 +399,3 @@ export default new UserController();
 
 
 
-//meter trim en las validaciones de forms
