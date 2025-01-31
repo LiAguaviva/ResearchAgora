@@ -135,7 +135,7 @@ export const EditOfferCard = () => {
           id="offer_title"
           type="text"
           placeholder="Title"
-          value={offer?.offer_title}
+          value={offer?.offer_title || ""}
           onChange={handleChange}
           name="offer_title"
         />
@@ -149,7 +149,7 @@ export const EditOfferCard = () => {
             id="number_of_position"
             type="number"
             placeholder="Number of positions"
-            value={offer?.number_of_position}
+            value={offer?.number_of_position || ""}
             onChange={handleChange}
             name="number_of_position"
           />
@@ -161,7 +161,7 @@ export const EditOfferCard = () => {
             id="offer_description"
             type="text"
             placeholder="Description"
-            value={offer?.offer_description}
+            value={offer?.offer_description || ""}
             onChange={handleChange}
             name="offer_description"
           />

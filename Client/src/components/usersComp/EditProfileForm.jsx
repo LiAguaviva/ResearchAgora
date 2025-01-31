@@ -10,17 +10,18 @@ const urlUser = import.meta.env.VITE_SERVER_URL_USER;
 
  
 const initialValue = {
-  user_name:"",
-  user_lastname:"",
-  user_country:"",
-  user_city:"",
-  user_description:"",
-  skills: "",
-  fields: "",
-  user_proficiency: "",
-  user_current_lab: "",
-  user_current_boss: "",
-}
+  
+    user_name:"",
+    user_lastname:"",
+    user_country:"",
+    user_city:"",
+    user_description:"",
+    skills: "",
+    fields: "",
+    user_proficiency: "",
+    user_current_lab: "",
+    user_current_boss: "",
+};
  
 export const EditProfileForm = () => {
  
@@ -171,7 +172,7 @@ export const EditProfileForm = () => {
           id='name'
           type="name"
           placeholder='Name'
-          value={editUser?.user_name?editUser?.user_name : ''}
+          value={editUser?.user_name || ''}
           onChange={handleChange}
           name='user_name'
         />
@@ -183,7 +184,7 @@ export const EditProfileForm = () => {
           id='lastname'
           type="lastname"
           placeholder='Lastname'
-          value={editUser?.user_lastname? editUser?.user_lastname : ''}
+          value={editUser?.user_lastname || ''}
           onChange={handleChange}
           name='user_lastname'
         />
@@ -195,7 +196,7 @@ export const EditProfileForm = () => {
           id='country'
           type="country"
           placeholder='country'
-          value={editUser?.user_country ? editUser?.user_country : ''}
+          value={editUser?.user_country ||''}
           onChange={handleChange}
           name='user_country'
         />
@@ -207,7 +208,7 @@ export const EditProfileForm = () => {
           id='city'
           type="city"
           placeholder='city'
-          value={editUser?.user_city? editUser?.user_city : ''}
+          value={editUser?.user_city || ''}
           onChange={handleChange}
           name='user_city'
         />
@@ -219,7 +220,7 @@ export const EditProfileForm = () => {
           id="description"
           type="text"
           placeholder='description'
-          value={editUser?.user_description ? editUser?.user_description : ''}
+          value={editUser?.user_description || ''}
           onChange={handleChange}
           name="user_description"
         />
@@ -230,7 +231,7 @@ export const EditProfileForm = () => {
           id='proficiency'
           type="text"
           placeholder='your current position(student/researcher/doctorant)'
-          value={editUser?.user_proficiency ? editUser?.user_proficiency : ''}
+          value={editUser?.user_proficiency || ''}
           onChange={handleChange}
           name='user_proficiency'
         />
@@ -241,7 +242,7 @@ export const EditProfileForm = () => {
           id='current lab'
           type="text"
           placeholder='your current laboratory'
-          value={editUser?.user_current_lab ? editUser?.user_current_lab : ''}
+          value={editUser?.user_current_lab || ''}
           onChange={handleChange}
           name='user_current_lab'
         />
@@ -252,7 +253,7 @@ export const EditProfileForm = () => {
           id='current_boss'
           type="text"
           placeholder='your laboratory head'
-          value={editUser?.user_current_boss ? editUser?.user_current_boss : ''}
+          value={editUser?.user_current_boss || ''}
           onChange={handleChange}
           name='user_current_boss'
         />
