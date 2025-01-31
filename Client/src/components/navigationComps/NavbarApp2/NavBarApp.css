@@ -115,9 +115,6 @@
   box-shadow: 0 0 8px var(--mandarina); 
 }
 
-
-
-
 .bellIcon {
   height: var(--size2);
   width: max-content;
@@ -183,6 +180,7 @@
     right: 0;
   }
 }
+
 .menuAbout {
   right: 10rem;
 
@@ -200,6 +198,18 @@
 
   &:hover {
     filter: brightness(10000);
+  }
+}
+
+.notificationItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size1);
+
+  &:hover {
+    p {
+      color: var(--magenta);
+    }
   }
 }
 

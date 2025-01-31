@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom'
 
 
 export const ResearcherReviewCard = ({elem}) => {
-  // console.log("@@@@@@@@@@@@@@", elem);
-
 
   const navigate = useNavigate();
   const {user} = useContext(AgoraContext)

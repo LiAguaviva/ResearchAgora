@@ -124,13 +124,6 @@ export const NavbarApp = () => {
                 src={user?.user_avatar ? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
                 alt="Your profile picture" 
               />
-
-              {/* <button
-                onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
-                >
-                Notifications {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
-              </button> */}
-
           <div>
           </div>
 
@@ -190,13 +183,13 @@ export const NavbarApp = () => {
                           onClick={() => handleNotificationClick(notif)}
                         >
                           <p>{notif.content}</p>
+                          <div className='separator' />
                         </div>
                       ))
                     ) : (
                       <div className='notificationItem'>No notifications</div>
                     )}
 
-                    <div className='separator' />
                   </div>
                 )}
               

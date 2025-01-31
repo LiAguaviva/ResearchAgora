@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchDataValidation } from "../../../helpers/axiosHelper";
+import { fetchData2 } from "../../../helpers/axiosHelper";
 import { UserAllUsersCard } from "../../../components/usersComp/UserAllUsersCard";
 import { RequestModal } from "../../../components/offerComps/RequestModal/RequestModal";
 import { useNavigate } from "react-router-dom";
@@ -33,8 +33,8 @@ export const AllUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const result = await fetchDataValidation(
-        "http://localhost:4000/api/user/allUsers",
+      const result = await fetchData2(
+        `user/allUsers`,
         "get"
       );
       setUsers(result);
@@ -80,12 +80,11 @@ export const AllUsers = () => {
       if (!skills.length && !inputValueName.trim()) {
         fetchUsers();
       } else {
-        const result = await fetchDataValidation(
-          "http://localhost:4000/api/user/findUsersBySkills",
+        const result = await fetchData2(
+          `user/findUsersBySkills`,
           "post",
           data
         );
-        console.log("result: ", result);
         setUsers(result);
       }
     } catch (error) {

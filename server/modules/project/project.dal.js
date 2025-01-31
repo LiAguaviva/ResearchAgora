@@ -6,7 +6,8 @@ class ProjectDal {
     const connection = await dbPool.getConnection();
     try {
       await connection.beginTransaction();
-
+      console.log('create project dal', values);
+      
       let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?)`;
       const [projectResult] = await connection.execute(sql, values);
       const projectId = projectResult.insertId;
@@ -119,8 +120,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
       const result = await executeQuery(sql, [user_id, inviter_id]);
       return result;
     } catch (error) {
-      console.log("dal error", error);
-
       throw error;
     }
   };
@@ -152,8 +151,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
       const result = await executeQuery(sql, [user_id, inviter_id]);
       return result;
     } catch (error) {
-      console.log("dal error", error);
-
       throw error;
     }
   };
@@ -185,15 +182,12 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
       const result = await executeQuery(sql, [user_id, inviter_id]);
       return result;
     } catch (error) {
-      console.log("dal error", error);
-
       throw error;
     }
   };
 
   oneProject = async (project_id) => {
     try {
-      // show one project info
       let sqlProject = `SELECT  
                           project_id, 
                           project_title, 
@@ -213,7 +207,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
 
       const project = await executeQuery(sqlProject, [project_id]);
 
-      //show all members
       let sqlMembers = `SELECT     
                           user.user_id,
                           user.user_avatar,     
@@ -228,7 +221,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
                           GROUP BY user.user_id;`;
 
       const members = await executeQuery(sqlMembers, [project_id]);
-      //show skill in one project
 
       let sqlSkills = `SELECT     
                         project.project_id,    
@@ -241,7 +233,7 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
                         WHERE project.project_id = ?;`;
 
       const skills = await executeQuery(sqlSkills, [project_id]);
-      //review in one project
+      
       let sqlReview = `SELECT 
                         review.review_content,
                         review.review_created_on,
@@ -261,8 +253,7 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
                           WHERE project.project_id = ?;`;
 
       const review = await executeQuery(sqlReview, [project_id]);
-      //show all offers under one project
-      //reduce number_of_positions based on accepted requests
+
       let sqlOffers = `SELECT  
                         offer.offer_id, 
                         offer.offer_title, 
@@ -293,6 +284,7 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
     // values[4] = Number(values[4]); //delete once front is running
     // values[5] = Number(values[5]); //delete once front is running
     // values[9] = Number(values[9]); //delete once front is running
+   
     try {
       const result = await executeQuery(sql, values);
       return result;
@@ -377,7 +369,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
 
       await connection.commit();
     } catch (error) {
-      console.log("EERROR", error);
       await connection.rollback();
       throw error;
     } finally {

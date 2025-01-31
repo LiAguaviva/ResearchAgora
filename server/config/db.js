@@ -34,10 +34,8 @@ export const executeQuery = async (sql, values=[]) =>{
 const testDbConnection = async () => {
     try {
         const result = await executeQuery('select * from user');
-        console.log("resultado del test ", result);
+        console.log(result);
     } catch (error) {
         console.log(error);
     }
 }
-
-//  testDbConnection();

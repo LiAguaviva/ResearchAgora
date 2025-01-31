@@ -3,7 +3,6 @@ import axios from 'axios'
 import './TagsCard.css'
 import { AgoraContext } from '../../../context/ContextProvider'
 
-// ONLY FOR THE LOGED USER
 export const TagsCard = () => {
 
   const {user} = useContext(AgoraContext)

@@ -27,7 +27,6 @@ class UserController {
       }
     } catch (error) {
       if(error instanceof z.ZodError) {
-        console.log(error.errors[0].message)
         return res.status(400).json(error.errors[0].message)
       }
       res.status(500).json(error.message);
@@ -70,7 +69,6 @@ class UserController {
     forgottenPassword = async (req, res) => {     
       try {
       const { email } = req.body;         
-      console.log(email)
       const user = await userDal.findUserbyEmail(email);         
       if (user.length === 0) {             
         return res.status(404).json({ message: "User not found" });         
@@ -92,7 +90,6 @@ class UserController {
         })
         const user_id = await getIdFromToken(token);
         const result = await userDal.resetPassword(user_id, parsedData.newPassword );
-        console.log(result);
         res.status(200).json("password changed")
         
       } catch (error) {
@@ -103,7 +100,6 @@ class UserController {
 
     findUserById = async (req, res) => {
       const id = getIdFromToken(req.token)
-      console.log("Id", id);
       const user = await userDal.getUserById(id)
       
     /*  
@@ -158,7 +154,7 @@ class UserController {
 
       }
       try {
-        const {user_name, user_lastname, user_country, user_city, user_description, user_proficiency, user_current_lab, user_current_boss, skills, fields, user_id} = data; //req.body.data
+        const {user_name, user_lastname, user_country, user_city, user_description, user_proficiency, user_current_lab, user_current_boss, skills, fields, user_id} = data; 
         const result = await  userDal.editUser([user_name, user_lastname, user_country, user_city, user_description, user_proficiency, user_current_lab, user_current_boss, user_id], req.file);
         if(skills != "" || !skills){
           const results = await this.saveTags(skills, user_id, 'skill');
@@ -168,7 +164,6 @@ class UserController {
         }
         res.status(200).json({img})
       } catch (error) {
-        console.log("'''''''''''''''''", error);
         res.status(500).json(error)
       }
     }
@@ -211,7 +206,6 @@ class UserController {
     
         res.status(200).json("User disabled and notified");
       } catch (error) {
-        console.log("Error in deleteUser:", error);
         res.status(500).json(error);
       }
     };
@@ -220,7 +214,6 @@ class UserController {
         const {id} = req.body;
         try {
           const result = await userDal.getskillsfields(id);
-          console.log(result);
           res.status(200).json(result)
         } catch (error) {
           res.status(500).json(error);
@@ -231,7 +224,6 @@ class UserController {
       requestResponse = async (req,res) => {
         const {user_id, project_id, offer_id}  = req.body;
         const values = [user_id, project_id, offer_id];
-        console.log('HOliwis', user_id, project_id, offer_id)
         try {
            await userDal.requestResponse(values);
            res.status(200).json("ok")
@@ -244,14 +236,12 @@ class UserController {
       updateRequestStatus = async (req,res) => {
         const {user_id, project_id, offer_id, request_status,choose}  = req.body;
         const values = [user_id, project_id, offer_id];
-        console.log('LLEGO')
         try {
            await userDal.updateRequestStatus(values, request_status,choose);
           
            
            res.status(200).json("ok")
         } catch (error) {
-          console.log(error);          
           res.status(500).json(error)
         }
       }
@@ -263,7 +253,6 @@ class UserController {
           res.status(200).json(result);
           
         } catch (error) {
-          console.log('resultado', error)
           res.status(500).json(error)
         }
       }
@@ -284,7 +273,6 @@ class UserController {
           const result = await userDal.GetResearcherById(user_id);
           res.status(200).json(result)
         } catch (error) {
-          console.log("error in review dal",error);
           res.status(500).json(error)
         }
       }
@@ -307,7 +295,6 @@ class UserController {
       
           res.status(200).json('Invitation sent');
         } catch (error) {
-          console.log("Error in invite controller:", error);
           res.status(500).json(error);
         }
       };
@@ -320,7 +307,6 @@ class UserController {
       
           const project = await projectDal.oneProject(project_id);
           const responder = await userDal.getUserById(user_id);
-          console.log("responder+++++++++++++++++++++++++",responder);
           
       
           if (!project || !responder) {
@@ -354,12 +340,10 @@ class UserController {
       
           res.status(200).json('Invitation response processed');
         } catch (error) {
-          console.log("Error in invitationResponse controller:", error);
           res.status(500).json(error);
         }
       };
       
-    
       
       allrequests = async() => {
         try {
@@ -375,7 +359,6 @@ class UserController {
         try {
           const {user_id,project_id} = req.body;
           const result = await userDal.pendingrequeststatus(user_id,project_id);
-          console.log('REQUESTS BACKKSIDE', result)
           res.status(200).json(result)
         } catch (error) {
           res.status(500).json(error);

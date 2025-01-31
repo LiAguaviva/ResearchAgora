@@ -11,12 +11,11 @@ class ProjectController {
 
     addproject = async (req, res) =>{
       try {
-        const {title, city, country, description, max_member, type, skill_name} = createProjectScheme.parse(req.body);
+        const {title, city, country, description, max_member, type, skill_name} = req.body;
         const {creator_user_id} = req.params;
         const values = [title, city, country, description, type, max_member, creator_user_id];
-
         const result = await projectDal.registerProject(values, skill_name);
- 
+
         res.status(200).json(result)
 
       } catch (error) {
@@ -24,8 +23,7 @@ class ProjectController {
           console.log(error.errors[0].message)
           return res.status(400).json(error.errors[0].message)
         }
-        console.log("eerrrrrrr", error);
-        // res.status(500).json(error)    
+        res.status(500).json(error)    
      }   
     }
 
@@ -46,8 +44,6 @@ class ProjectController {
         res.status(200).json(result)
 
       } catch (error) {
-        console.log("controller error", error);
-        
        res.status(500).json(error) 
       }
    } 
@@ -59,8 +55,6 @@ class ProjectController {
       res.status(200).json(result)
 
     } catch (error) {
-      console.log("controller error", error);
-      
      res.status(500).json(error) 
     }
  } 
@@ -72,8 +66,6 @@ class ProjectController {
         res.status(200).json(result)
 
       } catch (error) {
-        console.log("controller error", error);
-        
        res.status(500).json(error) 
       }
    } 
@@ -82,18 +74,13 @@ class ProjectController {
       try {
         const {project_id} = req.params;
         const result = await projectDal.oneProject(project_id);   
-        console.log('EL BACK MANDA ESTE RESULTADO --->', result)   
-        console.log('EL BACK MANDA EL PROJECT ID --->', project_id)   
         res.status(200).json(result)
       } catch (error) {
-        console.log("eerror", error);
-        
         res.status(500).json(error) 
       }
     }
 
     editproject = async (req, res) => {
-      console.log("reqqqqqq", req.body);
       try {
          const {id, title, city, country, description, type, status, outcome, link, max_member, skill} = req.body;
         console.log('editproject controller', req.body);
@@ -124,8 +111,6 @@ class ProjectController {
                await projectDal.deleteproject(project_id)
                res.status(200).json("project disabled")
              }catch (error){
-              console.log("eeeeeeeeeee", error);
-              
                 res.status(500).json(error)
             }
      }
@@ -174,8 +159,6 @@ class ProjectController {
 
         res.status(200).json('User removed and notified');
       } catch (error) {
-        console.log("error in del member comtroller",error);
-        
         res.status(500).json(error);
       }
     }
@@ -207,7 +190,6 @@ class ProjectController {
 
         res.status(200).json('User left and creator notified');
       } catch (error) {
-        console.log("Error in leaveProject controller", error);
         res.status(500).json(error);
       }
 };

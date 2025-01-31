@@ -7,7 +7,6 @@ import logo from '../../../assets/logo/Logo_full_PurpleBlue.png'
 export const AccountVerified = () => {
 
    const { token } = useParams();
-   console.log("hhhhh", token);
 
    const navigate = useNavigate();
     

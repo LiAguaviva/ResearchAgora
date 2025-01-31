@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { AgoraContext } from '../../../context/ContextProvider'
-import { fetchData, fetchData2, fetchDataValidation } from '../../../helpers/axiosHelper'
+import { fetchData, fetchData2 } from '../../../helpers/axiosHelper'
 import { ProjectProfileCard } from '../../../components/projectsComp/ProjectProfileCard/ProjectProfileCard'
 import StatsRadarChart from '../../../components/usersComp/RadarGraph'
 import { ReviewCard } from '../../../components/commonComp/ReviewCard/ReviewCard'
@@ -35,9 +35,7 @@ export const Researcher = () => {
   const fetchResearcher = async () => {
     try {
       let data ={ user_id: id}
-      // console.log('id', id);
       const result = await fetchData(`/getresearcherbyid`, 'post', data);
-      // console.log('**********************resuuuuuuuuuult', result);
       if (!result[0]){
         throw new error('user not found');
       }
@@ -55,8 +53,8 @@ export const Researcher = () => {
     try {
       let data = { user_id: id };
 
-      const result = await fetchDataValidation(
-        `http://localhost:4000/api/project/oneresearcherprojects`,
+      const result = await fetchData2(
+        `project/oneresearcherprojects`,
         "post",
         data,
         { headers: { Authorization: `Bearer ${token}` } }
@@ -121,11 +119,10 @@ export const Researcher = () => {
                researcher = {researcher.user_id} 
                user = {user.user_id} 
             />}
-          <div className="reviewGallery">
-          </div>
+       
       </section>
        <section className="containerPpal offersSection">
-          <div className="offerGallery">
+          <div className="reviewGallery">
           {review?.map((elem,index) => {
             return (
                 <ResearcherReviewCard

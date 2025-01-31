@@ -6,7 +6,6 @@ import { fetchData2 } from '../../helpers/axiosHelper';
 
 
 const handleRatingSubmit = (rating) => {
-  console.log("User selected rating:", rating);
 };
 
 export const ReviewModal = ({show,setShow, researcher,user}) => {
@@ -25,31 +24,30 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
    const {name, value} = e.target;
    setReview({...review, [name]: value })
   }
-  console.log("ratinggggggggggggggg",rating);
-  console.log("revieeeeew", review);
   
    const onSubmit = async(e) => {
     e.preventDefault();
     // setResult({...result, review, rating})
     // setResult((prevResult) => ({...prevResult, review, rating}));
 
+    let result = {...review, rating,user,researcher}
+    
     if (rating === 0){
       setMsg('* Choose your rating')
     } else if (!review.description) {
       setMsg('* write your review')
     } else {
-      
-      let result = {...review, rating,user,researcher}
-      console.log('result', result);
-      const resultFinal = fetchData2('review/createreview','post',result)
+
+    try {
+      await fetchData2('review/createreview', 'post', result);
       closeModal();
-      console.log("------", result);
+    } catch (error) {
+      setMsg(error.response?.data?.message);
     }
-   }
+  }
+  };
   
-  //  console.log('researcher on reviewModal', researcher);
-  //  console.log('user on reviewModal', user);
-   console.log('review.text on reviewModal', review.text);
+
    
 
   return (

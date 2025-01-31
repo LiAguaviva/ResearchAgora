@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './alloffers.css'
 import { AllOffersCard } from '../../../components/offerComps/AllOffersCard'
-import { fetchDataValidation } from '../../../helpers/axiosHelper';
+import { fetchData2 } from '../../../helpers/axiosHelper';
 
 export const AllOffers = () => {
 
@@ -13,7 +13,7 @@ export const AllOffers = () => {
 
   const fetchOffers = async() => {
       try {
-        const result = await fetchDataValidation('http://localhost:4000/api/offer/alloffers', 'get');
+        const result = await fetchData2(`offer/alloffers`, 'get');
         setOffers(result)
       } catch (error) {
         console.log(error)
@@ -59,7 +59,7 @@ export const AllOffers = () => {
         if (!skills.length) {
           fetchOffers()
         } else {
-          const result = await fetchDataValidation('http://localhost:4000/api/offer/findofferbyskill', 'post', data);
+          const result = await fetchData2(`offer/findofferbyskill`, 'post', data);
           setOffers(result)
         }
       } catch (error) {

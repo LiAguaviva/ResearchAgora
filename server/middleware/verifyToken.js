@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 
 export const tokenVerify = (req, res, next) =>{
     const tokenBearer = req.headers.authorization;
-    console.log("tokeeeenbearer", tokenBearer);
     
     if(!tokenBearer){
         res.status(401).json({message: "not authorized"})
@@ -23,7 +22,6 @@ export const tokenVerify = (req, res, next) =>{
 
 export const tokenVerifyEmail = (req, res, next) =>{
     const {token} = req.params;
-    console.log(token);
     
      jwt.verify(token, process.env.VALIDATION_KEY, (err)=>{
         if(err){
@@ -38,13 +36,9 @@ export const tokenVerifyEmail = (req, res, next) =>{
 
 export const forgottenPasswordEmail = (req, res, next) =>{
     const {token} = req.params;
-    console.log("token forgotten password", token);
     
      jwt.verify(token, process.env.PASSWORD_KEY, (err)=>{
-        console.log("middleware", err);
-        
         if(err){
-                    
             res.status(401).json({message: "not authorized"})
         }else{
             req.token = token;

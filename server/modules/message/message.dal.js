@@ -2,7 +2,6 @@ import { dbPool,executeQuery } from "../../config/db.js";
 
 class MessageDal {
   sendMessage = async(values) => {
-    console.log(values);
     try {
       let sql = 'INSERT INTO message (message_content,receiver_id,sender_id) VALUES (?,?,?)'
       const result = await executeQuery(sql,values);
@@ -13,7 +12,6 @@ class MessageDal {
     
   }
   deleteMessage = async(values) => {
-    console.log(values);
     try {
       let sql = 'DELETE FROM message WHERE message_id = ?'
       const result = await executeQuery(sql,[values]);
