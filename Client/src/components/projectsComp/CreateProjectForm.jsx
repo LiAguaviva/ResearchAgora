@@ -44,7 +44,8 @@ export const CreateProjectForm = () => {
       if (value === '') {
         console.log('hola');
         
-        setProject({...project, max_member:'0' });
+        setProject({...project, max_member:'0' });  //this could cause a validation issue
+        //setProject({...project, max_member: Number(value) || 0 }); 
       } else if (value[0] === '0') {
         console.log('value', value);
         setProject({...project, max_member:value.slice(1) });
@@ -122,7 +123,7 @@ export const CreateProjectForm = () => {
           id='title'
           type="text" 
           placeholder='Title'
-          value={project.title}
+          value={project?.title || ""}
           onChange={handleChange}
           name='title'
         />
@@ -134,7 +135,7 @@ export const CreateProjectForm = () => {
           id='city'
           type="text" 
           placeholder='City'
-          value={project.city}
+          value={project?.city || ""}
           onChange={handleChange}
           name='city'
         />
@@ -146,7 +147,7 @@ export const CreateProjectForm = () => {
           id='country'
           type="text" 
           placeholder='Country'
-          value={project.country}
+          value={project?.country || ""}
           onChange={handleChange}
           name='country'
         />
@@ -158,7 +159,7 @@ export const CreateProjectForm = () => {
           id="description" 
           type="text"
           placeholder='description'
-          value={project.description}
+          value={project?.description || ""}
           onChange={handleChange}
           name="description" 
         />
@@ -196,7 +197,7 @@ export const CreateProjectForm = () => {
           id='max_member'
           type="number" 
           placeholder='Max number of collaborators'
-          value={project.max_member}
+          value={project?.max_member || ""}
           onChange={handleChange}
           name='max_member'
         />
@@ -217,7 +218,7 @@ export const CreateProjectForm = () => {
           id='typeOptions'
           type="text" 
           placeholder='type'
-          value={project.type}
+          value={project?.type | ""}
           onChange={handleChange}
           name='type'
         >

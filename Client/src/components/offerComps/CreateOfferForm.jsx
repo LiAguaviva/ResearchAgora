@@ -101,6 +101,7 @@ export const CreateOfferForm = () => {
             id='offer_title'
             type="text" 
             placeholder='Offer Title'
+            value={offer?.offer_title || ""}
             // value={login.password}
             onChange={handleChange}
             name='offer_title'
@@ -113,7 +114,7 @@ export const CreateOfferForm = () => {
             id='number_of_position'
             type="number" 
             placeholder='Number of positions'
-            value={offer.number_of_position}
+            value={offer?.number_of_position || ""} 
             onChange={handleChange}
             name='number_of_position'
           />
@@ -125,7 +126,7 @@ export const CreateOfferForm = () => {
           id="offer_description" 
           type="text"
           placeholder='description'
-          value={offer.description}
+          value={offer?.offer_description || ""}
           onChange={handleChange}
           name="offer_description" 
         />
