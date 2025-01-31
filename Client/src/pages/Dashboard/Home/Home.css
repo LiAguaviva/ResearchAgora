@@ -1,8 +1,10 @@
 
 .homeLogoSection {
-  background-image: 
+  /* background-image: 
   linear-gradient(0deg, rgba(255, 255, 255, 0.4) 0%, rgba(255,255,255,0.4) 100%),
-  url('../../../assets/imgs/Lab1.jpg');
+  url('../../../assets/imgs/Lab1.jpg'); */
+
+  background-image: url('../../../assets/imgs/Lab1.jpg');
 
   height: 40rem;
   justify-content: center;
@@ -17,6 +19,7 @@
     img {
       object-fit: contain;
       width: 70%;
+      filter: drop-shadow(0 2px 5px #ffffff);
 
       @media (max-width: 1000px) {
         width: 100%;
@@ -24,8 +27,13 @@
     }
 
     h1 {
+      filter: drop-shadow(0 2px 5px #ffffff);
+    }
+
+    h1 {
       @media (max-width: 630px) {
         font-size: var(--textM1);
+
       }
 
       @media (max-width: 300px) {
@@ -36,6 +44,7 @@
     p {
       font-size: var(--textM1);
       margin-inline: auto;
+      filter: drop-shadow(0 2px 5px #ffffff);
 
       @media (max-width: 630px) {
         font-size: var(--textM2);

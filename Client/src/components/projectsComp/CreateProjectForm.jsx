@@ -39,6 +39,18 @@ export const CreateProjectForm = () => {
     const {name, value} = e.target;
     if(name === 'accept'){
       setProject({...project, accept:e.target.checked });
+    } else if (name === 'max_member'){
+      
+      if (value === '') {
+        console.log('hola');
+        
+        setProject({...project, max_member:'0' });
+      } else if (value[0] === '0') {
+        console.log('value', value);
+        setProject({...project, max_member:value.slice(1) });
+      } else {
+        setProject({...project, max_member:value})
+      }
     } else {
       setProject({...project, [name]:value});
     }
@@ -96,6 +108,8 @@ export const CreateProjectForm = () => {
        }
     }
   }
+
+  
 
   return (
     <div className='formAppContainer'>

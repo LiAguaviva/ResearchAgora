@@ -28,10 +28,11 @@ export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
             {users.map(user => (
                 <>
                 <div 
-                    key={user.user_id} 
-                    className={`user-item ${currentUserId === user.user_id ? 'active-user' : ''}`}
-                    onClick={() => onUserClick(user.user_id)}>
-                   <img 
+                  key={user.user_id} 
+                  className={`user-item ${currentUserId === user.user_id ? 'active-user' : ''}`}
+                  onClick={() => onUserClick(user.user_id)}
+                >
+                    <img 
                       className='profileAvatar'
                       src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
                       alt="profile picture" 

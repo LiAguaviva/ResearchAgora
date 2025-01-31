@@ -5,6 +5,7 @@ import { ZodError } from 'zod';
 import axios from 'axios'
 import { fetchData } from '../../helpers/axiosHelper';
 import { editProfileScheme } from '../../schemes/editProfileScheme';
+import camera from '../../assets/icons/camera.svg'
  
 const initialValue = {
   user_name:"",
@@ -310,11 +311,24 @@ export const EditProfileForm = () => {
       </fieldset>
  
         <fieldset className='avatarInput'>
-          <label htmlFor="file">avatar</label>
+          <label htmlFor="file">
+            <img 
+            src={camera} 
+            alt="camera logo to upload your profile picture"
+            className='cameraIcon' 
+            />
+            <p>
+              Select our picture
+            </p>
+          </label>
           <input
             type="file"
             onChange={handleFile}
+            hidden
+            id='file'
           />
+          
+
         </fieldset>
  
  

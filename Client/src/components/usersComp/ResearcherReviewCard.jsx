@@ -29,20 +29,20 @@ export const ResearcherReviewCard = ({elem}) => {
     <div>
       <div className='reviewCard'>
         <div className='user'>
-              <div className='userCardAvatar'>
-                <img 
-                  className='userCardAvatar'
-                  src={elem?.img ? `http://localhost:4000/images/useravatar/${elem.img}` : avatarDefault}
-                  alt="reviewer picture" 
-                  onClick={() =>
-                    elem.reviewer_user_id !== user.user_id
-                      ? navigate(`/researcher/${elem.reviewer_user_id}`)
-                      : navigate("/profile")
-                  }
-                />
-              </div>
-      
-              <div className='userCardData'>
+          <div className='userCardAvatar'>
+            <img 
+              className='userCardAvatar'
+              src={elem?.img ? `http://localhost:4000/images/useravatar/${elem.img}` : avatarDefault}
+              alt="reviewer picture" 
+              onClick={() =>
+                elem.reviewer_user_id !== user.user_id
+                  ? navigate(`/researcher/${elem.reviewer_user_id}`)
+                  : navigate("/profile")
+              }
+            />
+          </div>
+  
+          <div className='userCardData'>
               <p className='UserCardName'
               onClick={() =>
                 elem.reviewer_user_id !== user.user_id
@@ -51,9 +51,9 @@ export const ResearcherReviewCard = ({elem}) => {
               }
               > {elem?.reviewer_name} {elem?.reviewer_lastname}</p>
               <p>{renderStars(elem?.review_rate)}</p>
-              </div>
-              </div>
-              <div className='separatorMid'></div>
+          </div>
+        </div>
+              <div className='separatorMid' />
 
               <div className='recomendation'>
                 <p>{elem?.review_content}</p>

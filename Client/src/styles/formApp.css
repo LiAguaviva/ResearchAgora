@@ -95,3 +95,11 @@
     color: var(--aqua);
   }
 }
+
+.cameraIcon {
+  height: var(--size4);
+
+  &:hover {
+    filter: brightness(0);
+  }
+}

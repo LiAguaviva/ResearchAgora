@@ -19,6 +19,7 @@ export const ProjectMemberCard = ({ elem, project }) => {
       console.log(error)
     }
   }
+  
   return (
     <div>
       <div className="userCard">

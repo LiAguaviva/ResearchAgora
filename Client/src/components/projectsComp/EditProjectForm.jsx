@@ -147,7 +147,7 @@ export const EditProjectForm = () => {
           id="title"
           type="text"
           placeholder="Title"
-          value={project.title}
+          value={project?.title? project.title : ""}
           onChange={handleChange}
           name="title"
         />
@@ -159,7 +159,7 @@ export const EditProjectForm = () => {
             id="city"
             type="text"
             placeholder="City"
-            value={project.city}
+            value={project?.city? project.city : ""}
             onChange={handleChange}
             name="city"
           />
@@ -171,7 +171,7 @@ export const EditProjectForm = () => {
             id="country"
             type="text"
             placeholder="Country"
-            value={project.country}
+            value={project?.country? project.country : ""}
             onChange={handleChange}
             name="country"
           />
@@ -183,7 +183,7 @@ export const EditProjectForm = () => {
             id="description"
             type="text"
             placeholder="description"
-            value={project.description}
+            value={project?.description? project.description : ""}
             onChange={handleChange}
             name="description"
           />
@@ -220,7 +220,7 @@ export const EditProjectForm = () => {
             id="max_member"
             type="number"
             placeholder="Max number of collaborators"
-            value={project.max_member}
+            value={project?.max_member? project.max_member : ""}
             onChange={handleChange}
             name="max_member"
           />
@@ -228,20 +228,11 @@ export const EditProjectForm = () => {
 
         <fieldset>
           <label htmlFor="typeOptions">type</label>
-          {/* <label
-            id="typeOptions"
-            type="text"
-            placeholder="type"
-            value={project.type}
-            onChange={handleChange}
-            name="type"
-          /> */}
-
           <select
             id="typeOptions"
             type="text"
             placeholder="type"
-            value={project.type}
+            value={project?.type? project.type : ""}
             onChange={handleChange}
             name="type"
           >
@@ -252,20 +243,11 @@ export const EditProjectForm = () => {
 
         <fieldset>
           <label htmlFor="statusOptions">status</label>
-          <label
-            id="statusOptions"
-            type="text"
-            placeholder="status"
-            value={project?.status}
-            onChange={handleChange}
-            name="status"
-          />
-
           <select
             id="statusOptions"
             type="text"
             placeholder="status"
-            value={project?.status}
+            value={project?.status? project.status : ""}
             onChange={handleChange}
             name="status"
           >
@@ -283,7 +265,7 @@ export const EditProjectForm = () => {
                 id="outcome"
                 type="text"
                 placeholder="outcome"
-                value={project?.outcome}
+                value={project?.outcome? project.outcome : ""}
                 onChange={handleChange}
                 name="outcome"
               />
@@ -295,7 +277,7 @@ export const EditProjectForm = () => {
                 id="link"
                 type="text"
                 placeholder="link"
-                value={project?.link}
+                value={project?.link? project.link : ""}
                 onChange={handleChange}
                 name="link"
               />

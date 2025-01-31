@@ -65,7 +65,7 @@ p {
 
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-width: max-content;
+  /* max-width: max-content; */
 }
 
 .containerPpal {
