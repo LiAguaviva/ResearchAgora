@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
+
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
@@ -32,7 +33,7 @@ export const sendMailValidation = (email, token) =>{
 </head>
 <body>
   <h1>This is Agora Research. To validate your account, click here</h1>
-   <a href="${process.env.VITE_SERVER_URL}${token}" 
+   <a href="${process.env.VITE_SERVER_URL_USER}${token}" 
    
      target="_blank" 
      style="color: blue; text-decoration: underline;">
@@ -65,7 +66,7 @@ export const sendPasswordResetEmail = (email, token) => {
 
   
 export const forgottenPassword = (email, token) => {
-  const resetLink = `${process.env.VITE_SERVER_URL2}resetPassword/${token}`;
+  const resetLink = `${process.env.VITE_SERVER_URL}resetPassword/${token}`;
  
   transporter.sendMail({
     from: 'socratesters@gmail.com',

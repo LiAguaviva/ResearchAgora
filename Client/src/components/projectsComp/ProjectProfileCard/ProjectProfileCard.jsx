@@ -3,6 +3,8 @@ import projectDefaultIMG from "../../../assets/imgs/lab1.jpg";
 import './ProjectProfileCard.css'
 import { useNavigate } from "react-router-dom";
 import { AgoraContext } from "../../../context/ContextProvider";
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
+
 
 export const ProjectProfileCard = ({ elem }) => {
   const navigate = useNavigate();
@@ -18,7 +20,7 @@ export const ProjectProfileCard = ({ elem }) => {
         className="profileProjectImg"
         src={
           project?.image
-            ? `${url}/images/users/${project.image}`
+            ? `${urlImg}/users/${project.image}`
             : projectDefaultIMG
         }
         alt="project image"

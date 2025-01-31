@@ -4,6 +4,8 @@ import { AgoraContext } from "../../context/ContextProvider";
 import { fetchData2 } from "../../helpers/axiosHelper";
 import { useNavigate } from "react-router-dom";
 import trash from '../../assets/icons/trash.svg'
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
+
 
 export const ProjectMemberCard = ({ elem, project, removeMemberFromState  }) => {
   const { user, token } = useContext(AgoraContext);
@@ -36,7 +38,7 @@ await fetchData2(`project/deleteMember`, 'post', data,  { Authorization: `Bearer
           className="userCardAvatar"
           src={
             elem?.user_avatar
-              ? `http://localhost:4000/images/useravatar/${elem.user_avatar}`
+              ? `${urlImg}/useravatar/${elem.user_avatar}`
               : avatarDefault
           }
           // src={avatarDefault}

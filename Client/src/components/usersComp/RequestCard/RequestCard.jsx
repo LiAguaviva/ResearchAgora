@@ -3,6 +3,8 @@ import './RequestCard.css'
 import { useNavigate } from 'react-router-dom';
 import check from '../../../assets/icons/check-circle.svg'
 import reject from '../../../assets/icons/reject-circle.svg'
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
+
 
 export const RequestCard = ({elem, updateRequest}) => {
 
@@ -13,7 +15,7 @@ export const RequestCard = ({elem, updateRequest}) => {
     <div className='requestCard'>
       <img
         className='userCardAvatar'
-        src={`http://localhost:4000/images/useravatar/${elem.user_image}`}
+        src={`${urlImg}/useravatar/${elem.user_image}`}
         alt="user profile picture"
       />
       <div className='data'>

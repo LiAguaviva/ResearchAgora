@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { AgoraContext } from '../../context/ContextProvider'
 import projectDefaultIMG from '../../assets/imgs/lab1.jpg'
 import { useNavigate } from 'react-router-dom'
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 
 export const AllProjectsCard = ({elem}) => {
 
@@ -17,7 +18,7 @@ export const AllProjectsCard = ({elem}) => {
           <img 
             onClick={() => navigate(`/oneproject/${elem.project_id}`)}
             className='profileProjectImg'
-            src={user?.project? `${url}/images/users/${user.avatar}` :projectDefaultIMG} 
+            src={user?.project? `${urlImg}/images/users/${user.avatar}` :projectDefaultIMG} 
             alt="default project picture" 
           />
         </div>

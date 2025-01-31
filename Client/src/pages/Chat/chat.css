@@ -83,6 +83,7 @@
   
   .separatorChat {
     border-bottom: 2px solid var(--aqua);
+    margin-top: var(--size05);
   }
 
   .user-item {
@@ -110,12 +111,16 @@
     }
   }
   
-  .active-user {
-    background-color: var(--aqua);
-    img {
-      border: 2px solid var(--aqua);
-    }
-  }
+}
+.active-user {
+  background-color: var(--aqua);
+  /* img {
+    border: 2px solid var(--aqua);
+  } */
+}
+
+.other {
+  background-color: var(--magenta);
 }
 
 

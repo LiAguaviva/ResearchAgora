@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../context/ContextProvider'
 import { useNavigate } from 'react-router-dom'
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 
 
 export const ResearcherReviewCard = ({elem}) => {
@@ -30,7 +31,7 @@ export const ResearcherReviewCard = ({elem}) => {
           <div className='userCardAvatar'>
             <img 
               className='userCardAvatar'
-              src={elem?.img ? `http://localhost:4000/images/useravatar/${elem.img}` : avatarDefault}
+              src={elem?.img ? `${urlImg}/useravatar/${elem.img}` : avatarDefault}
               alt="reviewer picture" 
               onClick={() =>
                 elem.reviewer_user_id !== user.user_id

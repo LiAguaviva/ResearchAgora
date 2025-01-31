@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import avatarDefault from '../../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../../context/ContextProvider'
 import './ReviewCard.css'
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
+
 
 export const ReviewCard = () => {
 
@@ -14,7 +16,7 @@ export const ReviewCard = () => {
               <div className='userCardAvatar'>
                 <img 
                   className='userCardAvatar'
-                  // src={user?.avatar? `${url}/images/users/${user.avatar}` :avatarDefault} 
+                  // src={user?.avatar? `${urlImg}/users/${user.avatar}` :avatarDefault} 
                   src={avatarDefault}
                   alt="your default picture" 
                 />

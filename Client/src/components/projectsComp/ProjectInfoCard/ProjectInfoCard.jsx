@@ -1,7 +1,7 @@
 
 import React, { useContext, useEffect, useState } from 'react'
 import './ProjectInfoCard.css'
-const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import projectDefaultIMG from '../../../assets/imgs/defaultIMG.png'
 import { AgoraContext } from '../../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
@@ -59,7 +59,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
           <img 
             className='projectImg'
             src={project?.project_image? `
-              ${url}/projectImage/${project.project_image}` 
+              ${urlImg}/projectImage/${project.project_image}` 
               : projectDefaultIMG} 
               alt="project image" 
           />

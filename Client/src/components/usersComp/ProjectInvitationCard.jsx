@@ -3,6 +3,7 @@ import projectDefaultIMG from "../../assets/imgs/lab1.jpg";
 import check from '../../assets/icons/check-circle.svg'
 import reject from '../../assets/icons/reject-circle.svg'
 import { useNavigate } from 'react-router-dom';
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 
 
 export const ProjectInvitationCard = ({elem, updateInvite,index}) => {
@@ -16,7 +17,7 @@ export const ProjectInvitationCard = ({elem, updateInvite,index}) => {
       className="profileProjectImg"
       src={
         elem?.image
-          ? `${url}/images/users/${elem.image}`
+          ? `${urlImg}/users/${elem.image}`
           : projectDefaultIMG
       }
       alt="project image"

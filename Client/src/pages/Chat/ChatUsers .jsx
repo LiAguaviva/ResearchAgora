@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchData2 } from '../../helpers/axiosHelper';
-const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 
 export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
@@ -29,7 +29,7 @@ export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
                 >
                     <img 
                       className='profileAvatar'
-                      src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
+                      src={user?.user_avatar? `${urlImg}/useravatar/${user.user_avatar}` : avatarDefault} 
                       alt="profile picture" 
                     />
                     <p>{user.user_name} {user.user_lastname}</p>
