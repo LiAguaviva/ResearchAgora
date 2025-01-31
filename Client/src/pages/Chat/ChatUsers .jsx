@@ -18,8 +18,7 @@ export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
         fetchChatUsers();
     }, [currentUserId]);
 
-   
-    
+
     return (
         <div className="users-list">
             {users.map(user => (

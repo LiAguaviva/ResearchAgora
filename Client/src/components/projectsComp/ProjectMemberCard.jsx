@@ -5,7 +5,7 @@ import { fetchData2 } from "../../helpers/axiosHelper";
 import { useNavigate } from "react-router-dom";
 import trash from '../../assets/icons/trash.svg'
 
-export const ProjectMemberCard = ({ elem, project }) => {
+export const ProjectMemberCard = ({ elem, project, removeMemberFromState  }) => {
   const { user, token } = useContext(AgoraContext);
   const navigate = useNavigate();
 
@@ -13,8 +13,12 @@ export const ProjectMemberCard = ({ elem, project }) => {
   const deletemember = async() => {
     try {
       let data = {user_id : elem.user_id, userID : user.user_id,project_id: project[0].project_id};
-      await fetchData2(`project/deleteMember`, 'post', data,  { Authorization: `Bearer ${token}` });
-      window.location.reload();
+
+await fetchData2(`project/deleteMember`, 'post', data,  { Authorization: `Bearer ${token}` });
+      removeMemberFromState(elem.user_id);
+
+
+
     } catch (error) {
       console.log(error)
     }

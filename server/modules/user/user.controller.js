@@ -282,7 +282,7 @@ class UserController {
         try {
           await userDal.invite(req.body);
       
-          const notificationContent = `You have been invited by ${sender_id} to join the project: ${project_title}`;
+          const notificationContent = `You have been invited to join the project: ${project_title}`;
       
           const notificationValues = [
             receiver_id, 

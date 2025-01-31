@@ -82,7 +82,8 @@ export const Chat = () => {
           message_content: inputText
       };
         const response = await fetchData2('message/sendmessage', 'POST', payload, { Authorization: `Bearer ${token}` });
-        
+
+
       } catch (error) {
         console.error("Failed to send message:", error);
       }
