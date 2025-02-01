@@ -38,7 +38,7 @@ export const ProfileUserCard = () => {
           <img 
             className='profileAvatar'
             src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
-            alt="your avatar" 
+            alt="your profile picture" 
           />
         </div>
 

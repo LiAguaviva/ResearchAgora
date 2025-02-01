@@ -31,7 +31,7 @@ export const ResearcherDataCard = ({researcher}) => {
           <h2 className='profileUserName'
           > {researcher?.user_name} {researcher?.user_lastname}</h2>
           <img 
-            src={message} alt="" 
+            src={message} alt="message icon" 
             onClick={onMessageClick}
             className="messageIcon"
           />

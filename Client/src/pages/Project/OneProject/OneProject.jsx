@@ -265,7 +265,7 @@ export const OneProject = () => {
           <section className="leaveProject containerPpal">
 
           <img 
-            src={leave} alt="" 
+            src={leave} alt="exit icon to click on when user wants to leave the project" 
             onClick={() => deletemember()}
             className="leaveIcon"
           />
