@@ -44,9 +44,17 @@ export const AllUsers = () => {
   };
 
   useEffect(() => {
-    if (skills.length === 0){
-      fetchUsers()
+    const fetchusers = async() => {
+
+      if (skills.length === 0){
+        fetchUsers()
+      }
     }
+    fetchusers();
+    const interval = setInterval(() => {
+      fetchusers();
+    }, 1000);
+    return () => clearInterval(interval);
   }, [skills])
 
   const handleKeyDownSkill = (e) => {
