@@ -4,6 +4,8 @@ import { AgoraContext } from "../../context/ContextProvider";
 import { useNavigate } from "react-router-dom";
 import message from "../../assets/icons/message.svg";
 import "../../pages/Chat/chat.css";
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
+
 
 export const UserAllUsersCard = ({ elem, showRequestModal }) => {
   const { user } = useContext(AgoraContext);
@@ -26,7 +28,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
           className="userCardAvatar"
           src={
             elem?.user_avatar
-              ? `http://localhost:4000/images/useravatar/${elem?.user_avatar}`
+              ? `${urlImg}/useravatar/${elem?.user_avatar}`
               : avatarDefault
           }
           alt="user profile picture"

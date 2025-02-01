@@ -4,6 +4,7 @@
   linear-gradient(0deg, rgba(255, 255, 255, 0.4) 0%, rgba(255,255,255,0.4) 100%),
   url('../../../assets/imgs/Lab1.jpg'); */
 
+  /* background-image: url('../../../assets/imgs/Lab1.jpg'); */
   background-image: url('../../../assets/imgs/Lab1.jpg');
 
   height: 40rem;
@@ -12,6 +13,7 @@
   background-position: center;
   background-size: cover;
 
+
   .homeLogo {
     text-align: center;
     font-weight: bold;
@@ -19,7 +21,7 @@
     img {
       object-fit: contain;
       width: 70%;
-      filter: drop-shadow(0 2px 5px #ffffff);
+      filter: drop-shadow(0 2px 2px white);
 
       @media (max-width: 1000px) {
         width: 100%;
@@ -27,7 +29,7 @@
     }
 
     h1 {
-      filter: drop-shadow(0 2px 5px #ffffff);
+      filter: drop-shadow(0 2px 2px #ffffff);
     }
 
     h1 {

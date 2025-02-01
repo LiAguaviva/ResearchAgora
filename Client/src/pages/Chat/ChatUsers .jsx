@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { fetchData2 } from '../../helpers/axiosHelper';
-const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 
-export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
+export const ChatUsers = ({ currentUserId, onUserClick,token, currentReceiverId  }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -16,7 +16,10 @@ export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
             }
         };
         fetchChatUsers();
-    }, [currentUserId]);
+    }, [currentUserId, currentReceiverId]);
+
+    // console.log('currentUserId', currentUserId);
+    console.log('users', users);
 
 
     return (
@@ -24,12 +27,12 @@ export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
             {users.map(user => (
                 <div key={user.user_id}  >
                 <div 
-                  className={`user-item ${currentUserId === user.user_id ? 'active-user' : ''}`}
+                  className={`user-item ${currentReceiverId === user.user_id ? 'active-user' : ''}`}
                   onClick={() => onUserClick(user.user_id)}
                 >
                     <img 
                       className='profileAvatar'
-                      src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
+                      src={user?.user_avatar? `${urlImg}/useravatar/${user.user_avatar}` : avatarDefault} 
                       alt="profile picture" 
                     />
                     <p>{user.user_name} {user.user_lastname}</p>

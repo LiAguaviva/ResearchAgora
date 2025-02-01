@@ -6,6 +6,8 @@ import axios from 'axios'
 import { fetchData } from '../../helpers/axiosHelper';
 import { editProfileScheme } from '../../schemes/editProfileScheme';
 import camera from '../../assets/icons/camera.svg'
+const urlUser = import.meta.env.VITE_SERVER_URL_USER;
+
  
 const initialValue = {
   
@@ -41,7 +43,7 @@ export const EditProfileForm = () => {
     const fetchSkillsAndFields = async () => {
       try {
         const res = await axios.post(
-          "http://localhost:4000/api/user/getskills&fields",
+          `${urlUser}/getskills&fields`,
           { id: user?.user_id }
         );
         setSkills(res?.data[0]?.skills?.split(",") || []);
@@ -315,7 +317,7 @@ export const EditProfileForm = () => {
             className='cameraIcon' 
             />
             <p>
-              Select our picture
+              Select your picture
             </p>
           </label>
           <input

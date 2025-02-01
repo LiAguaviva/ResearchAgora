@@ -108,24 +108,24 @@ class UserDal {
   allUsers = async () => {
     try {
       let sql = `SELECT 
-    u.user_id, 
-    u.user_name, 
-    u.user_lastname, 
-    u.user_email, 
-    u.user_country, 
-    u.user_city, 
-    u.user_description, 
-    u.user_proficiency, 
-    u.user_avatar,
-    IFNULL(GROUP_CONCAT(DISTINCT s.skill_name), '') AS skills, 
-    IFNULL(GROUP_CONCAT(DISTINCT f.field_name), '') AS fields
-FROM user u
-LEFT JOIN user_skill us ON u.user_id = us.user_id 
-LEFT JOIN skill s ON us.skill_id = s.skill_id 
-LEFT JOIN user_field uf ON u.user_id = uf.user_id 
-LEFT JOIN field f ON uf.field_id = f.field_id 
-WHERE u.user_type = 2 AND u.user_is_disabled = 0 
-GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, u.user_city, u.user_description, u.user_proficiency;
+          u.user_id, 
+          u.user_name, 
+          u.user_lastname, 
+          u.user_email, 
+          u.user_country, 
+          u.user_city, 
+          u.user_description, 
+          u.user_proficiency, 
+          u.user_avatar,
+          IFNULL(GROUP_CONCAT(DISTINCT s.skill_name), '') AS skills, 
+          IFNULL(GROUP_CONCAT(DISTINCT f.field_name), '') AS fields
+            FROM user u
+            LEFT JOIN user_skill us ON u.user_id = us.user_id 
+            LEFT JOIN skill s ON us.skill_id = s.skill_id 
+            LEFT JOIN user_field uf ON u.user_id = uf.user_id 
+            LEFT JOIN field f ON uf.field_id = f.field_id 
+            WHERE u.user_type = 2 AND u.user_is_disabled = 0 
+            GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, u.user_city, u.user_description, u.user_proficiency;
 `;
 
       const result = await executeQuery(sql)

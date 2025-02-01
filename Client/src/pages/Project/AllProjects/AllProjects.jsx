@@ -13,7 +13,7 @@ export const AllProjects = () => {
   
   const fetchProjects = async() => {
     try {
-      const result = await fetchData2(`http://localhost:4000/api/project/allprojects`, 'get');
+      const result = await fetchData2(`project/allprojects`, 'get');
       setProjects(result)
     } catch (error) {
       console.log(error)

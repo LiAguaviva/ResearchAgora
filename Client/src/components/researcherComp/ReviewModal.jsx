@@ -41,8 +41,14 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
     try {
       await fetchData2('review/createreview', 'post', result);
       closeModal();
+      window.location.reload();
     } catch (error) {
-      setMsg(error.response?.data?.message);
+      const errorMsg = error.response?.data?.message || '';
+      if (errorMsg.includes('Duplicate entry')) {
+        setMsg('You have already reviewed this user before.');
+      } else {
+        setMsg(errorMsg || 'Review creation failed');
+  }
     }
   }
   };
@@ -62,7 +68,7 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
             id="description"
             type="text"
             placeholder="Write Your Review"
-            value={review?.text || ""}
+            value={review?.description || ""}
             onChange={handleChange}
             name="description" 
           />

@@ -124,7 +124,7 @@
 .menuDropdown {
   display: flex;
   justify-content: right;
-  text-align: right;
+  text-align: left;
   position: absolute;
   background-color: var(--purple);
   padding: var(--size1);
@@ -190,7 +190,7 @@
 }
 
 .notifications {
-  justify-content: right;
+  justify-content: left;
   display: flex;
   align-items: center;
   gap: var(--size05);
@@ -204,7 +204,11 @@
 .notificationItem {
   display: flex;
   flex-direction: column;
-  gap: var(--size1);
+  gap: var(--size05);
+  margin-top: -0.5rem;
+  p {
+    line-height: normal;
+  }
 
   &:hover {
     p {
