@@ -1,18 +1,38 @@
 import React from 'react'
 import logo from '../../../assets/logo/Logo_full_PurpleBlue.png'
 import './Home.css'
+import moleculeVideo from '../../../assets/video/mulecule.mp4';
+ 
 
 
 export const Home = () => {
   return (
     <>
-    <section className='homeLogoSection'>
-    <div className='containerPpal homeLogo'>
+    {/* <section className='homeLogoSection'>
+      <div className='containerPpal homeLogo'>
+        <img src={logo} alt="Research Agora Logo" />
+        <h1>Discuss Share Collaborate</h1>
+        <p>Better research together</p>
+      </div>
+    </section> */}
+
+  <section className='homeVideoSection'>
+    <video 
+      autoPlay loop muted playsInline
+      className="moleculeVideo"
+    >
+      <source src={moleculeVideo} type="video/mp4" />
+    </video>
+  </section>
+
+  <section className='homeLogoSection'>
+      <div className='containerPpal homeLogo'>
       <img src={logo} alt="Research Agora Logo" />
-      <h1>Discuss Share Collaborate</h1>
-      <p>Better research together</p>
-    </div>
+        <h1>Discuss Share Collaborate</h1>
+        <p>Better research together</p>
+      </div>
     </section>
+
 
     <section className='whoWeAreSection'>
       <div className='containerPpal whoWeAre'>
@@ -26,8 +46,8 @@ export const Home = () => {
     </section>
 
     <section className='researchers'>
-    <div>
-        </div>
+      <div>
+      </div>
     </section>
 
     </>

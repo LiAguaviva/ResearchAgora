@@ -155,10 +155,13 @@ button {
   width: max-content;
   border-radius: var(--size2);
   padding-inline: var(--size05);
+  padding-bottom: 2px;
   height: 1.5rem;
   background-color: var(--purple);
   color: var(--white);
   cursor: pointer;
+  display: flex;
+  align-items: center;
 
   &:hover {
     background-color: var(--magenta);

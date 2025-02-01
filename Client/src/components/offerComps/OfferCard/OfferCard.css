@@ -31,6 +31,7 @@
 
   .vacancies {
     font-weight: bold;
+    color: var(--magenta);
   }
 
   .buttons {

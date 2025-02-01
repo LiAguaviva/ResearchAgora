@@ -23,6 +23,19 @@
   flex-wrap: wrap;
 }
 
+.userCardData {
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* gap: var(--size05); */
+  p {
+    line-height: normal;
+  }
+
+  .tagsContainer {
+    margin-top: var(--size05);
+  }
+}
+
 .UserCardName {
   font-weight: bold;
 }

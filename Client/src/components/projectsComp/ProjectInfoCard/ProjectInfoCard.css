@@ -52,6 +52,10 @@
     flex-wrap: wrap;
   }
 
+  .description {
+    margin-top: var(--size1);
+  }
+
   .separatorThick {
     width: 20rem;
     margin-inline: auto;

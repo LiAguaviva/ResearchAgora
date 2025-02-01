@@ -96,10 +96,18 @@
   }
 }
 
-.cameraIcon {
-  height: var(--size4);
+.avatarInput {
 
-  &:hover {
-    filter: brightness(0);
+  label {
+    justify-items: center;
+  }
+
+  .cameraIcon {
+    height: var(--size4);
+    
+    &:hover {
+      filter: brightness(0);
+    }
   }
 }
+

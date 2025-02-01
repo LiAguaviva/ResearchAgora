@@ -1,17 +1,27 @@
 
-.homeLogoSection {
-  /* background-image: 
-  linear-gradient(0deg, rgba(255, 255, 255, 0.4) 0%, rgba(255,255,255,0.4) 100%),
-  url('../../../assets/imgs/Lab1.jpg'); */
+.homeVideoSection {
+  position: relative;
+  height: 28rem;
 
+  .moleculeVideo {
+    width: 100%;
+    height: 40rem;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.homeLogoSection {
   /* background-image: url('../../../assets/imgs/Lab1.jpg'); */
-  background-image: url('../../../assets/imgs/Lab1.jpg');
+
+  margin-top: -30rem;
 
   height: 40rem;
   justify-content: center;
   align-content: center;
   background-position: center;
   background-size: cover;
+  
 
 
   .homeLogo {
@@ -59,7 +69,6 @@
 }
 
 .whoWeAreSection {
-  /* background-color: var(--purple50); */
   padding-block: var(--size5);
 
   .whoWeAre {
