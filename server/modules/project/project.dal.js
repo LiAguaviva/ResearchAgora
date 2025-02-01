@@ -17,7 +17,7 @@ class ProjectDal {
 
       let sqlUserProject = `INSERT INTO user_project (user_id, project_id, status) VALUES (?, ?, ?)`;
       await connection.execute(sqlUserProject, [creatorUserId, projectId, 2]);
-      // Status = 2 (e.g., active/confirmed)
+      // Status = 2 (member)
 
       if (!Array.isArray(skill_name)) {
         skill_name =
@@ -280,11 +280,7 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
     let sql =
       "UPDATE project SET project_title = ?, project_city = ?, project_country = ?, project_description = ?, project_type = ?, project_status = ?, project_outcome = ?, project_link = ?, project_max_member = ? WHERE project_id = ?";
       console.log('edit project dal', values);
-      
-    // values[4] = Number(values[4]); //delete once front is running
-    // values[5] = Number(values[5]); //delete once front is running
-    // values[9] = Number(values[9]); //delete once front is running
-   
+    
     try {
       const result = await executeQuery(sql, values);
       return result;

@@ -13,7 +13,7 @@ CREATE TABLE user (
     user_email VARCHAR (100) UNIQUE NOT NULL,
     user_country VARCHAR (100),
     user_city VARCHAR (100),
-    user_description VARCHAR (250),
+    user_description VARCHAR (500),
     user_password VARCHAR (255) NOT NULL,
     user_avatar VARCHAR (250),
     user_type TINYINT UNSIGNED DEFAULT 2, -- 1 admin / 2 researcher
