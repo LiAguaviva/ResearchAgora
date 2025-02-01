@@ -21,7 +21,7 @@
     img {
       object-fit: contain;
       width: 70%;
-      filter: drop-shadow(0 2px 2px var(--purple50));
+      filter: drop-shadow(0 2px 2px white);
 
       @media (max-width: 1000px) {
         width: 100%;

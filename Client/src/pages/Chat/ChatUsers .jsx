@@ -3,7 +3,7 @@ import { fetchData2 } from '../../helpers/axiosHelper';
 const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 
-export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
+export const ChatUsers = ({ currentUserId, onUserClick,token, currentReceiverId  }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -16,7 +16,10 @@ export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
             }
         };
         fetchChatUsers();
-    }, [currentUserId]);
+    }, [currentUserId, currentReceiverId]);
+
+    // console.log('currentUserId', currentUserId);
+    console.log('users', users);
 
 
     return (
@@ -24,7 +27,7 @@ export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
             {users.map(user => (
                 <div key={user.user_id}  >
                 <div 
-                  className={`user-item ${currentUserId === user.user_id ? 'active-user' : ''}`}
+                  className={`user-item ${currentReceiverId === user.user_id ? 'active-user' : ''}`}
                   onClick={() => onUserClick(user.user_id)}
                 >
                     <img 
