@@ -1,4 +1,4 @@
-import { dbPool, executeQuery } from "../../config/db.js";
+import { executeQuery } from "../../config/db.js";
 
 class NotificationDal {
   addNotification = async (values) => {

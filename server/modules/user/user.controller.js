@@ -3,7 +3,6 @@ import { deleteFile } from '../../utils/deleteFile.js';
 import userDal from "./user.dal.js";
 import { emailValidationToken, generateToken, getIdFromToken, generateTokenPassword } from "../../utils/tokenUtils.js";
 import { sendMailValidation, sendPasswordResetEmail  } from "../../services/emailService.js";
-import { dbPool } from "../../config/db.js";
 import {z} from "zod";
 import {registerScheme} from '../../schemes/registerScheme.js'
 import {loginScheme} from '../../schemes/loginScheme.js'
@@ -101,44 +100,7 @@ class UserController {
     findUserById = async (req, res) => {
       const id = getIdFromToken(req.token)
       const user = await userDal.getUserById(id)
-      
-    /*  
-      
-      user.forEach((elem)=>{
-          if(elem.user_id){
-              user = {
-                  user_id: elem.user_id,
-                  user_name: elem.user_name,
-                  user_lastname: elem.user_lastname,
-                  user_email: elem.user_email,
-                  user_country: elem.user_country,
-                  user_city: elem.user_city,
-                  user_description: elem.user_description,
-                  user_password: elem.user_password,
-                  user_avatar: elem.user_avatar,
-                  user_type: elem.user_type,
-                  user_proficiency: elem.user_proficiency,
-              }  //field transactions 
-              user.push(user_id)
-          }
-      }
     
-    )
-
-       userData = {
-        user: {
-            user_id: user[0].user_id,
-            user_name: user[0].name,
-            user_lastname: user[0].lastname,
-            user_email: user[0].email,
-            user_country: user[0].user_country,
-            user_city: user[0].user_city,
-            birth_date: user[0].birth_date,
-            avatar: user[0].avatar,
-            type:user[0].type
-        },
-        user
-      } */
       res.status(200).json(user)  
     }
 

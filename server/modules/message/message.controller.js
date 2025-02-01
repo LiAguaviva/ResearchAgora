@@ -1,4 +1,3 @@
-import { executeQuery } from "../../config/db.js";
 import notificationDal from "../notification/notification.dal.js";
 import messageDal from "./message.dal.js";
 

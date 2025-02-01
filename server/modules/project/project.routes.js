@@ -4,7 +4,6 @@ import { tokenVerify } from '../../middleware/verifyToken.js';
 
 const router = express.Router()
 router.get('/allprojects', projectController.allprojects)
-// router.post('/oneuserprojects', projectController.oneuserprojects)
 router.post('/oneresearcherprojects', projectController.oneresearcherprojects)
 router.post('/oneUserAvailableProjects', projectController.oneUserAvailableProjects)
 router.post('/addproject/:creator_user_id', tokenVerify, projectController.addproject)
