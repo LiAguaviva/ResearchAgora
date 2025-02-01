@@ -8,11 +8,13 @@ import { fetchData2 } from '../../helpers/axiosHelper';
 const handleRatingSubmit = (rating) => {
 };
 
-export const ReviewModal = ({show,setShow, researcher,user}) => {
+export const ReviewModal = ({show,setShow, researcher,user,setReview}) => {
   const navigate = useNavigate();
-  const [review, setReview ]= useState({})
+  const [review1, setReview1 ]= useState({})
   const [rating, setRating] = useState(0)
   const [msg, setMsg] = useState('')
+
+  const [refresh, setRefresh] = useState(false);
   // const [result, setResult] = useState({});
 
 
@@ -22,36 +24,36 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
 
   const handleChange = (e) => {
    const {name, value} = e.target;
-   setReview({...review, [name]: value })
+   setReview1({...review1, [name]: value })
   }
   
-   const onSubmit = async(e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    // setResult({...result, review, rating})
-    // setResult((prevResult) => ({...prevResult, review, rating}));
-
-    let result = {...review, rating,user,researcher}
-    
-    if (rating === 0){
-      setMsg('* Choose your rating')
-    } else if (!review.description) {
-      setMsg('* write your review')
+    let newReview = { ...review1, rating, user, researcher };
+  
+    if (rating === 0) {
+      setMsg("* Choose your rating");
+    } else if (!review1.description) {
+      setMsg("* Write your review");
     } else {
-
-    try {
-      await fetchData2('review/createreview', 'post', result);
-      closeModal();
-      window.location.reload();
-    } catch (error) {
-      const errorMsg = error.response?.data?.message || '';
-      if (errorMsg.includes('Duplicate entry')) {
-        setMsg('You have already reviewed this user before.');
-      } else {
-        setMsg(errorMsg || 'Review creation failed');
-  }
+      try {
+        const response = await fetchData2("review/createreview", "post", newReview);
+        
+        // Añadir la nueva reseña al estado sin recargar la página
+        setReview((prevReviews) => [newReview, ...prevReviews]);
+  
+        closeModal();
+      } catch (error) {
+        const errorMsg = error.response?.data?.message || "";
+        if (errorMsg.includes("Duplicate entry")) {
+          setMsg("You have already reviewed this user before.");
+        } else {
+          setMsg(errorMsg || "Review creation failed");
+        }
+      }
     }
-  }
   };
+  
   
 
    
@@ -68,7 +70,7 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
             id="description"
             type="text"
             placeholder="Write Your Review"
-            value={review?.description || ""}
+            value={review1?.description || ""}
             onChange={handleChange}
             name="description" 
           />

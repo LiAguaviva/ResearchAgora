@@ -11,19 +11,22 @@ export const ResearcherReviewCard = ({elem}) => {
   const {user} = useContext(AgoraContext)
 
   const renderStars = (rate) => {
-    const emptyStars = 5 - rate;  
+    const validRate = Math.max(0, Math.min(5, Math.floor(rate)));
+    const emptyStars = 5 - validRate;  
+  
     return (
       <>
-        {Array(rate).fill('★').map((star, index) => (
-          <span key={`full-${index}`} style={{ color: '#FFD700', fontSize: '20px' }}>{star}</span>
+        {Array.from({ length: validRate }, (_, index) => (
+          <span key={`full-${index}`} style={{ color: "#FFD700", fontSize: "20px" }}>★</span>
         ))}
-        {Array(emptyStars).fill('☆').map((star, index) => (
-          <span key={`empty-${index}`} style={{ color: '#D3D3D3', fontSize: '20px' }}>{star}</span>
+        {Array.from({ length: emptyStars }, (_, index) => (
+          <span key={`empty-${index}`} style={{ color: "#D3D3D3", fontSize: "20px" }}>☆</span>
         ))}
       </>
     );
   };
-
+  
+  console.log('El elem en renderstars es ->', elem)
   return (
     <div>
       <div className='reviewCard'>
