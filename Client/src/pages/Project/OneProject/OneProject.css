@@ -20,15 +20,18 @@
   .tagsContainer {
     row-gap: var(--size1);
   }
-
-  /* .offersSection {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size2);
-    align-items: center;
-  } */
-
 }
+
+.offersSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size3);
+
+  button {
+    margin-inline: auto;
+  }
+}
+
 .offerGallery {
   display: flex;
   flex-wrap: wrap;

@@ -5,6 +5,7 @@ import { fetchData2 } from '../../helpers/axiosHelper';
 import { ChatUsers } from './ChatUsers ';
 import { ChatBox } from './ChatBox';
 import './chat.css';
+import arrowUpDown from '../../assets/icons/arrow-upDown.svg'
 
 
 export const Chat = () => {
@@ -15,7 +16,7 @@ export const Chat = () => {
   const [currentReceiverId, setCurrentReceiverId] = useState(initialReceiverId);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
-  const [seeUsers, setSeeUsers] = useState(true);
+  const [seeUsers, setSeeUsers] = useState(false);
   const [loading, setLoading] = useState(true);
   const [time, setTime] = useState(1000)
 
@@ -106,6 +107,18 @@ export const Chat = () => {
     }
   };
 
+  const handleResize = () => {
+    if (window.innerWidth < 700) {
+      setSeeUsers(false);
+    } else {
+      setSeeUsers(true);
+    }
+  };
+
+  useEffect(() => {
+    handleResize()
+  }, [window.addEventListener('resize', handleResize)]);
+
   const isSendDisabled = user?.user_id === currentReceiverId;
 
   return (
@@ -115,7 +128,13 @@ export const Chat = () => {
         <button 
           onClick={()=> setSeeUsers(!seeUsers)}
           className='seeUsersChatButton'
-        >your chats</button>
+        >your chats
+        <img 
+          src={arrowUpDown} 
+          alt="arrow to open and hide your chats" 
+        />
+        </button>
+        
         {/* <div className="usersList"> */}
           {seeUsers && 
             <ChatUsers 

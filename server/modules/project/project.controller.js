@@ -1,23 +1,29 @@
 
+import { createProjectScheme } from "../../schemes/createProjectScheme.js";
 import notificationDal from "../notification/notification.dal.js";
 import userDal from "../user/user.dal.js";
 import projectDal from "./project.dal.js";
+import {z} from "zod";
+
 
 
 class ProjectController {
 
     addproject = async (req, res) =>{
       try {
-        const {title, city, country, description, max_member, type, status, skill_name} = req.body;
+        const {title, city, country, description, max_member, type, skill_name} = req.body;
         const {creator_user_id} = req.params;
-        const values = [title, city, country, description, type, status, max_member, creator_user_id];
-
+        const values = [title, city, country, description, type, max_member, creator_user_id];
         const result = await projectDal.registerProject(values, skill_name);
- 
+
         res.status(200).json(result)
+
       } catch (error) {
+        if(error instanceof z.ZodError) {
+          console.log(error.errors[0].message)
+          return res.status(400).json(error.errors[0].message)
+        }
         res.status(500).json(error)    
-        
      }   
     }
 
@@ -77,12 +83,14 @@ class ProjectController {
     editproject = async (req, res) => {
       try {
          const {id, title, city, country, description, type, status, outcome, link, max_member, skill} = req.body;
-
+        console.log('editproject controller', req.body);
+        
          const result = await projectDal.editProject([title, city, country, description, type, status, outcome, link, max_member, id]);
          const result2 = await this.editSkill(skill, id)
          res.status(200).json('ok')
       } catch (error) {
         res.status(500).json(error)
+        console.log("EEEE", error);
       }
     }
 

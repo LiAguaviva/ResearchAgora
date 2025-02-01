@@ -62,7 +62,7 @@ export const ReviewModal = ({show,setShow, researcher,user}) => {
             id="description"
             type="text"
             placeholder="Write Your Review"
-            value={review.text}
+            value={review?.text || ""}
             onChange={handleChange}
             name="description" 
           />

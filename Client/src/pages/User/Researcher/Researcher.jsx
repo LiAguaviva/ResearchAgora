@@ -119,11 +119,10 @@ export const Researcher = () => {
                researcher = {researcher.user_id} 
                user = {user.user_id} 
             />}
-          <div className="reviewGallery">
-          </div>
+       
       </section>
        <section className="containerPpal offersSection">
-          <div className="offerGallery">
+          <div className="reviewGallery">
           {review?.map((elem,index) => {
             return (
                 <ResearcherReviewCard

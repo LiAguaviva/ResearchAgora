@@ -1,14 +1,17 @@
 import { dbPool, executeQuery } from "../../config/db.js";
 
 class ProjectDal {
+
   registerProject = async (values, skill_name) => {
     const connection = await dbPool.getConnection();
     try {
       await connection.beginTransaction();
-
-      let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_status, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+      console.log('create project dal', values);
+      
+      let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?)`;
       const [projectResult] = await connection.execute(sql, values);
       const projectId = projectResult.insertId;
+      
 
       const creatorUserId = values[values.length - 1];
 
@@ -276,6 +279,11 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
   editProject = async (values) => {
     let sql =
       "UPDATE project SET project_title = ?, project_city = ?, project_country = ?, project_description = ?, project_type = ?, project_status = ?, project_outcome = ?, project_link = ?, project_max_member = ? WHERE project_id = ?";
+      console.log('edit project dal', values);
+      
+    // values[4] = Number(values[4]); //delete once front is running
+    // values[5] = Number(values[5]); //delete once front is running
+    // values[9] = Number(values[9]); //delete once front is running
    
     try {
       const result = await executeQuery(sql, values);

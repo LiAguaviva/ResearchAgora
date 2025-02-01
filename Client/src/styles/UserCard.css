@@ -37,6 +37,8 @@
   object-fit: cover;
   object-position: center;
   color: var(--aqua);
+  cursor: pointer;
+
 
   img {
     width: var(--AvatarSize);

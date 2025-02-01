@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { fetchDataValidation } from '../../../helpers/axiosHelper';
 import './AccountVerified.css'
 import logo from '../../../assets/logo/Logo_full_PurpleBlue.png'
+const urlUser = import.meta.env.VITE_SERVER_URL_USER;
 
 export const AccountVerified = () => {
 
@@ -13,7 +14,7 @@ export const AccountVerified = () => {
   useEffect(() => {
     const fetchUser = async() => {
       try {
-        const res = await fetchDataValidation ('http://localhost:4000/api/user/'+"verifyAccount/"+token, "get")
+        const res = await fetchDataValidation (`${urlUser}/verifyAccount/token, "get"`)
       } catch (error) {
         console.log(error);  
       }

@@ -1,6 +1,7 @@
 
 .requestCard, .invitationCard {
   display: flex;
+  gap: var(--size1);
 
   .offerTitle {
     color: var(--aqua);

@@ -7,6 +7,10 @@ export const createProjectScheme = z.object({
   description: z.string().max(2000, '* Description cannot exceed 2000 characters'),
 
   max_member: z
-  .preprocess((val) => (typeof val === 'string' ? parseFloat(val) : val), z.number())
+  .preprocess((val) => Number(val), z.number())
   .refine((val) => val > 1, '* Number must be greater than 1'),
+  
+  // max_member: z
+  // .preprocess((val) => (typeof(val) === 'string' ? parseFloat(val) : val), z.number())
+  // .refine((val) => val > 1, '* Number must be greater than 1'),
 });

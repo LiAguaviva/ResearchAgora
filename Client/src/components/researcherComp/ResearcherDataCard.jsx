@@ -1,6 +1,6 @@
 import React from 'react'
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
-const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import { useNavigate } from 'react-router-dom';
 import message from '../../assets/icons/message.svg'
 import { ResearcherTagsCard } from './ResearcherTagsCard';
@@ -21,7 +21,7 @@ export const ResearcherDataCard = ({researcher}) => {
         <div className='profileAvatar'>
           <img 
           className='profileAvatar'
-            src={researcher?.user_avatar? `${url}/useravatar/${researcher.user_avatar}` : avatarDefault} 
+            src={researcher?.user_avatar? `${urlImg}/useravatar/${researcher.user_avatar}` : avatarDefault} 
             alt="user profile picture" 
           />
         </div>

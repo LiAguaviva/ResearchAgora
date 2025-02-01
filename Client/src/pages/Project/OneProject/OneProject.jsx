@@ -211,7 +211,7 @@ export const OneProject = () => {
       {requestsview.length > 0 && (
         <>
         <section className="containerPpal requestSection">
-          <h3>You have requests to join on your projects!</h3>
+          <h3>You have requests to join on your project!</h3>
           <div className="requestGallery">
             {requestsview?.map((elem) => {
               return (
@@ -231,6 +231,7 @@ export const OneProject = () => {
       )}
 
       <section className="containerPpal offersSection">
+      <h3>Be part of our project</h3>
         <div className="offerGallery">
           {offers?.map((elem) => {
             return (
@@ -254,7 +255,7 @@ export const OneProject = () => {
       </section>
       
       <section className="containerPpal offersSection">
-        <div className="offerGallery">
+        <div className="reviewGallery">
           {review?.map((elem, index) => {
             return <ProjectReviewCard key={index} elem={elem} />;
           })}

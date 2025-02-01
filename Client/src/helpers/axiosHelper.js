@@ -1,13 +1,13 @@
 /* eslint-disable no-useless-catch */
 import axios from 'axios';
+const apiUrl_user = import.meta.env.VITE_SERVER_URL_USER;
 const apiUrl = import.meta.env.VITE_SERVER_URL;
-const apiUrl2 = import.meta.env.VITE_SERVER_URL2;
 
 export const fetchData = async (url, method, data = null, headers={}) => {
     try {
         const config = {
             method,
-            url:apiUrl+url,
+            url:apiUrl_user+url,
             headers,
             data
         }
@@ -40,7 +40,7 @@ export const fetchData2 = async (url, method, data = null, headers={}) => {
     try {
         const config = {
             method,
-            url:apiUrl2+url,
+            url:apiUrl+url,
             headers,
             data
         }

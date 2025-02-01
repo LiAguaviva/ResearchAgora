@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchData2 } from '../../helpers/axiosHelper';
-const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import avatarDefault from '../../assets/imgs/defaultIMG.png'
 
 export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
@@ -22,20 +22,20 @@ export const ChatUsers = ({ currentUserId, onUserClick,token  }) => {
     return (
         <div className="users-list">
             {users.map(user => (
-                <>
+                <div key={user.user_id}  >
                 <div 
-                    key={user.user_id} 
-                    className={`user-item ${currentUserId === user.user_id ? 'active-user' : ''}`}
-                    onClick={() => onUserClick(user.user_id)}>
-                   <img 
+                  className={`user-item ${currentUserId === user.user_id ? 'active-user' : ''}`}
+                  onClick={() => onUserClick(user.user_id)}
+                >
+                    <img 
                       className='profileAvatar'
-                      src={user?.user_avatar? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
+                      src={user?.user_avatar? `${urlImg}/useravatar/${user.user_avatar}` : avatarDefault} 
                       alt="profile picture" 
                     />
                     <p>{user.user_name} {user.user_lastname}</p>
                 </div>
                 <div className='separatorChat' />
-                </>
+                </div>
             ))}
         </div>
     );

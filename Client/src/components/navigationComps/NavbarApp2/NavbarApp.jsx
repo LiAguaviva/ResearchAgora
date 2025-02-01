@@ -6,7 +6,7 @@ import avatarDefault from '../../../assets/imgs/defaultIMG.png'
 import bell from '../../../assets/icons/bell.svg'
 import { AgoraContext } from '../../../context/ContextProvider'
 import { ScrollToTop } from '../ScrollToTop/ScrollToTop'
-const url = import.meta.env.VITE_IMAGEPROVIDER_URL;
+const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 
 
 export const NavbarApp = () => {
@@ -121,16 +121,9 @@ export const NavbarApp = () => {
                 className={`avatarNav ${notifications.length > 0 ? 'avatarNav--withNotif' : ''}`}
                 onClick={() => navigate('/profile')}
                 onMouseOver={() => setDropdownMenu('userMenu')}
-                src={user?.user_avatar ? `${url}/useravatar/${user.user_avatar}` : avatarDefault} 
+                src={user?.user_avatar ? `${urlImg}/useravatar/${user.user_avatar}` : avatarDefault} 
                 alt="Your profile picture" 
               />
-
-              {/* <button
-                onClick={() => setDropdownMenu(dropdownMenu === 'notifications' ? '' : 'notifications')}
-                >
-                Notifications {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
-              </button> */}
-
           <div>
           </div>
 
@@ -190,13 +183,13 @@ export const NavbarApp = () => {
                           onClick={() => handleNotificationClick(notif)}
                         >
                           <p>{notif.content}</p>
+                          <div className='separator' />
                         </div>
                       ))
                     ) : (
                       <div className='notificationItem'>No notifications</div>
                     )}
 
-                    <div className='separator' />
                   </div>
                 )}
               

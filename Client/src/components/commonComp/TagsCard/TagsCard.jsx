@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import './TagsCard.css'
 import { AgoraContext } from '../../../context/ContextProvider'
+const urlUser = import.meta.env.VITE_SERVER_URL_USER;
+
 
 export const TagsCard = () => {
 
@@ -14,7 +16,7 @@ export const TagsCard = () => {
     const fetchSkillsAndFields = async () => {
       try {
         const res = await axios.post(
-          "http://localhost:4000/api/user/getskills&fields",
+          `${urlUser}/getskills&fields`,
           { id: user.user_id }
         );
         setSkills(res?.data[0]?.skills?.split(",") ? res?.data[0]?.skills.split(",") : []);

@@ -57,15 +57,16 @@ h1, h2, h3, h4 {
   text-transform: capitalize;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  text-wrap: pretty;
 }
 
 p {
   font-size: var(--textBody);
   line-height: 1.6rem;
-
+  text-wrap: pretty;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  max-width: max-content;
+  /* max-width: max-content; */
 }
 
 .containerPpal {
