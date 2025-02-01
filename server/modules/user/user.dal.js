@@ -124,7 +124,7 @@ class UserDal {
             LEFT JOIN skill s ON us.skill_id = s.skill_id 
             LEFT JOIN user_field uf ON u.user_id = uf.user_id 
             LEFT JOIN field f ON uf.field_id = f.field_id 
-            WHERE u.user_type = 2 AND u.user_is_disabled = 0 
+            WHERE u.user_type = 2 AND u.user_is_disabled = 0 AND u.user_is_verified = 1
             GROUP BY u.user_id, u.user_name, u.user_lastname, u.user_email, u.user_country, u.user_city, u.user_description, u.user_proficiency;
 `;
 
