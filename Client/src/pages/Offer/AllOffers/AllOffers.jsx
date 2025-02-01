@@ -89,7 +89,6 @@ export const AllOffers = () => {
                 <span 
                   onClick={() => removeSkill(index)} 
                   className="deleteBtn"
-                  // value={editUser?.skills ? editUser.skills : ''}
                 >
                   ×
                 </span>

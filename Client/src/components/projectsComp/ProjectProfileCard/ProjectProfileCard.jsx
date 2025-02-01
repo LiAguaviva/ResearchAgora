@@ -51,9 +51,6 @@ export const ProjectProfileCard = ({ elem }) => {
           {elem.project_status === 3 && <p className="status paused">paused</p>}
         </div>
 
-        {/* <div className="description">
-          <p>{elem.project_description}</p>
-        </div> */}
       </div>
     </div>
   );

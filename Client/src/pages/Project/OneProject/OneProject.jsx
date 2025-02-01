@@ -25,10 +25,7 @@ export const OneProject = () => {
   const [requestsview, setrequestsview] = useState([]);
 
   const [applyButton, setApplyButton] = useState("apply");
-  // const changeApplyButton = () => {
-  //   if (project.request_status )
-  // }
-
+  
   const memberStatus = members.some(
     (member) => member.user_id === user?.user_id
   );
@@ -104,14 +101,6 @@ export const OneProject = () => {
       );
 
       
-
-      /*   if(result[0].request_status === 1){
-        setApplyButton('applied')
-      } else if (result[0].request_status === 2){
-        setApplyButton('teamMember')
-      } if(result[0].request_status === 3){
-        setApplyButton('notSelected')
-      } */
       setrequests(result);
     } catch (error) {
       console.log(error);

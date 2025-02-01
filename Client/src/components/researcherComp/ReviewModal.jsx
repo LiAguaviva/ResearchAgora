@@ -15,8 +15,6 @@ export const ReviewModal = ({show,setShow, researcher,user,setReview}) => {
   const [msg, setMsg] = useState('')
 
   const [refresh, setRefresh] = useState(false);
-  // const [result, setResult] = useState({});
-
 
   const closeModal = () => {
     setShow(!show)
@@ -39,7 +37,6 @@ export const ReviewModal = ({show,setShow, researcher,user,setReview}) => {
       try {
         const response = await fetchData2("review/createreview", "post", newReview);
         
-        // Añadir la nueva reseña al estado sin recargar la página
         setReview((prevReviews) => [newReview, ...prevReviews]);
   
         closeModal();
@@ -54,9 +51,6 @@ export const ReviewModal = ({show,setShow, researcher,user,setReview}) => {
     }
   };
   
-  
-
-   
 
   return (
     
@@ -64,7 +58,6 @@ export const ReviewModal = ({show,setShow, researcher,user,setReview}) => {
         <form className='verificationModal'>
         <h4>Write a Review</h4>
         <fieldset className="textareaBig">
-         {/*  <label htmlFor="description">Description</label> */}
           <textarea
             className='reviewTextarea'
             id="description"

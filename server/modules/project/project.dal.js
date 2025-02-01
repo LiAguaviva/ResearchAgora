@@ -6,7 +6,6 @@ class ProjectDal {
     const connection = await dbPool.getConnection();
     try {
       await connection.beginTransaction();
-      console.log('create project dal', values);
       
       let sql = `INSERT INTO project(project_title, project_city, project_country, project_description, project_type, project_max_member, creator_user_id) VALUES (?, ?, ?, ?, ?, ?, ?)`;
       const [projectResult] = await connection.execute(sql, values);
@@ -279,7 +278,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
   editProject = async (values) => {
     let sql =
       "UPDATE project SET project_title = ?, project_city = ?, project_country = ?, project_description = ?, project_type = ?, project_status = ?, project_outcome = ?, project_link = ?, project_max_member = ? WHERE project_id = ?";
-      console.log('edit project dal', values);
     
     try {
       const result = await executeQuery(sql, values);
@@ -300,7 +298,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
           let sqlId = "SELECT max(skill_id) AS id FROM skill";
           try {
             let [result] = await connection.execute(sqlId);
-            console.log(result);
             if (result[0].id != null) {
               finalId = result[0].id + 1;
             }
@@ -315,7 +312,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
       let dataString = finalArrayData.join();
       let sql2 = "SELECT skill_id FROM skill WHERE find_in_set(skill_name, ?)";
       let [result] = await connection.execute(sql2, [dataString]);
-      console.log(result);
       let sql3 = "DELETE FROM project_skill WHERE project_id = ?";
       await connection.execute(sql3, [project_id]);
       let sql4 =
@@ -353,7 +349,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
 
       let sqlOffers = "SELECT offer_id FROM offer WHERE project_id = ?";
       const [offers] = await connection.execute(sqlOffers, [project_id]);
-      console.log("offers", offers);
 
       if (offers.length > 0) {
         let offerIds = offers.map((offer) => offer.offer_id);
@@ -373,21 +368,18 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
   };
 
   findprojects = async (skills) => {
-    console.log("Skills in DAL:", skills);
 
     const skillArray = skills
       .replace(/[\[\]]/g, "")
       .split(",")
       .map((skill) => skill.trim());
 
-    console.log("Skills in DAL after:", skillArray);
 
     if (skillArray.length === 0) {
       throw new Error("No skills provided.");
     }
 
     const placeholders = skillArray.map(() => "?").join(",");
-    console.log("Placeholders:", placeholders);
 
     const connection = await dbPool.getConnection();
     try {
@@ -435,10 +427,8 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
           .join(", "),
       }));
 
-      console.log("Projects with skills:", projectMap);
       return projectMap;
     } catch (error) {
-      console.error("Error fetching projects:", error);
       throw error;
     } finally {
       connection.release();
@@ -466,8 +456,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
         await executeQuery(updateUserProjectSQL, [user_id, project_id]);
 
     } catch (error) {
-      console.log("error in delete member",error);
-      
         throw error;
     }
 };

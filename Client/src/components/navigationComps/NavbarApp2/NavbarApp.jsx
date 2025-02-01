@@ -89,13 +89,7 @@ export const NavbarApp = () => {
               onMouseEnter={()=>setDropdownMenu('about')}
             >About</NavLink>
         </li>
-        {/* <li>
-            <NavLink
-              to={'/allprojects'}
-              className={({ isActive })=>(isActive? 'active':'inactive')}
-              onMouseEnter={()=>setDropdownMenu('projects')}
-            >projects</NavLink>
-        </li> */}
+       
         { user &&
           <li>
             <NavLink

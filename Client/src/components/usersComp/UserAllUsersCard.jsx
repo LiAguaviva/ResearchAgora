@@ -45,9 +45,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
           >
             {elem?.user_name} {elem?.user_lastname}
           </p>
-          {/* <p>
-            {elem?.user_city}
-          </p> */}
+          
           <p>{elem?.user_proficiency}</p>
           <div className="tagsContainer">
             {skills[0] !== "" ? (
@@ -65,8 +63,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
         </div>
       </div>
       <div className="buttons">
-        {/* <button onClick={onMessageClick} className="messageButton"
-        >Message </button> */}
+        
         {user?.user_id !== elem.user_id && (
           <>
             <img

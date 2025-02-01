@@ -22,7 +22,7 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
       const response = await fetchData2(`offer/offersbyproject/${projectId}`, 'get');
       setOffers(response);
     } catch (error) {
-      console.log('Error fetching offers:', error);
+      console.log(error);
     }
   };
 
@@ -80,7 +80,7 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
        });
       showRequestModal();
     } catch (error) {
-      console.log('Error sending invite:', error);
+      console.log(error);
     }
   };
 

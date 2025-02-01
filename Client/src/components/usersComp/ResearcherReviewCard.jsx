@@ -26,7 +26,6 @@ export const ResearcherReviewCard = ({elem}) => {
     );
   };
   
-  console.log('El elem en renderstars es ->', elem)
   return (
     <div>
       <div className='reviewCard'>

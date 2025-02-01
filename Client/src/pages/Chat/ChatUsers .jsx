@@ -18,9 +18,6 @@ export const ChatUsers = ({ currentUserId, onUserClick,token, currentReceiverId 
         fetchChatUsers();
     }, [currentUserId, currentReceiverId]);
 
-    // console.log('currentUserId', currentUserId);
-    console.log('users', users);
-
 
     return (
         <div className="users-list">

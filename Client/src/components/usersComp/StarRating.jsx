@@ -1,7 +1,6 @@
 import React, { useState } from "react";
  
 function StarRating({ maxStars = 5, onRatingSelect ,rating,setRating}) {
-/*     const [rating, setRating] = useState(0);  */
     const [hoverRating, setHoverRating] = useState(0); 
  
     const handleClick = (value) => {

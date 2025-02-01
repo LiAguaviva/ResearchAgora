@@ -42,12 +42,9 @@ export const CreateProjectForm = () => {
     } else if (name === 'max_member'){
       
       if (value === '') {
-        console.log('hola');
         
-        setProject({...project, max_member:'0' });  //this could cause a validation issue
-        //setProject({...project, max_member: Number(value) || 0 }); 
+        setProject({...project, max_member:'0' });   
       } else if (value[0] === '0') {
-        console.log('value', value);
         setProject({...project, max_member:value.slice(1) });
       } else {
         setProject({...project, max_member:value})
@@ -174,7 +171,7 @@ export const CreateProjectForm = () => {
               <span 
                 onClick={() => removeSkill(index)} 
                 className="deleteBtn"
-                // value={editUser?.skills ? editUser.skills : ''}
+               
               >
                 ×
               </span>
@@ -205,15 +202,7 @@ export const CreateProjectForm = () => {
          
       <fieldset>
         <label htmlFor="typeOptions">type</label>
-        {/* <label 
-          id='typeOptions'
-          type="text" 
-          placeholder='type'
-          value={project.type}
-          onChange={handleChange}
-          name='type'
-        /> */}
-
+        
         <select 
           id='typeOptions'
           type="text" 
@@ -227,8 +216,7 @@ export const CreateProjectForm = () => {
         </select>
       </fieldset>
 
-     
-        
+            
 
       <div className='separatorThick' />
 

@@ -56,10 +56,8 @@ export const sendPasswordResetEmail = (email, token) => {
 <a href="${resetLink}" target="_blank">Reset Password</a>`,
   }, (error, info) => {
     if (error) {
-      console.error('Error sending password reset email:', error);
       throw new Error('Error sending password reset email');
     }
-    console.log('Password reset email sent:', info.response);
   });
 };
 
@@ -88,11 +86,8 @@ export const forgottenPassword = (email, token) => {
 </html>`,
   }, (error, info) => {
     if (error) {
-      console.error('Error sending forgotten password email:', error);
       throw new Error('Error sending forgotten password email');
     }
-    console.log('Forgotten password email sent:', info.response);
   });
 };
 
-//the href has to be a link to a front page (localhost:5173...), it opens a new tab and has to have a useEffect that goes to verify. If the response is OK, you should get a message that the registration was successful, otherwise, not authorized.

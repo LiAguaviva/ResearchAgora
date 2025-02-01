@@ -34,8 +34,6 @@ export const fetchDataValidation = async (url, method, data = null, headers={}) 
 }
 
 
-//
-
 export const fetchData2 = async (url, method, data = null, headers={}) => {
     try {
         const config = {

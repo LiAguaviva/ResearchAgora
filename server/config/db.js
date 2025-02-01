@@ -21,7 +21,6 @@ export const executeQuery = async (sql, values=[]) =>{
         const [result] = await connection.query(sql, values);
         return result
     } catch (error) {
-        console.log(error);
         throw error;
     } finally {
        
@@ -38,4 +37,4 @@ const testDbConnection = async () => {
     } catch (error) {
         console.log(error);
     }
-}
+};

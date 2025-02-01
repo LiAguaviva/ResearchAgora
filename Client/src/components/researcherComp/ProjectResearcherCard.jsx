@@ -1,12 +1,10 @@
-import React, { useContext, useState } from "react";
+import { useState } from "react";
 import projectDefaultIMG from "../../assets/imgs/lab1.jpg";
 import { useNavigate } from "react-router-dom";
-// import { AgoraContext } from "../../../context/ContextProvider";
 const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 
 export const ProjectResearcherCard = ({ elem, researcher }) => {
   const navigate = useNavigate();
-  // const { user, project } = useContext(AgoraContext);
   const [skills, setSkills] = useState(elem.skills?.split(","));
   const [stateClassname, setStateClassname] = useState("");
 
@@ -49,9 +47,7 @@ export const ProjectResearcherCard = ({ elem, researcher }) => {
           {elem.project_status === 3 && <p className="status paused">paused</p>}
         </div>
 
-        {/* <div className="description">
-          <p>{elem.project_description}</p>
-        </div> */}
+
       </div>
     </div>
   );

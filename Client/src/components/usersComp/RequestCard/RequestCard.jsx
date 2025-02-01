@@ -26,7 +26,6 @@ export const RequestCard = ({elem, updateRequest}) => {
         >{elem.project_name}</h4>
         <p className='offerTitle'>{elem.offer_title}</p>
         <p>{elem.user_name}</p>
-        {/* <p>{elem.project_name}</p> */}
         </div>
 
         <div className='buttons'>

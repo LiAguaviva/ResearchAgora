@@ -21,14 +21,6 @@ const values = [
   getRandomBetween(0, 100),
 ];
 
-// const data = [
-//   { subject: 'Mentoring', value: values[0], fullMark: 100 },
-//   { subject: "Publications", value: values[1], fullMark: 100 },
-//   { subject: "Open science", value: values[2], fullMark: 100 },
-//   { subject: "Peer review", value: values[3], fullMark: 100 },
-//   { subject: "Outreach", value: values[4], fullMark: 100 },
-//   { subject: "Policy writing", value: values[5], fullMark: 100 },
-// ];
 
 const data = [
   { subject: `Mentoring ${Math.floor(values[0])}`, value: values[0], fullMark: 100 },
@@ -55,7 +47,6 @@ const StatsRadarChart = () => {
               fontWeight: "bold",
             }}
           />
-          {/* <PolarRadiusAxis /> */}
           <Radar
             name="Performance"
             dataKey="value"

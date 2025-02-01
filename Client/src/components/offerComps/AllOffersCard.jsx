@@ -39,9 +39,7 @@ export const AllOffersCard = ({offer}) => {
      
      <Link to={`/oneproject/${offer.project_id}`}>About the project</Link>
 
-     {/* <div className='buttons'>
-      <button className='accept'>Apply</button>
-      </div> */}
+     
     </div>
   )
 }
