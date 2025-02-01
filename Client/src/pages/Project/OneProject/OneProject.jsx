@@ -25,9 +25,6 @@ export const OneProject = () => {
   const [requestsview, setrequestsview] = useState([]);
 
   const [applyButton, setApplyButton] = useState("apply");
-  // const changeApplyButton = () => {
-  //   if (project.request_status )
-  // }
 
   const memberStatus = members.some(
     (member) => member.user_id === user?.user_id
@@ -96,15 +93,6 @@ export const OneProject = () => {
         { Authorization: `Bearer ${token}`  }
       );
 
-      
-
-      /*   if(result[0].request_status === 1){
-        setApplyButton('applied')
-      } else if (result[0].request_status === 2){
-        setApplyButton('teamMember')
-      } if(result[0].request_status === 3){
-        setApplyButton('notSelected')
-      } */
       setrequests(result);
     } catch (error) {
       console.log(error);
@@ -127,14 +115,19 @@ export const OneProject = () => {
         { Authorization: `Bearer ${token}` }
         
       );
-      window.location.reload();
     } catch (error) {
       console.log(error);
     }
   };
 
+  useEffect(()=>{
+    if(requestsview.length > 0){
+      fetchOneProject();
+    }
+  }, [requestsview])
 
-    const deletemember = async() => {
+
+    const leaveProject = async() => {
       try {
         let data = {user_id : user.user_id, project_id: project[0].project_id};
         await fetchData2('project/deleteMember', 
@@ -142,7 +135,9 @@ export const OneProject = () => {
           data,
           { Authorization: `Bearer ${token}` }
         );
-        window.location.reload();
+        
+        navigate('/profile')
+
       } catch (error) {
         console.log(error)
       }
@@ -267,7 +262,7 @@ export const OneProject = () => {
 
           <img 
             src={leave} alt="exit icon to click on when user wants to leave the project" 
-            onClick={() => deletemember()}
+            onClick={() => leaveProject()}
             className="leaveIcon"
           />
           <p>Leave Project</p>

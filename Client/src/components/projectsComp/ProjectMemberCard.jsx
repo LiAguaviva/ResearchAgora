@@ -41,7 +41,6 @@ await fetchData2(`project/deleteMember`, 'post', data,  { Authorization: `Bearer
               ? `${urlImg}/useravatar/${elem.user_avatar}`
               : avatarDefault
           }
-          // src={avatarDefault}
           alt="profile picture"
         />
 
@@ -58,9 +57,6 @@ await fetchData2(`project/deleteMember`, 'post', data,  { Authorization: `Bearer
         </div>
         {user?.user_id === project[0]?.creator_user_id &&
           elem?.user_id !== project[0]?.creator_user_id && (
-            // <button onClick={() => deletemember()} className="editButton">
-            //   Delete
-            // </button>
             <img 
               src={trash} alt="" 
               onClick={() => deletemember()}

@@ -174,7 +174,6 @@ export const CreateProjectForm = () => {
               <span 
                 onClick={() => removeSkill(index)} 
                 className="deleteBtn"
-                // value={editUser?.skills ? editUser.skills : ''}
               >
                 ×
               </span>
@@ -205,15 +204,6 @@ export const CreateProjectForm = () => {
          
       <fieldset>
         <label htmlFor="typeOptions">type</label>
-        {/* <label 
-          id='typeOptions'
-          type="text" 
-          placeholder='type'
-          value={project.type}
-          onChange={handleChange}
-          name='type'
-        /> */}
-
         <select 
           id='typeOptions'
           type="text" 

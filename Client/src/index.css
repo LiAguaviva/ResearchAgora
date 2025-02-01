@@ -7,11 +7,12 @@
 }
 
 main {
-  min-height: var(--mainSize);
+  /* min-height: var(--mainSize); */
+  min-height: calc(var(--mainSize) + var(--footerSize));
   margin-top: var(--headerSize);
   /* margin-bottom: var(--footerSize); */
   @media(max-width: 500px){
-    padding-top: 5rem;
+    padding-top: 4rem;
   }
 }
 

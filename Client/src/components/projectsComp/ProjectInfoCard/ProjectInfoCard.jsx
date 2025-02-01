@@ -9,19 +9,11 @@ import { ProjectMainCard } from '../ProjectMainCard';
 import { fetchData2 } from '../../../helpers/axiosHelper';
 
 
-// add skills on prop and change everithing related to skills
 
 export const ProjectInfoCard = ({project,skills, members}) => {
 
   const {user, token } = useContext(AgoraContext)
   const navigate = useNavigate()
-  // const [skills, setSkills] = useState([]);
-
-
-  
-  // useEffect(() => {
-  //   setSkills(project?.project_skills?.split(",") || []);
-  // },[project])
 
 
   const deleteProject = async () => {
@@ -75,13 +67,6 @@ export const ProjectInfoCard = ({project,skills, members}) => {
             <p>{project?.project_description}</p>
         </div>
         
-          {/* <div className="tagsContainer">
-            {skills.map((skill, index) => (
-              <div key={index} className="tag">
-                {skill}
-              </div>
-            ))}
-          </div> */}
       </div>
           {user?.user_id === project?.creator_user_id && 
             <div className='buttons'>

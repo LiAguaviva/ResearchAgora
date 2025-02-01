@@ -1,6 +1,8 @@
 
 .infoLayoutSect {
-  /* padding-top: var(); */
+  padding-top: 10%;
+  display: flex;
+  justify-items: center;
 
   .infoLayout {
     text-align: center;

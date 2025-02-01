@@ -16,8 +16,7 @@ export const ReviewCard = () => {
               <div className='userCardAvatar'>
                 <img 
                   className='userCardAvatar'
-                  // src={user?.avatar? `${urlImg}/users/${user.avatar}` :avatarDefault} 
-                  src={avatarDefault}
+                  src={user?.avatar? `${urlImg}/users/${user.avatar}` :avatarDefault} 
                   alt="your default picture" 
                 />
               </div>

@@ -1,40 +1,60 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import logo from '../../../assets/logo/Logo_full_PurpleBlue.png'
 import './Home.css'
 import moleculeVideo from '../../../assets/video/mulecule.mp4';
+import { useNavigate } from 'react-router-dom';
+import { AgoraContext } from '../../../context/ContextProvider';
  
 
 
 export const Home = () => {
+
+  const navigate = useNavigate()
+  const {user} = useContext(AgoraContext)
+  
   return (
     <>
-    {/* <section className='homeLogoSection'>
+    {/* STATIC */}
+    {/* <section className='homeLogoSection static'>
       <div className='containerPpal homeLogo'>
         <img src={logo} alt="Research Agora Logo" />
         <h1>Discuss Share Collaborate</h1>
         <p>Better research together</p>
+        <button 
+          onClick={()=>navigate('/register')}
+          className='homeJoinUs'
+        >Join Us</button>
+
       </div>
     </section> */}
 
-  <section className='homeVideoSection'>
-    <video 
-      autoPlay loop muted playsInline
-      className="moleculeVideo"
-    >
-      <source src={moleculeVideo} type="video/mp4" />
-    </video>
-  </section>
-
-  <section className='homeLogoSection'>
-      <div className='containerPpal homeLogo'>
-      <img src={logo} alt="Research Agora Logo" />
-        <h1>Discuss Share Collaborate</h1>
+      {/* ANIMATED */}
+    <section className='homeVideoSection'>
+      <video 
+        autoPlay loop muted playsInline
+        className="moleculeVideo"
+      >
+        <source src={moleculeVideo} type="video/mp4" />
+      </video>
+      
+      <div className='containerPpal homeLogo animated'>
+        <img src={logo} alt="Research Agora Logo" />
+        <h1>
+          <span>Discuss</span> 
+          <span>Share</span> 
+          <span>Collaborate</span>
+        </h1>
         <p>Better research together</p>
+        {!user &&
+          <button 
+          onClick={()=>navigate('/register')}
+          className='homeJoinUs'
+        >Join Us</button>}
       </div>
     </section>
 
 
-    <section className='whoWeAreSection'>
+    {/* <section className='whoWeAreSection'>
       <div className='containerPpal whoWeAre'>
         <h2>Who We Are</h2>
         <p>At Research Agora, we believe that a change in how research is shared and assessed must take place. New research assessment agreements like DORA and CoARA advocate for a more open and collaborative research culture that takes into account all research outputs, from publications to science outreach and open science policies. 
@@ -48,7 +68,7 @@ export const Home = () => {
     <section className='researchers'>
       <div>
       </div>
-    </section>
+    </section> */}
 
     </>
   )

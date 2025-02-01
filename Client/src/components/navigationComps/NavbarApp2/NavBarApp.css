@@ -124,7 +124,7 @@
 .menuDropdown {
   display: flex;
   justify-content: right;
-  text-align: left;
+  text-align: right;
   position: absolute;
   background-color: var(--purple);
   padding: var(--size1);
@@ -190,7 +190,7 @@
 }
 
 .notifications {
-  justify-content: left;
+  justify-content: right;
   display: flex;
   align-items: center;
   gap: var(--size05);

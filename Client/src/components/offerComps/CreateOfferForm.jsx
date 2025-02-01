@@ -77,7 +77,6 @@ export const CreateOfferForm = () => {
       const fieldErrors = {};
 
       if (error instanceof ZodError){
-        //const fieldErrors = {}; // should it be inside if?
         error.errors.forEach((err)=>{
           fieldErrors[err.path[0]]=err.message
         })
@@ -102,7 +101,6 @@ export const CreateOfferForm = () => {
             type="text" 
             placeholder='Offer Title'
             value={offer?.offer_title || ""}
-            // value={login.password}
             onChange={handleChange}
             name='offer_title'
           />
@@ -141,7 +139,6 @@ export const CreateOfferForm = () => {
               <span 
                 onClick={() => removeSkill(index)} 
                 className="deleteBtn"
-                // value={editUser?.skills ? editUser.skills : ''}
               >
                 ×
               </span>
