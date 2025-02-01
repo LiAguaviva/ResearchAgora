@@ -43,7 +43,7 @@ export const ChatBox = ({ messages, sendMessage, inputText, setInputText, userId
                             <img
                                 className='deleteMsgIcon'
                                 src={x}
-                                alt=""
+                                alt=" icon to delete message"
                                 onClick={() => deleteMessage(msg.message_id)}
                             />
                         )}

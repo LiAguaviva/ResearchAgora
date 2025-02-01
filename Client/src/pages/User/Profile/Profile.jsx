@@ -177,7 +177,7 @@ export const Profile = () => {
 
       <section className="delteAccountSection containerPpal">
           <img 
-            src={trash} alt="" 
+            src={trash} alt="bin icon to click one when user wants to delete their account" 
             onClick={() => handleDelete()}
             className="deleteAccountIcon"
           />

@@ -71,7 +71,7 @@ export const UserAllUsersCard = ({ elem, showRequestModal }) => {
           <>
             <img
               src={message}
-              alt="message icon"
+              alt="message icon to click to open the chat"
               onClick={onMessageClick}
               className="messageIcon"
             />
