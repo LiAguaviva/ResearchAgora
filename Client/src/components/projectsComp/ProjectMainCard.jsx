@@ -17,10 +17,8 @@ export const ProjectMainCard = ({project, members}) => {
       <div className='userCard'>
            <img 
              className='userCardAvatar'
-
-    src={creator?.user_avatar? `${urlImg}/useravatar/${creator.user_avatar}` : avatarDefault}    
-             alt="user picture" 
-
+             src={creator?.user_avatar? `${urlImg}/useravatar/${creator.user_avatar}` : avatarDefault} 
+             alt="user card picture" 
              onClick={() =>
               creator.user_id !== user.user_id
                 ? navigate(`/researcher/${creator.user_id}`)
