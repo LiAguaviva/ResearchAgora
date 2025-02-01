@@ -61,6 +61,7 @@ class OfferDal {
       AND p.project_type = 0
       AND p.project_is_disabled = 0
       AND p.project_status != 2
+      AND o.number_of_position > 0
       GROUP BY o.offer_id, o.offer_title, o.number_of_position, o.offer_description, o.project_id
 ;`
          

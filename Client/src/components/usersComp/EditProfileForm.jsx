@@ -189,6 +189,18 @@ export const EditProfileForm = () => {
           name='user_lastname'
         />
       </fieldset>
+      
+      <fieldset>
+        <label htmlFor="city">city</label>
+        <input
+          id='city'
+          type="city"
+          placeholder='city'
+          value={editUser?.user_city || ''}
+          onChange={handleChange}
+          name='user_city'
+        />
+      </fieldset>
  
       <fieldset>
         <label htmlFor="country">country</label>
@@ -199,18 +211,6 @@ export const EditProfileForm = () => {
           value={editUser?.user_country ||''}
           onChange={handleChange}
           name='user_country'
-        />
-      </fieldset>
- 
-      <fieldset>
-        <label htmlFor="city">city</label>
-        <input
-          id='city'
-          type="city"
-          placeholder='city'
-          value={editUser?.user_city || ''}
-          onChange={handleChange}
-          name='user_city'
         />
       </fieldset>
  

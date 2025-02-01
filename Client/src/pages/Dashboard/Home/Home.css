@@ -49,6 +49,8 @@
     display: flex;
     gap: var(--size2);
     justify-content: center;
+    margin-top: var(--size1);
+    margin-bottom: var(--size05);
   }
 
   h1 {

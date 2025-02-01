@@ -21,22 +21,13 @@ const values = [
   getRandomBetween(0, 100),
 ];
 
-// const data = [
-//   { subject: 'Mentoring', value: values[0], fullMark: 100 },
-//   { subject: "Publications", value: values[1], fullMark: 100 },
-//   { subject: "Open science", value: values[2], fullMark: 100 },
-//   { subject: "Peer review", value: values[3], fullMark: 100 },
-//   { subject: "Outreach", value: values[4], fullMark: 100 },
-//   { subject: "Policy writing", value: values[5], fullMark: 100 },
-// ];
-
 const data = [
-  { subject: `Mentoring ${Math.floor(values[0])}`, value: values[0], fullMark: 100 },
-  { subject: `Publications ${Math.floor(values[1])}`, value: values[1], fullMark: 100 },
-  { subject: `Open science ${Math.floor(values[2])}`, value: values[2], fullMark: 100 },
-  { subject: `Peer review ${Math.floor(values[3])}`, value: values[3], fullMark: 100 },
-  { subject: `Outreach ${Math.floor(values[4])}`, value: values[4], fullMark: 100 },
-  { subject: `Policy writing ${Math.floor(values[5])}`, value: values[5], fullMark: 100 },
+  { subject: `Mentor ${Math.floor(values[0])}`, value: values[0], fullMark: 100 },
+  { subject: `Thinker ${Math.floor(values[1])}`, value: values[1], fullMark: 100 },
+  { subject: `Creator ${Math.floor(values[2])}`, value: values[2], fullMark: 100 },
+  { subject: `Changemaker ${Math.floor(values[3])}`, value: values[3], fullMark: 100 },
+  { subject: `Pioneer ${Math.floor(values[4])}`, value: values[4], fullMark: 100 },
+  { subject: `Team member ${Math.floor(values[5])}`, value: values[5], fullMark: 100 },
 ];
 
 const StatsRadarChart = () => {

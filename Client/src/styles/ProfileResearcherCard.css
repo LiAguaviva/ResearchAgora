@@ -27,6 +27,8 @@
       border-radius: 100%;
       object-fit: cover;
       object-position: center;
+      box-shadow: 0 0 15px 1px var(--purple10);
+
 
       img {
         height: var(--AvatarSize);

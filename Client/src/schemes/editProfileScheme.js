@@ -13,7 +13,7 @@ export const editProfileScheme = z.object({
   user_city: z.string().min(1, '* Please enter your city').nullable()
   .refine((val) => val !== null, { message: '* Please enter your city' }),
 
-  user_description: z.string().max(250, '* Description cannot exceed 250 characters').nullable()
+  user_description: z.string().max(500, '* Description cannot exceed 500 characters').nullable()
   // .refine((val) => val !== null, { message: '* Description cannot be null' })
   .optional(),
 

@@ -7,18 +7,12 @@ export const GoBack = () => {
   const navigate = useNavigate()
   return (
     <>
-    {/* <button 
-          onClick={()=>navigate(-1)}
-          className="goBack"
-        >Go Back</button> */}
-    {/* <div className='icon'> */}
       <img className='goBack' 
 
        onClick={()=>navigate(-1)}
         src={goBack} 
         alt="go back icon" 
       />
-      {/* </div> */}
     </>
   )
 }

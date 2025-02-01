@@ -51,6 +51,11 @@ export const ContextProvider = ({ children }) => {
     };
 
     fetchNotifications();
+    
+    const interval = setInterval(() => {
+      fetchNotifications();
+    }, 1000);
+    return () => clearInterval(interval);
   }, [user, token]);
 
   const markNotificationAsRead = async (id) => {

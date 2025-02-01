@@ -59,13 +59,15 @@ export const ProjectInfoCard = ({project,skills, members}) => {
       </div>
 
         <div className="data">
-            <ProjectMainCard  
-              project={project} 
-              members={members}
-            />
-        <div className='description'>
-            <p>{project?.project_description}</p>
-        </div>
+          <ProjectMainCard  
+            project={project} 
+            members={members}
+          />
+          <div className='info'>
+              <p>{project?.project_city}, {project?.project_country}</p>
+              <p></p>
+              <p>{project?.project_description}</p>
+          </div>
         
       </div>
           {user?.user_id === project?.creator_user_id && 

@@ -143,8 +143,11 @@ export const AllUsers = () => {
 
       {users?.map((elem) => (
         <div className="allProjectsGallery" key={elem.user_id}>
-          <UserAllUsersCard showRequestModal={() => showRequestModal(elem.user_id)} elem={elem}/>
-          <div className="separatorProjects" />
+          {elem.user_name &&
+          <>
+            <UserAllUsersCard showRequestModal={() => showRequestModal(elem.user_id)} elem={elem}/>
+            <div className="separatorProjects" />
+          </>}
         </div>
       ))}
 

@@ -52,8 +52,11 @@
     flex-wrap: wrap;
   }
 
-  .description {
+  .info {
     margin-top: var(--size1);
+    p {
+      margin-top: var(--size05);
+    }
   }
 
   .separatorThick {

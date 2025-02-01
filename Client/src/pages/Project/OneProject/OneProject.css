@@ -35,7 +35,7 @@
 .offerGallery {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--size1);
+  gap: var(--size2);
   justify-content: center;
 }
 

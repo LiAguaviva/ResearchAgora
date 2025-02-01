@@ -51,6 +51,8 @@
   object-position: center;
   color: var(--aqua);
   cursor: pointer;
+  box-shadow: 0 0 5px 1px var(--purple20);
+
 
 
   img {

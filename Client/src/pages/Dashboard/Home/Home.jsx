@@ -11,6 +11,11 @@ export const Home = () => {
 
   const navigate = useNavigate()
   const {user} = useContext(AgoraContext)
+
+  // use static version if type is less than 3g
+  const type = navigator.connection.effectiveType;
+  // console.log('typeeeeeeeeeee', type);
+
   
   return (
     <>

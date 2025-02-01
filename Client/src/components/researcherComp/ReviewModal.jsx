@@ -45,9 +45,9 @@ export const ReviewModal = ({show,setShow, researcher,user,setReview}) => {
       } catch (error) {
         const errorMsg = error.response?.data?.message || "";
         if (errorMsg.includes("Duplicate entry")) {
-          setMsg("You have already reviewed this user before.");
+          setMsg("* You have already reviewed this user before.");
         } else {
-          setMsg(errorMsg || "Review creation failed");
+          setMsg(errorMsg || "* Review creation failed");
         }
       }
     }
