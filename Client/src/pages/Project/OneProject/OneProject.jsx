@@ -74,11 +74,18 @@ export const OneProject = () => {
   };
 
   useEffect(() => {
-    if (token) {
-      fetchOneProject();
-      fetchJoinRequest();
-      fetchRequest();
-    }
+    const fetchAllData = async () => {
+      if (token) {
+        await fetchOneProject();
+        await fetchJoinRequest();
+        await fetchRequest();
+      }
+    };
+    fetchAllData();
+    const interval = setInterval(() => {
+      fetchAllData();
+    }, 1000);
+    return () => clearInterval(interval);
   }, [user, applyButton,token]);
 
 

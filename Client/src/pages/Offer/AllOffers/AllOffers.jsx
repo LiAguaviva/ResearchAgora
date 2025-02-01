@@ -21,9 +21,17 @@ export const AllOffers = () => {
     }
   
   useEffect(() => {
-        if (skills.length === 0){
-          fetchOffers()
-        }
+    const fetchoffers = async() => {
+
+      if (skills.length === 0){
+        fetchOffers()
+      }
+    }
+    fetchoffers();
+    const interval = setInterval(() => {
+      fetchoffers();
+    }, 1000);
+    return () => clearInterval(interval);
       }, [skills])
 
   const handleKeyDownSkill = (e) => {

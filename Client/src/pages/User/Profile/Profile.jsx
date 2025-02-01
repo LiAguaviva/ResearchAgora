@@ -79,11 +79,18 @@ export const Profile = () => {
   }
 
   useEffect(() => {
-    if (user?.user_id) {
-      fetchProjects();
-      fetchInvitations();
-      fetchResearcher();
+    const fetchusers = async () => {
+      if (user?.user_id) {
+        fetchProjects();
+        fetchInvitations();
+        fetchResearcher();
+      }
     }
+    fetchusers();
+    const interval = setInterval(() => {
+      fetchusers();
+    }, 1000);
+    return () => clearInterval(interval);
   }, [user]);
   
 
