@@ -52,7 +52,7 @@ export const sendPasswordResetEmail = (email, token) => {
     from: 'socratesters@gmail.com',
     to: email,
     subject: 'Password Reset Request',
-    html: `<p>You requested a password reset. Click the link below to reset your password:</p>
+    html: `<p> This is Agora Research. We received your request to reset your password. Click the link below to reset your password:</p>
 <a href="${resetLink}" target="_blank">Reset Password</a>`,
   }, (error, info) => {
     if (error) {
