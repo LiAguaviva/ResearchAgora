@@ -194,6 +194,8 @@ CREATE TABLE notification (
     FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
 );
 
+DELETE FROM user WHERE user_id = 23;
+
  select * from user;
  select * from user_skill;
  select * from user_field;
@@ -210,48 +212,7 @@ CREATE TABLE notification (
  SELECT * FROM review;
  SELECT * FROM notification;
  
- UPDATE invitation SET invitation_status = 2 WHERE invitation_id = 1;
- UPDATE invitation SET invitation_status = 0 WHERE invitation_id = 1;
- UPDATE project SET project_type = 0 WHERE project_id = 4;
--- INSERT INTO offer_skill (offer_id, skill_id) VALUES (1, 5);
  
- 
-  SELECT    
-            o.offer_id,
-            o.offer_title, 
-            o.offer_description, 
-            o.number_of_position,
-            o.is_deleted,  
-            o.project_id, 
-            s.skill_id,   
-            s.skill_name 
-             FROM  offer o 
-             LEFT JOIN     offer_skill os 
-               ON o.offer_id = os.offer_id 
-			 LEFT JOIN skill s 
-			   ON os.skill_id = s.skill_id 
-			WHERE o.is_deleted = 0;
+
 
 -- 123456sS$
-
-
-SELECT p.project_id, 
-       p.project_title, 
-       p.project_description, 
-       p.project_status,
-       p.creator_user_id, 
-       CONCAT(u.user_name, ' ', u.user_lastname) AS creator_name
-FROM project AS p
-JOIN user AS u ON p.creator_user_id = u.user_id
-JOIN user_project AS up_inviter 
-       ON p.project_id = up_inviter.project_id  
-       AND up_inviter.user_id = 1
-LEFT JOIN user_project AS up_invited 
-       ON p.project_id = up_invited.project_id 
-       AND up_invited.user_id = 2 
-       AND up_invited.status = 2  -- Solo toma filas con status = 2
-WHERE p.project_is_disabled = 0 
-  AND up_inviter.status = 2 
-  AND up_invited.user_id IS NULL  -- Si hay una fila con status = 2, se excluye el proyecto
-GROUP BY p.project_id, p.project_title, p.project_description, p.project_status, u.user_name, u.user_lastname;
-
