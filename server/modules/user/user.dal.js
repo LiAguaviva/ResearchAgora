@@ -410,9 +410,7 @@ class UserDal {
         }
 
         await connection.commit();
-    } catch (error) {
-      console.log(error);
-      
+    } catch (error) {      
         await connection.rollback();
         throw error;
     } finally {

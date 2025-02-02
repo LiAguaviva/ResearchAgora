@@ -138,8 +138,10 @@ class ProjectController {
         await projectDal.deleteMember(user_id, project_id);
         const remover = await userDal.getUserById(userID);
         const project = await projectDal.oneProject(project_id);
-        const removerName = remover ? `${remover.user_name} ${remover.user_lastname}` : "Someone";
-        const projectName = project ? project.project_title : "a project";
+        const removerName = remover ? `${remover[0].user_name} ${remover[0].user_lastname}` : "Someone";
+        const projectName = project ? project.project[0].project_title : "a project";
+        console.log("remover",remover);
+        
 
         const notificationContent = `You have been removed from ${projectName} by ${removerName}`;
     

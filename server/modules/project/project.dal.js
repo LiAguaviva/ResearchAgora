@@ -402,7 +402,6 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
       ]);
 
       if (projects.length === 0) {
-        console.log("No projects found.");
         return [];
       }
 
