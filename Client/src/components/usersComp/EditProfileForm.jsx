@@ -139,7 +139,6 @@ export const EditProfileForm = () => {
       const newFormData = new FormData();
       newFormData.append("edit", JSON.stringify(data));
       newFormData.append("file", file);
-      // setEditUser({...editUser, [skills]:skillsString, [fields]:fieldstring})
       
       const result = await fetchData("/editUser", "put", newFormData, { Authorization: `Bearer ${token}` } );
       setUser({...editUser, skills: skillsString, fields: fieldstring,user_avatar: result.img ? result?.img : user.user_avatar});

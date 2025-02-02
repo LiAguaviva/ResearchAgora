@@ -40,7 +40,6 @@ class UserDal {
     const hashedPassword = await hashPassword(newPassword);
     let sql = "UPDATE user SET user_password = ? WHERE user_id = ?";
     const result = await executeQuery(sql, [hashedPassword, user_id]);
-    console.log("new password", result);
     return result;
   };
 
@@ -58,7 +57,6 @@ class UserDal {
       const result = await executeQuery(sql, values);
       return result;
     } catch (error) {
-      console.log(error);
       throw error;
       
     }
@@ -75,7 +73,6 @@ class UserDal {
           let sqlId = `SELECT max(${id}) AS id FROM ${type}`;
           try {
             let [result] = await connection.execute(sqlId);
-            console.log(result);
             if (result[0].id != null) {
               finalId = result[0].id + 1;
             }
@@ -90,7 +87,6 @@ class UserDal {
       let dataString = finalArrayData.join();
       let sql2 = `SELECT ${id} FROM ${type} WHERE find_in_set(${name}, ?)`;
       let [result] = await connection.execute(sql2, [dataString]);
-      console.log(result);
       let sql3 = `DELETE FROM user_${type} WHERE user_id = ?`;
       await connection.execute(sql3, [user_id]);
       let sql4 = `INSERT INTO user_${type} (user_id, ${id}) VALUES (?, ?)`;
@@ -132,7 +128,6 @@ class UserDal {
 `;
 
       const result = await executeQuery(sql)
-      console.log('Result: ', result)
       return result;
     } catch (error) {
       throw error;
@@ -147,7 +142,7 @@ class UserDal {
       const review = await executeQuery(sqlReview,[user_id])
       let finalResult = {...result,review}
       
-      
+  
       return finalResult;
       
     } catch (error) {
@@ -418,9 +413,7 @@ class UserDal {
         }
 
         await connection.commit();
-    } catch (error) {
-      console.log("error in response of the invitation",error);
-      
+    } catch (error) {      
         await connection.rollback();
         throw error;
     } finally {

@@ -1,5 +1,5 @@
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import './ProjectInfoCard.css'
 const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;
 import projectDefaultIMG from '../../../assets/imgs/defaultIMG.png'
@@ -10,12 +10,11 @@ import { fetchData2 } from '../../../helpers/axiosHelper';
 
 
 
-export const ProjectInfoCard = ({project,skills, members}) => {
+export const ProjectInfoCard = ({project, members}) => {
 
   const {user, token } = useContext(AgoraContext)
   const navigate = useNavigate()
-
-
+ 
   const deleteProject = async () => {
     try {
       const result = await fetchData2(`project/deleteproject/${project.project_id}`, 'put', null,  { Authorization: `Bearer ${token}`  })
@@ -68,7 +67,7 @@ export const ProjectInfoCard = ({project,skills, members}) => {
               <p></p>
               <p>{project?.project_description}</p>
           </div>
-        
+          
       </div>
           {user?.user_id === project?.creator_user_id && 
             <div className='buttons'>

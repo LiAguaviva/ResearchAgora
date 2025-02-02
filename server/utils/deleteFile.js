@@ -3,7 +3,6 @@ import path from 'path';
 
 export const deleteFile = (file, folder) => {
     const filePath = path.join(path.resolve(), '../server/public/images', folder, file);
-    console.log("Attempting to delete:", filePath);
 
     try {
         fs.unlinkSync(filePath);

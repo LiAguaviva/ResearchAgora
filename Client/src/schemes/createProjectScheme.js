@@ -10,7 +10,4 @@ export const createProjectScheme = z.object({
   .preprocess((val) => Number(val), z.number())
   .refine((val) => val > 1, '* Number must be greater than 1'),
   
-  // max_member: z
-  // .preprocess((val) => (typeof(val) === 'string' ? parseFloat(val) : val), z.number())
-  // .refine((val) => val > 1, '* Number must be greater than 1'),
 });

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useState } from "react";
 import projectDefaultIMG from "../../assets/imgs/lab1.jpg";
 import { useNavigate } from "react-router-dom";
 const urlImg = import.meta.env.VITE_IMAGEPROVIDER_URL;

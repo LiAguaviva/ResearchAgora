@@ -122,10 +122,6 @@ export const Chat = () => {
   const isSendDisabled = user?.user_id === currentReceiverId;
 
  
-  console.log('currentReceiverId', currentReceiverId);
- 
-  
-
   return (
 
       <section className='chatSection containerPpal'>
@@ -140,7 +136,6 @@ export const Chat = () => {
         />
         </button>
         
-        {/* <div className="usersList"> */}
           {seeUsers && 
             <ChatUsers 
               currentUserId={user?.user_id} 
@@ -148,7 +143,6 @@ export const Chat = () => {
               token={token}
               currentReceiverId={currentReceiverId}
             /> }
-          {/* </div> */}
         </div>
 
           

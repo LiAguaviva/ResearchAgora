@@ -20,7 +20,7 @@ export const ContextProvider = ({ children }) => {
           setUser(res[0]);
         }
       } catch (error) {
-        console.log('fetchUser Context', error);
+        console.log(error);
       }
   
     };
@@ -46,7 +46,7 @@ export const ContextProvider = ({ children }) => {
         const res = await fetchData2(`notification/userNotifications/${user.user_id}`, 'get', {}, { Authorization: `Bearer ${token}` });
         setNotifications(res);
       } catch (error) {
-        console.log('fetchNotifications Context Error:', error);
+        console.log(error);
       }
     };
 
@@ -65,7 +65,7 @@ export const ContextProvider = ({ children }) => {
       setNotifications((prev) => prev.filter((notif) => notif.notification_id !== id));
       
     } catch (error) {
-      console.log('markNotificationAsRead Context Error:', error);
+      console.log(error);
     }
   };
 

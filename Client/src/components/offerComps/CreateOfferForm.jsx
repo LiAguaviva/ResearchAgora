@@ -74,9 +74,10 @@ export const CreateOfferForm = () => {
        
     } catch (error) {  
 
-      const fieldErrors = {};
+      
 
       if (error instanceof ZodError){
+        const fieldErrors = {};
         error.errors.forEach((err)=>{
           fieldErrors[err.path[0]]=err.message
         })

@@ -45,7 +45,7 @@ export const ResetPasswordForm = () => {
       navigate('/login');
       
     } catch (error) {
-      console.log('login error', error);
+      console.log(error);
     }
   }
 

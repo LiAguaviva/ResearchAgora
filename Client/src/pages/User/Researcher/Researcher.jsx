@@ -1,17 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { AgoraContext } from "../../../context/ContextProvider";
 import { fetchData, fetchData2 } from "../../../helpers/axiosHelper";
-import { ProjectProfileCard } from "../../../components/projectsComp/ProjectProfileCard/ProjectProfileCard";
 import StatsRadarChart from "../../../components/usersComp/RadarGraph";
-import { ReviewCard } from "../../../components/commonComp/ReviewCard/ReviewCard";
-import { WriteReviewCard } from "../../../components/usersComp/WriteReviewCard";
 import { useContext, useEffect, useState } from "react";
-import { ProfileUserCard } from "../../../components/usersComp/ProfileUserCard";
-import { UserCard } from "../../../components/usersComp/UserCard";
-import axios from "axios";
 import "./Researcher.css";
-import { RequestCard } from "../../../components/usersComp/RequestCard/RequestCard";
-import { ProjectInvitationCard } from "../../../components/usersComp/ProjectInvitationCard";
 import { ResearcherDataCard } from "../../../components/researcherComp/ResearcherDataCard";
 import { ProjectResearcherCard } from "../../../components/researcherComp/ProjectResearcherCard";
 import { ReviewModal } from "../../../components/researcherComp/ReviewModal";
@@ -21,7 +13,7 @@ export const Researcher = () => {
   const { user, token } = useContext(AgoraContext);
   const { id } = useParams();
   const [researcher, setResearcher] = useState();
-  // const [user, setUser] = useState()
+ 
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [requests, setrequests] = useState([]);
@@ -29,7 +21,6 @@ export const Researcher = () => {
   const [show, setShow] = useState(false);
   const [review, setReview] = useState([]);
 
-  // const [result, setResult] = useState({});
 
   const [latestReviewCount, setLatestReviewCount] = useState(0);
 
@@ -65,7 +56,6 @@ export const Researcher = () => {
         data,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log("result of fetchProjects", result);
       setProjects(result);
     } catch (error) {
       console.log(error);

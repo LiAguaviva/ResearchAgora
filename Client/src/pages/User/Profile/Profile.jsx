@@ -3,13 +3,9 @@ import { AgoraContext } from '../../../context/ContextProvider'
 import { fetchData, fetchData2 } from '../../../helpers/axiosHelper'
 import { ProjectProfileCard } from '../../../components/projectsComp/ProjectProfileCard/ProjectProfileCard'
 import StatsRadarChart from '../../../components/usersComp/RadarGraph'
-import { ReviewCard } from '../../../components/commonComp/ReviewCard/ReviewCard'
-import { WriteReviewCard } from '../../../components/usersComp/WriteReviewCard'
 import { useContext, useEffect, useState } from "react";
 import { ProfileUserCard } from "../../../components/usersComp/ProfileUserCard";
-import { UserCard } from "../../../components/usersComp/UserCard";
 import './Profile.css'
-import { RequestCard } from '../../../components/usersComp/RequestCard/RequestCard'
 import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvitationCard'
 import React from 'react'
 import trash from '../../../assets/icons/trash.svg'
@@ -72,7 +68,7 @@ export const Profile = () => {
       setUser(null);
       
     } catch (error) {
-      console.log("error during deletion", error);
+      console.log(error);
   
     }
         
@@ -109,7 +105,7 @@ export const Profile = () => {
         navigate(`/oneproject/${projectID}`)
       }else{
 
-        /* navigate('/profile') */
+         navigate('/profile') 
       }
 
     } catch (error) {

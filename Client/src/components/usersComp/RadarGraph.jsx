@@ -46,7 +46,6 @@ const StatsRadarChart = () => {
               fontWeight: "bold",
             }}
           />
-          {/* <PolarRadiusAxis /> */}
           <Radar
             name="Performance"
             dataKey="value"

@@ -40,12 +40,14 @@ export const LoginForm = () => {
     e.preventDefault()
 
 
-    try {
+     try {
       const tokenLocal = await fetchData('/login', 'post', login);
       
       const resultUser = await fetchData('/findUserById', 'get', null,  { Authorization: `Bearer ${tokenLocal}` });
       localStorage.setItem('agoraToken', tokenLocal)
+
       setToken(tokenLocal);
+      
       if (resultUser[0]?.user_name){
         navigate('/profile');
       } else {

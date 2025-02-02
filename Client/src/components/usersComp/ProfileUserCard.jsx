@@ -24,7 +24,7 @@ export const ProfileUserCard = () => {
             setUser(null);
             
           } catch (error) {
-            console.log("error during deletion", error);
+            console.log(error);
         
           }
         
@@ -55,15 +55,8 @@ export const ProfileUserCard = () => {
           <TagsCard />
 
          
-          {/* <button onClick={() => navigate('/editProfile')}>EDIT</button> */}
         </div>
       </div>  
-      {/* <div className='separatorThick' />
-         <button
-           className='cancel'
-           onClick={handleDelete}>
-           Delete Account
-         </button> */}
 
       <div className='separatorThick' />
       {user?.user_description && <>

@@ -16,7 +16,6 @@ export const ReviewModal = ({show,setShow, researcher,user,setReview}) => {
 
   const [refresh, setRefresh] = useState(false);
 
-
   const closeModal = () => {
     setShow(!show)
   }
@@ -38,7 +37,6 @@ export const ReviewModal = ({show,setShow, researcher,user,setReview}) => {
       try {
         const response = await fetchData2("review/createreview", "post", newReview);
         
-        // add new review to the state without reload page 
         setReview((prevReviews) => [newReview, ...prevReviews]);
   
         closeModal();
@@ -53,9 +51,6 @@ export const ReviewModal = ({show,setShow, researcher,user,setReview}) => {
     }
   };
   
-  
-
-   
 
   return (
     
