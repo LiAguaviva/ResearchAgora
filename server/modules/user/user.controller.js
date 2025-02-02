@@ -36,6 +36,8 @@ class UserController {
   login = async (req, res) => {  
     try {
       const { email, password } = loginScheme.parse(req.body);
+      console.log('bodyyyy', req.body);
+      
       const result = await userDal.findUserbyEmail(email);
       if (result.length === 0) {
         
@@ -60,8 +62,12 @@ class UserController {
         const {token} = req.params;
         const id = await getIdFromToken(token);
         const result = await userDal.verifyUser(id);
+        console.log(result);
+        
       } catch (error) {
         res.status(500).json(error.message);
+        console.log('verify errorrrrrr', error);
+        
       }       
     }
 

@@ -207,9 +207,9 @@
   flex-direction: column;
   gap: var(--size05);
   margin-top: -0.5rem;
-  p {
+  /* p {
     line-height: normal;
-  }
+  } */
 
   &:hover {
     p {

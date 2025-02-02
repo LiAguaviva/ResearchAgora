@@ -27,9 +27,12 @@ class UserDal {
     try {
       let sql = "UPDATE user SET user_is_verified = 1 WHERE user_id = ?";
       const result = await executeQuery(sql, [user_id]);
+      console.log('result DAAAAAAL', result);
+      
       return result;
     } catch (error) {
       throw error;
+      console.log('errooorrr verify DAL', error);
     }
   };
 

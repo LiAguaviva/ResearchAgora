@@ -20,6 +20,30 @@
     text-align: center;
     border-radius: 20px;
     background-color: var(--white);
+    
+
+    select {
+      width: 25rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      text-wrap: pretty;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    
+
+      @media (max-width: 500px) {
+        width: 15rem;
+      }
+    }
+    
+    .requestOption {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 5rem;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
 
     p {
       margin-inline: auto;

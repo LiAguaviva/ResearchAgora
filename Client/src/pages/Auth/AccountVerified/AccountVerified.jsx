@@ -14,7 +14,9 @@ export const AccountVerified = () => {
   useEffect(() => {
     const fetchUser = async() => {
       try {
-        const res = await fetchDataValidation (`${urlUser}/verifyAccount/token, "get"`)
+        const res = await fetchDataValidation (`${urlUser}/verifyAccount/${token}`, "get")
+        console.log('verify REEEESSS', res);
+        
       } catch (error) {
         console.log(error);  
       }

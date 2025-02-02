@@ -90,9 +90,16 @@ export const RequestModal = ({ showRequestModal, selectedUserId }) => {
         <fieldset>
           <label htmlFor="project">Project</label>
           <select className="selectModal" onChange={handleProjectChange} value={selectedProject || ''}>
-            <option value="">Select a project</option>
+            <option 
+              value=""
+              className='requestOption'
+            >Select a project</option>
             {projects?.map((project) => (
-              <option key={project?.project_id} value={project?.project_id}>
+              <option 
+                key={project?.project_id} 
+                value={project?.project_id}
+                className='requestOption'
+              >
                 {project.project_title}
               </option>
             ))}
