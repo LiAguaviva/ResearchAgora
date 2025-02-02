@@ -51,10 +51,6 @@ export const AllUsers = () => {
       }
     }
     fetchusers();
-    const interval = setInterval(() => {
-      fetchusers();
-    }, 1000);
-    return () => clearInterval(interval);
   }, [skills])
 
   const handleKeyDownSkill = (e) => {
@@ -63,7 +59,7 @@ export const AllUsers = () => {
       if (
         inputValueSkills.trim() !== "" &&
         inputValueSkills.trim().length > 1 &&
-        /^[a-zA-Z0-9]+$/.test(inputValueSkills.trim())
+        /^[a-zA-Z0-9 ]+$/.test(inputValueSkills.trim())
       ) {
         setSkills([...skills, inputValueSkills.trim()]);
         setInputValueSkills("");

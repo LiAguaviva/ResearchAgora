@@ -8,6 +8,7 @@ import '../src/styles/userCard.css'
 import '../src/styles/projectCard.css'
 import '../src/styles/ProfileResearcherCard.css'
 import '../src/styles/VerificationModal.css'
+import '../src/styles/reviewCard.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

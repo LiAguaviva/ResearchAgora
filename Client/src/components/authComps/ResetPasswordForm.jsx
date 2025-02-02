@@ -73,7 +73,7 @@ export const ResetPasswordForm = () => {
           <label htmlFor="confirmNewPassword">Repeat Password</label>
           <input 
             id='confirmNewPassword'
-            type="text" 
+            type="password" 
             placeholder='Password'
             value={login.confirmNewPassword}
             onChange={handleChange}

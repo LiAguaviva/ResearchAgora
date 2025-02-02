@@ -56,10 +56,13 @@ export const RegisterForm = ({showModal}) => {
         })
         setValErrors(fieldErrors)
       } else {
-        setMsg(error.response.data.message)
+        if (error.response.data.includes('Duplicate entry')) {
+          setMsg('Email already registered')
+        }
+        else {
+          setMsg(error.response.data)
+        }
       }
-
-      setMsg(error.response.data)
     }
   }
 

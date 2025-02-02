@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AgoraContext } from '../../context/ContextProvider';
 import { fetchData2 } from '../../helpers/axiosHelper';
 import { ChatUsers } from './ChatUsers ';
@@ -19,6 +19,7 @@ export const Chat = () => {
   const [seeUsers, setSeeUsers] = useState(false);
   const [loading, setLoading] = useState(true);
   const [time, setTime] = useState(1000)
+  const [msg, setMsg] = useState('')
 
   useEffect(() => {
  
@@ -55,6 +56,7 @@ export const Chat = () => {
           setNotifications((prev) => prev.filter((notif) => notif.type !== 1));
         } catch (error) {
           console.error("Failed to mark message notifications as read:", error);
+          setMsg('Chat not found')
         }
       }
     };

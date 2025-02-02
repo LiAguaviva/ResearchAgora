@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../../pages/Chat/chat.css';
 import x from '../../assets/icons/xDelete.svg';
  
-export const ChatBox = ({ messages, sendMessage, inputText, setInputText, userId, deleteMessage, isSendDisabled }) => {
+export const ChatBox = ({ messages, sendMessage, inputText, setInputText, userId, deleteMessage, isSendDisabled, msg }) => {
     const [hasNewMessages, setHasNewMessages] = useState(false);
     const [previousMessageCount, setPreviousMessageCount] = useState(0);
     const messagesContainerRef = useRef(null);
@@ -49,6 +49,7 @@ export const ChatBox = ({ messages, sendMessage, inputText, setInputText, userId
                         )}
                     </div>
                 ))}
+                {msg && <p>{msg}</p>}
             </div>
  
             <div className="input-container">
