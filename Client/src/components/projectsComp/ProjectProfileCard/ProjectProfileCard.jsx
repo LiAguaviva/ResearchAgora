@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import projectDefaultIMG from "../../../assets/imgs/lab1.jpg";
+import projectDefaultIMG from "../../../assets/imgs/molecule_1.png";
 import './ProjectProfileCard.css'
 import { useNavigate } from "react-router-dom";
 import { AgoraContext } from "../../../context/ContextProvider";

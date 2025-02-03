@@ -42,7 +42,7 @@ export const OfferCard = ({ elem, project, requests, isMember,removeOfferFromSta
         project_id: project[0].project_id,
       };
       await fetchData2(`offer/joinrequest`, "post", data, { Authorization: `Bearer ${token}` } );
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.log(error);
     }

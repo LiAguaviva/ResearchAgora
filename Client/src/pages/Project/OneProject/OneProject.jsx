@@ -59,6 +59,7 @@ export const OneProject = () => {
         null,
         { Authorization: `Bearer ${token}`  }
       );
+      
         if (result.project.length === 0) {
           throw new Error('Project Not Found!')
         }
@@ -67,6 +68,13 @@ export const OneProject = () => {
       setSkills(result.skills.map((skill) => skill.skill_name));
       setOffers(result.offers);
       setReview(result.review);
+      if (result.project[0].project_type === 1) {
+        const isMember = result.members.some(member => member.user_id === user?.user_id);
+        if (!isMember) {
+          navigate("/errorpage");
+        }
+      }
+ 
     } catch (error) {
       console.log(error);
       navigate('/errorpage')

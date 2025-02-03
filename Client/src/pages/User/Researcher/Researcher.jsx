@@ -71,7 +71,6 @@ export const Researcher = () => {
     fetchFn();
   }, []);
 
-
   
   return (
     <>

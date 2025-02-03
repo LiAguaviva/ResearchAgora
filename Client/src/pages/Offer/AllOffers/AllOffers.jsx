@@ -40,7 +40,7 @@ export const AllOffers = () => {
       if (
         inputValueSkills.trim() !== "" &&
         inputValueSkills.trim().length > 1 &&
-        /^[a-zA-Z0-9]+$/.test(inputValueSkills.trim())
+        /^[a-zA-Z0-9 ]+$/.test(inputValueSkills.trim())
       ) {
         setSkills([...skills, inputValueSkills.trim()]);
         setInputValueSkills("");

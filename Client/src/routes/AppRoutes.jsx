@@ -29,9 +29,12 @@ import { FooterApp } from '../components/navigationComps/FooterApp/FooterApp'
 import { NavbarApp } from '../components/navigationComps/NavbarApp2/NavbarApp'
 import { Chat } from '../pages/Chat/Chat'
 import ScrollToTopAuto from '../components/navigationComps/ScrollToTop/ScrollToTopAuto'
+import { useContext } from 'react'
+import { AgoraContext } from '../context/ContextProvider'
 
 export const AppRoutes = () => {
 
+  const {user} = useContext(AgoraContext) 
 
   return (
     <BrowserRouter >
@@ -39,10 +42,8 @@ export const AppRoutes = () => {
         <NavbarApp />
         <main className='ppal'>
         <Routes>
-          {/* Dashboard */}
             <Route path='/' element={<Home />}/>
 
-            {/* info */}
             <Route path='/infolayout' element={< InfoLayout />} >
                  {/* <Route index element={<AboutUs/>} /> */}
                  <Route path='about' element={<AboutUs/>} />
@@ -51,40 +52,36 @@ export const AppRoutes = () => {
                  <Route path='contact' element={<Contact/>} />
             </Route> 
 
-            {/* Auth */}
             <Route path='/register' element={<Register />}/>
-            <Route path='/accountverified/:token' element={<AccountVerified />}/>
             <Route path='/login' element={<Login />}/>
             <Route path='/forgotPassword' element={<ForgotPassword />}/>
+            <Route path='/accountverified/:token' element={<AccountVerified />}/>
             <Route path='/resetPassword/:token' element={<ResetPassword />}/>
 
-            {/* User */}
-            <Route path='/profile' element={<Profile />}/>
-            <Route path='/editprofile' element={<EditProfile />}/> 
-            <Route path='/PersonalData' element={<PersonalData />}/> 
-            <Route path='/researchers' element={<AllUsers />}/> 
-            <Route path='/researcher/:id' element={<Researcher />}/> 
+            { user &&
+              <>
+              <Route path='/profile' element={<Profile />}/>
+              <Route path='/editprofile' element={<EditProfile />}/> 
+              <Route path='/PersonalData' element={<PersonalData />}/> 
+              <Route path='/researchers' element={<AllUsers />}/> 
+              <Route path='/researcher/:id' element={<Researcher />}/> 
 
-            {/* Offer */}
-            <Route path='/createoffer/:id' element={<CreateOffer />}/>
-            <Route path='/oneoffer' element={<OneOffer />}/>
-            <Route path='/alloffer' element={<AllOffers />}/>
-            <Route path='/edit/:id' element={<EditOffer />}/>
+              <Route path='/createoffer/:id' element={<CreateOffer />}/>
+              <Route path='/oneoffer' element={<OneOffer />}/>
+              <Route path='/alloffer' element={<AllOffers />}/>
+              <Route path='/edit/:id' element={<EditOffer />}/>
 
-            {/* Project */}
-            <Route path='/allprojects' element={<AllProjects />}/>
-            <Route path='/oneproject/:id' element={<OneProject />}/>
-            <Route path='/editproject/:id' element={<EditProject />}/>
-            <Route path='/createproject' element={<CreateProject />}/>
-            
-            {/* Admin */}
-            <Route path='/admin' element={<AdminLayout />}/>
-            
-            {/* Chat */}
-            <Route path='/chat/:receiver_id' element={<Chat />}/>
-             
-           {/* Error */}
-            <Route path='*' element={<ErrorPage />}/>   
+              <Route path='/allprojects' element={<AllProjects />}/>
+              <Route path='/oneproject/:id' element={<OneProject />}/>
+              <Route path='/editproject/:id' element={<EditProject />}/>
+              <Route path='/createproject' element={<CreateProject />}/>
+              
+              <Route path='/chat/:receiver_id' element={<Chat />}/>
+            </>} 
+
+              {/* <Route path='/admin' element={<AdminLayout />}/> */}
+
+              <Route path='*' element={<ErrorPage />}/>  
         </Routes>
         </main>
         <footer>
