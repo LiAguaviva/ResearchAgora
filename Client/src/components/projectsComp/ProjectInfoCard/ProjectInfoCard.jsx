@@ -10,19 +10,12 @@ import { fetchData2 } from '../../../helpers/axiosHelper';
 
 
 
-export const ProjectInfoCard = ({project, members}) => {
+export const ProjectInfoCard = ({project, members, showDeleteProjectModal}) => {
 
   const {user, token } = useContext(AgoraContext)
   const navigate = useNavigate()
  
-  const deleteProject = async () => {
-    try {
-      const result = await fetchData2(`project/deleteproject/${project.project_id}`, 'put', null,  { Authorization: `Bearer ${token}`  })
-      navigate('/profile')
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  
 
   return (
     <section className='projectInfoCard'>
@@ -76,8 +69,8 @@ export const ProjectInfoCard = ({project, members}) => {
               className='editButton'
             >EDIT</button>
             <button 
-            onClick={() => deleteProject()}
-            className='cancel'
+              onClick={() => showDeleteProjectModal()}
+              className='cancel'
             >Delete</button>
             </div>
           }

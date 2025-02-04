@@ -189,6 +189,7 @@ GROUP BY p.project_id, p.project_title, p.project_description, p.project_status,
     try {
       let sqlProject = `SELECT  
                           project_id, 
+                          project_is_disabled,
                           project_title, 
                           project_description, 
                           project_city,

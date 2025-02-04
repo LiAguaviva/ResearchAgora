@@ -155,6 +155,8 @@ class ProjectController {
 
         res.status(200).json('User removed and notified');
       } catch (error) {
+        console.log(error);
+        
         res.status(500).json(error);
       }
     }

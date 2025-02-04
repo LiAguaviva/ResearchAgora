@@ -66,7 +66,7 @@ export const sendMailValidation = (email, token) => {
           <div style="text-align: center; padding: 20px;">
               <img src="cid:logo" alt="Research Agora" style="width: 20rem; margin-bottom: 20px;">
               <h1 style="color:rgb(56, 0, 120)">Welcome to Research Agora!</h1>
-              <p>Thank you for signing up. Please verify your email by clicking the button below.</p>
+              <p>Thank you for signing up. Please verify your email by clicking on the button below.</p>
 
               <a href="${process.env.VITE_SERVER_URL}${token}"
                  style="display: inline-block; padding: 10px 20px; background-color:rgb(56, 0, 120); color: white; text-decoration: none; border-radius: 5px;">
@@ -107,7 +107,7 @@ export const sendPasswordResetEmail = (email, token) => {
           <div style="text-align: center; padding: 20px;">
               <img src="cid:logo" alt="Research Agora" style="width: 20rem; margin-bottom: 20px;">
               
-              <p> This is Agora Research. We received your request to reset your password. Click the link below to reset your password:</p>
+              <p> This is Research Agora. We received your request to reset your password. Click the link below to reset your password:</p>
 
               <a href="${resetLink}"
                  style="display: inline-block; padding: 10px 20px; background-color:rgb(56, 0, 120); color: white; text-decoration: none; border-radius: 5px;">

@@ -26,6 +26,12 @@
 
     p {
       margin-inline: auto;
+      color: var(--purple);
+      font-weight: 100;
+      span {
+        font-weight: bold;
+        color: var(--magenta);
+      }
     }
 
     @media (max-width: 500px) {

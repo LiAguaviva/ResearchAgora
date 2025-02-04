@@ -10,6 +10,8 @@ import { ProjectReviewCard } from "../../../components/projectsComp/ProjectRevie
 import { RequestCard } from "../../../components/usersComp/RequestCard/RequestCard";
 import { ProjectMemberCard } from "../../../components/projectsComp/ProjectMemberCard";
 import leave from '../../../assets/icons/leave.svg'
+import { LeaveProjectModal } from "../../../components/projectsComp/LeaveProjectModal";
+import { DeleteProjectModal } from "../../../components/projectsComp/DeleteProjectModal";
 
 export const OneProject = () => {
   const navigate = useNavigate();
@@ -23,6 +25,13 @@ export const OneProject = () => {
   const [requests, setrequests] = useState([]);
   const [isMember, setIsMember] = useState(false);
   const [requestsview, setrequestsview] = useState([]);
+  const [seeLeaveProjectModal, setSeeLeaveProjectModal] = useState(false);
+  const [seeDeleteProjectModal, setSeeDeleteProjectModal] = useState(false);
+
+  const showLeaveProjectModal = ()=> setSeeLeaveProjectModal(true);
+  const closeLeaveProjectModal = ()=> setSeeLeaveProjectModal(false);
+  const showDeleteProjectModal = ()=> setSeeDeleteProjectModal(true);
+  const closeDeleteProjectModal = ()=> setSeeDeleteProjectModal(false);
 
   const [applyButton, setApplyButton] = useState("apply");
 
@@ -60,7 +69,7 @@ export const OneProject = () => {
         { Authorization: `Bearer ${token}`  }
       );
       
-        if (result.project.length === 0) {
+        if (result.project.length === 0 || result.project[0].project_is_disabled === 1) {
           throw new Error('Project Not Found!')
         }
       setProject(result.project);
@@ -68,12 +77,15 @@ export const OneProject = () => {
       setSkills(result.skills.map((skill) => skill.skill_name));
       setOffers(result.offers);
       setReview(result.review);
+
       if (result.project[0].project_type === 1) {
         const isMember = result.members.some(member => member.user_id === user?.user_id);
         if (!isMember) {
           navigate("/errorpage");
         }
       }
+
+     
  
     } catch (error) {
       console.log(error);
@@ -140,24 +152,7 @@ export const OneProject = () => {
       fetchOneProject();
     }
   }, [requestsview])
-
-
-    const leaveProject = async() => {
-      try {
-        let data = {user_id : user.user_id, project_id: project[0].project_id};
-        await fetchData2('project/deleteMember', 
-          'post', 
-          data,
-          { Authorization: `Bearer ${token}` }
-        );
-        
-        navigate('/profile')
-
-      } catch (error) {
-        console.log(error)
-      }
-    }
-
+    
     const removeMemberFromState = (userId) => {
       setMembers(currentMembers => currentMembers.filter(member => member.user_id !== userId));
     }
@@ -166,8 +161,6 @@ export const OneProject = () => {
       setOffers(currentOffers => currentOffers.filter(offer => offer.offer_id !== offerId));
     };
     
-    
-
   return (
     <div className="oneProjectPage">
       <section className="containerPpal">
@@ -175,6 +168,7 @@ export const OneProject = () => {
           project={project[0]}
           skills={skills}
           members={members}
+          showDeleteProjectModal={showDeleteProjectModal}
         />
       </section>
 
@@ -196,9 +190,6 @@ export const OneProject = () => {
 
       <section className="containerPpal membersSection">
         <h3>Members of the project</h3>
-        
-       
-          
         <div className="membersGallery">
           {members?.map((elem) => {
             return (
@@ -226,9 +217,9 @@ export const OneProject = () => {
             {requestsview?.map((elem) => {
               return (
                 <RequestCard
-                elem={elem}
-                updateRequest={updateRequest}
-                key={elem.project_id}
+                  elem={elem}
+                  updateRequest={updateRequest}
+                  key={elem.project_id}
                 />
               );
             })}
@@ -270,19 +261,31 @@ export const OneProject = () => {
             return <ProjectReviewCard key={index} elem={elem} />;
           })}
         </div>
-          </section>
+      </section>
 
         {isMember && project[0].creator_user_id !== user?.user_id && 
           <section className="leaveProject containerPpal">
 
           <img 
             src={leave} alt="exit icon to click on when user wants to leave the project" 
-            onClick={() => leaveProject()}
+            onClick={() => showLeaveProjectModal()}
             className="leaveIcon"
           />
           <p>Leave Project</p>
           </section>
         }
+
+        {seeDeleteProjectModal && 
+          <DeleteProjectModal 
+          closeDeleteProjectModal={closeDeleteProjectModal}
+          project={project}
+        />}
+
+        {seeLeaveProjectModal &&
+        <LeaveProjectModal 
+          project={project}
+          closeLeaveProjectModal={closeLeaveProjectModal}
+        />}
         <GoBack />
     </div>
   );

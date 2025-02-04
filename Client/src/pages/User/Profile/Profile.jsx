@@ -10,6 +10,7 @@ import { ProjectInvitationCard } from '../../../components/usersComp/ProjectInvi
 import React from 'react'
 import trash from '../../../assets/icons/trash.svg'
 import { ResearcherReviewCard } from '../../../components/usersComp/ResearcherReviewCard'
+import { DeleteAccountModal } from '../../../components/usersComp/DeleteAccountModal'
 
 
 export const Profile = () => {
@@ -21,6 +22,8 @@ export const Profile = () => {
   const [show,setShow]= useState(false);
   const [review, setReview] = useState([]);
 
+  const seeModal = ()=> setShow(true);
+  const closeModal = ()=> setShow(false);
 
   const fetchProjects = async () => {
     try {
@@ -59,20 +62,6 @@ export const Profile = () => {
         
       }
     }
-
-  const handleDelete = async () => {
-    
-    try {
-      await fetchData2(`user/deleteUser/${user.user_id}`, "put", null, { Authorization: `Bearer ${token}` })
-      navigate("/") 
-      setUser(null);
-      
-    } catch (error) {
-      console.log(error);
-  
-    }
-        
-  }
 
   useEffect(() => {
     const fetchusers = async () => {
@@ -179,9 +168,13 @@ export const Profile = () => {
             </section>
 
       <section className="delteAccountSection containerPpal">
+        {show && 
+          <DeleteAccountModal 
+            closeModal={closeModal}
+          />}
           <img 
             src={trash} alt="bin icon to click one when user wants to delete their account" 
-            onClick={() => handleDelete()}
+            onClick={() => seeModal()}
             className="deleteAccountIcon"
           />
           <p>Delete Account</p>
