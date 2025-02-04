@@ -70,6 +70,7 @@ footer {
 
   .socialMediaIcons {
     display: flex;
+    align-items: center;
     gap: var(--size2);
 
     .icon {

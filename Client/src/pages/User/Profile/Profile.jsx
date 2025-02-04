@@ -17,7 +17,6 @@ export const Profile = () => {
   const { user, token } = useContext(AgoraContext);
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
-  const [requests, setrequests] = useState([]);
   const [invites, setInvites] = useState([]);
   const [show,setShow]= useState(false);
   const [review, setReview] = useState([]);
@@ -138,13 +137,13 @@ export const Profile = () => {
        <section  className="containerPpal invitatiosSection">
           <h3>Invitations</h3>
           <div className="invitationsGallery">
-            {invites?.map((elem,index) => {
+            {invites?.map((elem, index) => {
               return (
                   <ProjectInvitationCard 
                     elem={elem} 
                     index = {index}
                     updateInvite={updateInvite}
-                    key={elem.project_id}
+                    key={index}
                   />
               );
             })}

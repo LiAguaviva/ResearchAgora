@@ -27,7 +27,6 @@ export const DeleteProjectModal = ({closeDeleteProjectModal, project}) => {
       console.log(error);
     }
   }
-  console.log('project[0] on DeleteProjectModal', project[0]);
   
   return (
     

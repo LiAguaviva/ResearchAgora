@@ -27,6 +27,11 @@
       align-items: center;
     }
 
+    .bold {
+      color: var(--aqua);
+      font-weight: bold;
+    }
+
     img {
       width: 70%;
   
@@ -85,6 +90,12 @@
       .click {
         color: var(--mandarina);
       }
+    }
+
+    .email {
+      color: var(--aqua);
+      font-weight: bold;
+      text-decoration: none;
     }
 
     /* .infoContainer {

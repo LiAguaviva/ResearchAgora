@@ -74,6 +74,7 @@ export const AllUsers = () => {
   };
 
   const onSubmit = async (e) => {
+    
     e.preventDefault();
     try {
       let data = {
