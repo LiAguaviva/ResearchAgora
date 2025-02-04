@@ -42,9 +42,7 @@ export const InfoLayout = () => {
               >Contact</NavLink>
               </nav>
 
-            <section className='textInfo'>
              <Outlet />
-            </section>
           </div>
         </section>
     </>

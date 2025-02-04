@@ -36,7 +36,7 @@ export const Researcher = () => {
       let data = { user_id: id };
       const result = await fetchData(`/getresearcherbyid`, "post", data);
       if (!result[0]) {
-        throw new error("user not found");
+        throw new error("* user not found");
       }
       setResearcher(result[0]);
       setReview(result.review);

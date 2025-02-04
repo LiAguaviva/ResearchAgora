@@ -16,7 +16,7 @@ class UserController {
     try {
       const { email, password, repPassword } = registerScheme.parse(req.body);
       if (password !== repPassword) {
-        throw new Error("B. Passwords mismatch");
+        throw new Error("B. * Passwords mismatch");
       } else {
         const hash = await hashPassword(password);
         const result = await userDal.register([email, hash]);
@@ -48,7 +48,7 @@ class UserController {
           const token = generateToken(user.user_id);  
           res.status(200).json(token);
         } else {
-          res.status(401).json({ message: "incorrect credentials" });
+          res.status(401).json({ message: "* incorrect credentials" });
         }
       }
     } catch (error) {
@@ -73,11 +73,11 @@ class UserController {
       const { email } = req.body;         
       const user = await userDal.findUserbyEmail(email);         
       if (user.length === 0) {             
-        return res.status(404).json({ message: "User not found" });         
+        return res.status(404).json({ message: "* User not found" });         
       }        
       const token = generateTokenPassword(user[0].user_id); 
       sendPasswordResetEmail(email, token);         
-      res.status(200).json({ message: "Password reset email sent" });     
+      res.status(200).json({ message: "* Password reset email sent" });     
     } catch (error) { 
       res.status(500).json({ message: error.message }); 
     } 
@@ -275,7 +275,7 @@ class UserController {
           
       
           if (!project || !responder) {
-            return res.status(400).json({ error: "Project or user not found" });
+            return res.status(400).json({ error: "* Project or user not found" });
           }
       
           const creatorId = project.project[0].creator_user_id;

@@ -194,7 +194,7 @@ CREATE TABLE notification (
     FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
 );
 
-DELETE FROM user WHERE user_id = 23;
+
 
  select * from user;
  select * from user_skill;

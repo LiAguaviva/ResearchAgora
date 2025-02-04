@@ -4,6 +4,7 @@ footer {
   background-repeat: no-repeat;
   background-position: center;
   background-image: url('../../../assets/imgs/defaultIMG.png');
+  background-size: 60%;
   /* margin-top: var(--size5); */
 
   .footerContent {
