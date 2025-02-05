@@ -12,7 +12,7 @@
   gap: var(--size4);
 }
 
-.projectsGallery, .requestGallery, .invitationsGallery {
+.projectsGallery, .requestGallery, .invitationsGallery, .reviewSect {
   display: flex;
   flex-direction: column;
   gap: var(--size2);
@@ -24,4 +24,5 @@
   column-gap: var(--size2);
   row-gap: var(--size3);
   justify-content: center;
+  align-items: center;
 }

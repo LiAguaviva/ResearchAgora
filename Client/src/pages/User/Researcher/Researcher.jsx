@@ -101,7 +101,11 @@ export const Researcher = () => {
       )}
 
       <section className="reviewSect containerPpal">
-        <button onClick={() => setShow(!show)}>Write a review</button>
+        <button 
+          className="reviewButton" 
+          onClick={() => setShow(!show)}
+        >Write a review</button>
+        
         {show && (
           <ReviewModal
             show={show}

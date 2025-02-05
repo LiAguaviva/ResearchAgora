@@ -162,8 +162,6 @@ export const Profile = () => {
                   )
                 })}
                 </div>
-                  
-      
             </section>
 
       <section className="delteAccountSection containerPpal">
