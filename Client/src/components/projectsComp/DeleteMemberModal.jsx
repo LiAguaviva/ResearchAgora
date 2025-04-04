@@ -23,7 +23,7 @@ export const DeleteMemberModal = ({closeDeleteMemberModal, deletemember}) => {
           If you would like to keep the member, click on the <span>Cancel</span> button.
           </p>
         <div className='buttons'>
-          <button onClick={()=>deletemember()}>Delete Member</button>
+          <button onClick={(e)=>deletemember(e)}>Delete Member</button>
           <button className='cancel' onClick={()=>closeDeleteMemberModal()}>Cancel</button>
         </div>
         </form>
